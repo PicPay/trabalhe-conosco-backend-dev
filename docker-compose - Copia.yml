@@ -1,0 +1,63 @@
+version: '2'
+services:
+  picpay-backend:
+    container_name: picpay-backend
+    image: jgcl88/ubuntu-nginx-php
+    volumes:
+     - ./backend:/var/www/src
+    links:
+     - picpay-mysql:db
+     - picpay-mongodb:mongo
+    ports:
+     - "8180:80"
+
+  picpay-frontend:
+    container_name: picpay-frontend
+    image: nginx:1.13.3-alpine
+    volumes:
+     - ./frontend:/usr/share/nginx/html
+    ports:
+     - "8280:80"
+  
+  picpay-mysql:
+    container_name: picpay-mysql
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: senha123
+      MYSQL_DATABASE: picpay
+      MYSQL_USER: root
+      MYSQL_PASSWORD: senha123
+      TZ: America/Sao_Paulo
+    #volumes:
+     #- ./mysql:/var/lib/mysql
+    ports:
+     - "3306:3306"
+
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin:edge-4.8
+    environment:
+      TZ: America/Sao_Paulo
+      VIRTUAL_HOST: phpmyadmin.localhost
+    links:
+      - picpay-mysql:db
+    ports:
+      - "8080:80"
+
+
+
+  picpay-mongodb:
+    container_name: picpay-mongodb
+    image: mongo:3.4
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: homestead
+      MYSQL_USER: homestead
+      MYSQL_PASSWORD: secret
+    #volumes:
+     #- ./mongo:/data/db
+    ports:
+     - "27017:27017"
+  
+

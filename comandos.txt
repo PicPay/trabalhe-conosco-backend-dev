@@ -1,0 +1,49 @@
+https://docs.docker.com/compose/gettingstarted/#step-6-experiment-with-some-other-commands
+
+# Iniciar os containers
+docker-compose up -d
+
+# Parar os containers
+docker-compose stop
+
+# Remover os containers
+docker-compose down --volumes
+
+
+apt-get install php-mongodb
+composer require jenssegers/mongodb
+
+https://github.com/jenssegers/laravel-mongodb#schema
+https://github.com/tymondesigns/jwt-auth/wiki/Installation
+
+https://medium.com/@sanathkumar/import-large-csv-files-to-mysql-in-a-minute-e6d639b790ab
+
+
+docker volume rm $(docker volume ls -qf dangling=true)]
+
+mysql full text search
+https://rethinkdb.com/
+https://medium.com/@MarkAurel/rethinkdb-um-banco-de-dados-para-aplica%C3%A7%C3%B5es-web-realtime-925680e68771
+
+https://github.com/elasticquent/Elasticquent
+https://github.com/sleimanx2/plastic#searching
+
+
+
+https://gist.github.com/maxivak/3e3ee1fca32f3949f052
+Importing/Indexing database (MySQL or SQL Server) in Solr using Data Import Handler
+
+https://www.slideshare.net/bencorlett/discovering-elasticsearch
+https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
+
+
+
+https://qbox.io/blog/import-csv-elasticsearch-logstash-sincedb
+
+
+criar comando artisan p/ importar o arquivo do excel
+> verificar se o arquivo existe no diretorio, se existir, usa o q existe
+> se nao existir, baixa o arquivo e descompacta
+> indicar que o fim de linha é o \r
+
+ver uma forma de importar do csv para o elasticsearch de forma mais rapida do que pasando pelo laravel
