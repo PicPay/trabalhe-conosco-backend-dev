@@ -47,3 +47,6 @@ criar comando artisan p/ importar o arquivo do excel
 > indicar que o fim de linha é o \r
 
 ver uma forma de importar do csv para o elasticsearch de forma mais rapida do que pasando pelo laravel
+
+
+http://play-with-docker.com/?stack=https://raw.githubusercontent.com/docker-library/docs/96c08fac215f64844b9db61038a571b86534a12b/elasticsearch/stack.yml
