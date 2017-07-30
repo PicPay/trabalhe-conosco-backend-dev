@@ -18,4 +18,16 @@ use Illuminate\Support\Facades\Route;
     return $request->user();
 });*/
 
-Route::get('teste', 'TesteController@index')->name('teste');
+// rotas de login
+//Route::post('login', 'ApiLoginController@login')->name('login');
+Route::post('authenticate', 'ApiLoginController@authenticate')->name('authenticate');
+Route::post('refresh', 'ApiLoginController@refresh')->name('refresh')->middleware(['jwt.auth']);
+Route::post('logout', 'ApiLoginController@logout')->name('logout');
+Route::get('search', 'ApiSearchController@search')->name('search')->middleware(['jwt.auth']);
+
+// teste
+Route::get('teste', 'TestController@index')->name('teste');
+
+Route::middleware(['jwt.auth'])->group(function () {
+});
+

@@ -9,5 +9,5 @@ class Suggestion extends Model
     //
     public $table = 'suggestions';
     public $timestamps = false;
-    protected $fillable = ['id','contact_id','level'];
+    protected $fillable = ['id','token','level'];
 }

@@ -14,13 +14,13 @@ class CreateTableContacts extends Migration
     public function up()
     {
         Schema::create('contacts', function (Blueprint $table) {
-            $table->string('token');
-            $table->string('nome');
-            $table->string('username');
+            $table->string('token')->index();
+            $table->string('nome')->index();
+            $table->string('username')->index();
             $table->increments('id');
         });
 
-        //\Illuminate\Support\Facades\DB::statement("ALTER TABLE `contacts` ADD FULLTEXT (`nome`, `username`);");
+        \Illuminate\Support\Facades\DB::statement("ALTER TABLE `contacts` ADD FULLTEXT (`nome`, `username`);");
     }
 
     /**

@@ -8,6 +8,7 @@ services:
     links:
      - picpay-mysql:db
      - picpay-elasticsearch:elastic
+     - picpay-redis:redis
     ports:
      - "8180:80"
 
@@ -35,7 +36,6 @@ services:
      #- ./mysql:/var/lib/mysql
     ports:
      - "3306:3306"
-
   
   picpay-elasticsearch:
     image: elasticsearch
@@ -50,5 +50,11 @@ services:
         hard: -1
     mem_limit: 1g
     ports:
-      - 9200:9200  
+      - "9200:9200"  
 
+  picpay-redis:
+    image: redis:alpine
+    container_name: picpay-redis
+    command: redis-server --appendonly yes
+    ports:
+      - "6379:6379"

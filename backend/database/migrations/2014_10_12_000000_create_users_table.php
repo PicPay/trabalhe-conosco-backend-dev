@@ -21,6 +21,19 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        \App\User::create([
+            'name' => 'João Gabriel',
+            'email' => 'gabriel@orangepixel.com.br',
+            'password' => Hash::make('123456')
+        ])->save();
+
+
+        \App\User::create([
+            'name' => 'Teste',
+            'email' => 'teste@orangepixel.com.br',
+            'password' => Hash::make('teste')
+        ])->save();
     }
 
     /**

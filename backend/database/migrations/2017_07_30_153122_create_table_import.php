@@ -14,7 +14,7 @@ class CreateTableImport extends Migration
     public function up()
     {
         Schema::create('imports', function (Blueprint $table) {
-            $table->string('id')->nullable();
+            $table->string('token')->nullable();
             $table->string('nome')->nullable();
             $table->string('username')->nullable();
         });

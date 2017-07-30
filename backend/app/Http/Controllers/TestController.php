@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 //use Sleimanx2\Plastic\Facades\Plastic;
 
-class TesteController extends Controller
+class TestController extends Controller
 {
     public function index()
     {

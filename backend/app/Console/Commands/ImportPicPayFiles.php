@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
@@ -14,7 +15,7 @@ class ImportPicPayFiles extends Command
      *
      * @var string
      */
-    protected $signature = 'picpay:importfiles';
+    protected $signature = 'picpay:import';
 
     /**
      * The console command description.
@@ -65,10 +66,11 @@ class ImportPicPayFiles extends Command
         $sql = "LOAD DATA LOCAL INFILE '$path_lista_relevancia_1' INTO TABLE imports FIELDS TERMINATED by ',' LINES TERMINATED BY '\n'";
         DB::statement('TRUNCATE TABLE imports');
         DB::connection()->getpdo()->exec($sql);
-        DB::statement('insert into suggestions select null as id, id as contact_id, 1 as level from imports');
+        DB::statement('insert into suggestions (id, token, level) select null as id, token, 1 as level from imports');
         DB::statement('TRUNCATE TABLE imports');
 
         $this->info('');
+
 
         // lista 2
         $this->info("Verificando arquivo '$path_lista_relevancia_2'...");
@@ -80,7 +82,7 @@ class ImportPicPayFiles extends Command
         $sql = "LOAD DATA LOCAL INFILE '$path_lista_relevancia_2' INTO TABLE imports FIELDS TERMINATED by ',' LINES TERMINATED BY '\n'";
         DB::statement('TRUNCATE TABLE imports');
         DB::connection()->getpdo()->exec($sql);
-        DB::statement('insert into suggestions select null as id, id as contact_id, 2 as level from imports');
+        DB::statement('insert into suggestions (id, token, level) select null as id, token, 2 as level from imports');
         DB::statement('TRUNCATE TABLE imports');
 
         // usuarios
@@ -97,10 +99,13 @@ class ImportPicPayFiles extends Command
         $this->info("Importando csv...");
         $sql = "LOAD DATA LOCAL INFILE '$path_users_csv' INTO TABLE contacts FIELDS TERMINATED by ',' LINES TERMINATED BY '\n'";
         DB::connection()->getpdo()->exec($sql);
-        $this->info("Criando indices...");
-        DB::statement("ALTER TABLE `contacts`  ADD FULLTEXT (`nome`, `username`);");
-        //DB::statement("insert into contacts select null as id, id as token, nome, username from imports");
-        //DB::statement('TRUNCATE TABLE imports');
+        //$this->info("Criando indices...");
+        //DB::statement("ALTER TABLE `contacts`  ADD FULLTEXT (`nome`, `username`);");
+
+        // importando cadastros para o elasticsearch
+        //$this->info('');
+        //$this->info("Importando cadastros para o elastic search...");
+        //Artisan::call("scout:import", ['model' => 'App\Contact']);
 
         $this->info('');
         $this->info("Fim");
