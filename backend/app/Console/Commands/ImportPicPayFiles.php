@@ -92,10 +92,15 @@ class ImportPicPayFiles extends Command
             $this->descompactar($path_users_csv_gz);
         }
         $this->info("Importando '$path_users_csv'...");
-        $sql = "LOAD DATA LOCAL INFILE '$path_users_csv' INTO TABLE imports FIELDS TERMINATED by ',' LINES TERMINATED BY '\n'";
+        $this->info("Truncando tabela...");
+        DB::statement('TRUNCATE TABLE contacts');
+        $this->info("Importando csv...");
+        $sql = "LOAD DATA LOCAL INFILE '$path_users_csv' INTO TABLE contacts FIELDS TERMINATED by ',' LINES TERMINATED BY '\n'";
         DB::connection()->getpdo()->exec($sql);
-        DB::statement("insert into contacts select null as id, id as token, nome, username from imports");
-        DB::statement('TRUNCATE TABLE imports');
+        $this->info("Criando indices...");
+        DB::statement("ALTER TABLE `contacts`  ADD FULLTEXT (`nome`, `username`);");
+        //DB::statement("insert into contacts select null as id, id as token, nome, username from imports");
+        //DB::statement('TRUNCATE TABLE imports');
 
         $this->info('');
         $this->info("Fim");

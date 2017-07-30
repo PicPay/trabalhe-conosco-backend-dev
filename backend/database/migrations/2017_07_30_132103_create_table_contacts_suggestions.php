@@ -15,7 +15,7 @@ class CreateTableContactsSuggestions extends Migration
     {
         Schema::create('suggestions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('contact_id');
+            $table->string('contact_id')->index();
             //$table->foreign('contact_id')->references('token')->on('contacts');
             $table->tinyInteger('level')->default(1);
         });
