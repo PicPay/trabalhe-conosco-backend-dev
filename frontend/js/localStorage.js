@@ -17,6 +17,6 @@ app.factory('$localStorage', ['$window', function($window) {
     // recupero em objeto
     getObject: function(key) {
         return JSON.parse($window.localStorage[key] || null);
-    },
+    }
   }
 }]);

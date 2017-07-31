@@ -5,5 +5,4 @@ app.controller('LoginCtrl', function ($scope, $appLogin) {
     $scope.login = function() {
         $appLogin.login($scope.email, $scope.password);
     };
-
 });
