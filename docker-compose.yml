@@ -1,5 +1,13 @@
 version: '2'
 services:
+  picpay-frontend:
+    container_name: picpay-frontend
+    image: nginx:1.13.3-alpine
+    volumes:
+     - ./frontend:/usr/share/nginx/html
+    ports:
+     - "8280:80"
+     
   picpay-backend:
     container_name: picpay-backend
     image: jgcl88/ubuntu-nginx-php
@@ -7,7 +15,6 @@ services:
      - ./backend:/var/www/src
     links:
      - picpay-mysql:db
-     - picpay-elasticsearch:elastic
      - picpay-redis:redis
     ports:
      - "8180:80"
@@ -36,21 +43,6 @@ services:
      #- ./mysql:/var/lib/mysql
     ports:
      - "3306:3306"
-  
-  picpay-elasticsearch:
-    image: elasticsearch
-    container_name: picpay-elasticsearch
-    environment:
-      - cluster.name=docker-cluster
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    mem_limit: 1g
-    ports:
-      - "9200:9200"  
 
   picpay-redis:
     image: redis:alpine

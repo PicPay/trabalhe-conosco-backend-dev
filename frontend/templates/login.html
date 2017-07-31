@@ -1,0 +1,40 @@
+<div class="col-md-12">
+	<div class="login-box">
+		<div class="page-header">
+			<h1>Login</h1>
+			<img src="img/picpay-logo.png" class="img-responsive picpay-logo">
+		</div>
+
+		<hr>
+
+		<form ng-submit="login();">
+			{{ alerta }}
+
+			<div class="input-group">
+				<span class="input-group-addon">
+					<span class="glyphicon glyphicon-user"></span>
+					E-mail
+				</span>
+
+				<input type="email" ng-model="email" class="form-control" placeholder="E-mail">
+			</div>
+
+			<div class="input-group">
+				<span class="input-group-addon">
+					<span class="glyphicon glyphicon-asterisk"></span>
+					Senha
+				</span>
+
+				<input type="password" ng-model="password" class="form-control" placeholder="Senha">
+			</div>
+
+			<button class="btn btn-success" type="submit">
+				<span class="glyphicon glyphicon-check"></span>
+				Acessar
+			</button>
+		</form>
+	</div>
+</div>
+
+
+

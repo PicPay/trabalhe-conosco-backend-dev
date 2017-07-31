@@ -177,10 +177,15 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        // scout.. para usar com o elastic search
         Laravel\Scout\ScoutServiceProvider::class,
         ScoutEngines\Elasticsearch\ElasticsearchProvider::class,
+
+        // jwt
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
 
+        // cors
+        Barryvdh\Cors\ServiceProvider::class,
 
         //https://github.com/sleimanx2/plastic
         //Sleimanx2\Plastic\PlasticServiceProvider::class
@@ -236,6 +241,8 @@ return [
 
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         //'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactor::class,
+
+
 
     ],
 
