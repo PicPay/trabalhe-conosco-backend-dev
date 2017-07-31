@@ -18,13 +18,14 @@
 
 		<div class="results-list" ng-show="dados.result.total > 0">
 			<ul class="list-group">
-				<li class="list-group-item top">
+				<li class="list-group-item top" style="height:75px;">
 					<span class="list-icon glyphicon glyphicon-list-alt"></span>
-					Resultados: {{ dados.result.total }}
+					Resultados: {{ dados.result.total }}<br />
 					Página: {{ dados.result.current_page }}/{{ dados.result.last_page }}
+					
 					<div class="pull-right" style="display: inline-block">
 						<span class="glyphicon glyphicon-backward click-icon" ng-show="dados.result.prev_page_url != null" ng-click="prevPage();"></span>
-						&nbsp;&nbsp;
+						&nbsp;&nbsp;&nbsp;&nbsp;
 						<span class="glyphicon glyphicon-forward click-icon" ng-show="dados.result.next_page_url != null" ng-click="nextPage();"></span>
 
 					</div>
@@ -39,12 +40,16 @@
 
 			</ul>
 		</div>
+		<div class="results-list" ng-show="buscando == true">
+			Carregando...
+		</div>
 		<div class="results-list" ng-show="dados.result.total == 0">
 			Nenhum resultado encontrado.
 		</div>
 		<div class="results-list" ng-show="dados.result == null">
 			Faça sua pesquisa para exibir os resultados.
 		</div>
+
 		<hr>
 
 		<button class="btn btn-primary pull-right" ng-click="logout();">

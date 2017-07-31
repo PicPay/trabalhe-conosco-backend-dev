@@ -8,9 +8,11 @@ app.controller('SearchCtrl', function ($scope, $appConfig, $appLogin, $localStor
         $appLogin.logout();
     };
 
-    $scope.key = '';
+    $scope.key = 'ana';
 
     $scope.dados = '';
+
+    $scope.buscando = false;
 
     $scope.search = function() {
         search($appConfig.urlBase + '/search?key='+$scope.key);
@@ -31,7 +33,7 @@ app.controller('SearchCtrl', function ($scope, $appConfig, $appLogin, $localStor
     };
 
     function search(url) {
-        $scope.dados = '';
+        $scope.buscando = true;
         $http({
             method: 'GET',
             url: url,
@@ -41,22 +43,26 @@ app.controller('SearchCtrl', function ($scope, $appConfig, $appLogin, $localStor
             },
         }).then(function successCallback(response) {
             $scope.dados = response.data;
+            $scope.buscando = false;
             console.log('sucesso: ', $scope.dados);
         }, function errorCallback(response) {
             if(response.status == 400) {
+                console.log('token expirado');
                 $window.alert('Seu token expirou, você será redirecionado para a tela de login.');
                 $appLogin.logout();
             } if(response.status == 422) {
                 //$window.alert('Ops');
                 var msg = response.data[0];
                 $window.alert(msg);
-                //aaaaa
-                //console.log((response.data)[0]);
+                console.log('aguarde o fim da migração de dados');
             } else {
+                console.log('Ops! Ocorreu um erro inesperado, verifique o console log.')
                 $window.alert('Ops! Ocorreu um erro inesperado, verifique o console log.');
             }
             //console.log('erro: ',response);
+            $scope.buscando = false;
         });
+        
     }
 
 });
