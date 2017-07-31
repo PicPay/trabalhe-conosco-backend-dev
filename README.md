@@ -13,6 +13,8 @@ Para o front-end utilizei o Angular 1 (eu ainda não tenho experiência com Angu
 - Execute "docker exec -it picpay-backend php artisan picpay:import" para executar as imigrações, baixar o banco de usuários, importar os usuários e criar os indices de full text search; Esse processo demora em média 10 minutos;
 - Após importado os dados, rode em seu navegador: http://localhost:8280;
 
+Teste disponível (temporariamente) em: http://picpay.orangepixel.com.br:8280/
+
 
 ![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
 
