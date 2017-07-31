@@ -99,8 +99,8 @@ class ImportPicPayFiles extends Command
         $this->info("Importando csv...");
         $sql = "LOAD DATA LOCAL INFILE '$path_users_csv' INTO TABLE contacts FIELDS TERMINATED by ',' LINES TERMINATED BY '\n'";
         DB::connection()->getpdo()->exec($sql);
-        //$this->info("Criando indices...");
-        //DB::statement("ALTER TABLE `contacts`  ADD FULLTEXT (`nome`, `username`);");
+        $this->info("Criando indices...");
+        DB::statement("ALTER TABLE `contacts`  ADD FULLTEXT (`nome`, `username`);");
 
         // importando cadastros para o elasticsearch
         //$this->info('');

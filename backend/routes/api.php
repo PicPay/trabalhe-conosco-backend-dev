@@ -24,10 +24,3 @@ Route::post('authenticate', 'ApiLoginController@authenticate')->name('authentica
 Route::post('refresh', 'ApiLoginController@refresh')->name('refresh')->middleware(['jwt.auth']);
 Route::post('logout', 'ApiLoginController@logout')->name('logout');
 Route::get('search', 'ApiSearchController@search')->name('search')->middleware(['jwt.auth']);
-
-// teste
-Route::get('teste', 'TestController@index')->name('teste');
-
-Route::middleware(['jwt.auth'])->group(function () {
-});
-
