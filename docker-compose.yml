@@ -2,7 +2,7 @@ version: '2'
 services:
   picpay-mysql:
     container_name: picpay-mysql
-    image: mysql:8
+    image: mysql:5.7.19
     environment:
       MYSQL_ROOT_PASSWORD: 123456
       MYSQL_DATABASE: picpay

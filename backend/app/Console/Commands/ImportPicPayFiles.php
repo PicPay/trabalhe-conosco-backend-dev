@@ -41,13 +41,19 @@ class ImportPicPayFiles extends Command
      */
     public function handle()
     {
+        $this->info("Atualizando configurações...");
+        Artisan::call("config:clear");
+
+        $this->info("Rodando migrações..");
+        Artisan::call("migrate");
+
         $path_users_csv = storage_path('app/users.csv');
         $path_users_csv_gz = storage_path('app/users.csv.gz');
         $path_lista_relevancia_1 = storage_path('app/lista_relevancia_1.txt');
         $path_lista_relevancia_2 = storage_path('app/lista_relevancia_2.txt');
 
         // limpo as tabelas antes do teste
-        $this->info('Limpando tabelas');
+        $this->info('Limpando tabelas (caso já estejam popupadas)...');
         DB::statement('TRUNCATE TABLE contacts');
         DB::statement('TRUNCATE TABLE suggestions');
 
