@@ -13,14 +13,6 @@ services:
      #- ./mysql:/var/lib/mysql
     ports:
      - "3306:3306"
- 
-  picpay-frontend:
-    container_name: picpay-frontend
-    image: nginx:1.13.3-alpine
-    volumes:
-     - ./frontend:/usr/share/nginx/html
-    ports:
-     - "8280:80"
 
   picpay-phpmyadmin:
     container_name: picpay-phpmyadmin
@@ -42,3 +34,15 @@ services:
      - picpay-mysql:db
     ports:
      - "8180:80"
+
+  picpay-frontend:
+    container_name: picpay-frontend
+    image: nginx:alpine
+    volumes:
+     - ./frontend:/usr/share/nginx/html
+    ports:
+     - "8280:80"
+
+volumes:
+  data:
+    driver: "local"

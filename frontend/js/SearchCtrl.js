@@ -1,4 +1,5 @@
 app.controller('SearchCtrl', function ($scope, $appConfig, $appLogin, $localStorage, $http, $window) {
+
     if($localStorage.get('token') == undefined) {
         $appLogin.logout();
     }
@@ -45,10 +46,16 @@ app.controller('SearchCtrl', function ($scope, $appConfig, $appLogin, $localStor
             if(response.status == 400) {
                 $window.alert('Seu token expirou, você será redirecionado para a tela de login.');
                 $appLogin.logout();
+            } if(response.status == 422) {
+                //$window.alert('Ops');
+                var msg = response.data[0];
+                $window.alert(msg);
+                //aaaaa
+                //console.log((response.data)[0]);
             } else {
                 $window.alert('Ops! Ocorreu um erro inesperado, verifique o console log.');
             }
-            console.log('erro: ',response);
+            //console.log('erro: ',response);
         });
     }
 
