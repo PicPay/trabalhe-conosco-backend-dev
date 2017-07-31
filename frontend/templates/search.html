@@ -1,0 +1,76 @@
+<div class="row list-box-row">
+	<div class="col-xs-12 col-md-8 col-md-offset-2 list-box">
+		<img src="img/picpay-logo.png" class="img-responsive picpay-logo2">
+
+		<form ng-submit="search();">
+			<div class="input-group">
+				<span class="input-group-btn">
+					<button class="btn btn-success" type="button" ng-click="search();">
+						<span class="glyphicon glyphicon-search"></span>
+						Buscar!
+
+					</button>
+				</span>
+
+				<input type="text" ng-model="key" class="form-control" placeholder="Digite o termo de busca">
+			</div>
+		</form>
+
+		<div class="results-list" ng-show="dados.result.total > 0">
+			<ul class="list-group">
+				<li class="list-group-item top" style="height:75px;">
+					<span class="list-icon glyphicon glyphicon-list-alt"></span>
+					Resultados: {{ dados.result.total }}<br />
+					Página: {{ dados.result.current_page }}/{{ dados.result.last_page }}
+					
+					<div class="pull-right" style="display: inline-block">
+						<span class="glyphicon glyphicon-backward click-icon" ng-show="dados.result.prev_page_url != null" ng-click="prevPage();"></span>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<span class="glyphicon glyphicon-forward click-icon" ng-show="dados.result.next_page_url != null" ng-click="nextPage();"></span>
+
+					</div>
+				</li>
+
+
+				<li class="list-group-item" ng-repeat="resultado in dados.result.data">
+					<span class="badge">@{{ resultado.username }}</span>
+					{{ resultado.nome }}<br />
+					<b>{{ resultado.token }}</b>
+				</li>
+
+			</ul>
+		</div>
+		<div class="results-list" ng-show="buscando == true">
+			Carregando...
+		</div>
+		<div class="results-list" ng-show="dados.result.total == 0">
+			Nenhum resultado encontrado.
+		</div>
+		<div class="results-list" ng-show="dados.result == null">
+			Faça sua pesquisa para exibir os resultados.
+		</div>
+
+		<hr>
+
+		<button class="btn btn-primary pull-right" ng-click="logout();">
+			<span class="glyphicon glyphicon-log-out"></span>
+			Sair do Sistema
+		</button>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('.login-box')
+			.animate({'width': '100%'}, 500)
+			.delay(30)
+			.animate({'height': '300px'}, 500);
+
+		$('.page-header, .input-group, .btn')
+			.delay(850)
+			.animate({ 'opacity': '100' }, 7000);
+	});
+</script>
+
+
+

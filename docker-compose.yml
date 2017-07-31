@@ -1,0 +1,48 @@
+version: '2'
+services:
+  picpay-mysql:
+    container_name: picpay-mysql
+    image: mysql:5.7.19
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: picpay
+      MYSQL_USER: picpay
+      MYSQL_PASSWORD: picpay1234
+      TZ: America/Sao_Paulo
+    #volumes:
+     #- ./mysql:/var/lib/mysql
+    ports:
+     - "3306:3306"
+
+  picpay-phpmyadmin:
+    container_name: picpay-phpmyadmin
+    image: phpmyadmin/phpmyadmin:edge-4.8
+    environment:
+      TZ: America/Sao_Paulo
+      VIRTUAL_HOST: phpmyadmin.localhost
+    links:
+      - picpay-mysql:db
+    ports:
+      - "8080:80"
+
+  picpay-backend:
+    container_name: picpay-backend
+    image: jgcl88/ubuntu-nginx-php
+    volumes:
+     - ./backend:/var/www/src
+    links:
+     - picpay-mysql:db
+    ports:
+     - "8180:80"
+
+  picpay-frontend:
+    container_name: picpay-frontend
+    image: nginx:alpine
+    volumes:
+     - ./frontend:/usr/share/nginx/html
+    ports:
+     - "8280:80"
+
+volumes:
+  data:
+    driver: "local"

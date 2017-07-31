@@ -1,0 +1,125 @@
+@import url(https://fonts.googleapis.com/css?family=Quicksand);
+
+html {
+    min-height: 100%;
+}
+
+body {
+    font-family: "Quicksand", sans-serif;
+    height: 100%;
+    margin: 0;
+
+    background: #EFEFBB;
+    background: -webkit-linear-gradient(to bottom, #D4D3DD, #EFEFBB);
+    background: linear-gradient(to bottom, #D4D3DD, #EFEFBB);
+}
+
+.login-box {
+    background: #fff;
+    margin-left: auto;
+    margin-right: auto;
+
+    padding: 0 3em 2em 3em;
+
+    border: solid #eee 1px;
+    border-radius: 5px;
+
+    overflow: hidden;
+    margin-top: 36px;
+}
+
+.picpay-logo {
+    max-width: 25%;
+    height: auto;
+    float: right;
+}
+
+hr {
+    margin-top: 3em;
+}
+
+.input-group {
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.page-header * {
+    display: inline;
+}
+
+.page-header .glyphicon {
+    font-size: 2em;
+}
+
+.btn {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media screen and (max-width: 480px) {
+    .login-box {
+        padding: 1em;
+    }
+
+    .page-header {
+        margin: 16px 0;
+    }
+
+    .picpay-logo {
+        max-width: 50%;
+    }
+
+    hr {
+        margin-top: 0.5em;
+    }
+}
+
+
+
+.list-box {
+    background: #fff;
+    border-radius: 5px;
+    padding: 2em 3em;
+    margin-top: 36px;
+}
+
+.picpay-logo2 {
+    padding: 24px 128px;
+}
+
+.results-list {
+    margin-top: 16px;
+}
+
+.list-group-item.top {
+    padding-left: 56px;
+}
+
+.list-icon {
+    height: 100%;
+    position: absolute;
+    left: 0;
+    padding: 10px;
+    font-size: 1.5em;
+    border-right: 1px solid #ecf0f1;
+}
+
+@media screen and (max-width: 480px) {
+    .list-box-row {
+        margin: 16px 4px;
+    }
+
+    .list-box {
+        padding: 0.5em 1em;
+        margin: 0;
+    }
+
+    .picpay-logo2 {
+        padding: 10px 24px;
+    }
+}
+
+.click-icon {
+    cursor: pointer;
+}
