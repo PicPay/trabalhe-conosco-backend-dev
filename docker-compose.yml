@@ -1,5 +1,19 @@
 version: '2'
 services:
+  picpay-mysql:
+    container_name: picpay-mysql
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: picpay
+      MYSQL_USER: picpay
+      MYSQL_PASSWORD: picpay1234
+      TZ: America/Sao_Paulo
+    #volumes:
+     #- ./mysql:/var/lib/mysql
+    ports:
+     - "3306:3306"
+ 
   picpay-frontend:
     container_name: picpay-frontend
     image: nginx:1.13.3-alpine
@@ -7,17 +21,6 @@ services:
      - ./frontend:/usr/share/nginx/html
     ports:
      - "8280:80"
-     
-  picpay-backend:
-    container_name: picpay-backend
-    image: jgcl88/ubuntu-nginx-php
-    volumes:
-     - ./backend:/var/www/src
-    links:
-     - picpay-mysql:db
-     - picpay-redis:redis
-    ports:
-     - "8180:80"
 
   picpay-phpmyadmin:
     container_name: picpay-phpmyadmin
@@ -30,23 +33,12 @@ services:
     ports:
       - "8080:80"
 
-  picpay-mysql:
-    container_name: picpay-mysql
-    image: mysql:5.7
-    environment:
-      MYSQL_ROOT_PASSWORD: senha123
-      MYSQL_DATABASE: picpay
-      MYSQL_USER: root
-      MYSQL_PASSWORD: senha123
-      TZ: America/Sao_Paulo
-    #volumes:
-     #- ./mysql:/var/lib/mysql
+  picpay-backend:
+    container_name: picpay-backend
+    image: jgcl88/ubuntu-nginx-php
+    volumes:
+     - ./backend:/var/www/src
+    links:
+     - picpay-mysql:db
     ports:
-     - "3306:3306"
-
-  picpay-redis:
-    image: redis:alpine
-    container_name: picpay-redis
-    command: redis-server --appendonly yes
-    ports:
-      - "6379:6379"
+     - "8180:80"
