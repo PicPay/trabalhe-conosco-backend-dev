@@ -5,6 +5,9 @@
 - Execute "docker exec -it picpay-backend picpay:migrate" para executar as imigrações, baixar o banco de usuários, importar os usuários e criar os indices de full text search; Esse processo demora em média 10 minutos;
 - Após importado os dados, rode em seu navegador: http://localhost:8280;
 
+# Melhorias Futuras
+- Integrar o MySQL com uma ferramenta apropriada para Full Text Search como Apache Solr ou Elastic Search (a solução já integra com o Elastic Search através do Laravel Scout (e no comando de importação existem duas linhas que fazem a migração do mysql para o elastic search, porém devido aos meus conhecimentos limitados não consegui recuperar os registros utilizando as listas de prioridade).
+
 ![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
 
 # Teste Backend
