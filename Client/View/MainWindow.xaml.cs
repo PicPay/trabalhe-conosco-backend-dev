@@ -1,5 +1,7 @@
 ﻿#region
 
+using System;
+using System.Collections.Generic;
 using System.Windows;
 using Client.Helper;
 using Client.ViewModel;
@@ -20,8 +22,9 @@ namespace Client.View
         {
             InitializeComponent();
             viewmodel = DataContext as MainViewModel;
+            collectionView = new PagingCollectionView(new List<object>(), 15);
         }
-        
+
         private void OnNextClicked(object sender, RoutedEventArgs e)
         {
             collectionView.MoveToNextPage();
