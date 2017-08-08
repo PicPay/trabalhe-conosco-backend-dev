@@ -1,0 +1,25 @@
+
+====== Ambiente de Desenvolvimento ======
+1 - A IDE utilizada em todo o projeto foi o Visual Studio 2017.
+2 - Todas as depedências utilizadas podem ser restauradas a partir do Nuget.
+3 - O Script BD.SQL realiza a criação das tabelas utilizadas no banco de dados.
+4 - O projeto utiliza-se do Entity Framework para conectar-se ao banco de dados. É necessário editar a seguinte connection string
+no arquivo web.config do WebService e app.config do Data para apontar corretamente para o banco de dados atual:
+
+<connectionStrings>
+    <add name="PicPayEntities" connectionString="metadata=res://*/Model1.csdl|res://*/Model1.ssdl|res://*/Model1.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=.\SQLEXPRESS;initial catalog=PicPay;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+</connectionStrings>
+
+====== Aplicação ======
+1 - A solution consiste de 2 projetos básicos. O WebService e o Client.
+
+O Data é o projeto que cuida do mapeamento banco de dados e classe em C# e é usado como referência para os dois projetos utilizarem
+a mesma classe, embora apenas o WebService efetivamente o usa para acessar o banco de dados.
+
+O WebService tem alguns métodos básicos para buscar usuários no banco de dados e um método específico que busca usuários cujo
+nome OU username contenham a string passada.
+
+Toda a filtragem e paginação são feitas no cliente. Estudou-se a possibilidade de busca assíncrona, carregando os resultados aos poucos,
+tarefa que é bastante simplificada pelo uso de async no c#, mas por motivo de tempo foi utilizado apenas em método de busca mais simples.
+
+O projeto WebService.Tests contém apenas alguns testes básicos para o controle de usuários.

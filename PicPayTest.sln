@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{787E01E5-A688-4A68-82C3-A2B4B527A114}"
 	ProjectSection(SolutionItems) = preProject
+		BD.sql = BD.sql
+		Leia-me.txt = Leia-me.txt
 		lista_relevancia_1.txt = lista_relevancia_1.txt
 		lista_relevancia_2.txt = lista_relevancia_2.txt
 		README.md = README.md
