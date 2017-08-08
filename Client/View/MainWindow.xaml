@@ -1,0 +1,28 @@
+﻿<Window x:Class="Client.View.MainWindow"
+        x:Name="PicPayClient"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Client"
+        mc:Ignorable="d"
+        Title="PicPayClient" Height="350" Width="525"
+
+        DataContext="{Binding Main, Source={StaticResource Locator}}">
+    <Grid>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Nome ou nome de Usuário:" />
+                <TextBox Height="24" Width="192" Margin="20,0" Text="{Binding SearchText, Mode=TwoWay}"/>
+                <Button Height="24" Content="Pesquisar" Width="72" Command="{Binding SearchCommand}"/>
+            </StackPanel>
+            <!--<DataGrid Margin="0,30" Height="250" ItemsSource="{Binding ElementName=PicPayClient, Path=CollectionView }">-->
+            <DataGrid Margin="0,30" Height="320" ItemsSource="{Binding PagedUsers }">
+            </DataGrid>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="Página Anterior" Width="96" Margin="10,0" Click="OnPreviousClicked" />
+                <Button Content="Próxima Página" Width="96" Margin="10,0" Click="OnNextClicked" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
