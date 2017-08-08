@@ -17,7 +17,7 @@
                 <Button Height="24" Content="Pesquisar" Width="72" Command="{Binding SearchCommand}"/>
             </StackPanel>
             <!--<DataGrid Margin="0,30" Height="250" ItemsSource="{Binding ElementName=PicPayClient, Path=CollectionView }">-->
-            <DataGrid Margin="0,30" Height="320" ItemsSource="{Binding Users }">
+            <DataGrid Margin="0,30" Height="320" ItemsSource="{Binding PagedUsers }">
             </DataGrid>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Content="Página Anterior" Width="96" Margin="10,0" Click="OnPreviousClicked" />

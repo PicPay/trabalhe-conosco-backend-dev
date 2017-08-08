@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web.Helpers;
+using Client.Helper;
 using GalaSoft.MvvmLight.Command;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -29,6 +30,7 @@ namespace Client.ViewModel
     public class MainViewModel : ViewModelBase
     {
         public ObservableCollection<user> Users { get; private set; }
+        public PagingCollectionView<user> PagedUsers { get; private set; }
 
         private RelayCommand searchCommand;
         public RelayCommand SearchCommand
@@ -74,6 +76,7 @@ namespace Client.ViewModel
         public MainViewModel()
         {
             Users = new ObservableCollection<user>();
+            PagedUsers = new PagingCollectionView<user>(Users, 15);
             SearchCommand = new RelayCommand(Search);
         }
 
@@ -94,6 +97,8 @@ namespace Client.ViewModel
                         Users.Add(user);
                 }
             }
+
+            RaisePropertyChanged(() => PagedUsers);
         }
     }
 }

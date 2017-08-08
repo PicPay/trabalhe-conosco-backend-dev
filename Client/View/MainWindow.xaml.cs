@@ -16,28 +16,23 @@ namespace Client.View
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainViewModel viewModel;
+
         public MainWindow()
         {
             InitializeComponent();
-            var viewmodel = DataContext as MainViewModel;
-
-            if (viewmodel != null)
-                CollectionView = new PagingCollectionView<user>(viewmodel.Users, 15);
+            viewModel = DataContext as MainViewModel;
         }
-
-        public PagingCollectionView<user> CollectionView { get; }
 
 
         private void OnNextClicked(object sender, RoutedEventArgs e)
         {
-            CollectionView.MoveToNextPage();
-            var viewmodel = DataContext as MainViewModel;
+            viewModel.PagedUsers.MoveToNextPage();
         }
 
         private void OnPreviousClicked(object sender, RoutedEventArgs e)
         {
-            CollectionView.MoveToPreviousPage();
-            var viewmodel = DataContext as MainViewModel;
+            viewModel.PagedUsers.MoveToPreviousPage();
         }
     }
 }

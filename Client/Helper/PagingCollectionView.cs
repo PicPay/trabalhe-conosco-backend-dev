@@ -69,9 +69,14 @@ namespace Client.Helper
 
         public override object GetItemAt(int index)
         {
+            if (!_innerList.Any())
+                return null;
+
+
             var offset = index % ItemsPerPage;
             return _innerList[StartIndex + offset];
         }
+
 
         public void MoveToNextPage()
         {
