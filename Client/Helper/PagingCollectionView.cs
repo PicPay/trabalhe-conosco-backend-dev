@@ -3,6 +3,7 @@
 using System.Collections;
 using System.ComponentModel;
 using System.Windows.Data;
+using System.Linq;
 
 #endregion
 
@@ -20,7 +21,6 @@ namespace Client.Helper
             _innerList = innerList;
             ItemsPerPage = itemsPerPage;
         }
-
 
         public override int Count
         {
@@ -62,6 +62,15 @@ namespace Client.Helper
         }
 
         private int StartIndex => (_currentPage - 1) * ItemsPerPage;
+
+        public void ChangeInnerList(IList innerList)
+        {
+            _innerList.Clear();
+            foreach (var o in innerList)
+                _innerList.Add(o);
+
+            CurrentPage = 1;
+        }
 
         public override object GetItemAt(int index)
         {
