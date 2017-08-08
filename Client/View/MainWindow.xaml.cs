@@ -61,11 +61,13 @@ namespace Client.View
         private void OnNextClicked(object sender, RoutedEventArgs e)
         {
             CollectionView.MoveToNextPage();
+            var viewmodel = DataContext as MainViewModel;
         }
 
         private void OnPreviousClicked(object sender, RoutedEventArgs e)
         {
             CollectionView.MoveToPreviousPage();
+            var viewmodel = DataContext as MainViewModel;
         }
     }
 }

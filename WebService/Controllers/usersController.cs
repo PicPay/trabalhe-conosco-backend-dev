@@ -38,8 +38,8 @@ namespace WebService.Controllers
             return Ok(user);
         }
 
-        // GET: api/users/John
-        [ResponseType(typeof(user))]
+        // GET: api/users/bytext/John
+        [Route("api/users/bytext/{text}")]
         public IQueryable<user> GetuserByNameOrUsername(string text)
         {
             var users = db.users.Where(user => user.Nome.Contains(text) || user.Username.Contains(text));

@@ -4,6 +4,8 @@ using Data;
 using GalaSoft.MvvmLight;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Net;
 using GalaSoft.MvvmLight.Command;
 
 namespace Client.ViewModel
@@ -68,13 +70,22 @@ namespace Client.ViewModel
         public MainViewModel()
         {
             Users = new ObservableCollection<user>();
-            
-            SearchCommand = new RelayCommand(Search, () => { return !string.IsNullOrEmpty(SearchText); });
+            SearchCommand = new RelayCommand(Search);
         }
 
         private void Search()
         {
-            throw new NotImplementedException();
+            string url = "http://localhost:50054/api/users/bytext/" + SearchText;
+            HttpWebRequest request = ((HttpWebRequest)WebRequest.Create(url));
+
+            using (var response = request.GetResponse())
+            {
+                using (var reader = new StreamReader(response.GetResponseStream()))
+                {
+                    var result = reader.ReadToEnd();
+                }
+            }
+            
         }
     }
 }
