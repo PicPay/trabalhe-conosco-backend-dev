@@ -5,8 +5,12 @@ using GalaSoft.MvvmLight;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Net;
+using System.Web.Helpers;
 using GalaSoft.MvvmLight.Command;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Client.ViewModel
 {
@@ -83,9 +87,13 @@ namespace Client.ViewModel
                 using (var reader = new StreamReader(response.GetResponseStream()))
                 {
                     var result = reader.ReadToEnd();
+                    var users = JArray.Parse(result).Select(value => Json.Decode<user>(value.ToString()));
+                    Users.Clear();
+                    
+                    foreach (var user in users)
+                        Users.Add(user);
                 }
             }
-            
         }
     }
 }
