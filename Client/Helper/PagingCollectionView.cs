@@ -1,6 +1,7 @@
 ﻿#region
 
 using System.Collections;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Data;
 using System.Linq;
@@ -9,13 +10,13 @@ using System.Linq;
 
 namespace Client.Helper
 {
-    public class PagingCollectionView : ListCollectionView
+    public class PagingCollectionView<T> : ListCollectionView
     {
-        private readonly IList _innerList;
+        private readonly ObservableCollection<T> _innerList;
 
         private int _currentPage = 1;
 
-        public PagingCollectionView(IList innerList, int itemsPerPage)
+        public PagingCollectionView(ObservableCollection<T> innerList, int itemsPerPage)
             : base(innerList)
         {
             _innerList = innerList;
@@ -28,7 +29,7 @@ namespace Client.Helper
             {
                 if (_innerList.Count == 0)
                     return 0;
-                    
+
                 //all pages except the last
                 if (CurrentPage < PageCount)
                     return ItemsPerPage;
@@ -65,15 +66,6 @@ namespace Client.Helper
         }
 
         private int StartIndex => (_currentPage - 1) * ItemsPerPage;
-
-        public void ChangeInnerList(IList innerList)
-        {
-            _innerList.Clear();
-            foreach (var o in innerList)
-                _innerList.Add(o);
-
-            CurrentPage = 1;
-        }
 
         public override object GetItemAt(int index)
         {

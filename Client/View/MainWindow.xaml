@@ -16,10 +16,8 @@
                 <TextBox Height="24" Width="192" Margin="20,0" Text="{Binding SearchText, Mode=TwoWay}"/>
                 <Button Height="24" Content="Pesquisar" Width="72" Command="{Binding SearchCommand}"/>
             </StackPanel>
-            <DataGrid Margin="0,30" ItemsSource="{Binding ElementName=PicPayClient, Path=CollectionView }">
-                <DataGridTextColumn Header="ID" Width="*" Binding="{Binding ID}" />
-                <DataGridTextColumn Header="ID" Width="*" Binding="{Binding Nome}" />
-                <DataGridTextColumn Header="ID" Width="*" Binding="{Binding UserName}" />
+            <!--<DataGrid Margin="0,30" Height="250" ItemsSource="{Binding ElementName=PicPayClient, Path=CollectionView }">-->
+            <DataGrid Margin="0,30" Height="320" ItemsSource="{Binding Users }">
             </DataGrid>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Content="Página Anterior" Width="96" Margin="10,0" Click="OnPreviousClicked" />
