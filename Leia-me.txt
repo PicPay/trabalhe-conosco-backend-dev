@@ -10,6 +10,8 @@ no arquivo web.config do WebService e app.config do Data para apontar corretamen
     <add name="PicPayEntities" connectionString="metadata=res://*/Model1.csdl|res://*/Model1.ssdl|res://*/Model1.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=.\SQLEXPRESS;initial catalog=PicPay;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" />
 </connectionStrings>
 
+5 - As listas de prioridade foram copiadas para dentro do Projeto Client, para serem mais facilmente carregadas em código.
+
 ====== Aplicação ======
 1 - A solution consiste de 2 projetos básicos. O WebService e o Client.
 
