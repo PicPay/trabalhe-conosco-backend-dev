@@ -26,6 +26,9 @@ namespace Client.Helper
         {
             get
             {
+                if (_innerList.Count == 0)
+                    return 0;
+                    
                 //all pages except the last
                 if (CurrentPage < PageCount)
                     return ItemsPerPage;
