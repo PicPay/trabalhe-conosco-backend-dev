@@ -15,24 +15,24 @@ namespace Client.View
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly PagingCollectionView collectionView;
-        private MainViewModel viewmodel;
+        private readonly PagingCollectionView _collectionView;
 
         public MainWindow()
         {
             InitializeComponent();
-            viewmodel = DataContext as MainViewModel;
-            collectionView = new PagingCollectionView(new List<object>(), 15);
+            var viewmodel = DataContext as MainViewModel;
+            if (viewmodel != null)
+                _collectionView = new PagingCollectionView(viewmodel.Users, 15);
         }
 
         private void OnNextClicked(object sender, RoutedEventArgs e)
         {
-            collectionView.MoveToNextPage();
+            _collectionView.MoveToNextPage();
         }
 
         private void OnPreviousClicked(object sender, RoutedEventArgs e)
         {
-            collectionView.MoveToPreviousPage();
+            _collectionView.MoveToPreviousPage();
         }
     }
 }

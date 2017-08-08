@@ -1,4 +1,8 @@
+using System.Windows.Documents;
+using Data;
 using GalaSoft.MvvmLight;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Client.ViewModel
 {
@@ -16,19 +20,15 @@ namespace Client.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
+
+        public ObservableCollection<user> Users { get; private set; }
+
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
         public MainViewModel()
         {
-            ////if (IsInDesignMode)
-            ////{
-            ////    // Code runs in Blend --> create design time data.
-            ////}
-            ////else
-            ////{
-            ////    // Code runs "for real"
-            ////}
+            Users = new ObservableCollection<user>();
         }
     }
 }
