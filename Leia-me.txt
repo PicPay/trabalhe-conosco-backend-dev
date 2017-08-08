@@ -20,6 +20,16 @@ O WebService tem alguns métodos básicos para buscar usuários no banco de dados e
 nome OU username contenham a string passada.
 
 Toda a filtragem e paginação são feitas no cliente. Estudou-se a possibilidade de busca assíncrona, carregando os resultados aos poucos,
-tarefa que é bastante simplificada pelo uso de async no c#, mas por motivo de tempo foi utilizado apenas em método de busca mais simples.
+tarefa que é bastante simplificada pelo uso de async no c#, mas por motivo da lista de prioridade, não consegui encontrar uma solução
+sem ter todos os usuários em mãos para tomar a decisão. Talvez fosse melhor fazer a ordenação por prioridade diretamente no servidor
+mas quando cheguei à essa conclusão já não havia tempo hábil para mudar.
 
 O projeto WebService.Tests contém apenas alguns testes básicos para o controle de usuários.
+
+
+====== Melhorias ======
+1 - A principal melhoria para o sistema seria utilizar métodos assíncronos e lazy loading, para não manter a interface travada. Para isso
+acredito que seria necessário fazer a ordenação por prioridade diretamente no servidor ao invés do cliente como decidi fazer.
+
+2 - Como a ID é uma string e com uma cadeia relativamente alta de caracteres gostaria de testar se não seria possível aplicar uma
+função hash nos IDs, para reduzir o custo de comparação nas listas de prioridade.

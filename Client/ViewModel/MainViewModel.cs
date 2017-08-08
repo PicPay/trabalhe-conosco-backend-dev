@@ -32,6 +32,9 @@ namespace Client.ViewModel
         public ObservableCollection<user> Users { get; private set; }
         public PagingCollectionView<user> PagedUsers { get; private set; }
 
+        private List<string> prioritList1;
+        private List<string> prioritList2;
+
         private RelayCommand searchCommand;
         public RelayCommand SearchCommand
         {
@@ -78,6 +81,9 @@ namespace Client.ViewModel
             Users = new ObservableCollection<user>();
             PagedUsers = new PagingCollectionView<user>(Users, 15);
             SearchCommand = new RelayCommand(Search);
+            
+            prioritList1 = new List<string>();
+            prioritList2 = new List<string>();
         }
 
         private void Search()
@@ -91,6 +97,11 @@ namespace Client.ViewModel
                 {
                     var result = reader.ReadToEnd();
                     var users = JArray.Parse(result).Select(value => Json.Decode<user>(value.ToString()));
+
+                    //A seguinte lambda ordena a lista dando maior prioridade para os usuários que aparecem na primeira lista,
+                    //Em seguida na segunda lista de prioridade e por fim com menor prioridade os que não pertecem em nenhuma delas
+                    users.OrderBy(user => prioritList1.Contains(user.Username) ? 0 : prioritList2.Contains(user.Username) ? 1 : 2);
+                    
                     Users.Clear();
                     
                     foreach (var user in users)
