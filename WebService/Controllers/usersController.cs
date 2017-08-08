@@ -13,7 +13,7 @@ using Data;
 
 namespace WebService.Controllers
 {
-    public class usersController : ApiController
+    public class UsersController : ApiController
     {
         private PicPayEntities db = new PicPayEntities();
 

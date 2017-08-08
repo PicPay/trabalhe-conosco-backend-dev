@@ -5,8 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="350" Width="525"
+        DataContext="{Binding Main, Source={StaticResource Locator}}">
     <Grid>
-        
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Nome ou nome de Usuário:" />
+                <TextBox Height="24" Width="192" Margin="20,0" />
+                <Button Height="24" Content="Pesquisar" Width="72"></Button>
+            </StackPanel>
+            
+        </StackPanel>
     </Grid>
 </Window>
