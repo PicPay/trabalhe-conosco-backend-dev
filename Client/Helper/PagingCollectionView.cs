@@ -6,7 +6,7 @@ using System.Windows.Data;
 
 #endregion
 
-namespace Client
+namespace Client.Helper
 {
     public class PagingCollectionView : CollectionView
     {
