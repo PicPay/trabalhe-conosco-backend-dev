@@ -36,6 +36,14 @@ namespace WebService.Controllers
             return Ok(user);
         }
 
+        // GET: api/users/John
+        [ResponseType(typeof(user))]
+        public IQueryable<user> GetuserByNameOrUsername(string text)
+        {
+            var users = db.users.Where(user => user.Nome.Contains(text) || user.Username.Contains(text));
+            return users;
+        }
+
         // PUT: api/users/5
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> Putuser(string id, user user)
