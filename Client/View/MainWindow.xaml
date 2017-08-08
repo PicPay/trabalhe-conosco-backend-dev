@@ -12,9 +12,13 @@
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Nome ou nome de Usuário:" />
                 <TextBox Height="24" Width="192" Margin="20,0" />
-                <Button Height="24" Content="Pesquisar" Width="72"></Button>
+                <Button Height="24" Content="Pesquisar" Width="72" />
             </StackPanel>
-            
+            <DataGrid>
+                <DataGridTextColumn Header="ID" Width="*" />
+                <DataGridTextColumn Header="Nome" Width="*" />
+                <DataGridTextColumn Header="Username" Width="*" />
+            </DataGrid>
         </StackPanel>
     </Grid>
 </Window>

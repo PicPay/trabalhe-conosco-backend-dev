@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace Client.Helper
 {
-    public class PagingCollectionView : CollectionView
+    public class PagingCollectionView : ListCollectionView
     {
         private readonly IList _innerList;
 
@@ -26,16 +26,14 @@ namespace Client.Helper
         {
             get
             {
-                if (_innerList.Count == 0)
-                    return 0;
-                if (_currentPage < PageCount) // page 1..n-1
+                //all pages except the last
+                if (CurrentPage < PageCount)
                     return ItemsPerPage;
 
-                var itemsLeft = _innerList.Count % ItemsPerPage;
-                if (0 == itemsLeft)
-                    return ItemsPerPage; // exactly itemsPerPage left
+                //last page
+                var remainder = _innerList.Count % ItemsPerPage;
 
-                return itemsLeft;
+                return remainder == 0 ? ItemsPerPage : remainder;
             }
         }
 
