@@ -12,6 +12,7 @@ using Client.Helper;
 using GalaSoft.MvvmLight.Command;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Reflection;
 
 namespace Client.ViewModel
 {
@@ -84,6 +85,23 @@ namespace Client.ViewModel
             
             prioritList1 = new List<string>();
             prioritList2 = new List<string>();
+
+            LoadPriorityList(prioritList1, "lista_relevancia_1.txt");
+            LoadPriorityList(prioritList2, "lista_relevancia_2.txt");
+        }
+
+        private void LoadPriorityList(List<string> list, string fileName)
+        {
+            var assembly = this.GetType().Assembly;
+            
+            using (Stream stream = assembly.GetManifestResourceStream("Client.Content." + fileName))
+            {
+                using (var reader = new StreamReader(stream))
+                {
+                    string result = reader.ReadToEnd();
+                    list.AddRange(result.Split('\n'));
+                }
+            }
         }
 
         private void Search()
