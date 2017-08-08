@@ -1,8 +1,10 @@
+using System;
 using System.Windows.Documents;
 using Data;
 using GalaSoft.MvvmLight;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using GalaSoft.MvvmLight.Command;
 
 namespace Client.ViewModel
 {
@@ -20,15 +22,59 @@ namespace Client.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
-
         public ObservableCollection<user> Users { get; private set; }
 
-        /// <summary>
-        /// Initializes a new instance of the MainViewModel class.
-        /// </summary>
+        private RelayCommand searchCommand;
+        public RelayCommand SearchCommand
+        {
+            get
+            {
+                return searchCommand;
+            }
+
+            set
+            {
+                if (searchCommand == value)
+                {
+                    return;
+                }
+
+                searchCommand = value;
+                RaisePropertyChanged(() => SearchCommand);
+            }
+        }
+
+        private string searchText = null;
+        public string SearchText
+        {
+            get
+            {
+                return searchText;
+            }
+
+            set
+            {
+                if (searchText == value)
+                {
+                    return;
+                }
+
+                searchText = value;
+                RaisePropertyChanged(() => SearchText);
+            }
+        }
+
+
         public MainViewModel()
         {
             Users = new ObservableCollection<user>();
+            
+            SearchCommand = new RelayCommand(Search, () => { return !string.IsNullOrEmpty(SearchText); });
+        }
+
+        private void Search()
+        {
+            throw new NotImplementedException();
         }
     }
 }

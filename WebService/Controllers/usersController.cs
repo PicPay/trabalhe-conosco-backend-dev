@@ -1,4 +1,6 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -11,11 +13,13 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using Data;
 
+#endregion
+
 namespace WebService.Controllers
 {
     public class UsersController : ApiController
     {
-        private PicPayEntities db = new PicPayEntities();
+        private readonly PicPayEntities db = new PicPayEntities();
 
         // GET: api/users
         public IQueryable<user> Getusers()
@@ -27,11 +31,9 @@ namespace WebService.Controllers
         [ResponseType(typeof(user))]
         public async Task<IHttpActionResult> Getuser(string id)
         {
-            user user = await db.users.FindAsync(id);
+            var user = await db.users.FindAsync(id);
             if (user == null)
-            {
                 return NotFound();
-            }
 
             return Ok(user);
         }
@@ -49,14 +51,10 @@ namespace WebService.Controllers
         public async Task<IHttpActionResult> Putuser(string id, user user)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
             if (id != user.ID)
-            {
                 return BadRequest();
-            }
 
             db.Entry(user).State = EntityState.Modified;
 
@@ -67,13 +65,9 @@ namespace WebService.Controllers
             catch (DbUpdateConcurrencyException)
             {
                 if (!userExists(id))
-                {
                     return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+
+                throw;
             }
 
             return StatusCode(HttpStatusCode.NoContent);
@@ -84,9 +78,7 @@ namespace WebService.Controllers
         public async Task<IHttpActionResult> Postuser(user user)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
             db.users.Add(user);
 
@@ -97,27 +89,21 @@ namespace WebService.Controllers
             catch (DbUpdateException)
             {
                 if (userExists(user.ID))
-                {
                     return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
+
+                throw;
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = user.ID }, user);
+            return CreatedAtRoute("DefaultApi", new {id = user.ID}, user);
         }
 
         // DELETE: api/users/5
         [ResponseType(typeof(user))]
         public async Task<IHttpActionResult> Deleteuser(string id)
         {
-            user user = await db.users.FindAsync(id);
+            var user = await db.users.FindAsync(id);
             if (user == null)
-            {
                 return NotFound();
-            }
 
             db.users.Remove(user);
             await db.SaveChangesAsync();
@@ -128,9 +114,7 @@ namespace WebService.Controllers
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
                 db.Dispose();
-            }
             base.Dispose(disposing);
         }
 

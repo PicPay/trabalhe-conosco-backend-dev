@@ -13,8 +13,8 @@
         <StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Nome ou nome de Usuário:" />
-                <TextBox Height="24" Width="192" Margin="20,0" />
-                <Button Height="24" Content="Pesquisar" Width="72" />
+                <TextBox Height="24" Width="192" Margin="20,0" Text="{Binding SearchText}"/>
+                <Button Height="24" Content="Pesquisar" Width="72" Command="{Binding SearchCommand}"/>
             </StackPanel>
             <DataGrid Margin="0,30" ItemsSource="{Binding ElementName=PicPayClient, Path=CollectionView }">
                 <DataGridTextColumn Header="ID" Width="*" Binding="{Binding ID}" />
