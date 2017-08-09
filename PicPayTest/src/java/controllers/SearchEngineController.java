@@ -17,7 +17,7 @@ import javax.ws.rs.core.MediaType;
  * @author gustavo
  */
 @Path("/search")
-public class SearchEngine {
+public class SearchEngineController {
 
     /**
      * This is a sample web service operation
