@@ -1,0 +1,10 @@
+"use strict";
+require("reflect-metadata");
+Object.defineProperty(exports, "__esModule", { value: true });
+const http = require("http");
+//require("reflect-metadata");
+//require('./config/database');
+let app = require('./server/config/express');
+var server = http.createServer(app);
+var port = process.env.PORT || 8080;
+server.listen(port);

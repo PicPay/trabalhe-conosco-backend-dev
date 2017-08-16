@@ -1,3 +1,20 @@
+# O que foi Feito?
+ Código desenvolvido em NodeJS, banco de dados SQl Server hospedado na azure, frontend IONIC V3, usando JWT para autenticação.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
 
 # Teste Backend
