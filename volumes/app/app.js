@@ -30,7 +30,7 @@ app.set('view engine', 'ejs');
 var UserController = require('./controllers/userController');
 app.use('/users', UserController);
 
-app.get('*', function (req, res) {
+app.get('/', function (req, res) {
    res.render('index');
 });
 
