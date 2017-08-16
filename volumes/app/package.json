@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/mateusvtt/trabalhe-conosco-backend-dev/issues"
   },
-  "homepage": "https://github.com/mateusvtt/trabalhe-conosco-backend-dev#readme"
+  "homepage": "https://github.com/mateusvtt/trabalhe-conosco-backend-dev#readme",
+  "dependencies": {
+    "express": "^4.15.4",
+    "mongoose": "^4.11.7",
+    "morgan": "^1.8.2",
+    "serve-favicon": "^2.4.3"
+  }
 }
