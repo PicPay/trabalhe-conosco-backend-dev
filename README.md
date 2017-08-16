@@ -1,4 +1,4 @@
-!![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
+![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
 
 # Teste Backend
 
@@ -22,7 +22,7 @@ Os resultados devem ser retornados paginados de 15 em 15 registros.
 
 Escolha as tecnologias que você vai usar e tente montar uma solução completa para rodar a aplicação.
 
-Faça um fork deste repositório e abra um pull request para participar.
+Faça um fork deste repositório e abra um pull request para participar!
 
 -----
 
