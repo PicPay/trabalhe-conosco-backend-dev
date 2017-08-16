@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  app_web:
+    image: mateusvtt/nodejs:6.11.2
+    container_name: app_picpay
+    hostname: app_picpay
+    restart: always
+    volumes:
+      - ./volumes/app/:/app
+    ports:
+      - "80:80"
+    networks:
+      - public
+      - private
+    logging:
+     driver: syslog
+     options:
+      syslog-facility: daemon
+      tag: APP_PICPAY_WEB
+
+  app_mongodb:
+    image: mateusvtt/mongo:3.4.6
+    restart: always
+    container_name: app_picpay_mongodb
+    volumes:
+     - ./volumes/mongodb:/data/db
+    networks:
+     - private
+    logging:
+     driver: syslog
+     options:
+      syslog-facility: daemon
+      tag: APP_PICPAY_MONGODB
+
+networks:
+  public:
+    driver: bridge
+  private:
+    internal: true
+    driver: bridge
