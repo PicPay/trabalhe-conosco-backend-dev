@@ -1,2 +1,3 @@
 volumes/mongodb
+volumes/app/node_modules
 docker-images/mongodb/files/users.csv.gz
