@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/mateusvtt/trabalhe-conosco-backend-dev#readme",
   "dependencies": {
+    "body-parser": "^1.17.2",
     "bootstrap": "^3.3.7",
     "console-stamp": "^0.2.5",
     "express": "^4.15.4",

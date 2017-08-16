@@ -27,6 +27,8 @@ app.set('views', __dirname + '/templates');
 app.set('view engine', 'ejs');
 
 //controllers
+var UserController = require('./controllers/userController');
+app.use('/users', UserController);
 
 app.get('*', function (req, res) {
    res.send('hello world');
