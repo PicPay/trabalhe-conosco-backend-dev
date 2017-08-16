@@ -1,2 +1,2 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://app_mongodb');
+mongoose.connect('mongodb://app_mongodb/picpay');
