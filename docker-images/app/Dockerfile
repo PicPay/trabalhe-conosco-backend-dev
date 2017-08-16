@@ -1,11 +1,9 @@
-FROM ubuntu:trusty
+FROM node:boron
 
-RUN DEBIAN_FRONTEND=noninteractive \
-    apt-get update \
-    && apt-get install -y \
-        wget \
-        curl \
-        git
+WORKDIR /app
 
-RUN curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-RUN apt-get install -y nodejs
+COPY package.json .
+
+RUN npm install
+
+CMD [ "npm", "start" ]

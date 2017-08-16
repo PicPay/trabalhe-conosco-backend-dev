@@ -18,8 +18,10 @@
   },
   "homepage": "https://github.com/mateusvtt/trabalhe-conosco-backend-dev#readme",
   "dependencies": {
+    "bootstrap": "^3.3.7",
     "console-stamp": "^0.2.5",
     "express": "^4.15.4",
+    "jquery": "^3.2.1",
     "mongoose": "^4.10.8",
     "morgan": "^1.8.2",
     "serve-favicon": "^2.4.3"
