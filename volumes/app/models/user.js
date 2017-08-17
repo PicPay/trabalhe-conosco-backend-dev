@@ -29,7 +29,7 @@ userSchema.statics.setTags  = function (callback){
   });
 };
 
-userSchema.statics.setPriorityLists  = function (callback){
+userSchema.statics.setPriorityLists  = function (callback){ //metodo de leitura das listas de relevancia e atualizacao dos documentos no BD
   var userFunctions = require('../userFunctions');
   var async = require('async');
   var lista_relevancia_1 = './static/files/lista_relevancia_1.txt';
@@ -57,7 +57,7 @@ userSchema.statics.setPriorityLists  = function (callback){
     var count2 = 0;
     var count1 = 0;
     async.parallel([ //setar variaveis no banco
-      function(cb) {
+      function(cb) { //setar lista1
         for (var i = 0, len1 = arrayIds1.length; i < len1; i++){ //for mais eficiente, nao le o tamanho do vetor a cada iteracao
           User.update({id: arrayIds1[i]}, { lista1: 1 }, function(err) {
               if (err) return cb(err);
@@ -66,16 +66,16 @@ userSchema.statics.setPriorityLists  = function (callback){
             });
         }
       },
-      function(cb) {
+      function(cb) { //setar lista2
         for (var j = 0, len2 = arrayIds2.length; j < len2; j++){ //for mais eficiente, nao le o tamanho do vetor a cada iteracao
           User.update({id: arrayIds2[j]}, { lista2: 1 }, function(err) {
               if (err) return cb(err);
               count2++;
-              if(count2 == len2) return cb();//terminou de atualizar todas as entradas para lista1
+              if(count2 == len2) return cb();//terminou de atualizar todas as entradas para lista2
             });
         }
       }
-    ], function(err) { //terminou a leitura dos arquivos
+    ], function(err) { //terminou a atualizacao dos dados
       if (err) return next(err);
       return callback();
     });
