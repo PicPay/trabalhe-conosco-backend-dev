@@ -25,8 +25,13 @@ router.get('/', function (req, res) {
   });
 });
 
- router.get('/update', function (req, res) {
-   User.updateAll(function(callback){
+router.get('/update', function (req, res) {
+  /*   User.setTags(function(callback){
+     console.log("atualizados");
+     res.send("DADOS ATUALIZADOS");
+   });
+   */
+   User.setPriorityLists(function(callback){
      console.log("atualizados");
      res.send("DADOS ATUALIZADOS");
    });

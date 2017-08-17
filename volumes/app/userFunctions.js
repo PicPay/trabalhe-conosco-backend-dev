@@ -24,6 +24,19 @@ module.exports = {
       });
     });
   },
+
+  getPriorityLists: function(filePath,callback){
+    var arrayIds = [];
+    var lineReader = require('readline').createInterface({
+      input: require('fs').createReadStream(filePath)
+    });
+    lineReader.on('line', function (line) {
+      arrayIds.push(line);
+    })
+    .on('close', function () {
+      return callback(null,arrayIds);
+    });
+  },
 }
 
 function removeDuplicatesFromArrays(array1,array2,callback){
