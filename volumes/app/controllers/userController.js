@@ -25,11 +25,12 @@ router.get('/', function (req, res) {
   });
 });
 
-// router.get('/update', function (req, res) {
-//   User.updateAll(function(callback){
-//     console.log("atualizados");
-//   });
-// });
+ router.get('/update', function (req, res) {
+   User.updateAll(function(callback){
+     console.log("atualizados");
+     res.send("DADOS ATUALIZADOS");
+   });
+ });
 
 router.get('/:id', function (req, res) {
   User.findById(req.params.id, function (err, user) {

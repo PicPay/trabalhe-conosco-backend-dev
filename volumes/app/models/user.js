@@ -4,22 +4,31 @@ var userSchema = new mongoose.Schema({
   id: { type: String, unique: true, index:true },
   name: String,
   username: String,
-  tags: [String],
+  tags: { type: [String], index:true },
 });
 
 userSchema.statics.updateAll  = function (callback){
-  this.update({}, {name:'topzeira'},{multi: true},
-      function(err, num) {
-          console.log("updated "+num);
-          return callback();
-      }
-  );
+  console.log("aqui");
+  this.find({}).stream()
+     .on('data', function(user){
+        createTagsField(user.name,user.username,function(err,tags){
+          user.set('tags', tags);
+          user.save(function (error) {
+            if (error) throw error;
+          });
+        });
+  })
+  .on('error', function(error) {
+      throw error;
+  })
+  .on('end', function() {
+      // final callback
+      console.log("TERMINEI DE ATUALIZAR");
+      return callback();
+  });
 };
 
-userSchema.methods.createTagsField = function (callback){ //cria o campo tags para otimizar a busca
-  console.log("entrei aqui",this);
-  var name = this.name;
-  var username = this.username;
+function createTagsField(name,username,callback){ //cria o campo tags para otimizar a busca
   async.parallel([ //padronizando as strings de username e user em paralelo
     function(cb) {
       standardizeString(name,function(err,stdName){ //padroniza name
@@ -38,10 +47,7 @@ userSchema.methods.createTagsField = function (callback){ //cria o campo tags pa
   ], function(err) { //terminou de padronizar as duas, insere o field tags no elemento
     if (err) return next(err);
     removeDuplicatesFromArrays(name,username,function (err,tags) { //remove elementos repetidos
-      console.log(tags);
-      var query = { _id: this._id };
-      var update = { $set: { name: 'howMany' }};
-      this.constructor.update(query, update, callback);
+      return callback(null,tags);
     });
   });
 };
@@ -53,6 +59,7 @@ function removeDuplicatesFromArrays(array1,array2,callback){
   var onlyArray2Has = (new Set([...b].filter(x => !a.has(x)))); //b\a
   var bothArraysHas = (new Set([...a].filter(x => b.has(x))));  //a∩b
   var arrStd = new Set([...onlyArray1Has, ...onlyArray2Has, ...bothArraysHas])
+  arrStd = [...arrStd]; //convertendo set em array
   return callback(null,arrStd);
 };
 
