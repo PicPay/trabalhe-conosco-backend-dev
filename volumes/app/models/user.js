@@ -14,8 +14,8 @@ userSchema.statics.setTags  = function (callback){ //metodos para definir as key
      .on('data', function(user){
         userFunctions.createTagsField(user.name,user.username,function(err,tags){
           user.set('tags', tags);
-          //user.set('lista1', 0);
-          //user.set('lista2', 0);
+          user.set('lista1', 0);
+          user.set('lista2', 0);
           user.save(function (error) {
             if (error) throw error;
           });
@@ -39,13 +39,7 @@ userSchema.statics.setPriorityLists  = function (callback){ //metodo de leitura 
   var arrayIdsAll = [];
   var arrayIds1 = [];
   var arrayIds2 = [];
-  async.parallel([ //setando valores default no banco e fazendo leitura dos arquivos lista
-    function(cb) {
-      User.update({}, { lista1:0, lista2:0 }, { multi: true },function(err){ //atualiza em mass o indicador de lista de relevancia
-        if (err) return cb(err);
-        return cb();
-      });
-    },
+  async.parallel([ //fazendo leitura dos arquivos lista e inserindo no banco, de acordo com os ids
     function(cb) {
       userFunctions.getPriorityLists(lista_relevancia_1,function(err,arrayIds){ //le a primeira lista_relevancia
         if (err) return cb(err);
@@ -95,11 +89,13 @@ userSchema.statics.setDatabase  = function (callback){ //aplica os dois matodos 
   async.series([
       function(cb) { //setar tags
         User.setTags(function(err){
+          console.log("TERMINEI DE ATUALIZAR 2 ");
           if (err) return cb(err);
           return cb();
         });
       },
       function(cb) { //setar listas
+        console.log("TERMINEI DE ATUALIZAR 2 ");
         User.setPriorityLists(function(){
           if (err) return cb(err);
           return cb();
