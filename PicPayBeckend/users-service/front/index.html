@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>SC cliente</title>
+	<!-- BOOTSTRAP STYLES-->
+	<link href="/assets/css/bootstrap.css" rel="stylesheet" />
+	<!-- FONTAWESOME STYLES-->
+	<link href="/assets/css/font-awesome.css" rel="stylesheet" />
+	<!-- CUSTOM STYLES-->
+	<link href="/assets/css/custom.css" rel="stylesheet" />
+	<!-- GOOGLE FONTS-->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+</head>
+
+<body>
+	<div>
+
+		<!-- /. NAV TOP  -->
+
+		<!-- /. NAV SIDE  -->
+		<div id="page-wrapper">
+			<div id="page-inner">
+				<div class="row">
+					<div class="col-md-12">
+						<h2>SC cliente</h2>
+					</div>
+				</div>
+				<!-- /. ROW  -->
+				<hr />
+
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group">
+							<label>Numero do pedido</label>
+							<input id="nropedido" class="form-control" />
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label>Cliente</label>
+							<input id="cliente" class="form-control" />
+						</div>
+					</div>
+
+
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<h5>Itens</h5>
+
+
+						<table id="tabela" class="table table-striped table-bordered table-hover">
+							<thead>
+								<tr>
+									<th>Cod</th>
+									<th>Descrição</th>
+									<th>Marca</th>
+									<th>Quantidade</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><input id="cod" /></td>
+									<td><input id="desc" /></td>
+									<td><input id="marca" /></td>
+									<td><input type="number" id="qtd" /> <a onclick="return insertValueTable();" style="float: right;" class="btn btn-success">Adicionar</a></td>
+								</tr>
+
+							</tbody>
+						</table>
+
+					</div>
+
+				</div>
+				<div class="col-md-4" style="float:right;">
+					<a onclick="return send()" target="_blank" class="btn btn-danger btn-lg btn-block">Enviar</a>
+				</div>
+
+
+				<!-- /. ROW  -->
+
+			</div>
+			<!-- /. PAGE INNER  -->
+		</div>
+		<!-- /. PAGE WRAPPER  -->
+	</div>
+	<!-- /. WRAPPER  -->
+	<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+	<!-- JQUERY SCRIPTS -->
+	<script src="/assets/js/jquery-1.10.2.js"></script>
+	<script src="/assets/js/control/functions.js"></script>
+	<!-- BOOTSTRAP SCRIPTS -->
+	<script src="/assets/js/bootstrap.min.js"></script>
+	<!-- METISMENU SCRIPTS -->
+	<script src="/assets/js/jquery.metisMenu.js"></script>
+	<!-- CUSTOM SCRIPTS -->
+	<script src="/assets/js/custom.js"></script>
+	<!-- Meus Scripts -->
+	<script src="/assets/js/control/functions.js"></script>
+
+
+</body>
+
+</html>
