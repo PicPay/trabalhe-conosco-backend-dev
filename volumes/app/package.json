@@ -26,6 +26,7 @@
     "express": "^4.15.4",
     "fs": "0.0.1-security",
     "jquery": "^3.2.1",
+    "lockfile": "^1.0.3",
     "mongoose": "^4.10.8",
     "morgan": "^1.8.2",
     "nodemon": "^1.11.0",
