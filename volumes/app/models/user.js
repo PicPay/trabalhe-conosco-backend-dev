@@ -31,13 +31,12 @@ userSchema.statics.setTags  = function (callback){
 
 userSchema.statics.setPriorityLists  = function (callback){
   var userFunctions = require('../userFunctions');
+  var async = require('async');
   var lista_relevancia_1 = './static/files/lista_relevancia_1.txt';
   var lista_relevancia_2 = './static/files/lista_relevancia_2.txt';
   var arrayIdsAll = [];
   var arrayIds1 = [];
   var arrayIds2 = [];
-
-  var async = require('async');
   async.parallel([ //leitura dos arquivos lista
     function(cb) {
       userFunctions.getPriorityLists(lista_relevancia_1,function(err,arrayIds){ //le a primeira lista_relevancia
@@ -53,14 +52,35 @@ userSchema.statics.setPriorityLists  = function (callback){
         return cb();
       });
     }
-  ], function(err) { //terminou a leitura
+  ], function(err) { //terminou a leitura dos arquivos, hora de inserir no banco
     if (err) return next(err);
-    arrayIdsAll = arrayIds1.concat(arrayIds2);
-    console.log(arrayIdsAll);
+    var count2 = 0;
+    var count1 = 0;
+    async.parallel([ //setar variaveis no banco
+      function(cb) {
+        for (var i = 0, len1 = arrayIds1.length; i < len1; i++){ //for mais eficiente, nao le o tamanho do vetor a cada iteracao
+          User.update({id: arrayIds1[i]}, { lista1: 1 }, function(err) {
+              if (err) return cb(err);
+              count1++;
+              if(count1 == len1) return cb();//terminou de atualizar todas as entradas para lista1
+            });
+        }
+      },
+      function(cb) {
+        for (var j = 0, len2 = arrayIds2.length; j < len2; j++){ //for mais eficiente, nao le o tamanho do vetor a cada iteracao
+          User.update({id: arrayIds2[j]}, { lista2: 1 }, function(err) {
+              if (err) return cb(err);
+              count2++;
+              if(count2 == len2) return cb();//terminou de atualizar todas as entradas para lista1
+            });
+        }
+      }
+    ], function(err) { //terminou a leitura dos arquivos
+      if (err) return next(err);
+      return callback();
+    });
   });
 };
-
-
 
 var User = mongoose.model('User', userSchema);
 module.exports = User;

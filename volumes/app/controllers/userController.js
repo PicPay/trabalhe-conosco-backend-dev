@@ -32,7 +32,6 @@ router.get('/update', function (req, res) {
    });
    */
    User.setPriorityLists(function(callback){
-     console.log("atualizados");
      res.send("DADOS ATUALIZADOS");
    });
  });
