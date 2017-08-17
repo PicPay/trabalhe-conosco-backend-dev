@@ -30,6 +30,17 @@ app.set('view engine', 'ejs');
 var UserController = require('./controllers/userController');
 app.use('/users', UserController);
 
+app.get('/update', function (req, res) {
+  var User = require('./models/user');
+  var lockFile = require('lockfile')
+  lockFile.lock('some-file.lock', function (er) {
+    User.setDatabase(function(callback){
+      lockFile.unlock('some-file.lock', function (er) {});
+    });
+  });
+  res.render('loadingDataBase');
+});
+
 app.get('/', function (req, res) {
    res.render('index');
 });

@@ -25,17 +25,6 @@ router.get('/', function (req, res) {
   });
 });
 
-router.get('/update', function (req, res) {
-  /*   User.setTags(function(callback){
-     console.log("atualizados");
-     res.send("DADOS ATUALIZADOS");
-   });
-   */
-   User.setPriorityLists(function(callback){
-     res.send("DADOS ATUALIZADOS");
-   });
- });
-
 router.get('/:id', function (req, res) {
   User.findById(req.params.id, function (err, user) {
     if (err) return res.status(500).send("There was a problem finding the user.");

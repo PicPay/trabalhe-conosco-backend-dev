@@ -39,3 +39,6 @@ networks:
   private:
     internal: true
     driver: bridge
+
+#comando para import
+#mongoimport -d picpay -c users --type csv --file users.csv --fields "id,name,username"
