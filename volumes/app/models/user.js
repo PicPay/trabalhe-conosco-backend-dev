@@ -4,16 +4,18 @@ var userSchema = new mongoose.Schema({
   name: String,
   username: String,
   tags: { type: [String], index:true },
-  lista1: { type: Number, default: 0 },
-  lista2: { type: Number, default: 0 },
+  lista1: { type: Number, default: 0},
+  lista2: { type: Number, default: 0},
 });
 
-userSchema.statics.setTags  = function (callback){
+userSchema.statics.setTags  = function (callback){ //metodos para definir as keyswords que representam um usuario
   var userFunctions = require('../userFunctions');
   this.find({}).stream()
      .on('data', function(user){
         userFunctions.createTagsField(user.name,user.username,function(err,tags){
           user.set('tags', tags);
+          //user.set('lista1', 0);
+          //user.set('lista2', 0);
           user.save(function (error) {
             if (error) throw error;
           });
@@ -25,7 +27,7 @@ userSchema.statics.setTags  = function (callback){
   .on('end', function() {
       // final callback
       console.log("TERMINEI DE ATUALIZAR");
-      return callback();
+      return callback;
   });
 };
 
@@ -37,7 +39,13 @@ userSchema.statics.setPriorityLists  = function (callback){ //metodo de leitura 
   var arrayIdsAll = [];
   var arrayIds1 = [];
   var arrayIds2 = [];
-  async.parallel([ //leitura dos arquivos lista
+  async.parallel([ //setando valores default no banco e fazendo leitura dos arquivos lista
+    function(cb) {
+      User.update({}, { lista1:0, lista2:0 }, { multi: true },function(err){ //atualiza em mass o indicador de lista de relevancia
+        if (err) return cb(err);
+        return cb();
+      });
+    },
     function(cb) {
       userFunctions.getPriorityLists(lista_relevancia_1,function(err,arrayIds){ //le a primeira lista_relevancia
         if (err) return cb(err);
@@ -77,10 +85,34 @@ userSchema.statics.setPriorityLists  = function (callback){ //metodo de leitura 
       }
     ], function(err) { //terminou a atualizacao dos dados
       if (err) return next(err);
-      return callback();
+      return callback;
     });
   });
 };
+
+userSchema.statics.setDatabase  = function (callback){ //aplica os dois matodos acima de forma serial para indexar o banco
+  var async = require('async');
+  async.series([
+      function(cb) { //setar tags
+        User.setTags(function(err){
+          if (err) return cb(err);
+          return cb();
+        });
+      },
+      function(cb) { //setar listas
+        User.setPriorityLists(function(){
+          if (err) return cb(err);
+          return cb();
+        });
+      }
+  ], function(err) { //banco indexado
+      if (err) return next(err);
+      console.log("BANCO DE DADOS SETADO");
+      return callback();
+  });
+
+};
+
 
 var User = mongoose.model('User', userSchema);
 module.exports = User;
