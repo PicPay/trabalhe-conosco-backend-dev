@@ -38,10 +38,12 @@ userFunctions.prepareDatabase(function (){
 app.get('/', function (req, res) {
   var pathExists = require('path-exists');
   pathExists('index_tags.lock').then(exists => {
-      if(exists) res.render('loadingDataBase');
+    if(exists) {
+      res.render('loadingDataBase');
+    }else{
       res.render('index');
+    }
   });
-
 });
 
 module.exports = app;

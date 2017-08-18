@@ -108,7 +108,7 @@
             -o-animation: loading-text-opacity 2s linear 0s infinite normal;
             -webkit-animation: loading-text-opacity 2s linear 0s infinite normal;
             animation: loading-text-opacity 2s linear 0s infinite normal;
-            color: #ffffff;
+            color: #1dd01d;
             font-family: "Helvetica Neue, "Helvetica", ""arial";
             font-size: 10px;
             font-weight: bold;
