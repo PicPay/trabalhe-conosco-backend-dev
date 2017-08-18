@@ -42,7 +42,8 @@ module.exports = {
     var User = require('./models/user');
     var lockFile = require('lockfile')
     var filename = 'index_tags.lock'
-    async.serial([ //
+    var async = require('async');
+    async.series([ //
       function(cb) {
         lockFile.lock(filename, function (err){ //cria lockfile da indexacao do banco
           if (err) return next(err);
@@ -50,8 +51,8 @@ module.exports = {
         });
       },
       function(cb) { //gera tags, seta listas e indexa no banco
-        if (err) return next(err);
         User.setDatabase(function(callback){
+          if (err) return next(err);
           return cb();
         });
       },
