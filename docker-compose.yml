@@ -24,6 +24,7 @@ services:
      - ./volumes/mongo-seed/:/mongo-seed
     networks:
      - private
+     - public 
     depends_on:
       - "app_mongodb"
     healthcheck:
