@@ -1,0 +1,45 @@
+/* Styles go here */
+
+body{
+  background-color:#f3f3f3;;
+}
+.table-card {
+    margin: 2% 20% 20% 20%;
+}
+
+.buttons-head {
+  text-align: right;
+}
+
+.row {
+  margin: 2px;
+}
+
+.contant{
+	border: 1px solid #c2c2c2;
+  border-radius:4px;
+  background-color: #fff;
+  font-family: arial;
+  font-size: 13pt;
+  margin: 10px ;
+  padding:15px;
+}
+
+.buttons{
+    text-align: right;
+}
+
+.alert-box {
+	padding: 15px;
+    margin-bottom: 0px;
+    border: 1px solid transparent;
+    border-radius: 4px;  
+}
+
+.alert-success {
+  transition: all linear 0.5s;
+  text-align:center;
+}
+.alert-success.ng-hide {
+  opacity: 0;
+}
