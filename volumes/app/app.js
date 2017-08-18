@@ -30,19 +30,18 @@ app.set('view engine', 'ejs');
 var UserController = require('./controllers/userController');
 app.use('/users', UserController);
 
-app.get('/update', function (req, res) {
-  var User = require('./models/user');
-  var lockFile = require('lockfile')
-  lockFile.lock('some-file.lock', function (er) {
-    User.setDatabase(function(callback){
-      lockFile.unlock('some-file.lock', function (er) {});
-    });
-  });
-  res.render('loadingDataBase');
+var userFunctions = require('./userFunctions');
+userFunctions.prepareDatabase(function (){
+  console.log("Banco de dados pronto");
 });
 
 app.get('/', function (req, res) {
-   res.render('index');
+  var pathExists = require('path-exists');
+  pathExists('index_tags.lock').then(exists => {
+      if(exists) res.render('loadingDataBase');
+      res.render('index');
+  });
+
 });
 
 module.exports = app;

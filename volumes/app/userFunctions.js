@@ -37,6 +37,19 @@ module.exports = {
       return callback(null,arrayIds);
     });
   },
+
+  prepareDatabase: function(callback){
+    var User = require('./models/user');
+    var lockFile = require('lockfile')
+    var filename = 'index_tags.lock'
+    lockFile.lock(filename, function (er) {
+      User.setDatabase(function(callback){
+        lockFile.unlock(filename, function (er) {
+          return callback();
+        });
+      });
+    });
+  },
 }
 
 function removeDuplicatesFromArrays(array1,array2,callback){
