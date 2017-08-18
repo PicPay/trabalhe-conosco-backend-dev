@@ -53,7 +53,7 @@ userSchema.statics.setPriorityLists  = function (callback){ //metodo de leitura 
       });
     }
   ], function(err) { //terminou a leitura dos arquivos, hora de inserir no banco
-    if (err) return next(err);
+    if (err) return callback(err);
     var count2 = 0;
     var count1 = 0;
     async.parallel([ //setar variaveis no banco
@@ -76,7 +76,7 @@ userSchema.statics.setPriorityLists  = function (callback){ //metodo de leitura 
         }
       }
     ], function(err) { //terminou a atualizacao dos dados
-      if (err) return next(err);
+      if (err) return callback(err);
       return callback();
     });
   });
@@ -100,7 +100,7 @@ userSchema.statics.setDatabase  = function (callback){ //aplica os dois matodos 
         });
       }
   ], function(err) { //banco indexado
-      if (err) return next(err);
+      if (err) return callback(err);
       console.log("BANCO DE DADOS SETADO");
       return callback();
   });

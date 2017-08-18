@@ -76,38 +76,37 @@ function prepareDatabase(callback){
   var async = require('async');
   async.series([ //
     function(cb) {
-      lockFile.lock(filename, function (err){ //cria lockfile da indexacao do banco
-        if (err) return next(err);
+      lockFile.lock(filename, function (){ //cria lockfile da indexacao do banco
         return cb();
       });
     },
     function(cb) { //gera tags, seta listas e indexa no banco
-      User.setDatabase(function(callback){
-        if (err) return next(err);
+      User.setDatabase(function(err){
+        if (err) return cb(err);
         return cb();
       });
     },
     function(cb) { //libera lockfile
       lockFile.unlock(filename, function (err){
-        if (err) return next(err);
+        if (err) return cb(err);
         return cb();
       });
     },
     function(cb) {
       lockFile.lock('indexed.lock', function (err){ //cria lockfile para indicar que o banco ja foi preparado e nao precisa executar essa funcao novamente
-        if (err) return next(err);
+        if (err) return cb(err);
         return cb();
       });
     }
   ], function(err) { //
-    if (err) return next(err);
+    if (err) return callback(err);
     return callback();
   });
 };
 
 function checkIfDbIsIndexed(callback){
   var pathExists = require('path-exists');
-  pathExists('index_tags.lock').then(exists => {
+  pathExists('indexed.lock').then(exists => {
     if(!exists){ //eh a primeira execucao, o banco nao esta indexado
       prepareDatabase(function (err){
         if (err) return callback(err);
