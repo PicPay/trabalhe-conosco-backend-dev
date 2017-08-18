@@ -10,11 +10,11 @@ import json
 
 class UserList(APIView):
     def post(self, request):
-        json_data = json.loads(request.body) # request.raw_post_data w/ Django < 1.4
+        json_data = json.loads(request.body.decode('utf-8')) 
         try:
             filter = json_data['filter']
         except KeyError:
             HttpResponseServerError("Malformed data!")
-        users = User.objects.filter(Q(nome__contains=filter) | Q(username__contains=filter))
+        users = User.objects.filter(Q(nome__contains=filter) | Q(username__contains=filter)).order_by('-relevancia')
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)

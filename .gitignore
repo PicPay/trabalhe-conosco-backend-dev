@@ -1,0 +1,7 @@
+
+*.pyc
+userFilterAPI/user/migrations/0002_auto_20170818_1411.py
+userFilterAPI/user/migrations/0001_initial.py
+*.sqlite3
+*.csv
+userFilterAPI/db.sqlite3-journal
