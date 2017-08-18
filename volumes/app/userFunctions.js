@@ -1,5 +1,13 @@
 
 module.exports = {
+
+  checkDB: function(callback){
+    checkIfDbIsIndexed(function(err){
+      if (err) return callback(err);
+      return callback();
+    });
+  },
+
   createTagsField: function(name,username,callback){
     var async = require('async');
     async.parallel([ //padronizando as strings de username e user em paralelo
@@ -18,7 +26,7 @@ module.exports = {
         });
       }
     ], function(err) { //terminou de padronizar as duas, insere o field tags no elemento
-      if (err) return next(err);
+      if (err) return callback(err);
       removeDuplicatesFromArrays(name,username,function (err,tags) { //remove elementos repetidos
         return callback(null,tags);
       });
@@ -36,43 +44,7 @@ module.exports = {
     .on('close', function () {
       return callback(null,arrayIds);
     });
-  },
-
-  prepareDatabase: function(callback){
-    var User = require('./models/user');
-    var lockFile = require('lockfile')
-    var filename = 'index_tags.lock'
-    var async = require('async');
-    async.series([ //
-      function(cb) {
-        lockFile.lock(filename, function (err){ //cria lockfile da indexacao do banco
-          if (err) return next(err);
-          return cb();
-        });
-      },
-      function(cb) { //gera tags, seta listas e indexa no banco
-        User.setDatabase(function(callback){
-          if (err) return next(err);
-          return cb();
-        });
-      },
-      function(cb) { //libera lockfile
-        lockFile.unlock(filename, function (err){
-          if (err) return next(err);
-          return cb();
-        });
-      },
-      function(cb) {
-        lockFile.lock('indexed.lock', function (err){ //cria lockfile para indicar que o banco ja foi preparado e nao precisa executar essa funcao novamente
-          if (err) return next(err);
-          return cb();
-        });
-      }
-    ], function(err) { //
-      if (err) return next(err);
-      return callback();
-    });
-  },
+  }
 }
 
 function removeDuplicatesFromArrays(array1,array2,callback){
@@ -95,4 +67,54 @@ function standardizeString (str,callback){
   str = temp;
   delete temp; // discard the variable
   return callback(null,str);
+};
+
+function prepareDatabase(callback){
+  var User = require('./models/user');
+  var lockFile = require('lockfile')
+  var filename = 'index_tags.lock'
+  var async = require('async');
+  async.series([ //
+    function(cb) {
+      lockFile.lock(filename, function (err){ //cria lockfile da indexacao do banco
+        if (err) return next(err);
+        return cb();
+      });
+    },
+    function(cb) { //gera tags, seta listas e indexa no banco
+      User.setDatabase(function(callback){
+        if (err) return next(err);
+        return cb();
+      });
+    },
+    function(cb) { //libera lockfile
+      lockFile.unlock(filename, function (err){
+        if (err) return next(err);
+        return cb();
+      });
+    },
+    function(cb) {
+      lockFile.lock('indexed.lock', function (err){ //cria lockfile para indicar que o banco ja foi preparado e nao precisa executar essa funcao novamente
+        if (err) return next(err);
+        return cb();
+      });
+    }
+  ], function(err) { //
+    if (err) return next(err);
+    return callback();
+  });
+};
+
+function checkIfDbIsIndexed(callback){
+  pathExists('index_tags.lock').then(exists => {
+    if(!exists){ //eh a primeira execucao, o banco nao esta indexado
+      prepareDatabase(function (err){
+        if (err) return callback(err);
+        console.log("Banco de dados pronto");
+        return callback();
+      });
+    }else{ //o banco ja esta indexado, pode executar a aplicacao normalmente
+      return callback();
+    }
+  });
 };

@@ -30,9 +30,11 @@ app.set('view engine', 'ejs');
 var UserController = require('./controllers/userController');
 app.use('/users', UserController);
 
+var pathExists = require('path-exists');
+
 var userFunctions = require('./userFunctions');
-userFunctions.prepareDatabase(function (){
-  console.log("Banco de dados pronto");
+userFunctions.checkDB(function(err){
+  console.log("Banco checado");
 });
 
 app.get('/', function (req, res) {
