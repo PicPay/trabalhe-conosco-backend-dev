@@ -25,7 +25,7 @@ userSchema.statics.setTags  = function (callback){ //metodos para definir as key
   .on('end', function() {
       // final callback
       console.log("TERMINEI DE ATUALIZAR");
-      return callback;
+      return callback();
   });
 };
 
@@ -77,7 +77,7 @@ userSchema.statics.setPriorityLists  = function (callback){ //metodo de leitura 
       }
     ], function(err) { //terminou a atualizacao dos dados
       if (err) return next(err);
-      return callback;
+      return callback();
     });
   });
 };
