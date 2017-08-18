@@ -1,4 +1,4 @@
-version: '3'
+version: '2.1'
 
 services:
   app_web:
@@ -13,6 +13,9 @@ services:
     networks:
       - public
       - private
+    depends_on:
+      mongo-seed:
+        condition: service_healthy
     logging:
      driver: syslog
      options:
@@ -21,12 +24,19 @@ services:
 
   mongo-seed:
     build: ./docker-images/mongo-seed
+    container_name: app_picpay_mongo-seed
     volumes:
      - ./volumes/mongo-seed/:/mongo-seed
-    links:
-      - app_mongodb:db
     networks:
      - private
+    depends_on:
+      - "app_mongodb"
+    healthcheck:
+      test: ["CMD","/healthCheck.sh"]
+      interval: 10s
+      timeout: 5s
+      retries: 1000000
+
     logging:
      driver: syslog
      options:
@@ -53,8 +63,3 @@ networks:
   private:
     internal: true
     driver: bridge
-
-#comando para import
-#mongoimport -d picpay -c users --type csv --file users.csv --fields "id,name,username"
-#db.users.update({},{\$set: {lista1: 0,lista2: 0, tags: []}},{multi:true})
-#db.users.createIndex( { ids: 1, tags: 1 } )
