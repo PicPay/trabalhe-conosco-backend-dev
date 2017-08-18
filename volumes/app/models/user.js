@@ -87,21 +87,18 @@ userSchema.statics.setDatabase  = function (callback){ //aplica os dois matodos 
   async.series([
       function(cb) { //setar tags
         User.setTags(function(err){
-          console.log("TERMINEI DE ATUALIZAR 2 ");
           if (err) return cb(err);
           return cb();
         });
       },
       function(cb) { //setar listas
-        console.log("TERMINEI DE ATUALIZAR 2 ");
-        User.setPriorityLists(function(){
+        User.setPriorityLists(function(err){
           if (err) return cb(err);
           return cb();
         });
       }
   ], function(err) { //banco indexado
       if (err) return callback(err);
-      console.log("BANCO DE DADOS SETADO");
       return callback();
   });
 
