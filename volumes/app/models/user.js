@@ -14,8 +14,6 @@ userSchema.statics.setTags  = function (callback){ //metodos para definir as key
      .on('data', function(user){
         userFunctions.createTagsField(user.name,user.username,function(err,tags){
           user.set('tags', tags);
-          user.set('lista1', 0);
-          user.set('lista2', 0);
           user.save(function (error) {
             if (error) throw error;
           });

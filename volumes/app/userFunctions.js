@@ -42,12 +42,34 @@ module.exports = {
     var User = require('./models/user');
     var lockFile = require('lockfile')
     var filename = 'index_tags.lock'
-    lockFile.lock(filename, function (er) {
-      User.setDatabase(function(callback){
-        lockFile.unlock(filename, function (er) {
-          return callback();
+    async.serial([ //
+      function(cb) {
+        lockFile.lock(filename, function (err){ //cria lockfile da indexacao do banco
+          if (err) return next(err);
+          return cb();
         });
-      });
+      },
+      function(cb) { //gera tags, seta listas e indexa no banco
+        if (err) return next(err);
+        User.setDatabase(function(callback){
+          return cb();
+        });
+      },
+      function(cb) { //libera lockfile
+        lockFile.unlock(filename, function (err){
+          if (err) return next(err);
+          return cb();
+        });
+      },
+      function(cb) {
+        lockFile.lock('indexed.lock', function (err){ //cria lockfile para indicar que o banco ja foi preparado e nao precisa executar essa funcao novamente
+          if (err) return next(err);
+          return cb();
+        });
+      }
+    ], function(err) { //
+      if (err) return next(err);
+      return callback();
     });
   },
 }
