@@ -106,6 +106,7 @@ function prepareDatabase(callback){
 };
 
 function checkIfDbIsIndexed(callback){
+  var pathExists = require('path-exists');
   pathExists('index_tags.lock').then(exists => {
     if(!exists){ //eh a primeira execucao, o banco nao esta indexado
       prepareDatabase(function (err){
