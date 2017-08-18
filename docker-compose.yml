@@ -16,11 +16,6 @@ services:
     depends_on:
       mongo-seed:
         condition: service_healthy
-    logging:
-     driver: syslog
-     options:
-      syslog-facility: daemon
-      tag: APP_PICPAY_WEB
 
   mongo-seed:
     build: ./docker-images/mongo-seed
@@ -37,12 +32,6 @@ services:
       timeout: 5s
       retries: 1000000
 
-    logging:
-     driver: syslog
-     options:
-      syslog-facility: daemon
-      tag: APP_PICPAY_MONGO-SEED
-
   app_mongodb:
     image: mateusvtt/mongo:3.4.6
     restart: always
@@ -51,11 +40,6 @@ services:
      - ./volumes/mongodb:/data/db
     networks:
      - private
-    logging:
-     driver: syslog
-     options:
-      syslog-facility: daemon
-      tag: APP_PICPAY_MONGODB
 
 networks:
   public:
