@@ -19,6 +19,20 @@ services:
       syslog-facility: daemon
       tag: APP_PICPAY_WEB
 
+  mongo-seed:
+    build: ./docker-images/mongo-seed
+    volumes:
+     - ./volumes/mongo-seed/:/mongo-seed
+    links:
+      - app_mongodb:db
+    networks:
+     - private
+    logging:
+     driver: syslog
+     options:
+      syslog-facility: daemon
+      tag: APP_PICPAY_MONGO-SEED
+
   app_mongodb:
     image: mateusvtt/mongo:3.4.6
     restart: always
@@ -42,3 +56,5 @@ networks:
 
 #comando para import
 #mongoimport -d picpay -c users --type csv --file users.csv --fields "id,name,username"
+#db.users.update({},{\$set: {lista1: 0,lista2: 0, tags: []}},{multi:true})
+#db.users.createIndex( { ids: 1, tags: 1 } )
