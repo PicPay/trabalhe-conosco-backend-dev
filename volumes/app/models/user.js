@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var mongoosePaginate = require('mongoose-paginate');
 
 var userSchema = new mongoose.Schema({
-  id: { type: String, unique: true, index:true },
+  id_sec: { type: String, unique: true, index:true },
   name: String,
   username: String,
   tags: { type: [String], index:true },
@@ -63,7 +63,7 @@ userSchema.statics.setPriorityLists  = function (callback){ //metodo de leitura 
     async.parallel([ //setar variaveis no banco
       function(cb) { //setar lista1
         for (var i = 0, len1 = arrayIds1.length; i < len1; i++){ //for mais eficiente, nao le o tamanho do vetor a cada iteracao
-          User.update({id: arrayIds1[i]}, { lista1: 1 }, function(err) {
+          User.update({id_sec: arrayIds1[i]}, { lista1: 1 }, function(err) {
               if (err) return cb(err);
               count1++;
               if(count1 == len1) return cb();//terminou de atualizar todas as entradas para lista1
@@ -72,7 +72,7 @@ userSchema.statics.setPriorityLists  = function (callback){ //metodo de leitura 
       },
       function(cb) { //setar lista2
         for (var j = 0, len2 = arrayIds2.length; j < len2; j++){ //for mais eficiente, nao le o tamanho do vetor a cada iteracao
-          User.update({id: arrayIds2[j]}, { lista2: 1 }, function(err) {
+          User.update({id_sec: arrayIds2[j]}, { lista2: 1 }, function(err) {
               if (err) return cb(err);
               count2++;
               if(count2 == len2) return cb();//terminou de atualizar todas as entradas para lista2

@@ -23,7 +23,7 @@ router.get('/:page/:query', function (req, res) {
   var query = req.params.query;
   query = {tags: query};
   var options = {
-      select:   'id name username lista1 lista2',
+      select:   'id_sec name username lista1 lista2',
       sort:     { lista1: -1,  lista2: -1},
       lean:     true, //Documents returned from queries with the lean option enabled are plain javascript... This is a great option in high-performance read-only scenarios
       page:   page,
