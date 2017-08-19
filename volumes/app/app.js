@@ -30,8 +30,8 @@ app.set('view engine', 'ejs');
 var UserController = require('./controllers/userController');
 app.use('/users', UserController);
 
-var userFunctions = require('./userFunctions');
-userFunctions.checkDB(function(err){
+var dbFunctions = require('./dbFunctions');
+dbFunctions.checkDB(function(err){
   console.log("Banco checado");
 });
 

@@ -1,4 +1,6 @@
 var mongoose = require('mongoose');
+var mongoosePaginate = require('mongoose-paginate');
+
 var userSchema = new mongoose.Schema({
   id: { type: String, unique: true, index:true },
   name: String,
@@ -8,11 +10,13 @@ var userSchema = new mongoose.Schema({
   lista2: { type: Number, default: 0},
 });
 
+userSchema.plugin(mongoosePaginate);
+
 userSchema.statics.setTags  = function (callback){ //metodos para definir as keyswords que representam um usuario
-  var userFunctions = require('../userFunctions');
+  var dbFunctions = require('../dbFunctions');
   this.find({}).stream()
      .on('data', function(user){
-        userFunctions.createTagsField(user.name,user.username,function(err,tags){
+        dbFunctions.createTagsField(user.name,user.username,function(err,tags){
           user.set('tags', tags);
           user.save(function (error) {
             if (error) throw error;
@@ -30,7 +34,7 @@ userSchema.statics.setTags  = function (callback){ //metodos para definir as key
 };
 
 userSchema.statics.setPriorityLists  = function (callback){ //metodo de leitura das listas de relevancia e atualizacao dos documentos no BD
-  var userFunctions = require('../userFunctions');
+  var dbFunctions = require('../dbFunctions');
   var async = require('async');
   var lista_relevancia_1 = './static/files/lista_relevancia_1.txt';
   var lista_relevancia_2 = './static/files/lista_relevancia_2.txt';
@@ -39,14 +43,14 @@ userSchema.statics.setPriorityLists  = function (callback){ //metodo de leitura 
   var arrayIds2 = [];
   async.parallel([ //fazendo leitura dos arquivos lista e inserindo no banco, de acordo com os ids
     function(cb) {
-      userFunctions.getPriorityLists(lista_relevancia_1,function(err,arrayIds){ //le a primeira lista_relevancia
+      dbFunctions.getPriorityLists(lista_relevancia_1,function(err,arrayIds){ //le a primeira lista_relevancia
         if (err) return cb(err);
         arrayIds1=arrayIds;
         return cb();
       });
     },
     function(cb) {
-      userFunctions.getPriorityLists(lista_relevancia_2,function(err,arrayIds){ //le a segunda lista_relevancia
+      dbFunctions.getPriorityLists(lista_relevancia_2,function(err,arrayIds){ //le a segunda lista_relevancia
         if (err) return cb(err);
         arrayIds2=arrayIds;
         return cb();
