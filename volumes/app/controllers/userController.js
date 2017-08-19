@@ -18,10 +18,19 @@ router.post('/', function (req, res) {
   });
 });
 
-router.get('/', function (req, res) {
-  User.find({}, function (err, users) {
-    if (err) return res.status(500).send("There was a problem finding the users.");
-    res.send(users);
+router.get('/:page/:query', function (req, res) {
+  var page = Number(req.params.page);
+  var query = req.params.query;
+  query = {tags: query};
+  var options = {
+      select:   'id name username lista1 lista2',
+      sort:     { lista1: -1,  lista2: -1},
+      lean:     true, //Documents returned from queries with the lean option enabled are plain javascript... This is a great option in high-performance read-only scenarios
+      page:   page,
+      limit:    15
+  };
+  User.paginate(query, options).then(function(result) {
+      res.send(result);
   });
 });
 
@@ -44,15 +53,5 @@ router.put('/:id', function (req, res) {
   User.findByIdAndUpdate(req.params.id, req.body, {new:true}, function (err, user) {
     if (err) return res.status(500).send("There was a problem updating the user.");
     res.status(200).send(user);
-  });
-});
-
-
-router.get('/teste/:id', function (req, res) {
-  User.findById(req.params.id, function (err, user) {
-    user.createTagsField(req.params.id, function (err){
-      if (err) return res.status(500).send("There was a problem deleting the user.");
-      res.status(200).send("User "+ user.name +" was deleted.");
-    });
   });
 });
