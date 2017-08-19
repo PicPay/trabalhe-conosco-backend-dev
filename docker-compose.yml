@@ -5,7 +5,6 @@ services:
     image: mateusvtt/nodejs:6.11.2
     container_name: app_picpay
     hostname: app_picpay
-    restart: always
     volumes:
       - ./volumes/app/:/app
     ports:
@@ -18,13 +17,13 @@ services:
         condition: service_healthy
 
   mongo-seed:
-    build: ./docker-images/mongo-seed
+    image: mateusvtt/mongo-seed
     container_name: app_picpay_mongo-seed
     volumes:
      - ./volumes/mongo-seed/:/mongo-seed
     networks:
      - private
-     - public 
+     - public
     depends_on:
       - "app_mongodb"
     healthcheck:
@@ -35,7 +34,6 @@ services:
 
   app_mongodb:
     image: mateusvtt/mongo:3.4.6
-    restart: always
     container_name: app_picpay_mongodb
     volumes:
      - ./volumes/mongodb:/data/db
