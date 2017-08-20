@@ -1,122 +1,206 @@
 
 /** BEGIN CSS **/
-        @keyframes rotate-loading {
-            0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
-            100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
-        }
+@keyframes rotate-loading {
+  0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
+  100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
+}
 
-        @-moz-keyframes rotate-loading {
-            0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
-            100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
-        }
+@-moz-keyframes rotate-loading {
+  0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
+  100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
+}
 
-        @-webkit-keyframes rotate-loading {
-            0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
-            100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
-        }
+@-webkit-keyframes rotate-loading {
+  0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
+  100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
+}
 
-        @-o-keyframes rotate-loading {
-            0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
-            100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
-        }
+@-o-keyframes rotate-loading {
+  0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
+  100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
+}
 
-        @keyframes rotate-loading {
-            0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
-            100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
-        }
+@keyframes rotate-loading {
+  0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
+  100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
+}
 
-        @-moz-keyframes rotate-loading {
-            0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
-            100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
-        }
+@-moz-keyframes rotate-loading {
+  0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
+  100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
+}
 
-        @-webkit-keyframes rotate-loading {
-            0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
-            100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
-        }
+@-webkit-keyframes rotate-loading {
+  0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
+  100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
+}
 
-        @-o-keyframes rotate-loading {
-            0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
-            100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
-        }
+@-o-keyframes rotate-loading {
+  0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
+  100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
+}
 
-        @keyframes loading-text-opacity {
-            0%  {opacity: 0}
-            20% {opacity: 0}
-            50% {opacity: 1}
-            100%{opacity: 0}
-        }
+@keyframes loading-text-opacity {
+  0%  {opacity: 0}
+  20% {opacity: 0}
+  50% {opacity: 1}
+  100%{opacity: 0}
+}
 
-        @-moz-keyframes loading-text-opacity {
-            0%  {opacity: 0}
-            20% {opacity: 0}
-            50% {opacity: 1}
-            100%{opacity: 0}
-        }
+@-moz-keyframes loading-text-opacity {
+  0%  {opacity: 0}
+  20% {opacity: 0}
+  50% {opacity: 1}
+  100%{opacity: 0}
+}
 
-        @-webkit-keyframes loading-text-opacity {
-            0%  {opacity: 0}
-            20% {opacity: 0}
-            50% {opacity: 1}
-            100%{opacity: 0}
-        }
+@-webkit-keyframes loading-text-opacity {
+  0%  {opacity: 0}
+  20% {opacity: 0}
+  50% {opacity: 1}
+  100%{opacity: 0}
+}
 
-        @-o-keyframes loading-text-opacity {
-            0%  {opacity: 0}
-            20% {opacity: 0}
-            50% {opacity: 1}
-            100%{opacity: 0}
-        }
-        .loading-container,
-        .loading {
-            height: 100px;
-            position: relative;
-            width: 100px;
-            border-radius: 100%;
-        }
+@-o-keyframes loading-text-opacity {
+  0%  {opacity: 0}
+  20% {opacity: 0}
+  50% {opacity: 1}
+  100%{opacity: 0}
+}
+.loading-container,
+.loading {
+  height: 100px;
+  position: relative;
+  width: 100px;
+  border-radius: 100%;
+}
 
 
-        .loading-container { margin: 40px auto }
+.loading-container { margin: 40px auto }
 
-        .loading {
-            border: 2px solid transparent;
-            border-color: transparent #333 transparent #333;
-            -moz-animation: rotate-loading 1.5s linear 0s infinite normal;
-            -moz-transform-origin: 50% 50%;
-            -o-animation: rotate-loading 1.5s linear 0s infinite normal;
-            -o-transform-origin: 50% 50%;
-            -webkit-animation: rotate-loading 1.5s linear 0s infinite normal;
-            -webkit-transform-origin: 50% 50%;
-            animation: rotate-loading 1.5s linear 0s infinite normal;
-            transform-origin: 50% 50%;
-        }
+.loading {
+  border: 2px solid transparent;
+  border-color: transparent #333 transparent #333;
+  -moz-animation: rotate-loading 1.5s linear 0s infinite normal;
+  -moz-transform-origin: 50% 50%;
+  -o-animation: rotate-loading 1.5s linear 0s infinite normal;
+  -o-transform-origin: 50% 50%;
+  -webkit-animation: rotate-loading 1.5s linear 0s infinite normal;
+  -webkit-transform-origin: 50% 50%;
+  animation: rotate-loading 1.5s linear 0s infinite normal;
+  transform-origin: 50% 50%;
+}
 
-        .loading-container:hover .loading {
-            border-color: transparent #E45635 transparent #E45635;
-        }
-        .loading-container:hover .loading,
-        .loading-container .loading {
-            -webkit-transition: all 0.5s ease-in-out;
-            -moz-transition: all 0.5s ease-in-out;
-            -ms-transition: all 0.5s ease-in-out;
-            -o-transition: all 0.5s ease-in-out;
-            transition: all 0.5s ease-in-out;
-        }
+.loading-container:hover .loading {
+  border-color: transparent #E45635 transparent #E45635;
+}
+.loading-container:hover .loading,
+.loading-container .loading {
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
 
-        #loading-text {
-            -moz-animation: loading-text-opacity 2s linear 0s infinite normal;
-            -o-animation: loading-text-opacity 2s linear 0s infinite normal;
-            -webkit-animation: loading-text-opacity 2s linear 0s infinite normal;
-            animation: loading-text-opacity 2s linear 0s infinite normal;
-            color: #1dd01d;
-            font-family: "Helvetica Neue, "Helvetica", ""arial";
-            font-size: 10px;
-            font-weight: bold;
-            margin-top: 45px;
-            opacity: 0;
-            position: absolute;
-            text-align: center;
-            text-transform: uppercase;
-            top: 0;
-            width: 100px;
-        }
+#loading-text {
+  -moz-animation: loading-text-opacity 2s linear 0s infinite normal;
+  -o-animation: loading-text-opacity 2s linear 0s infinite normal;
+  -webkit-animation: loading-text-opacity 2s linear 0s infinite normal;
+  animation: loading-text-opacity 2s linear 0s infinite normal;
+  color: #1dd01d;
+  font-family: "Helvetica Neue, "Helvetica", ""arial";
+  font-size: 10px;
+  font-weight: bold;
+  margin-top: 45px;
+  opacity: 0;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+  top: 0;
+  width: 100px;
+}
+
+
+.bootstrap-tagsinput {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  display: block;
+  padding: 4px 6px;
+  color: #555;
+  vertical-align: middle;
+  border-radius: 4px;
+  border: 5px solid #8FC357;
+  max-width: 100%;
+  line-height: 22px;
+  cursor: text;
+}
+.bootstrap-tagsinput input {
+  border: none;
+  box-shadow: none;
+  outline: none;
+  background-color: transparent;
+  padding: 0 6px;
+  margin: 0;
+  width: auto;
+  max-width: inherit;
+}
+
+.bootstrap-tagsinput .tag {
+  font-size: 15px;
+}
+
+.search {
+  width: 100%;
+  position: relative;
+}
+.search:before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  font-family: 'FontAwesome';
+  content: '\f002';
+  background: #8FC357;
+  text-align: center;
+  color: #fff;
+  border-radius: 5px;
+  -webkit-font-smoothing: subpixel-antialiased;
+  font-smooth: always;
+}
+
+.searchTerm {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  border: 5px solid #8FC357;
+  padding: 5px;
+  height: 40px;
+  border-radius: 5px;
+  outline: none;
+}
+
+.searchButton {
+  position: absolute;
+  top: 10;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  opacity: 0;
+  cursor: pointer;
+}
+.navbar-default {
+  background-color: transparent;
+  border-color: transparent;
+}
+.navbar-header {
+  width: 100%;
+}
+.container-fluid {
+  padding-right: 0;
+  padding-left: 0;
+}

@@ -24,6 +24,7 @@
     "console-stamp": "^0.2.5",
     "ejs": "^2.5.7",
     "express": "^4.15.4",
+    "font-awesome": "^4.7.0",
     "fs": "0.0.1-security",
     "jquery": "^3.2.1",
     "lockfile": "^1.0.3",

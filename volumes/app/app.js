@@ -20,7 +20,10 @@ app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redi
 app.use('/js', express.static(__dirname + '/static/js')); // redirect JS jQuery
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect bootstrap JS
 app.use('/css',express.static(__dirname + '/static/css'));
+app.use('/css', express.static(__dirname + '/node_modules/font-awesome/css'))
 app.use('/fonts', express.static(__dirname + '/node_modules/bootstrap/fonts')); // redirect bootstrap fonts
+app.use('/fonts', express.static(__dirname + '/node_modules/font-awesome/fonts')); // redirect bootstrap fonts
+app.use('/images',express.static(__dirname + '/static/images'));
 
 // set the view engine to ejs
 app.set('views', __dirname + '/views');
