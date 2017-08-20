@@ -1,12 +1,38 @@
-<nav class="navbar navbar-default" role="navigation">
-  <div class="container-fluid">
-
+<div class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
     <div class="navbar-header">
-        <form class="search">
-          <input class="searchTerm" placeholder="Pesquise aqui...">
-          <div class="searchButton"> </div>
-          <div class="searchButton"> </div>
-        </form>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Desafio PicPay</a>
     </div>
+    <div class="navbar-collapse collapse" id="searchbar">
+
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <div id="viewMode" class="btn-group searchType" data-toggle="buttons">
+            <label id="viewGrid" class="btn btn-default active">
+            <input type="radio" name="options" id="option1" value="1" />&amp;&amp;</label>
+            <label id="viewList" class="btn btn-default">
+            <input type="radio" name="options" id="option2" value="0" />| |</label>
+          </div>
+        </li>
+        <li><a href="#logout" data-prevent="">Logout</a></li>
+      </ul>
+
+
+     <form id="searchBarForm" class="navbar-form">
+        <div class="form-group" style="display:inline;">
+          <div class="input-group" style="display:table;">
+            <span class="input-group-addon searchButton" style="width:1%;"><span class="glyphicon glyphicon-search"></span></span>
+            <input class="form-control" id="searchInput" name="search" placeholder="Busque aqui..." autocomplete="off" autofocus="autofocus" type="text">
+          </div>
+        </div>
+        <input type="submit" style="display: none" />
+      </form>
+
+    </div><!--/.nav-collapse -->
   </div>
-</nav>
+</div>

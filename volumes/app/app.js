@@ -44,9 +44,12 @@ app.get('/', function (req, res) {
     if(exists) {
       res.render('loadingDataBase');
     }else{
-      res.render('index2');
+      res.render('index');
     }
   });
+});
+app.get('/login', function (req, res) {
+  res.render('login');
 });
 
 module.exports = app;

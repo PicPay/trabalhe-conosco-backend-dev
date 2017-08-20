@@ -123,24 +123,13 @@
 
 
 .bootstrap-tagsinput {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   display: block;
-  padding: 4px 6px;
-  color: #555;
-  vertical-align: middle;
-  border-radius: 4px;
-  border: 5px solid #8FC357;
-  max-width: 100%;
-  line-height: 22px;
-  cursor: text;
 }
 .bootstrap-tagsinput input {
   border: none;
   box-shadow: none;
   outline: none;
-  background-color: transparent;
+  background-color: white;
   padding: 0 6px;
   margin: 0;
   width: auto;
@@ -151,59 +140,12 @@
   font-size: 15px;
 }
 
-.search {
-  width: 100%;
-  position: relative;
-}
-.search:before {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
-  font-family: 'FontAwesome';
-  content: '\f002';
-  background: #8FC357;
-  text-align: center;
-  color: #fff;
-  border-radius: 5px;
-  -webkit-font-smoothing: subpixel-antialiased;
-  font-smooth: always;
-}
-
-
-.searchTerm {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  width: 100%;
-  border: 5px solid #8FC357;
-  padding: 5px;
-  height: 40px;
-  border-radius: 5px;
-  outline: none;
+.searchType {
+  padding: 8px;
 }
 
 .searchButton {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 40px;
-  height: 40px;
-  opacity: 0;
   cursor: pointer;
-}
-.navbar-default {
-  background-color: transparent;
-  border-color: transparent;
-}
-.navbar-header {
-  width: 100%;
-}
-.container-fluid {
-  padding-right: 0;
-  padding-left: 0;
 }
 
 .btn {
@@ -240,10 +182,13 @@ table {
 table td {
   word-wrap:break-word;
 }
-
+.table tbody tr td {
+    padding: 10px;
+}
 .jumbotron p {
     font-size: 16px;
 }
+
 .fa-spin{
   position: absolute;
   font-size:44px;
@@ -259,4 +204,82 @@ tfoot, thead{
 
 .goToPage{
   cursor: pointer;
+}
+
+
+
+.form-signin
+{
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+.form-signin .form-signin-heading, .form-signin .checkbox
+{
+    margin-bottom: 10px;
+}
+.form-signin .checkbox
+{
+    font-weight: normal;
+}
+.form-signin .form-control
+{
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.form-signin .form-control:focus
+{
+    z-index: 2;
+}
+.form-signin input[type="text"]
+{
+    margin-bottom: -1px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.form-signin input[type="password"]
+{
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.account-wall
+{
+    margin-top: 20px;
+    padding: 40px 0px 20px 0px;
+    background-color: #f7f7f7;
+    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+.login-title
+{
+    color: #555;
+    font-size: 18px;
+    font-weight: 400;
+    display: block;
+}
+.profile-img
+{
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 10px;
+    display: block;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+.need-help
+{
+    margin-top: 10px;
+}
+.new-account
+{
+    display: block;
+    margin-top: 10px;
 }
