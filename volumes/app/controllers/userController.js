@@ -6,7 +6,7 @@ var User = require('../models/user');
 
 module.exports = router;
 
-router.get('/:page/:query', function (req, res) {
+router.get('/api/:page/:query', function (req, res) {
   var page = Number(req.params.page);
   if(page <= 0){
     return res.status(500).send("Pagina deve ser um numero inteiro positivo.");
@@ -22,6 +22,16 @@ router.get('/:page/:query', function (req, res) {
   };
   User.paginate(query, options).then(function(result) {
       res.send(result);
+  });
+});
+
+router.get('/:page/:searchOperator/:tags', function (req, res) { //interface grafica
+  var searchOperator = Number(req.params.searchOperator); //1 eh AND e 0 eh OR
+  var tags = req.params.tags;
+  var page = req.params.page;
+  var dbFunctions = require('../dbFunctions');
+  dbFunctions.searchViaUI(tags,page,searchOperator,function(err,result){
+    res.send(result);
   });
 });
 

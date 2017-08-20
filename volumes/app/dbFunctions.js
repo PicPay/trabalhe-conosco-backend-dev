@@ -53,7 +53,42 @@ module.exports = {
     .on('close', function () {
       return callback(null,arrayIds);
     });
+  },
+
+  searchViaUI: function(tags,page,searchOperator,callback){
+    var User = require('./models/user');
+    tags = tags.toLowerCase(); //coloca em minusculo
+    tags = tags.split(/[ ,./]+/); //remove pontos e espacos e virgula
+    var temp = [];
+    for(let i of tags)
+        i && temp.push(i); // copia os valores nao vazios para um array temporario
+    tags = temp;
+    delete temp;
+    if (searchOperator){ //and
+      var query = { $and: [] };
+      for(var i in tags) {
+          var tag = tags[i];
+          query.$and.push({"tags" : tag});
+      }
+    }else{ //or
+      var query = { $or: [] };
+      for(var i in tags) {
+          var tag = tags[i];
+          query.$or.push({"tags" : tag});
+      }
+    }
+    var options = {
+        select:   'id_sec name username lista1 lista2',
+        sort:     { lista1: -1,  lista2: -1},
+        lean:     true, //Documents returned from queries with the lean option enabled are plain javascript... This is a great option in high-performance read-only scenarios
+        page:   page,
+        limit:    15
+    };
+    User.paginate(query, options).then(function(result) {
+        return callback(null,result);
+    });
   }
+
 }
 
 function removeDuplicatesFromArrays(array1,array2,callback){

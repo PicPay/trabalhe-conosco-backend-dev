@@ -53,6 +53,17 @@ $(function() { //shorthand document.ready function
   $(".bootstrap-tagsinput").addClass("form-control");
   $(".bootstrap-tagsinput").find("input").focus();
 
+/*  $('input').on('keypress', function (event) {
+    var regex = new RegExp("^[a-zA-Z0-9]+$");
+    var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+    if (!regex.test(key)) {
+       event.preventDefault();
+       return false;
+    }
+});
+*/
+
+
 });
 
 function goToPage(page){
@@ -67,14 +78,14 @@ var search = {
     search.ajaxData(page);
   },
   ajaxData : function (page){
-    var searchMode = ($('input[name=options]:checked', '#searchMode').val()); //busca do tipo OR ou AND
+    var searchOperator = ($('input[name=options]:checked', '#searchOperator').val()); //busca do tipo OR ou AND
     var query = $('#searchInput').tagsinput('items');
     if(query != ""){
       $(".user-table thead").empty();
       $(".user-table tbody").empty();
       $(".user-table tfoot").empty();
       $('<i class="fa fa-spinner fa-spin"></i>').appendTo('.user-table thead')
-      var url = "/users/"+page+"/" + query;
+      var url = "/users/"+page+"/"+searchOperator+"/"+query;
       $.getJSON( url, function( result ) {
         $(".user-table thead").empty();
         var users = result.docs;
