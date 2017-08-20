@@ -12,11 +12,11 @@
 
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <div id="viewMode" class="btn-group searchType" data-toggle="buttons">
-            <label id="viewGrid" class="btn btn-default active">
-            <input type="radio" name="options" id="option1" value="1" />&amp;&amp;</label>
-            <label id="viewList" class="btn btn-default">
-            <input type="radio" name="options" id="option2" value="0" />| |</label>
+          <div id="searchMode" class="btn-group searchType" data-toggle="buttons">
+            <label title="Aplica operador AND entre as tags" id="searchAND" class="btn btn-default active">
+            <input type="radio" name="options" checked="checked" value="1" />&amp;&amp;</label>
+            <label title="Aplica operador OR entre as tags" id="searchOR" class="btn btn-default">
+            <input type="radio" name="options" value="0" />| |</label>
           </div>
         </li>
         <li><a href="#logout" data-prevent="">Logout</a></li>
