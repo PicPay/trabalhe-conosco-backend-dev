@@ -186,7 +186,7 @@
 
 .searchButton {
   position: absolute;
-  top: 10;
+  top: 0;
   right: 0;
   width: 40px;
   height: 40px;
@@ -203,4 +203,43 @@
 .container-fluid {
   padding-right: 0;
   padding-left: 0;
+}
+
+.btn {
+  cursor: pointer;
+}
+
+.table tbody tr td {
+  height: 60px;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.table tbody tr input {
+  position: absolute;
+  top: -100px;
+  opacity: 0;
+  transition: top 1s;
+}
+
+.table tbody tr.modify input {
+  top: 10px;
+  opacity: 1;
+}
+
+.table tbody tr.modify p {
+  display: none;
+}
+
+table {
+  border-collapse:collapse;
+  table-layout:fixed;
+}
+table td {
+  word-wrap:break-word;
+}
+
+.jumbotron p {
+    font-size: 16px;
 }

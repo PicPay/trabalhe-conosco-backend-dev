@@ -1,28 +1,88 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <% include head %>
+  <% include head %>
 </head>
 <body class="container">
 
-    <header>
-        <% include header %>
-    </header>
+  <header>
+    <% include header %>
+  </header>
 
-    <main>
-        <div class="jumbotron">
-            <h1>Hello World</h1>
-        </div>
-    </main>
+  <main>
+    <div class="jumbotron">
+      <div class="container">
+        <table class="table user-table table-striped">
+          <thead>
+            <tr>
+              <td>ID</td>
+              <td>Nome</td>
+              <td>Username</td>
+              <td>Listas de Relevancia</td>
+            </tr>
+          </thead>
+          <tbody>
 
-    <footer>
-        <% include footer %>
-    </footer>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <% include footer %>
+  </footer>
 
 </body>
 <script>
 $('.searchTerm').tagsinput({
   confirmKeys: [13, 32, 44]
 });
+
+$('.searchButton').on('click',function(){
+  search.init();
+});
+
+
+var search = {
+  init: function(){
+    search.ajaxData();
+  },
+  ajaxData : function (){
+    var query = $('.searchTerm').tagsinput('items');
+    var url = "/users/1/" + query;
+    $.getJSON( url, function( result ) {
+      var users = result.docs;
+      var total = result.total;
+      var limit = result.limit;
+      var page = result.page;
+      var totalPages = result.pages;
+      $(".user-table tbody").empty();
+      users.forEach(function(user){
+        $(`
+        <tr>
+          <td>
+            <p>${user.id_sec}</p>
+            </td>
+        <td>
+          <p>${user.name}</p>
+        </td>
+        <td>
+          <p>${user.username}</p>
+        </td>
+        <td>
+          <input class="btn btn-success btn-confirm" type="button" value="확인">
+          <p><button class="btn btn-info btn-modify">수정</button></p>
+        </td>
+        </tr>
+        `).appendTo(".user-table tbody");
+      });
+    });
+  },
+
+};
+
+
+
 </script>
 </html>
