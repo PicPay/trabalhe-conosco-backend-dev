@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link href="~/Scripts/Styles/toastr.css" rel="stylesheet" />
+<link href="~/Scripts/Styles/loading-bar.css" rel="stylesheet" />
+<link href="~/Scripts/Styles/site.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/Scripts/Styles/bootstrap-select.min.css">
+<script src="~/Scripts/Resources/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/Resources/bootstrap.min.js"></script>
+<script src="~/Scripts/Resources/angular.js"></script>
+<script src="~/Scripts/Resources/angular-resource.js"></script>
+<script src="~/Scripts/Resources/loading-bar.js"></script>
+<script src="~/Scripts/Resources/toastr.js"></script>
+<script src="~/Scripts/main.js"></script>
+<script src="~/Scripts/Services.js"></script>
+<script src="~/Scripts/Controller.js"></script>
+<script src="~/Scripts/Resources/bootstrap-select.js"></script>
+
+<h1>Users Search</h1>
+<div ng-app="mainApp">
+    <div ng-controller="appCtrl">
+        <form ng-submit="filterData()" ng-controller="appCtrl">
+            <table class="table table-bordered table-condensed">
+                <tr>
+                    <td>Search By:</td>
+                    <td>
+                        <select class="form-control" ng-model="SelectedCriteria" ng-options="S for S in Selectors" ng-init="SelectedCriteria = SelectedCriteria">
+                        </select>
+                    </td>
+                    <td>Enter Search Value:</td>
+                    <td>
+                        <input type="text" ng-model="filterValue" class="form-control" />
+                        <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;" />
+                    </td>
+                </tr>
+            </table>
+                <table class="table table-bordered table-condensed table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Real Name</th>
+                            <th>User Name</th>
+                            <th>Priority</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="user in users">
+                            <td>{{user.Id}}</td>
+                            <td>{{user.Name}}</td>
+                            <td>{{user.Username}}</td>
+                            <td>{{user.Priority}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            <table class="table table-responsive table-condensed">
+                <tr>
+                    <td>
+                        <button type="button" class="btn" id="previousButton" ng-click="PreviousLink()" ng-hide="hidePrevious()">Previous</button>
+                        <button type="button" class="btn" id="nextButton" ng-click="NextLink()" ng-hide="hideNext()">Next</button>
+                    </td>
+                </tr>            
+            </table>
+
+                <span>{{Message}}</span>
+
+        </form>
+    </div>
+</div>
+
