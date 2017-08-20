@@ -14,7 +14,7 @@ userSchema.plugin(mongoosePaginate);
 
 userSchema.statics.setTags  = function (callback){ //metodos para definir as keyswords que representam um usuario
   var dbFunctions = require('../dbFunctions');
-  this.find({}).stream()
+  this.find({}).cursor()
      .on('data', function(user){
         dbFunctions.createTagsField(user.name,user.username,function(err,tags){
           user.set('tags', tags);

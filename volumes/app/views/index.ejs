@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="pt-br">
 <head>
   <% include head %>
 </head>
+<%if ( typeof user !== 'undefined' && user ){%>
 <body class="container">
-
   <header>
     <% include header %>
   </header>
@@ -33,6 +34,7 @@
   </footer>
 
 </body>
+
 <script>
 
 $(function() { //shorthand document.ready function
@@ -52,17 +54,6 @@ $(function() { //shorthand document.ready function
 
   $(".bootstrap-tagsinput").addClass("form-control");
   $(".bootstrap-tagsinput").find("input").focus();
-
-/*  $('input').on('keypress', function (event) {
-    var regex = new RegExp("^[a-zA-Z0-9]+$");
-    var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
-    if (!regex.test(key)) {
-       event.preventDefault();
-       return false;
-    }
-});
-*/
-
 
 });
 
@@ -157,8 +148,10 @@ var search = {
   },
 
 };
-
-
-
 </script>
+<%}else{%>
+  <script>
+    window.location.replace("/account/login");
+  </script>
+<%}%>
 </html>

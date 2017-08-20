@@ -1,10 +1,31 @@
 var express = require('express');
 var app = express();
 var db = require('./db');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 
 //logger
 var logger = require('morgan');
 app.use(logger('dev'));
+
+//passport (auth)
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(require('express-session')({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+var Account = require('./models/account');
+passport.use(new LocalStrategy(Account.authenticate()));
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
 
 //setando favicon
 var favicon = require('serve-favicon');
@@ -33,6 +54,9 @@ app.set('view engine', 'ejs');
 var UserController = require('./controllers/userController');
 app.use('/users', UserController);
 
+var accountController = require('./controllers/accountController');
+app.use('/account', accountController);
+
 var dbFunctions = require('./dbFunctions');
 dbFunctions.checkDB(function(err){
   console.log("Banco de dados pronto.");
@@ -44,12 +68,9 @@ app.get('/', function (req, res) {
     if(exists) {
       res.render('loadingDataBase');
     }else{
-      res.render('index');
+      res.render('index', { user : req.user });
     }
   });
-});
-app.get('/login', function (req, res) {
-  res.render('login');
 });
 
 module.exports = app;
