@@ -89,9 +89,9 @@ var search = {
       $.getJSON( url, function( result ) {
         $(".user-table thead").empty();
         var users = result.docs;
-        var total = result.total;
-        var limit = result.limit;
-        var page = result.page;
+        var total = Number(result.total);
+        var limit = Number(result.limit);
+        var page = Number(result.page);
         var nextPage = page + 1;
         var nextNextPage = page + 2;
         var nextPageButton = page + 3;
