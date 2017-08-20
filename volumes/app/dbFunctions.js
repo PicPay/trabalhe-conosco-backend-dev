@@ -2,10 +2,19 @@
 module.exports = {
 
   checkDB: function(callback){
-    checkIfDbIsIndexed(function(err){
-      if (err) return callback(err);
-      return callback();
-    });
+      var pathExists = require('path-exists');
+      pathExists('indexed.lock').then(exists => {
+        if(!exists){ //eh a primeira execucao, o banco nao esta indexado
+          console.log("Primeira execução, indexando banco de dados...");
+          prepareDatabase(function (err){
+            if (err) return callback(err);
+            console.log("Banco de dados pronto.");
+            return callback();
+          });
+        }else{ //o banco ja esta indexado, pode executar a aplicacao normalmente
+          return callback();
+        }
+      });
   },
 
   createTagsField: function(name,username,callback){
@@ -101,20 +110,5 @@ function prepareDatabase(callback){
   ], function(err) { //
     if (err) return callback(err);
     return callback();
-  });
-};
-
-function checkIfDbIsIndexed(callback){
-  var pathExists = require('path-exists');
-  pathExists('indexed.lock').then(exists => {
-    if(!exists){ //eh a primeira execucao, o banco nao esta indexado
-      prepareDatabase(function (err){
-        if (err) return callback(err);
-        console.log("Banco de dados pronto");
-        return callback();
-      });
-    }else{ //o banco ja esta indexado, pode executar a aplicacao normalmente
-      return callback();
-    }
   });
 };

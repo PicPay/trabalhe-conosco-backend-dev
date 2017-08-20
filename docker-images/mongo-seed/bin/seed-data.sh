@@ -10,7 +10,7 @@ if [[ ! -f /dataimport.lock && ! -f /mongo-seed/dataimport.lock ]]; then #so exe
   fi
   mongoimport --host app_mongodb --db picpay --collection users --type csv --file /mongo-seed/users.csv --fields "id_sec,name,username"
   mongo app_mongodb/picpay --eval "db.users.update({},{\$set: { lista1: 0, lista2: 0 }},{ multi:true })" #cria compo de lista de relevancia
-  mongo app_mongodb/picpay --eval "db.users.createIndex( { id: 1 } )"  #indexa valores de id e tags
+  mongo app_mongodb/picpay --eval "db.users.createIndex( { id_sec: 1 } )"  #indexa valores de id e tags
   touch /dataimport.lock #criando lock para nao executar novamente
   touch /mongo-seed/dataimport.lock #criando lock para nao executar novamente
   rm /import.lock #terminou de importar

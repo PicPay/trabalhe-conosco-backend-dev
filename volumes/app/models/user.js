@@ -28,7 +28,6 @@ userSchema.statics.setTags  = function (callback){ //metodos para definir as key
   })
   .on('end', function() {
       // final callback
-      console.log("TERMINEI DE ATUALIZAR");
       return callback();
   });
 };
@@ -90,14 +89,18 @@ userSchema.statics.setDatabase  = function (callback){ //aplica os dois matodos 
   var async = require('async');
   async.series([
       function(cb) { //setar tags
+        console.log("Gerando keywords de usuários...");
         User.setTags(function(err){
           if (err) return cb(err);
+          console.log("Keywords geradas e indexadas.");
           return cb();
         });
       },
       function(cb) { //setar listas
+        console.log("Lendo arquivos de lista de relevância...");
         User.setPriorityLists(function(err){
           if (err) return cb(err);
+          console.log("Informações de lista de relevância inseridas.");
           return cb();
         });
       }
@@ -105,9 +108,7 @@ userSchema.statics.setDatabase  = function (callback){ //aplica os dois matodos 
       if (err) return callback(err);
       return callback();
   });
-
 };
-
 
 var User = mongoose.model('User', userSchema);
 module.exports = User;

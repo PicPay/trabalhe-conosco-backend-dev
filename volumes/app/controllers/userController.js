@@ -8,9 +8,11 @@ module.exports = router;
 
 router.post('/', function (req, res) {
   User.create({
-    id:   req.body.id,
+    id_sec:   req.body.id_sec,
     name : req.body.name,
     username : req.body.username,
+    lista1 : req.body.lista1,
+    lista2 : req.body.lista2,
   },
   function (err, user) {
     if (err) return res.status(500).send("There was a problem adding the information to the database.");
