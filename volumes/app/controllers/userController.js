@@ -22,6 +22,9 @@ router.post('/', function (req, res) {
 
 router.get('/:page/:query', function (req, res) {
   var page = Number(req.params.page);
+  if(page <= 0){
+    return res.status(500).send("Pagina deve ser um numero inteiro positivo.");
+  }
   var query = req.params.query;
   query = {tags: query};
   var options = {

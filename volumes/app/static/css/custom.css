@@ -172,6 +172,7 @@
   font-smooth: always;
 }
 
+
 .searchTerm {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -254,4 +255,8 @@ table td {
 
 tfoot, thead{
   background-color: #d4e8bd;
+}
+
+.goToPage{
+  cursor: pointer;
 }

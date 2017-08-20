@@ -34,6 +34,18 @@
 
 </body>
 <script>
+
+function goToPage(page){
+  if (page == null){ //foi passado via input
+    var page = $('#pageTarget').val();
+  }
+  $(".user-table thead").empty();
+  $(".user-table tbody").empty();
+  $(".user-table tfoot").empty();
+  $('<i class="fa fa-spinner fa-spin"></i>').appendTo('.user-table thead')
+  search.init(page);
+}
+
 $('.searchTerm').tagsinput({
   confirmKeys: [13, 32, 44]
 });
@@ -46,14 +58,14 @@ $('.searchButton').on('click',function(){
   search.init(1);
 });
 
+
 var search = {
   init: function(page){
     search.ajaxData(page);
   },
   ajaxData : function (page){
-    alert(page);
     var query = $('.searchTerm').tagsinput('items');
-    var url = "/users/1/" + query;
+    var url = "/users/"+page+"/" + query;
     $.getJSON( url, function( result ) {
       $(".user-table thead").empty();
       var users = result.docs;
@@ -61,7 +73,7 @@ var search = {
       var limit = result.limit;
       var page = result.page;
       var nextPage = page + 1;
-      var previousPage = page - 1;
+      var nextNextPage = page + 2;
       var pages = result.pages;
       $(`<tr>
         <th><b>ID</b></td>
@@ -88,19 +100,20 @@ var search = {
         </tr>
         `).appendTo(".user-table tbody");
       });
+
           $(`<tr>
             <td><b id="usuarios">`+total+` usuário(s) encontrados</b></td>
             <td><b id="paginas">`+pages+` página(s)</b></td>
             <td><ul class="pagination pagination-sm right">
               <li class="disabled"><a href="#">&laquo;</a></li>
-              <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-              <li><a href="#">2 </a></li>
-              <li><a href="#">3 </a></li>
+              <li class="active goToPage" onclick="goToPage(`+page+`);"><a>`+page+`<span class="sr-only">(current)</span></a></li>
+              <li class="goToPage" onclick="goToPage(`+nextPage+`);"><a>`+nextPage+`</a></li>
+              <li class="goToPage" onclick="goToPage(`+nextNextPage+`);"><a>`+nextNextPage+`</a></li>
               <li><a href="#">&raquo;</a></li>
             </ul></td>
-            <td> <div class="input-group col-sm-4">
-              <input type="number" min=0 class="form-control" id="inlineFormInputGroup" >
-              <div title="Pular para página" class="input-group-addon"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></div>
+            <td> <div class="input-group col-sm-7">
+              <input type="Number" min=1 id="pageTarget" class="form-control" placeholder="`+page+`" >
+              <div title="Pular para página" class="input-group-addon goToPage"  onclick="goToPage();"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></div>
 
             </div> </td>
           </tr>`).appendTo(".user-table tfoot");
