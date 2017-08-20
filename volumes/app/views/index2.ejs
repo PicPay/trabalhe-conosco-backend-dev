@@ -16,9 +16,13 @@
           <thead>
 
           </thead>
+          <tfoot>
+
+          </tfoot>
           <tbody>
 
           </tbody>
+
         </table>
       </div>
     </div>
@@ -36,16 +40,18 @@ $('.searchTerm').tagsinput({
 
 $('.searchButton').on('click',function(){
   $(".user-table thead").empty();
+  $(".user-table tbody").empty();
+  $(".user-table tfoot").empty();
   $('<i class="fa fa-spinner fa-spin"></i>').appendTo('.user-table thead')
-  search.init();
+  search.init(1);
 });
 
-
 var search = {
-  init: function(){
-    search.ajaxData();
+  init: function(page){
+    search.ajaxData(page);
   },
-  ajaxData : function (){
+  ajaxData : function (page){
+    alert(page);
     var query = $('.searchTerm').tagsinput('items');
     var url = "/users/1/" + query;
     $.getJSON( url, function( result ) {
@@ -54,14 +60,15 @@ var search = {
       var total = result.total;
       var limit = result.limit;
       var page = result.page;
-      var totalPages = result.pages;
+      var nextPage = page + 1;
+      var previousPage = page - 1;
+      var pages = result.pages;
       $(`<tr>
-        <td><b>ID</b></td>
-        <td><b>Nome</b></td>
-        <td><b>Username</b></td>
-        <td><b>Listas de Relevancia</b></td>
+        <th><b>ID</b></td>
+        <th><b>Nome</b></td>
+        <th><b>Username</b></td>
+        <th><b>Listas de Relevancia</b></td>
       </tr>`).appendTo(".user-table thead");
-      $(".user-table tbody").empty();
       users.forEach(function(user){
         $(`
         <tr>
@@ -81,6 +88,22 @@ var search = {
         </tr>
         `).appendTo(".user-table tbody");
       });
+          $(`<tr>
+            <td><b id="usuarios">`+total+` usuário(s) encontrados</b></td>
+            <td><b id="paginas">`+pages+` página(s)</b></td>
+            <td><ul class="pagination pagination-sm right">
+              <li class="disabled"><a href="#">&laquo;</a></li>
+              <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+              <li><a href="#">2 </a></li>
+              <li><a href="#">3 </a></li>
+              <li><a href="#">&raquo;</a></li>
+            </ul></td>
+            <td> <div class="input-group col-sm-4">
+              <input type="number" min=0 class="form-control" id="inlineFormInputGroup" >
+              <div title="Pular para página" class="input-group-addon"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></div>
+
+            </div> </td>
+          </tr>`).appendTo(".user-table tfoot");
     });
   },
 

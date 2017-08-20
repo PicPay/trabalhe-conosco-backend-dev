@@ -243,3 +243,15 @@ table td {
 .jumbotron p {
     font-size: 16px;
 }
+.fa-spin{
+  position: absolute;
+  font-size:44px;
+  left: 50%;
+}
+.pagination {
+  margin: 0;
+}
+
+tfoot, thead{
+  background-color: #d4e8bd;
+}

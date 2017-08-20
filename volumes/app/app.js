@@ -35,7 +35,7 @@ app.use('/users', UserController);
 
 var dbFunctions = require('./dbFunctions');
 dbFunctions.checkDB(function(err){
-  console.log("Banco checado");
+  console.log("Banco de dados pronto.");
 });
 
 app.get('/', function (req, res) {
@@ -44,7 +44,7 @@ app.get('/', function (req, res) {
     if(exists) {
       res.render('loadingDataBase');
     }else{
-      res.render('index');
+      res.render('index2');
     }
   });
 });
