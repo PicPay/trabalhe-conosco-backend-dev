@@ -1,0 +1,4 @@
+volumes/mongodb
+volumes/app/node_modules
+volumes/mongo-seed/users.csv*
+*.lock

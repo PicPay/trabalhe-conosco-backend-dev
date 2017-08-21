@@ -1,0 +1,48 @@
+version: '2.1'
+
+services:
+  app_web:
+    image: mateusvtt/nodejs:6.11.2
+    container_name: app_picpay
+    hostname: app_picpay
+    volumes:
+      - ./volumes/app/:/app
+    ports:
+      - "3000:80"
+    networks:
+      - public
+      - private
+    depends_on:
+      mongo-seed:
+        condition: service_healthy
+
+  mongo-seed:
+    image: mateusvtt/mongo-seed
+    container_name: app_picpay_mongo-seed
+    volumes:
+     - ./volumes/mongo-seed/:/mongo-seed
+    networks:
+     - private
+     - public
+    depends_on:
+      - "app_mongodb"
+    healthcheck:
+      test: ["CMD","/healthCheck.sh"]
+      interval: 10s
+      timeout: 5s
+      retries: 1000000
+
+  app_mongodb:
+    image: mateusvtt/mongo:3.4.6
+    container_name: app_picpay_mongodb
+    volumes:
+     - ./volumes/mongodb:/data/db
+    networks:
+     - private
+
+networks:
+  public:
+    driver: bridge
+  private:
+    internal: true
+    driver: bridge

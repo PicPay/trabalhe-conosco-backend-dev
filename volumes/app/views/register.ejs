@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <% include head %>
+</head>
+<body class="container">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-md-4 col-md-offset-4">
+            <h1 class="text-center login-title">Criar conta</h1>
+            <div class="account-wall">
+                <img class="profile-img" src="/images/register.png"
+                    alt="">
+                <form class="form-signin" method="post" action="register">
+                  <input type="text" name="name" class="form-control" placeholder="Nome" required autofocus>
+                  <input type="text" name="username" class="form-control" placeholder="Email" required autofocus>
+                  <input type="password" name="password" class="form-control" placeholder="Password" required>
+                  <button class="btn btn-lg btn-primary btn-block" type="submit">
+                    Registrar-se</button>
+                <a href="#" class="pull-right need-help">Ajuda? </a><span class="clearfix"></span>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+  <footer>
+    <% include footer %>
+  </footer>
+</body>

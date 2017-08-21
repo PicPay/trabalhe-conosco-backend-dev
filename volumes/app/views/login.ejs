@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <% include head %>
+</head>
+<body class="container">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-md-4 col-md-offset-4">
+            <h1 class="text-center login-title">Faça login para acessar o Desafio PicPay</h1>
+            <div class="account-wall">
+                <img class="profile-img" src="/images/login.png"
+                    alt="">
+                <form action="login", method="post" class="form-signin">
+                  <input type="text" name="username" class="form-control" placeholder="Email" required autofocus>
+                  <input type="password" name="password" class="form-control" placeholder="Password" required>
+                  <button class="btn btn-lg btn-primary btn-block" type="submit">
+                      Entrar</button>
+                  <label class="checkbox pull-left">
+                      <input type="checkbox" value="remember-me">
+                      Lembrar-me
+                  </label>
+                  <a href="#" class="pull-right need-help">Ajuda? </a><span class="clearfix"></span>
+                </form>
+            </div>
+            <a href="register" class="text-center new-account">Criar uma conta </a>
+        </div>
+    </div>
+</div>
+
+  <footer>
+    <% include footer %>
+  </footer>
+</body>

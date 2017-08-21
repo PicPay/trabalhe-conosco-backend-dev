@@ -1,0 +1,29 @@
+version: '2.1'
+
+services:
+  app_web:
+    image: mateusvtt/nodejs:6.11.2
+    container_name: app_picpay
+    hostname: app_picpay
+    volumes:
+      - ./volumes/app/:/app
+    ports:
+      - "3000:80"
+    networks:
+      - public
+      - private
+    depends_on:
+      - app_mongodb
+
+  app_mongodb:
+    image: mateusvtt/mongo_populated
+    container_name: app_picpay_mongodb
+    networks:
+     - private
+
+networks:
+  public:
+    driver: bridge
+  private:
+    internal: true
+    driver: bridge

@@ -1,0 +1,286 @@
+
+/** BEGIN CSS **/
+@keyframes rotate-loading {
+  0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
+  100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
+}
+
+@-moz-keyframes rotate-loading {
+  0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
+  100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
+}
+
+@-webkit-keyframes rotate-loading {
+  0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
+  100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
+}
+
+@-o-keyframes rotate-loading {
+  0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
+  100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
+}
+
+@keyframes rotate-loading {
+  0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
+  100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
+}
+
+@-moz-keyframes rotate-loading {
+  0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
+  100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
+}
+
+@-webkit-keyframes rotate-loading {
+  0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
+  100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
+}
+
+@-o-keyframes rotate-loading {
+  0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
+  100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
+}
+
+@keyframes loading-text-opacity {
+  0%  {opacity: 0}
+  20% {opacity: 0}
+  50% {opacity: 1}
+  100%{opacity: 0}
+}
+
+@-moz-keyframes loading-text-opacity {
+  0%  {opacity: 0}
+  20% {opacity: 0}
+  50% {opacity: 1}
+  100%{opacity: 0}
+}
+
+@-webkit-keyframes loading-text-opacity {
+  0%  {opacity: 0}
+  20% {opacity: 0}
+  50% {opacity: 1}
+  100%{opacity: 0}
+}
+
+@-o-keyframes loading-text-opacity {
+  0%  {opacity: 0}
+  20% {opacity: 0}
+  50% {opacity: 1}
+  100%{opacity: 0}
+}
+.loading-container,
+.loading {
+  height: 100px;
+  position: relative;
+  width: 100px;
+  border-radius: 100%;
+}
+
+
+.loading-container { margin: 40px auto }
+
+.loading {
+  border: 2px solid transparent;
+  border-color: transparent #333 transparent #333;
+  -moz-animation: rotate-loading 1.5s linear 0s infinite normal;
+  -moz-transform-origin: 50% 50%;
+  -o-animation: rotate-loading 1.5s linear 0s infinite normal;
+  -o-transform-origin: 50% 50%;
+  -webkit-animation: rotate-loading 1.5s linear 0s infinite normal;
+  -webkit-transform-origin: 50% 50%;
+  animation: rotate-loading 1.5s linear 0s infinite normal;
+  transform-origin: 50% 50%;
+}
+
+.loading-container:hover .loading {
+  border-color: transparent #E45635 transparent #E45635;
+}
+.loading-container:hover .loading,
+.loading-container .loading {
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+
+#loading-text {
+  -moz-animation: loading-text-opacity 2s linear 0s infinite normal;
+  -o-animation: loading-text-opacity 2s linear 0s infinite normal;
+  -webkit-animation: loading-text-opacity 2s linear 0s infinite normal;
+  animation: loading-text-opacity 2s linear 0s infinite normal;
+  color: #1dd01d;
+  font-family: "Helvetica Neue, "Helvetica", ""arial";
+  font-size: 10px;
+  font-weight: bold;
+  margin-top: 45px;
+  opacity: 0;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+  top: 0;
+  width: 100px;
+}
+
+
+.bootstrap-tagsinput {
+  display: block;
+}
+
+.bootstrap-tagsinput input {
+  border: none;
+  box-shadow: none;
+  outline: none;
+  background-color: white;
+  padding: 0 6px;
+  margin: 0;
+  width: auto;
+  max-width: inherit;
+}
+
+.bootstrap-tagsinput .tag {
+  font-size: 15px;
+}
+
+.searchType {
+  padding: 8px;
+}
+
+.searchButton {
+  cursor: pointer;
+}
+
+.btn {
+  cursor: pointer;
+}
+
+.table tbody tr td {
+  height: 60px;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.table tbody tr input {
+  position: absolute;
+  top: -100px;
+  opacity: 0;
+  transition: top 1s;
+}
+
+.table tbody tr.modify input {
+  top: 10px;
+  opacity: 1;
+}
+
+.table tbody tr.modify p {
+  display: none;
+}
+
+table {
+  border-collapse:collapse;
+  table-layout:fixed;
+}
+table td {
+  word-wrap:break-word;
+}
+.table tbody tr td {
+    padding: 10px;
+}
+.jumbotron p {
+    font-size: 16px;
+}
+
+.fa-spin{
+  position: absolute;
+  font-size:44px;
+  left: 50%;
+}
+.pagination {
+  margin: 0;
+}
+
+tfoot, thead{
+  background-color: #d4e8bd;
+}
+
+.goToPage{
+  cursor: pointer;
+}
+
+
+
+.form-signin
+{
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+.form-signin .form-signin-heading, .form-signin .checkbox
+{
+    margin-bottom: 10px;
+}
+.form-signin .checkbox
+{
+    font-weight: normal;
+}
+.form-signin .form-control
+{
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.form-signin .form-control:focus
+{
+    z-index: 2;
+}
+.form-signin input[type="text"]
+{
+    margin-bottom: -1px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.form-signin input[type="password"]
+{
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.account-wall
+{
+    margin-top: 20px;
+    padding: 40px 0px 20px 0px;
+    background-color: #f7f7f7;
+    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+.login-title
+{
+    color: #555;
+    font-size: 18px;
+    font-weight: 400;
+    display: block;
+}
+.profile-img
+{
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 10px;
+    display: block;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+.need-help
+{
+    margin-top: 10px;
+}
+.new-account
+{
+    display: block;
+    margin-top: 10px;
+}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+<head>
+  <% include head %>
+</head>
+<%if ( typeof user !== 'undefined' && user ){%>
+<body class="container">
+  <header>
+    <% include header %>
+    <script src="/js/searchFunctions.js"></script>
+  </header>
+
+  <main>
+    <div class="jumbotron">
+      <div class="container">
+        <table class="table user-table table-striped">
+          <thead>
+
+          </thead>
+          <tfoot>
+
+          </tfoot>
+          <tbody>
+
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <% include footer %>
+  </footer>
+
+</body>
+
+<%}else{%>
+  <script>
+    window.location.replace("/account/login");
+  </script>
+<%}%>
+</html>

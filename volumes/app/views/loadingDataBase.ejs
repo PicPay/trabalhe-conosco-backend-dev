@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <% include head %>
+</head>
+<body class="container">
+
+    <header>
+        <% include header_without_searchbar %>
+    </header>
+
+<main>
+  <p>Preparando banco de dados.</p>
+  <div class="loading-container">
+    <div class="loading"></div>
+    <div id="loading-text">indexando</div>
+</div>
+
+</main>
+
+<script>
+  setTimeout(function(){
+    window.location.reload(1);
+  }, 60000);
+</script>
+<footer>
+    <% include footer %>
+</footer>
+
+</body>
+</html>
