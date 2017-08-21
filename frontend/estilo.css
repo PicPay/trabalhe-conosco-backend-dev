@@ -1,0 +1,38 @@
+body 
+{
+	background-color: #FFFFFF; 
+	font: 10pt Verdana, Sans-serif;
+}
+
+#titulo
+{
+	font-size: 14pt;
+}
+
+#filtro 
+{
+    background-color: #EEEEEE; 
+	padding: 10px;
+}
+
+#divControle 
+{
+	background-color: #EEEEEE;
+	padding: 10px;
+}
+
+table#resultados tr:nth-child(even) 
+{
+	background-color: #EEEEEE;
+}
+
+table#resultados tr:nth-child(odd) 
+{
+	background-color:#FFFFFF;
+}
+
+table#resultados th 
+{
+	background-color: #38B0DE;
+	color: white;
+}

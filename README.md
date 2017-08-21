@@ -1,3 +1,29 @@
+# Teste Backend
+
+### Tecnologias
+
+Minha solução foi desenvolvida usando PHP com banco de dados MySQL no backend e no frontend utilizando HTML, JavaScript/JQuery e CSS. 
+Procurei resolver o problema da forma mais simples, utilizando tecnologias conhecidas por mim.
+
+###### Imagem da aplicação
+
+![APP](http://i.imgur.com/PJzSMqW.png)
+
+-----
+
+### Diferenciais explorados
+
+#### Autenticação 
+Para autenticar o cliente, utilizei a estratégia de Token. 
+1. Quando o cliente entra na página principal a API fornece um Token e o mantem vivo. 
+2. Em toda requisição de pesquisa a API o Token é passado como um dos parâmetros.
+3. No servidor é verificado se o Token ainda está vivo.
+
+#### Performance
+Para aumentar a performance das consultas realizadas no banco MySQL foi criada uma chave FULLTEXT entre com os campos Nome e Username da tabela de usuários. Na pesquisa foi utilizado a clausula WHERE comandos como MATCH e AGAINST.
+
+
+
 ![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
 
 # Teste Backend
