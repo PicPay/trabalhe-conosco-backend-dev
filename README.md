@@ -40,12 +40,12 @@ Ou através do Makefile:
 make docker_run
 ```
 #### NetInstall
-Esse processo é o mais demorado, entretanto segue as boas práticas, baixando as imagens nativas, e fazendo todos downloads necessários (users.csv e bibliotecas JS), importação e indexação de banco de dados. Os dados persistentes ficam mapeados em voluemes e somente o necessário é versionado, tornando a aplicação enxuta.
+Esse processo é o mais demorado, entretanto segue as boas práticas de DevOps, baixando as imagens nativas e fazendo todos downloads necessários (users.csv e bibliotecas JS), importação e indexação de banco de dados. Os dados persistentes ficam mapeados em voluemes e somente o necessário é versionado, tornando a aplicação enxuta.
 
 ```
 make full_install
 ```
-Único pré-requisito para a instalação completa funcionar é que o users.csv.gz ainda esteja hospedado no link fornecido. A aplicação fará download do mesmo e eralizará a importação.
+Único pré-requisito para a instalação completa funcionar é que o users.csv.gz ainda esteja hospedado no link fornecido. A aplicação fará download do mesmo, descompactará e realizará a importação.
 
 *Caso preferir, é possível também deixar o arquivo disponível em ./volumes/mongo-seed/users.csv (esse diretório é gerado pelo container mongo-seed, se a aplicação não foi iniciada ainda, ele não existirá, mas o usuário pode criá-lo sem problemas). Também é aceito o arquivo compactado no formato .gz.*
 
