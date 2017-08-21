@@ -6,7 +6,10 @@
 Uma aplicação Node.js RESTful com MongoDB .
 Essas instruções fornecerão uma cópia do projeto em funcionamento em sua máquina local para fins de desenvolvimento e teste.
 
-A aplicação está dockerizada, possui uma interface com usuário (responsiva), autenticação e ,para otimização dos resultados, inseriu-se um novo campo no banco de dados, contendo as keywords extraídas de cada usuário.
+A aplicação está dockerizada, possui uma interface com usuário (responsiva), autenticação. Para otimização dos resultados, inseriu-se um novo campo no banco de dados, contendo as keywords extraídas de cada usuário, definidas por uma lista de strings. Segundo a documentação do MongoDB, essa solução apresentaria um bom desempenho para uma quantidade de grande de dados.
+
+Definiu-se que os delimitadores de keywords seriam apenas '.'(ponto) e ' ' (espaço em branco). Removee-se as keywords que seriam repetidas, antes da inserção no banco, por exemplo: name: Joao Silva Santos, username:joao.silvasantos, para esse usuário as keyword são ["joao","silva","santos","silvasantos"].
+
 ### Prerequisites
 Esta aplicação foi homologada utilizando as versões:
 ```
@@ -28,7 +31,7 @@ make easy_install
 
 Caso não queria  utilizar o docker-compose, é possivel subir a aplicação de maneira rápida, através dos dois comandos abaixo:
 ```
-docker run --name app_mongodb mateusvtt/mongo_populated
+docker run -d --name app_mongodb mateusvtt/mongo_populated
 docker run -d --name app_web -p 3000:80 --link app_mongodb mateusvtt/nodejs-ready
 ```
 Ou através do Makefile:
@@ -52,7 +55,7 @@ Fim de indexação das keywords, abrirá a tela de login:
 
 Antes de executar a API, caso esteja utilizando a versão que faz todo processo de instalação, certifique-se que a indexação foi concluída. Através  da url http://localhost:3000 , caso seja redirecionado para a tela de login, tanto a API quanto a aplicação web já estarão prontas pra uso. Também é possível realizar essa checagem, coferindo se o arquivo indexed.lock foi criado em ./volumes/app. Caso ele não esteja, haverá o arquivo index_tags.lock, no mesmo diretório, que indica que o processo está em andamento.
 
-Para realizar consultas por meio da api, utilize a serguinte url: http://localhost:3000/users/api/<pagina>/<query>
+Para realizar consultas por meio da api, utilize a serguinte url: http://localhost:3000/users/api/\<pagina\>/\<query\>
 
 Como foi solicitado que fossem mostrados apenas 15 elementos por resposta, a variavel 'pagina' serve para indicar a página desejada.
 ```
@@ -70,13 +73,15 @@ Em 'docs' estarão a lista de objetos encontrados, com nome, username, id e list
 
 Embora seja criado um campo no BD chamado tags para indexação das keyowords, optou-se por não retorná-los na API.
 
-O atributo 'total' representa a quantidade de usuários encontrados, 'limit' é o limite da paginação, 'page' a página atual e 'pages' a quantidade total de páginas para o determinado limite.
+O atributo 'total' representa a quantidade de usuários encontrados, 'limit' é o limite da paginação, 'page' a página atual e 'pages' a quantidade total de páginas para o determinado limite. Os demais são os identificadores inseridos pelo MongoDB.
 
 ## Interface WEB
-Assim que o usário já tiver sido cadastrado ele se torna apto a realizar uscas via browser.
+Assim que o usário já tiver sido cadastrado ele se torna apto a realizar buscas via navegador.
+
 http://localhost:3000
+
 A interface oferece a opção de aplicar o operador AND nas palavras inseridas, e também o operador OR.
-Basta inserir as palavras que se deseja buscar e separá-las utilizando espaço.
+Basta inserir as palavras que se deseja buscar e separá-las utilizando espaço que a tag irá aparecer.
 
 Exmplo: Buscar usuários que satisfazem as palavras João e José
 
