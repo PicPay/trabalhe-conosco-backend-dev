@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { NgcPaginationModel } from 'ngc-pagination';
 
 import { Pagination } from './../../domain/pagination';
 import { UserService } from './../../services/user.service';
@@ -20,7 +18,6 @@ export class UserComponent implements OnInit {
   hasNext: boolean;
   preloader: boolean;
 
-  private paginationConfig: BehaviorSubject<NgcPaginationModel>;
   pagination: Pagination[] = [];
   users: User[]= [];
 
