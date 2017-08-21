@@ -23,13 +23,14 @@ Foram definidos dois métodos de deploy:
    - Instalação rápida. Imagens Docker serão baixadas com o banco de dados já incluso e indexado, pronto pra uso.
    - Instação completa. Neste processo, serão gerados os containers da aplicação web e do bd. Um container intermediário fará o download do arquivo users.csv e alimentará o container de BD, que por sua vez fará a indexação dos dados para otimizar a busca. Tanto a aplicação quanto o BD terão seus dados persistentes armazenados em volumes. Este modo pode levar um tempo considerável para ser instalado, dependendo do hardware (Testei em 3 máquinas diferentes que apresentaram os tempos  de ~40min, ~1h10min e ~2h). Vale ressaltar que esse processo só ocorrerá na PRIMEIRA execução, após isso, o tempo de deploy é irrelevante.
 
+#### Fast deploy
 
 Instação rápida:
 ```
 make easy_install
 ```
 
-Caso não queria  utilizar o docker-compose, é possivel subir a aplicação de maneira rápida, através dos dois comandos abaixo:
+Caso não queria  utilizar o docker-compose, é possivel subir a aplicação de maneira rápida (volumes de BD e web já inclusos), através dos dois comandos abaixo:
 ```
 docker run -d --name app_mongodb mateusvtt/mongo_populated
 docker run -d --name app_web -p 3000:80 --link app_mongodb mateusvtt/nodejs-ready
@@ -38,14 +39,15 @@ Ou através do Makefile:
 ```
 make docker_run
 ```
-Instalação completa:
+#### NetInstall
+Esse processo é o mais demorado, entretanto segue as boas práticas, baixando as imagens nativas, e fazendo todos downloads necessários (users.csv e bibliotecas JS), importação e indexação de banco de dados. Os dados persistentes ficam mapeados em voluemes e somente o necessário é versionado, tornando a aplicação enxuta.
+
 ```
 make full_install
 ```
 Único pré-requisito para a instalação completa funcionar é que o users.csv.gz ainda esteja hospedado no link fornecido. A aplicação fará download do mesmo e eralizará a importação.
 
-*obs
-Caso preferir, é possível também deixar o arquivo disponível em ./volumes/mongo-seed/users.csv (esse diretório é gerado pelo container mongo-seed, se a aplicação não foi iniciada ainda, ele não existirá, mas o usuário pode criá-lo sem problemas). Também é aceito o arquivo compactado no formato .gz.*
+*Caso preferir, é possível também deixar o arquivo disponível em ./volumes/mongo-seed/users.csv (esse diretório é gerado pelo container mongo-seed, se a aplicação não foi iniciada ainda, ele não existirá, mas o usuário pode criá-lo sem problemas). Também é aceito o arquivo compactado no formato .gz.*
 
 Durante o processo de instalação completa, na inicialização, o container web irá aguardar o container de alimentação do banco de dados (mongo-seed). Terminando a importação, a aplicação já ficará disponível na porta 3000. Porém, agora é a vez do container de BD analisar os dados e indexá-los para otimização dos resultados. A aplicação indicará que esse processo está e execução, por meio de tela de loading. Ao fim desta etapa, a mesma ficará 100% disponível e o usuário será redirecionado para a página de login.
 
