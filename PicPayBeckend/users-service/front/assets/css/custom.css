@@ -250,4 +250,27 @@ border-radius: 0px;
    
 }
 
+.loader {
+    border: 7px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 7px solid rgba(99, 85, 85, 0.28);
+    border-right: 7px solid rgba(99, 85, 85, 0.28);
+    border-bottom: 7px solid rgba(99, 85, 85, 0.28);
+    border-left: 7px solid rgba(12, 206, 35, 0.88);
+    width: 30px;
+    height: 30px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 

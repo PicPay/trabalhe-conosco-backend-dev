@@ -1,15 +1,14 @@
-//  repository.js
-//
-// 
-//Exporta uma unica funcao - 'conectar', que retorna
-//um repositorio conectado. Ligue para 'desconectar' nesse objeto quando terminar.
+/*
+* Classe responsável por fazer requisição diretamente ao banco.
+*
+* author: Gustavo Grimaldi Campello
+* since: 16/08/2017
+*/
+
 'use strict';
 
 var mysql = require('mysql');
 
-
-// Classe que contem uma conexão aberta a um repositorio
-// e expoe algumas funções simples para acessar dados.
 class Repository {  
   constructor(connection) {
     this.connection = connection;
@@ -18,7 +17,7 @@ class Repository {
   getUsers(key,page) {
     return new Promise((resolve, reject) => {
 
-      this.connection.query('SELECT id, name, username FROM users WHERE name LIKE "%'+ key +'%" or username LIKE "%'+ key +'%" ORDER BY name LIMIT ' + page*15+',15;', (err, results) => {
+      this.connection.query('SELECT id, name, username FROM users WHERE name LIKE "%'+ key +'%" or username LIKE "%'+ key +'%" ORDER BY UPPER(name) LIMIT ' + page*15+',15;', (err, results) => {
         if(err) {
           return reject(new Error("Ocorreu um erro ao retornar usuarios: " + err));
         }
@@ -35,37 +34,14 @@ class Repository {
     });
   }
 
-  getUserByEmail(email) {
-
-    return new Promise((resolve, reject) => {
-
-      //  Fetch the customer.
-      this.connection.query('SELECT email, phone_number FROM directory WHERE email = ?', [email], (err, results) => {
-
-        if(err) {
-          return reject(new Error("Ocorreu um erro ao retornar usuario: " + err));
-        }
-
-        if(results.length === 0) {
-          resolve(undefined);
-        } else {
-          resolve({
-            email: results[0].email,
-            phone_number: results[0].phone_number
-          });
-        }
-
-      });
-
-    });
-  }
-
   disconnect() {
     this.connection.end();
   }
 }
 
-//  Uma e única função exportada, retorna um repo conectado.
+/*
+* Verifica os parametros passados para conecao
+*/
 module.exports.connect = (connectionSettings) => {  
   return new Promise((resolve, reject) => {
     if(!connectionSettings.host) throw new Error("A host must be specified.");

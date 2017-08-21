@@ -23,25 +23,28 @@ priority_2 = loadFile('../extradata/lista_relevancia_2.txt');
 /*
 * Funcao para carregar arquivos
 */
-function loadFile(filePath){
- var data =  fs.readFileSync(path.join(__dirname,filePath), 'utf8');
-  return data.toString().split("\n");
+function loadFile(filePath) {
+    var data = fs.readFileSync(path.join(__dirname, filePath), 'utf8');
+    return data.toString().split("\n");
 }
 
 /*
 * Ordena o vetor com base no id e as listas de prioridade;
 */
-function compare(a, b) {
-  if (priority_1.indexOf(a.id) > -1 &&  priority_1.indexOf(b.id) <= -1 ) {
-      return 1;
-  } else if (priority_1.indexOf(b.id) > -1 &&  priority_1.indexOf(a.id) <= -1 ) {
-      return -1;
-  }else if(priority_2.indexOf(a.id) > -1 &&  priority_2.indexOf(b.id) <= -1 ) {
-      return 1;
-  }else if(priority_2.indexOf(b.id) > -1 &&  priority_2.indexOf(a.id) <= -1 ) {
-      return -1;
-  }
-  return 0;
+function compare(users) {
+    var array1 = [];
+    var array2 = [];
+    var array3 = [];
+    for (var element in users) {
+        if (priority_1.indexOf(users[element].id) > -1) {
+            array1.push(users[element]);
+        } else if (priority_2.indexOf(users[element].id) > -1) {
+            array2.push(users[element]);
+        } else {
+            array3.push(users[element]);
+        }
+    }
+    return array1.concat(array2).concat(array3);
 }
 
 /*
@@ -49,24 +52,25 @@ function compare(a, b) {
 */
 module.exports = (app, options) => {
 
-  app.get('/users', (req, res, next) => {
-    var key = req.query.key;
-    if(!key){
-        key ='';
-    }
-    var page = req.query.page;
-    if(!page){
-        page = 0;
-    }
-    options.repository.getUsers(key, page).then((users) => {
-      users.sort(compare);
-      res.status(200).send(users.map((user) => { return {
-            id: user.id,
-            name: user.name,
-            username: user.username
-        };
-      }));
-    })
-    .catch(next);
-  });
+    app.get('/users', (req, res, next) => {
+        var key = req.query.key;
+        if (!key) {
+            key = '';
+        }
+        var page = req.query.page;
+        if (!page) {
+            page = 0;
+        }
+        options.repository.getUsers(key, page).then((users) => {
+            users = compare(users);
+            res.status(200).send(users.map((user) => {
+                return {
+                    id: user.id,
+                    name: user.name,
+                    username: user.username
+                };
+            }));
+        })
+            .catch(next);
+    });
 };
