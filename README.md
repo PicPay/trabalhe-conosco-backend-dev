@@ -28,35 +28,29 @@ make easy_install
 
 Caso não queria  utilizar o docker-compose, é possivel subir a aplicação de maneira rápida, através dos dois comandos abaixo:
 ```
-docker run \
-    -d \
-    --name app_picpay-mongoodb \
-    mateusvtt/mongo_populated
-
-    docker run \
-        -d \
-        --name app_picpay-web \
-        -p 3000:80 \
-        --link app_picpay-mongoodb \
-        mateusvtt/nodejs-ready
+docker run --name app_mongodb mateusvtt/mongo_populated
+docker run -d --name app_web -p 3000:80 --link app_mongodb mateusvtt/nodejs-ready
+```
+Ou através do Makefile:
+```
+make docker_run
 ```
 Instalação completa:
 ```
 make full_install
 ```
-Durante o processo de instalação completa, na inicialização, o container web irá aguardar o container de alimentação do banco de dados (mongo-seeed). Terminando a importação a aplicação já ficará disponível na porta 3000. Porém, agora é a vez do container de BD analisar os dados e indexá-los para otimização dos resultados. A aplicação indicará que esse processo está e execução, por meio de tela de loading. Ao fim desta etapa, a mesma ficará 100% disponível e o usuário será redirecionado para a página de login.
+Durante o processo de instalação completa, na inicialização, o container web irá aguardar o container de alimentação do banco de dados (mongo-seed). Terminando a importação, a aplicação já ficará disponível na porta 3000. Porém, agora é a vez do container de BD analisar os dados e indexá-los para otimização dos resultados. A aplicação indicará que esse processo está e execução, por meio de tela de loading. Ao fim desta etapa, a mesma ficará 100% disponível e o usuário será redirecionado para a página de login.
 
-Ao fim da importação a aplicação fica disponível:
+Ao fim da importação já é possível acessar a aplicação pela url http://localhost:3000 . Essa página tem um auto-refresh, assim que o BD estiver preparado o usuário será redirecionado:
 ![loading_page](https://image.ibb.co/m8FVu5/Screenshot_from_2017_08_21_00_22_14.png)
 
 Fim de indexação das keywords, abrirá a tela de login:
-
 
 ![login_page](https://image.ibb.co/mAZOE5/Screenshot_from_2017_08_21_00_15_14.png)
 
 ## API
 
-Antes de executar a API, caso esteja utilizando a versão que faz todo processo de instalação, certifuqe-se que a indexação foi concluída. Através  da url http://localhost:3000 , caso seja redirecionado para a tela de login, tanto a API quanto a aplicação web já estarão prontas pra uso. Também é possível realizar essa checagem, coferindo se o arquivo indexed.lock foi criado em ./volumes/app. Caso ele não esteja, haverá o arquivo index_tags.lock, no mesmo diretório, que indica que o processo ainda não terminou.
+Antes de executar a API, caso esteja utilizando a versão que faz todo processo de instalação, certifique-se que a indexação foi concluída. Através  da url http://localhost:3000 , caso seja redirecionado para a tela de login, tanto a API quanto a aplicação web já estarão prontas pra uso. Também é possível realizar essa checagem, coferindo se o arquivo indexed.lock foi criado em ./volumes/app. Caso ele não esteja, haverá o arquivo index_tags.lock, no mesmo diretório, que indica que o processo está em andamento.
 
 Para realizar consultas por meio da api, utilize a serguinte url: http://localhost:3000/users/api/<pagina>/<query>
 
