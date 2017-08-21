@@ -8,7 +8,7 @@ Essas instruções fornecerão uma cópia do projeto em funcionamento em sua má
 
 A aplicação está dockerizada, possui uma interface com usuário (responsiva), autenticação. Para otimização dos resultados, inseriu-se um novo campo no banco de dados, contendo as keywords extraídas de cada usuário, definidas por uma lista de strings. Segundo a documentação do MongoDB, essa solução apresentaria um bom desempenho para uma quantidade de grande de dados.
 
-Definiu-se que os delimitadores de keywords seriam apenas '.'(ponto) e ' ' (espaço em branco). Removee-se as keywords que seriam repetidas, antes da inserção no banco, por exemplo: name: Joao Silva Santos, username:joao.silvasantos, para esse usuário as keyword são ["joao","silva","santos","silvasantos"].
+Definiu-se que os delimitadores de keywords seriam apenas '.'(ponto) e ' ' (espaço em branco). Removeu-se as keywords que seriam repetidas, antes da inserção no banco, por exemplo: name: Joao Silva Santos, username:joao.silvasantos, para esse usuário as keyword são ["joao","silva","santos","silvasantos"].
 
 ### Prerequisites
 Esta aplicação foi homologada utilizando as versões:
@@ -42,6 +42,11 @@ Instalação completa:
 ```
 make full_install
 ```
+Único pré-requisito para a instalação completa funcionar é que o users.csv.gz ainda esteja hospedado no link fornecido. A aplicação fará download do mesmo e eralizará a importação.
+
+*obs
+Caso preferir, é possível também deixar o arquivo disponível em ./volumes/mongo-seed/users.csv (esse diretório é gerado pelo container mongo-seed, se a aplicação não foi iniciada ainda, ele não existirá, mas o usuário pode criá-lo sem problemas). Também é aceito o arquivo compactado no formato .gz.*
+
 Durante o processo de instalação completa, na inicialização, o container web irá aguardar o container de alimentação do banco de dados (mongo-seed). Terminando a importação, a aplicação já ficará disponível na porta 3000. Porém, agora é a vez do container de BD analisar os dados e indexá-los para otimização dos resultados. A aplicação indicará que esse processo está e execução, por meio de tela de loading. Ao fim desta etapa, a mesma ficará 100% disponível e o usuário será redirecionado para a página de login.
 
 Ao fim da importação já é possível acessar a aplicação pela url http://localhost:3000 . Essa página tem um auto-refresh, assim que o BD estiver preparado o usuário será redirecionado:
