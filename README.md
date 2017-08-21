@@ -1,3 +1,20 @@
+# Tecnologias Escolhidas
+
+Como critério, escolhi tecnologias que gostaria de aprender a utilizar (para o caso de não conseguir a vaga, pelo menos aprendi coisas novas =D).
+A IDE utilizada foi o VS2017 Community e o banco de dados SQL Server Express.
+
+Modelagem de dados utilizando Entity Framework.
+Para a API REST utilizei o padrão OData, que facilita a paginação realizada pelo backend.
+No frontend utilizei Asp.net e Angular.
+
+Levei cerca de 10 horas para montar essa solução, levando em conta que utilizei tecnologias que não conhecia.
+
+# Demonstração:
+![PicPayChallenge](http://i.imgur.com/47eT8Bs.gif)
+
+Script para criação do banco de dados se encontra na pasta "Database Script" na raiz do projeto.
+A lista de prioridade está implementada diretamente no banco de dados, para melhorar a performance da solução.
+
 ![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
 
 # Teste Backend
