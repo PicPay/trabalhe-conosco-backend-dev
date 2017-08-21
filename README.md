@@ -26,11 +26,8 @@ Foram definidos dois métodos de deploy:
 #### Fast deploy
 
 Instação rápida:
-```
-make easy_install
-```
 
-Caso não queria  utilizar o docker-compose, é possivel subir a aplicação de maneira rápida (volumes de BD e web já inclusos), através dos dois comandos abaixo:
+É possivel subir a aplicação de maneira rápida (volumes de BD e web já inclusos), através dos dois comandos abaixo:
 ```
 docker run -d --name app_mongodb mateusvtt/mongo_populated
 docker run -d --name app_web -p 3000:80 --link app_mongodb mateusvtt/nodejs-ready
@@ -39,6 +36,11 @@ Ou através do Makefile:
 ```
 make docker_run
 ```
+Caso queria utilizar o docker-compose,
+```
+make easy_install
+```
+
 #### NetInstall
 Esse processo é o mais demorado, entretanto segue as boas práticas de DevOps, baixando as imagens nativas e fazendo todos downloads necessários (users.csv e bibliotecas JS), importação e indexação de banco de dados. Os dados persistentes ficam mapeados em voluemes e somente o necessário é versionado, tornando a aplicação enxuta.
 
