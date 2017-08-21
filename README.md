@@ -6,7 +6,7 @@
 Uma aplicação Node.js RESTful com MongoDB .
 Essas instruções fornecerão uma cópia do projeto em funcionamento em sua máquina local para fins de desenvolvimento e teste.
 
-A aplicação está dockerizada, possui uma interface com usuário (responsiva), autenticação. Para otimização dos resultados, inseriu-se um novo campo no banco de dados, contendo as keywords extraídas de cada usuário, definidas por uma lista de strings. Segundo a documentação do MongoDB, essa solução apresentaria um bom desempenho para uma quantidade de grande de dados.
+A aplicação está dockerizada, possui uma interface com usuário (responsiva) e autenticação. Para otimização dos resultados, inseriu-se um novo campo no banco de dados, contendo as keywords extraídas de cada usuário, definidas por uma lista de strings. Segundo a documentação do MongoDB, essa solução apresentaria um bom desempenho para uma quantidade de grande de dados.
 
 Definiu-se que os delimitadores de keywords seriam apenas '.'(ponto) e ' ' (espaço em branco). Removeu-se as keywords que seriam repetidas, antes da inserção no banco, por exemplo: name: Joao Silva Santos, username:joao.silvasantos, para esse usuário as keyword são ["joao","silva","santos","silvasantos"].
 
@@ -42,7 +42,7 @@ make easy_install
 ```
 
 #### NetInstall
-Esse processo é o mais demorado, entretanto segue as boas práticas de DevOps, baixando as imagens nativas e fazendo todos downloads necessários (users.csv e bibliotecas JS), importação e indexação de banco de dados. Os dados persistentes ficam mapeados em voluemes e somente o necessário é versionado, tornando a aplicação enxuta.
+Esse processo é o mais demorado, entretanto segue as boas práticas de DevOps, baixando as imagens nativas e fazendo todos downloads necessários (users.csv e bibliotecas JS), importação e indexação de banco de dados. Os dados persistentes ficam mapeados em volumes e somente o necessário é versionado, tornando a aplicação enxuta.
 
 ```
 make full_install
