@@ -1,0 +1,17 @@
+<!--Cabeçalho-->
+<div class="row">
+<nav>
+  <div class="nav-wrapper light-blue darken-4">
+    <div *ngIf="autUser">
+      <ul id="nav-mobile" class="left hide-on-med-and-down ">
+      <li routerLinkActive="active"><a routerLink="/home">Início</a></li>
+      <li routerLinkActive="active"><a routerLink="/user">Usuários</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</div>
+<!--Cabeçalho-->
+<div class="container row">
+<router-outlet></router-outlet>
+</div>
