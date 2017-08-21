@@ -12,8 +12,8 @@ Levei cerca de 10 horas para montar essa solução, levando em conta que utilize
 # Demonstração:
 ![PicPayChallenge](http://i.imgur.com/47eT8Bs.gif)
 
-
 Script para criação do banco de dados se encontra na pasta "Database Script" na raiz do projeto.
+A lista de prioridade está implementada diretamente no banco de dados, para melhorar a performance da solução.
 
 ![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
 
