@@ -10,7 +10,7 @@
     </header>
 
 <main>
-  <p>Preparando banco de dados. Caso seja a primeira execução da aplicação, isso pode levar algum tempo...</p>
+  <p>Preparando banco de dados.</p>
   <div class="loading-container">
     <div class="loading"></div>
     <div id="loading-text">indexando</div>
@@ -18,6 +18,11 @@
 
 </main>
 
+<script>
+  setTimeout(function(){
+    window.location.reload(1);
+  }, 60000);
+</script>
 <footer>
     <% include footer %>
 </footer>

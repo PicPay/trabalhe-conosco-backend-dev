@@ -1,35 +1,79 @@
 ![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
 
-# Teste Backend
+# Desafio back-end PicPay
 
-O desafio é criar uma API REST que busca usuarios pelo nome e username a partir de uma palavra chave. Faça o download do arquivo [users.csv.gz](https://s3.amazonaws.com/careers-picpay/users.csv.gz) que contém o banco de dados que deve ser usado na busca. Ele contém os IDs, nomes e usernames dos usuários.
+## Getting Started
+Uma aplicação Node.js RESTful com MongoDB .
+Essas instruções fornecerão uma cópia do projeto em funcionamento em sua máquina local para fins de desenvolvimento e teste.
 
-###### Exemplo
-| ID                                   | Nome              | Username             |
-|--------------------------------------|-------------------|----------------------|
-| 065d8403-8a8f-484d-b602-9138ff7dedcf | Wadson marcia     | wadson.marcia        |
-| 5761be9e-3e27-4be8-87bc-5455db08408  | Kylton Saura      | kylton.saura         |
-| ef735189-105d-4784-8e2d-c8abb07e72d3 | Edmundo Cassemiro | edmundo.cassemiro    |
-| aaa40f4e-da26-42ee-b707-cb81e00610d5 | Raimundira M      | raimundiram          |
-| 51ba0961-8d5b-47be-bcb4-54633a567a99 | Pricila Kilder    | pricilakilderitaliani|
+A aplicação está dockerizada, possui uma interface com usuário (responsiva), autenticação e para otimização dos resultados inseriu-se um novo campo no banco de dados, contendo as keywords extraídas de cada usuário.
+### Prerequisites
+Esta aplicação foi homologada utilizando as versões:
+```
+Docker version 17.05.0-ce, build 89658be
+docker-compose version 1.14.0, build c7bdf9e
+```
+
+### Installing
+
+Foram definidos dois métodos de deploy:
+   - Instalação rápida. Imagens Docker serão baixadas com o banco de dados já incluso e indexado, pronto pra uso.
+   - Instação completa. Neste processo, serão gerados os containers da aplicação web e do bd. Um container intermediário fará o download do arquivo users.csv e alimentará o container de BD, que por sua vez fará a indexação dos dados para otimizar a busca. Tanto a aplicação quanto o BD terão seus dados persistentes armazenados em volumes. Este modo pode levar algum tempo para ser instalado, dependendo do hardware. ~ 30 - 60 min. Vale ressaltar que esse processo só ocorrerá na PRIMEIRA execução, após isso, o tempo de deploy é irrelevante.
 
 
+Instação rápida:
+```
+make easy_install
+```
 
-Também são fornecidas duas listas de usuários que devem ser utilizadas para priorizar os resultados da busca. A lista 1 tem mais prioridade que a lista 2. Ou seja, se dois usuarios casam com os criterios de busca, aquele que está na lista 1 deverá ser exibido primeiro em relação àquele que está na lista 2. Os que não estão em nenhuma das listas são exibidos em seguida.
+Instalação completa:
+```
+make full_install
+```
+Durante o processo de instalação completa, na inicialização, o container web irá aguardar o container de alimentação do banco de dados (mongo-seeed). Terminando a importação a aplicação já ficará disponível na porta 3000. Porém, agora é a vez do container de BD analisar os dados e indexá-los para otimização dos resultados. A aplicação indicará que esse processo está e execução, por meio de tela de loading. Ao fim desta etapa, a mesma ficará 100% disponível e o usuário será redirecionado para a página de login.
 
-As listas podem ser encontradas na raiz deste repositório ([lista_relevancia_1.txt](lista_relevancia_1.txt) e [lista_relevancia_2.txt](lista_relevancia_2.txt)).
-Os resultados devem ser retornados paginados de 15 em 15 registros.
+Ao fim da importação a aplicação fica disponível:
+![loading_page](https://image.ibb.co/mY4945/Screenshot_from_2017_08_20_21_31_01.png)
 
-Escolha as tecnologias que você vai usar e tente montar uma solução completa para rodar a aplicação.
+Fim de indexação das keywords:
+![login_page](https://image.ibb.co/hnmQBk/Screenshot_from_2017_08_20_21_52_45.png)
 
-Faça um fork deste repositório e abra um pull request para participar.
+## API
 
------
+Confira se a indexação já foi concluída, através pagina da url http://localhost:3000 , caso seja redirecionado para a tela de login, tanto a API quanto a aplicação web há estarão prontas pra uso. Também é possível realizar essa checagem, coferindo se o arquivo indexed.lock foi criado em ./volumes/app. Caso ele não esteja, haverá o arquivo index_tags.lock, no mesmo diretório, que indica que o processo ainda não terminou.
 
-### Diferenciais
+Para realizar consultas por meio da api, utilize a serguinte url: http://localhost:3000/users/api/<pagina>/<query>
 
-- Criar um frontend para realizar a busca com uma UX elaborada
-- Criar uma solução de autenticação entre o frontend e o backend
-- Ter um desempenho elevado num conjunto de dados muito grande
-- Utilizar o Docker
+Como foi solicitado que fossem mostrados apenas 15 elementos por resposta, a variavel 'pagina' serve para indicar a página desejada.
+```
+http://localhost:3000/users/api/1/joao
 
+Resposta:
+
+
+```
+![api_page](https://image.ibb.co/bPstxQ/Screenshot_from_2017_08_20_21_59_46.png)
+
+
+A resposta obedece o formato {docs:[],total:x,limit:15,page:y,pages:z}
+Em 'docs' estarão a lista de objetos encontrados, com nome, username, id e lista1 e lista2 que indicam se determinado usuário pertence a uma lista de relevância.
+
+Embora seja criado um campo no BD chamado tags, para indexação das keyowords, optou-se por não retorná-los na API.
+
+Os demais dados: 'total' representa a quantidade de usuários encontrados, 'limit' é o limite da paginação, 'page' a página atual e 'pages' a quantidade total de páginas para o determinado limite.
+
+## Interface WEB
+Assim que o usário já tiver sido cadastrado ele se torna apto a realizar uscas via browser.
+http://localhost:3000
+A interface oferece a opção de aplicar o operador AND nas palavras inseridas, e também o operador OR.
+Basta inserir as palavras que se deseja buscar e separá-las utilizando espaço.
+
+Exmplo: Buscar usuários que satisfazem as palavras João e José
+
+![search_page](https://image.ibb.co/fGkGj5/Screenshot_from_2017_08_20_21_31_45.png)
+
+No rodapé da tabela é possível pular para uma determinada página. Basta inserir o número no campo de input e clicar no avião.
+
+As listas de relevância dão prioridade as buscas, tanto na api quanto na interface. A lista1 tem preferência em relação a lista2. Na imagem abaixo foram combinadas 3 tags com o operador OU e podemos observar os indicadores de listas:
+
+![search2_page](https://image.ibb.co/kW8SP5/Screenshot_from_2017_08_20_21_45_39.png)
