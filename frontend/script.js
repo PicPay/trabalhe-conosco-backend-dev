@@ -1,16 +1,32 @@
-var user = angular.module('user', ['ui.router', 'ngAnimate']);
-var userCtrl = function(users, $scope, $http, $filter, $timeout) {
-  $scope.users = users;
+angular.module('app', ['ui.router', 'ngAnimate'])
+.controller("userCtrl", function( $scope, $http, $filter, $timeout, UserService) {
+  $scope.users = [];
+  $scope.filter = {"filter":""};
   $scope.sort = {       
-    sortingOrder : 'id',
-    reverse : false
+    sortingOrder : 'relevancia',
+    reverse : true
   };
+
+  $scope.searchUser = function () {
+    return UserService.getUsers($scope.filter).then(
+      function successCallback(response) {
+        console.log(response.data);
+        $scope.users= response.data;
+        $scope.search();
+      }, 
+      function errorCallback(response) {
+        console.log("ERROR!!!!");
+      }
+    );  
+  };
+
   $scope.gap = 3;
   $scope.filteredItems = [];
   $scope.groupedItems = [];
-  $scope.itemsPerPage = 10;
+  $scope.itemsPerPage = 15;
   $scope.pagedItems = [];
-  $scope.currentPage = 0;   
+  $scope.currentPage = 0;  
+   
   //pagination functions
   var searchMatch = function (haystack, needle) {
     if (!needle) {
@@ -75,9 +91,9 @@ var userCtrl = function(users, $scope, $http, $filter, $timeout) {
   $scope.setPage = function () {
     $scope.currentPage = this.n;
   };
-  $scope.search();
-};
-user.directive("customSort", function() {
+  $scope.searchUser();
+})
+.directive("customSort", function() {
   return {
     restrict: 'A',
     transclude: true,    
@@ -108,16 +124,16 @@ user.directive("customSort", function() {
       };      
     }
   };
-});
-user.service('UserService', function($http){
-  function getUsers() {
-    return $http.get( 'http://localhost:8000/users');
+})
+.service('UserService', function($http){
+  function getUsers(filter) {
+    console.log(filter);
+    return $http.post( 'http://localhost:8000/users/', filter);
   }
   return {
     getUsers: getUsers
   };
 });
-
 
 
 

@@ -1,0 +1,28 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "test frontend user API picpay",
+  "main": "index.html",
+  "dependencies": {
+    "angular": "^1.6.6",
+    "angular-ui-router": "^1.0.3",
+    "jquery": "^3.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcelosife/trabalhe-conosco-backend-dev.git"
+  },
+  "keywords": [
+    "AngularJS"
+  ],
+  "author": "Marcelo Ferreira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marcelosife/trabalhe-conosco-backend-dev/issues"
+  },
+  "homepage": "https://github.com/marcelosife/trabalhe-conosco-backend-dev#readme"
+}
