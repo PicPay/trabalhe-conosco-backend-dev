@@ -1,3 +1,27 @@
+# O que foi feito ?
+
+### IMPORTANTE !
+Usei um servidor local chamado [usbwebserver](http://www.usbwebserver.net/en/), para fazer minha aplicação e ele possui um banco de dados MySQL integrado. Logo, o meu projeto ficou pesado e o github só estou conseguindo upar até 50 mbs.
+
+Então, infelizmente nao fiz exatamente como gostaria, mas dentro da aplicação eu coloquei um metodo de importação dos dados, então deve-ser importar pelo menos uma vez para usar. E para o git aceitar meu projeto ainda tive que compactar tudo, mas na hora dos teste é só descompactar.
+
+### Como executar a aplicação
+
+Para executar a aplicação, execute o arquivo 'usbwebserver.exe'. Quando tiver dois icones verdes nas abas laterais do software (Apache e Mysql), clique na aba 'General' e deverá aparecer quatro opções:
+
+- 'Root dir', essa opção é pasta onde está o código fonte.
+- 'Localhost', essa opção abre a aplicação no navegador web.
+- 'PHPMyAdmin', essa opção abre o gerenciador do banco de dados.
+- 'www.USBWebserver.com', abre o site dos distribuidores da ferramenta.
+
+### Tecnologia usada
+
+Para o backend, usei PhP e para o front HTML com Materializecss e para o Banco de dados, MySQL.
+
+### Comentários gerais
+
+Por mais que o front seja simples, ele é intuitivo, prático e responsivo, na barra de pesquisa pode-se pesquisar nome, username ou até mesmo o ID. Se pesquisado "pedaços" de nomes e usersnames também achará resultados.
+
 ![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
 
 # Teste Backend
