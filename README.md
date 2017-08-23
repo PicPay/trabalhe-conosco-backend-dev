@@ -1,7 +1,7 @@
 # O que foi feito ?
 
 ### IMPORTANTE !
-Usei um servidor local chamado [usbwebserver](http://www.usbwebserver.net/en/), para fazer minha aplicação e ele possui um banco de dados MySQL integrado. Logo, o meu projeto ficou bem pesado e o github só aceita projetos até 50 mbs.
+Usei um servidor local chamado [usbwebserver](http://www.usbwebserver.net/en/), para fazer minha aplicação e ele possui um banco de dados MySQL integrado. Logo, o meu projeto ficou pesado e o github só estou conseguindo upar até 50 mbs.
 
 Então, infelizmente nao fiz exatamente como gostaria, mas dentro da aplicação eu coloquei um metodo de importação dos dados, então deve-ser importar pelo menos uma vez para usar. E para o git aceitar meu projeto ainda tive que compactar tudo, mas na hora dos teste é só descompactar.
 
