@@ -8,10 +8,11 @@ Então, infelizmente nao fiz exatamente como gostaria, mas dentro da aplicação
 ### Como executar a aplicação
 
 Para executar a aplicação, execute o arquivo 'usbwebserver.exe'. Quando tiver dois icones verdes nas abas laterais do software (Apache e Mysql), clique na aba 'General' e deverá aparecer quatro opções:
-    -'Root dir', essa opção é pasta onde está o código fonte.
-    - 'Localhost', essa opção abre a aplicação no navegador web.
-    - 'PHPMyAdmin', essa opção abre o gerenciador do banco de dados.
-    - 'www.USBWebserver.com', abre o site dos distribuidores da ferramenta.
+
+- 'Root dir', essa opção é pasta onde está o código fonte.
+- 'Localhost', essa opção abre a aplicação no navegador web.
+- 'PHPMyAdmin', essa opção abre o gerenciador do banco de dados.
+- 'www.USBWebserver.com', abre o site dos distribuidores da ferramenta.
 
 ### Tecnologia usada
 
