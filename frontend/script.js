@@ -1,4 +1,4 @@
-angular.module('app', ['ui.router', 'ngAnimate'])
+angular.module('app')
 .controller("userCtrl", function( $scope, $http, $filter, $timeout, UserService) {
   $scope.users = [];
   $scope.filter = {"filter":""};
