@@ -15,6 +15,7 @@ class UserList(APIView):
             filter = json_data['filter']
         except KeyError:
             HttpResponseServerError("Malformed data!")
-        users = User.objects.filter(Q(nome__contains=filter) | Q(username__contains=filter)).order_by('-relevancia')[:10]
+        #users = User.objects.filter(Q(nome__contains=filter) | Q(username__contains=filter)).order_by('-relevancia')[:45]
+        users = User.objects.raw("SELECT * FROM user_user where nome like '%"+filter+"%' or username like'%"+filter+"%' order by nome, relevancia desc limit 45")
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)

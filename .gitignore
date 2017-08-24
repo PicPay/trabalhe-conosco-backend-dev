@@ -5,3 +5,4 @@ userFilterAPI/user/migrations/0001_initial.py
 *.sqlite3
 *.csv
 userFilterAPI/db.sqlite3-journal
+*.md

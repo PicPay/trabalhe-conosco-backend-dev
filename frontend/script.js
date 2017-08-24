@@ -1,16 +1,15 @@
-angular.module('app')
+angular.module('app', [])
 .controller("userCtrl", function( $scope, $http, $filter, $timeout, UserService) {
   $scope.users = [];
   $scope.filter = {"filter":""};
   $scope.sort = {       
-    sortingOrder : 'relevancia',
-    reverse : true
+    sortingOrder : 'id',
+    reverse : false
   };
 
   $scope.searchUser = function () {
     return UserService.getUsers($scope.filter).then(
       function successCallback(response) {
-        console.log(response.data);
         $scope.users= response.data;
         $scope.search();
       }, 
@@ -127,7 +126,6 @@ angular.module('app')
 })
 .service('UserService', function($http){
   function getUsers(filter) {
-    console.log(filter);
     return $http.post( 'http://localhost:8000/users/', filter);
   }
   return {
