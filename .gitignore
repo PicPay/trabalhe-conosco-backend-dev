@@ -6,3 +6,4 @@ userFilterAPI/user/migrations/0001_initial.py
 *.csv
 userFilterAPI/db.sqlite3-journal
 *.md
+frontend/bower_components/*

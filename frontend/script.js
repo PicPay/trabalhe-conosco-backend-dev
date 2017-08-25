@@ -1,19 +1,24 @@
-angular.module('app', [])
-.controller("userCtrl", function( $scope, $http, $filter, $timeout, UserService) {
+angular.module('app', ['blockUI'])
+.controller("userCtrl", function( $scope, $http, $filter, $timeout, UserService, blockUI) {
   $scope.users = [];
+  console.log($scope.users);
   $scope.filter = {"filter":""};
   $scope.sort = {       
-    sortingOrder : 'id',
-    reverse : false
-  };
+    sortingOrder : 'relevancia',
+    reverse : true  };
 
   $scope.searchUser = function () {
+	blockUI.start();
     return UserService.getUsers($scope.filter).then(
+	  
       function successCallback(response) {
+		blockUI.stop();
         $scope.users= response.data;
         $scope.search();
       }, 
       function errorCallback(response) {
+		blockUI.stop();
+		$scope.users = $scope.users;
         console.log("ERROR!!!!");
       }
     );  
