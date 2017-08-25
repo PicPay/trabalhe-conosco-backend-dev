@@ -17,7 +17,7 @@ class Repository {
   getUsers(key,page) {
     return new Promise((resolve, reject) => {
 
-      this.connection.query('SELECT id, name, username FROM users WHERE name LIKE "%'+ key +'%" or username LIKE "%'+ key +'%" ORDER BY UPPER(name) LIMIT ' + page*15+',15;', (err, results) => {
+      this.connection.query('SELECT id, name, username , (Case when priority.priority = 2 then 2 when  priority.priority =1 then 1 else 3 end) as p  FROM users LEFT JOIN priority on users.id=priority.id_user WHERE name LIKE "'+ key +'%" or username LIKE "'+ key +'%" ORDER BY p LIMIT ' + page*15+',15;', (err, results) => {
         if(err) {
           return reject(new Error("Ocorreu um erro ao retornar usuarios: " + err));
         }
