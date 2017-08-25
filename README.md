@@ -1,3 +1,18 @@
+# Info:
+
+- Criado uma API em Nodejs 6 que faz uma pesquisa paginada pelo nome e username e os ordena de acordo com as listas de prioridade.
+- Criado um front para consumir o serviço.
+- Utilizado Docker para aplicação e para o banco e um Docker-compose para definir os containers e a relação de dependência entre eles.
+- Banco utilizado foi mysql 5
+
+Obs: 
+ - Inserir o arquivo users.csv dentro da pasta 'PicPayBeckend/database'.
+ - Rodar dentro do diretório 'PicPayBeckend'  o comando 'docker-compose build' e depois 'docker-compose up'.
+
+O que não foi feito:
+- Optimização para um desempenho melhorado. Foi apenas inserido um Index Btree no nome, mas sem grande efeito porque a pesquisa utiliza operador or, então para procurar nickname é mais lento.
+- Autenticação. 
+
 ![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
 
 # Teste Backend
