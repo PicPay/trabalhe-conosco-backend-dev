@@ -5,10 +5,12 @@
 - Utilizado Docker para aplicação e para o banco e um Docker-compose para definir os containers e a relação de dependência entre eles.
 - Banco utilizado foi mysql 5
 
-Obs: O arquivo de criação do banco foi gerado com alguns dados do banco original para rodar a aplicação. 
+Obs: 
+ - Inserir o arquivo users.csv dentro da pasta 'PicPayBeckend/database'.
+ - Rodar dentro do diretório 'PicPayBeckend'  o comando 'docker-compose build' e depois 'docker-compose up'.
 
 O que não foi feito:
-- Optimização para um desempenho melhorado. Pensei em colocar em uma nova tabela os dados de prioridade para não afetar a estrutura do banco, porém não sabia se podia fazer isso na solução. Como os arquivos eram consideravelmente pequenos, estáticos e para evitar releitura de arquivo a cada requisição (e problema de concorrencia) foi carregado para memoria as duas listas ao iniciar o sistema. 
+- Optimização para um desempenho melhorado. Foi apenas inserido um Index Btree no nome, mas sem grande efeito porque a pesquisa utiliza operador or, então para procurar nickname é mais lento.
 - Autenticação. 
 
 ![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
