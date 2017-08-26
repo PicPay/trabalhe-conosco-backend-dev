@@ -1,0 +1,34 @@
+version: '2'
+services:
+  db:
+    build: ./db
+    ports:
+      - "5432:5432"
+  redis:
+    image: redis
+    ports:
+      - 6379:6379    
+  node:
+    build: ./node-postgres-api
+    command: "nodemon server.js"
+    volumes:
+      - ./node-postgres-api/:/app
+    ports:
+      - "3000:3000"
+    links:
+      - "db"
+      - "redis"
+    depends_on:
+      - db
+      - redis
+  # angular:
+  #   build: ./front
+  #   command: ng serve
+  #   volumes:
+  #     - ./front:/app
+  #   ports:
+  #     - "4202:4200"
+  #   links:
+  #     - "node"
+  #   depends_on:
+  #     - node

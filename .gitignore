@@ -1,0 +1,56 @@
+node-postgres-api/node_modules
+node-postgres-api/public/hot
+/public/storage
+/storage/*.key
+/vendor
+/note-postgres-api/node_modules
+/.idea
+/.vagrant
+node-postgres-api/Homestead.json
+node-postgres-api/Homestead.yaml
+node-postgres-api/npm-debug.log
+node-postgres-api/yarn-error.log
+node-postgres-api/.env
+
+# compiled output
+front/dist
+front/tmp
+front/out-tsc
+db/users.csv
+# dependencies
+front/node_modules
+
+# IDEs and editors
+front/.idea
+front/.project
+front/.classpath
+front/.c9/
+front/*.launch
+front/.settings/
+front/*.sublime-workspace
+
+# IDE - VSCode
+front/.vscode/*
+front/!.vscode/settings.json
+front/!.vscode/tasks.json
+front/!.vscode/launch.json
+front/!.vscode/extensions.json
+
+# misc
+front/.sass-cache
+front/connect.lock
+front/coverage
+front/libpeerconnection.log
+front/npm-debug.log
+front/testem.log
+front/typings
+front/yarn-error.log
+
+# e2e
+front/e2e/*.js
+front/e2e/*.map
+
+# System Files
+front.DS_Store
+frontThumbs.db
+
