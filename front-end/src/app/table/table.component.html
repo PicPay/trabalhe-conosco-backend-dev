@@ -5,10 +5,13 @@
       <button type="submit" class="btn btn-primary">Pesquisar</button>
     </form>
   </div>
-  <div class="row centered-form center-block">
+
+  <div id="load" class="row h-100 justify-content-center align-items-center">
     <div class="loader" *ngIf="loading">
     </div>
   </div>
+
+
   <div *ngIf="!loading">
 
     <!-- botoes de Paginacao  -->
