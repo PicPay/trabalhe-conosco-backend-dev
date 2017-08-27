@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
   db:
     build: ./db
@@ -21,14 +21,18 @@ services:
     depends_on:
       - db
       - redis
-  # angular:
-  #   build: ./front
-  #   command: ng serve
-  #   volumes:
-  #     - ./front:/app
-  #   ports:
-  #     - "4202:4200"
-  #   links:
-  #     - "node"
-  #   depends_on:
-  #     - node
+  
+  front-end:
+    container_name: front-end
+    build: ./front-end
+    command: "npm start -- --host=0.0.0.0"
+    ports:
+      - 4200:4200
+      - 49152:49152
+    links:
+      - "node"
+    depends_on:
+      - node
+    volumes:
+      - ./front-end:/home/app/front-end
+      - /home/app/front-end/node_modules

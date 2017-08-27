@@ -9,27 +9,6 @@ var pgp = require('pg-promise')(options);
 var connectionString = 'postgres://docker:docker@db:5432/docker'; 
 var db = pgp(connectionString);
 
-
-/////////////////////
-// Query Functions
-/////////////////////
-
-// function getRegisters(req, res, next) {
-//   var pattern = req.params.pattern;
-//   db.any('SELECT * FROM picpay.registers where name LIKE \'%$1#%\' limit 15',pattern)
-//     .then(function (data) {
-//       res.status(200)
-//         .json({
-//           status: 'success',
-//           data: data,
-//           message: 'Retrieved all data'
-//         });;;
-//     })
-//     .catch(function (err) {
-//       return next(err);
-//     });
-// }
-
 function getRegisters(req, res, next) {
   var page =  Math.max((15*(parseInt(req.query.offset)-1)),0);
   var query=decodeURI(req.query.name);
