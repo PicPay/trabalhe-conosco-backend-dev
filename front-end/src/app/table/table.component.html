@@ -5,9 +5,14 @@
       <button type="submit" class="btn btn-primary">Pesquisar</button>
     </form>
   </div>
-  <div>
+  <div class="row centered-form center-block">
+    <div class="loader" *ngIf="loading">
+    </div>
+  </div>
+  <div *ngIf="!loading">
+
     <!-- botoes de Paginacao  -->
-    <div class="row" id="paginacao">
+    <div class="row" id="paginacao1">
       <button class="btn col-4" (click)="decrementOffset(nameInput.value)" [disabled]="!(offset-1)">Página Anterior</button>
       <div class="col-4">
         <p class="text-center" id="numpag">Página - {{offset}}</p>
@@ -17,24 +22,24 @@
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
-          <tr>
-            <th>UUID</th>
-            <th>Name</th>
-            <th>Username</th>
-          </tr>
+        <tr>
+          <th>UUID</th>
+          <th>Name</th>
+          <th>Username</th>
+        </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let register of registers">
-            <td>{{register.id}}</td>
-            <td>{{register.name}}</td>
-            <td>{{register.username}}</td>
-          </tr>
+        <tr *ngFor="let register of registers">
+          <td>{{register.id}}</td>
+          <td>{{register.name}}</td>
+          <td>{{register.username}}</td>
+        </tr>
         </tbody>
       </table>
     </div>
 
     <!-- Botoes de Paginacao -->
-    <div class="row" id="Paginacao">
+    <div class="row" id="paginacao2">
       <button class="btn col-4" (click)="decrementOffset(nameInput.value)" [disabled]="!(offset-1)">Página Anterior</button>
       <div class="col-4">
         <p class="text-center">Página - {{offset}}</p>

@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { TableComponent } from './table/table.component';
 import { DataService } from './services/data.service'
 import { FormsModule } from '@angular/forms'
+
 @NgModule({
   declarations: [
     AppComponent,
