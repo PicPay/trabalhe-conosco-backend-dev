@@ -1,45 +1,45 @@
 <div class="container">
   <div class="row justify-content-center" id="formulario">
-    <form class="form-inline" (ngSubmit)="findRegister(nameInput.value)">
-      <input #nameInput type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="Jane Doe">
+    <form class="form-inline" (submit)="findRegister(nameInput.value)">
+      <input id="nameInput" type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" #nameInput placeholder="Jane Doe">
       <button type="submit" class="btn btn-primary">Pesquisar</button>
     </form>
   </div>
-  <input type="text" #nome>
-  {{nome.value}}
-  <!-- botoes de paginacao  -->
-  <div class="row" id="paginacao">
-    <button class="btn col-4" (click)="decrementOffset()" [disabled]="!(offset-1)">Pagina Anterior</button>
-    <div class="col-4">
-      <p class="text-center">Página - {{offset}}</p>
+  <div>
+    <!-- botoes de Paginacao  -->
+    <div class="row" id="paginacao">
+      <button class="btn col-4" (click)="decrementOffset(nameInput.value)" [disabled]="!(offset-1)">Página Anterior</button>
+      <div class="col-4">
+        <p class="text-center" id="numpag">Página - {{offset}}</p>
+      </div>
+      <button class="btn btn-secondary col-4" (click)="incrementOffset(nameInput.value)" [disabled]="registers?.length<15" id="btn-next">Próxima Página</button>
     </div>
-    <button class="btn btn-secondary col-4" (click)="incrementOffset()" id="btn-next">Proxima Pagina</button>
-  </div>
-  <div class="table-responsive">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>UUID</th>
-          <th>Name</th>
-          <th>Username</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let register of registers">
-          <td>{{register.id}}</td>
-          <td>{{register.name}}</td>
-          <td>{{register.username}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>UUID</th>
+            <th>Name</th>
+            <th>Username</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let register of registers">
+            <td>{{register.id}}</td>
+            <td>{{register.name}}</td>
+            <td>{{register.username}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-  <!-- Botoes de paginacao -->
-  <div class="row" id="paginacao">
-    <button class="btn col-4" (click)="decrementOffset()" [disabled]="!(offset-1)">Pagina Anterior</button>
-    <div class="col-4">
-      <p class="text-center">Página - {{offset}}</p>
+    <!-- Botoes de Paginacao -->
+    <div class="row" id="Paginacao">
+      <button class="btn col-4" (click)="decrementOffset(nameInput.value)" [disabled]="!(offset-1)">Página Anterior</button>
+      <div class="col-4">
+        <p class="text-center">Página - {{offset}}</p>
+      </div>
+      <button class="btn btn-secondary col-4" (click)="incrementOffset(nameInput.value)" [disabled]="registers?.length<15" id="btn-next">Próxima Página</button>
     </div>
-    <button class="btn btn-primary col-4" (click)="incrementOffset()" id="btn-next">Proxima Pagina</button>
   </div>
 </div>

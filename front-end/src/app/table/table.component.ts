@@ -8,7 +8,6 @@ import { DataService } from '../services/data.service';
 export class TableComponent implements OnInit {
   offset:number;
   registers:Register[];
-  name:string;
 
   constructor(private dataService:DataService) { }
 
@@ -24,13 +23,13 @@ export class TableComponent implements OnInit {
     this.offset=1;
     // this.findRegister("Luiz");
   }
-  incrementOffset(){
+  incrementOffset(value){
     this.offset++;
-    this.findRegister("luiz");
+    this.findRegister(value);
   }
-  decrementOffset(){
+  decrementOffset(value){
     this.offset--;
-    this.findRegister("luiz");
+    this.findRegister(value);
   }
 
 }

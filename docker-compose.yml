@@ -1,16 +1,19 @@
 version: '3'
 services:
   db:
+    container_name: postgres-db
     build: ./db
     ports:
       - "5432:5432"
   redis:
+    container_name: redis-cache
     image: redis
     ports:
       - 6379:6379    
   node:
     build: ./node-postgres-api
     command: "nodemon server.js"
+    container_name: node-server
     volumes:
       - ./node-postgres-api/:/app
     ports:
@@ -21,6 +24,7 @@ services:
     depends_on:
       - db
       - redis
+
   
   front-end:
     container_name: front-end

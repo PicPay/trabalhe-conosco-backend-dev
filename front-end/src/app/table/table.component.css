@@ -2,8 +2,11 @@
     position: relative;
 }
 #paginacao{
-    padding: 10px;
+    padding: 15px;
 }
 #formulario{
     padding-top: 10px;
+}
+#numpag{
+    vertical-align: middle;
 }
