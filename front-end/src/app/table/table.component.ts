@@ -8,11 +8,12 @@ import { DataService } from '../services/data.service';
 export class TableComponent implements OnInit {
   offset:number;
   registers:Register[];
+  name:string;
 
   constructor(private dataService:DataService) { }
 
-  buscar(value){
-    this.dataService.getRegisters(value, 1).subscribe(registers => {
+  findRegister(value){
+    this.dataService.getRegisters(value, this.offset).subscribe(registers => {
       this.registers = registers.data;
       console.log(this.registers);
     }, err => {
@@ -20,7 +21,16 @@ export class TableComponent implements OnInit {
     });
   }
   ngOnInit() {
-    this.offset=0;
+    this.offset=1;
+    // this.findRegister("Luiz");
+  }
+  incrementOffset(){
+    this.offset++;
+    this.findRegister("luiz");
+  }
+  decrementOffset(){
+    this.offset--;
+    this.findRegister("luiz");
   }
 
 }

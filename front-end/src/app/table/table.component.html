@@ -1,26 +1,45 @@
 <div class="container">
+  <div class="row justify-content-center" id="formulario">
+    <form class="form-inline" (ngSubmit)="findRegister(nameInput.value)">
+      <input #nameInput type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="Jane Doe">
+      <button type="submit" class="btn btn-primary">Pesquisar</button>
+    </form>
+  </div>
+  <input type="text" #nome>
+  {{nome.value}}
+  <!-- botoes de paginacao  -->
+  <div class="row" id="paginacao">
+    <button class="btn col-4" (click)="decrementOffset()" [disabled]="!(offset-1)">Pagina Anterior</button>
+    <div class="col-4">
+      <p class="text-center">Página - {{offset}}</p>
+    </div>
+    <button class="btn btn-secondary col-4" (click)="incrementOffset()" id="btn-next">Proxima Pagina</button>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>UUID</th>
+          <th>Name</th>
+          <th>Username</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let register of registers">
+          <td>{{register.id}}</td>
+          <td>{{register.name}}</td>
+          <td>{{register.username}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-    <form class="form-inline" (ngSubmit)="buscar(nameInput)">
-        <label class="sr-only" for="nameInput">Name</label>
-        <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" #nameInput id="nameInput" placeholder="Jane Doe">      
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-      
-
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>UUID</th>
-        <th>Name</th>
-        <th>Username</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let register of registers">
-        <td>{{register.id}}</td>
-        <td>{{register.name}}</td>
-        <td>{{register.username}}</td>
-      </tr>
-    </tbody>
-  </table>
+  <!-- Botoes de paginacao -->
+  <div class="row" id="paginacao">
+    <button class="btn col-4" (click)="decrementOffset()" [disabled]="!(offset-1)">Pagina Anterior</button>
+    <div class="col-4">
+      <p class="text-center">Página - {{offset}}</p>
+    </div>
+    <button class="btn btn-primary col-4" (click)="incrementOffset()" id="btn-next">Proxima Pagina</button>
+  </div>
 </div>
