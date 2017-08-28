@@ -15,39 +15,41 @@
   <div *ngIf="!loading">
 
     <!-- botoes de Paginacao  -->
-    <div class="row" id="paginacao1">
-      <button class="btn col-4" (click)="decrementOffset(nameInput.value)" [disabled]="!(offset-1)">Página Anterior</button>
-      <div class="col-4">
-        <p class="text-center" id="numpag">Página - {{offset}}</p>
+    <div *ngIf="registers?.length>0">
+      <div class="row" id="paginacao1">
+        <button class="btn col-4" (click)="decrementOffset(nameInput.value)" [disabled]="!(offset-1)">Página Anterior</button>
+        <div class="col-4">
+          <p class="text-center" id="numpag">Página - {{offset}}</p>
+        </div>
+        <button class="btn btn-secondary col-4" (click)="incrementOffset(nameInput.value)" [disabled]="registers?.length<15" id="btn-next">Próxima Página</button>
       </div>
-      <button class="btn btn-secondary col-4" (click)="incrementOffset(nameInput.value)" [disabled]="registers?.length<15" id="btn-next">Próxima Página</button>
-    </div>
-    <div class="table-responsive">
-      <table class="table table-striped">
-        <thead>
-        <tr>
-          <th>UUID</th>
-          <th>Name</th>
-          <th>Username</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let register of registers">
-          <td>{{register.id}}</td>
-          <td>{{register.name}}</td>
-          <td>{{register.username}}</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th class="largura">UUID</th>
+            <th class="largura">Name</th>
+            <th class="largura">Username</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let register of registers">
+            <td>{{register.id}}</td>
+            <td>{{register.name}}</td>
+            <td>{{register.username}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
 
-    <!-- Botoes de Paginacao -->
-    <div class="row" id="paginacao2">
-      <button class="btn col-4" (click)="decrementOffset(nameInput.value)" [disabled]="!(offset-1)">Página Anterior</button>
-      <div class="col-4">
-        <p class="text-center">Página - {{offset}}</p>
+      <!-- Botoes de Paginacao -->
+      <div class="row" id="paginacao2">
+        <button class="btn col-4" (click)="decrementOffset(nameInput.value)" [disabled]="!(offset-1)">Página Anterior</button>
+        <div class="col-4">
+          <p class="text-center">Página - {{offset}}</p>
+        </div>
+        <button class="btn btn-secondary col-4" (click)="incrementOffset(nameInput.value)" [disabled]="registers?.length<15" id="btn-next">Próxima Página</button>
       </div>
-      <button class="btn btn-secondary col-4" (click)="incrementOffset(nameInput.value)" [disabled]="registers?.length<15" id="btn-next">Próxima Página</button>
     </div>
   </div>
 </div>
