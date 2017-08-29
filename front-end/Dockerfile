@@ -1,4 +1,4 @@
-FROM node:6.9.2
+FROM node
 
 ENV APP_NAME "front-end"
 ENV APP_USER "app"
@@ -6,11 +6,11 @@ ENV HOME /home/$APP_USER
 ENV APP_DIR $HOME/$APP_NAME
 
 RUN useradd --user-group --create-home --shell /bin/false $APP_USER
-RUN npm install --global @angular/cli
+RUN npm install -g --unsafe-perm @angular/cli
 
 WORKDIR $APP_DIR
 COPY package.json $APP_DIR/package.json
-RUN npm install && npm cache clean
+RUN npm install
 COPY . $APP_DIR
 RUN chown -R $APP_USER:$APP_USER $HOME/*
 
