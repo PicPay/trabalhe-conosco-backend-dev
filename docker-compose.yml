@@ -24,8 +24,6 @@ services:
     depends_on:
       - db
       - redis
-
-  
   front-end:
     container_name: front-end
     build: ./front-end
@@ -36,6 +34,7 @@ services:
     links:
       - "node"
     depends_on:
+      - db
       - node
     volumes:
       - ./front-end:/home/app/front-end
