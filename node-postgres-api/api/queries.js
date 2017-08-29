@@ -28,7 +28,7 @@ function getRegisters(req, res, next) {
         .json({
           status: 'success',
           data: data,
-          message: 'Retrieved all starships'
+          message: 'Retrieved all registers'
         });
     })
     .catch(function (err) {
