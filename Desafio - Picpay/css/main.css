@@ -1,0 +1,28 @@
+.main{
+padding-top: 60px;
+}
+
+.pagination {
+    margin: 0;
+    padding-left: 275px !important;
+    
+}
+
+.page-item.active .page-link {
+    background-color: green !important;
+    border-color: green !important;
+    color: white !important;
+}
+
+.page-link {
+    color: green !important;
+
+}
+
+.padding50{
+    padding-top: 50px !important; 
+}
+
+
+
+

@@ -1,0 +1,23 @@
+Tecnologias utilizadas: PHP, MySQL, Bootstrap e Framework Slim.
+
+Essa é a primeira vez que eu utilizo todos os 4 recursos acima e a primeira vez que desenvolvo um site, portanto algumas funcionalizadas infelizmente não foram implementadas, como:
+
+Segurança - SQL injection e outros pontos;
+Otimizações de UX;
+Análise de funcionalidade para alto desempenho;
+Docker e Tokens para validação.
+
+Coloquei o desafio online para melhor visualização: 
+https://desafiopic.000webhostapp.com
+Login: admin@picpay.com
+Senha: 123
+
+30/08/2017 - [00:28] - Ainda estou adicionando os usuários ao banco do host, pois como é gratuito, só posso realizar 5000 comandos por hora.
+
+Alguns usurios com prioridade 2 já adicionados:
+Aliny
+Wellison 
+Thales
+Nijed
+
+30/08/2017 - [01:48] - Estou tendo algum problema com cookie na versão online que impede a troca de palavra-chave sem reiniciar o navegador (mas funciona nos arquivos enviados). 
