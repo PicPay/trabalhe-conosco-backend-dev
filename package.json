@@ -1,0 +1,25 @@
+{
+  "name": "api-picpay",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "babel-node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gilmarllen Pereira Miotto",
+  "license": "ISC",
+  "dependencies": {
+    "babel": "^6.23.0",
+    "body-parser": "^1.17.2",
+    "consign": "^0.1.6",
+    "express": "^4.15.4",
+    "jwt-simple": "^0.5.1",
+    "passport": "^0.4.0",
+    "passport-jwt": "^3.0.0",
+    "mysql": "~2.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1"
+  }
+}
