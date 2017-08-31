@@ -10,4 +10,6 @@ RUN npm install
 
 RUN npm install mysql
 
-CMD ["sh", "wait-for-mysql.sh"]
+#CMD ["sh", "wait-for-mysql.sh"]
+
+CMD ["node", "index.js"]
