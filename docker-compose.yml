@@ -1,0 +1,20 @@
+version: '2'
+services:
+  web:
+    image: tutum/apache-php
+    ports:
+      - "3080:80"
+    volumes:
+      - ./web/api-picpay:/app
+
+  apirest:
+    build: ./apiRest
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_HOST=db
+
+  db:
+    build: ./db
