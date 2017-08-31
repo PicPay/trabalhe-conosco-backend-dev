@@ -69,7 +69,7 @@ LIMIT 15 OFFSET offset
 Onde name e offset são paramêtros de usuário, onde name se refere ao valor que ele quer consultar no banco e offset a paginação.
 ## **Redis**
 O Redis é um armazenamento de estrutura de dados de chave-valor de código aberto e na memória. Desta forma, conseguimos um ganho notável nas requisições, já que foi adicionado adicionado um sistema de cache, quando forem feitas as mesmas consultas o sistema responderá **muito** mais rápido. Tente realizar query's que já foram feitas anteriormente e compare os tempos de resposta. 
-##**NodeJS**
+## **NodeJS**
 Node foi escolhido devido a sua grande simplicidade e robustez . Com poucas linhas de código foi possível fazer toda a parte de back-end, separando em 3 principais arquivos: queries.js (Responsável por fazer a consulta ao banco de dados e responder a rota), index.js (Que tem o papel de receber a solicitação em uma determinada rota e repassar ao controller responsável o tratamento da requisição) e por fim server.js que é responsável pelas configurações iniciais para que nosso servidor funcione.
 
 
