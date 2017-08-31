@@ -1,12 +1,12 @@
 # Desafio PicPay
 Sistema desenvolvido para solucionar o desafio.
 
-** Tecnologias utilizadas: ** ApiREST em Nodejs (incluindo jwt e passport para autenticação das rotas), Banco de Dados MySQL, Interface WEB em Apache-PHP, Suporte a Docker
+**Tecnologias utilizadas:** ApiREST em Nodejs (incluindo jwt e passport para autenticação das rotas), Banco de Dados MySQL, Interface WEB em Apache-PHP, Suporte a Docker
 
 1. ApiREST rodando na porta 3000.
 2. Interface WEB rodando na porta 3080.
 
-** Execução: **
+**Execução:**
 
 1. Clonar o repositório:
 
@@ -21,3 +21,5 @@ sh download_db.sh
 sudo docker-compose build
 
 sudo docker-compose up
+
+4. Interface WEB disponível na porta 3080.
