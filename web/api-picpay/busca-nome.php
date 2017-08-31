@@ -73,8 +73,10 @@
     <?php
 	
 	if(isset($_POST['nome']))
-    {
-        $json_url = "http://" . "localhost" . ":3000/user/nome/" . $_POST['nome'] . "/page/" . $_POST['page'];
+    	{
+	$ip_server = $_SERVER['SERVER_NAME'];
+		
+        $json_url = "http://" . $ip_server . ":3000/user/nome/" . $_POST['nome'] . "/page/" . $_POST['page'];
         $json_url = str_replace(" ", "%20", $json_url);
 
         $opts = array('http' =>

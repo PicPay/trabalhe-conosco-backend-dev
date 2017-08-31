@@ -5,7 +5,7 @@ module.exports = {
 	jwtSession: {session: false},
 
 	db: {
-	    host: 'localhost',
+	    host: process.env.DATABASE_HOST || 'localhost',
 	    database: 'db_picpay',
 	    user: 'root',
 	    password: 'picpay123',

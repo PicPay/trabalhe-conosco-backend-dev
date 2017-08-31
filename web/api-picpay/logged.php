@@ -37,7 +37,9 @@
       );
 
       $context  = stream_context_create($opts);
-      $json_url = "http://localhost:3000/token/";
+
+      $ip_server = $_SERVER['SERVER_NAME'];
+      $json_url = "http://" . $ip_server . ":3000/token/";
       
       $json_str = file_get_contents($json_url, false, $context);
       
@@ -60,7 +62,9 @@
     );
 
     $context  = stream_context_create($opts);
-    $json_url = "http://localhost:3000/logged/";
+
+    $ip_server = $_SERVER['SERVER_NAME'];
+    $json_url = "http://" . $ip_server . ":3000/logged/";
     
     $json_str = file_get_contents($json_url, false, $context);
 

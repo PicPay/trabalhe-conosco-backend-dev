@@ -1,31 +1,23 @@
-# teste-API-PicPay
-API REST criada para o teste Backend da empresa PicPay.
+# Desafio PicPay
+Sistema desenvolvido para solucionar o desafio.
 
-**Autor:** Gilmarllen Pereira Miotto
+** Tecnologias utilizadas: ** ApiREST em Nodejs (incluindo jwt e passport para autenticação das rotas), Banco de Dados MySQL, Interface WEB em Apache-PHP, Suporte a Docker
 
-**Email:** gilmarllen@gmail.com
+1. ApiREST rodando na porta 3000.
+2. Interface WEB rodando na porta 3080.
 
-**Pré-requisitos:** Apache, PHP, MySQL, Nodejs, npm
+** Execução: **
 
-# Instalação
-1. Upar dados para a database MySQL:
+1. Clonar o repositório:
 
-    (Download do arquivo users.csv e listas de prioridade. Usuario: root e Senha: picpay123 setados na linha 14, mudar conforme a configuração do MySQL)
+git clone https://github.com/gilmarllen/trabalhe-conosco-backend-dev.git
 
-    sh init_db.sh
+2. Fazer download da base de dados .csv e das listas de prioriedade através do script (Aguardar alguns minutos devido o tamanho do arquivo .csv):
 
-2. Rodar Webservice Nodejs na porta 3000:
+sh download_db.sh
 
-    (Modificar configurações MySQL no arquivo config.js de acordo com o ambiente)
+3. Compilar e executar o Docker (Após o "up", agurdar 5 minutos para upload dos dados para o banco MySQL):
 
-    npm install
+sudo docker-compose build
 
-    node index.js > output.log &
-
-3. Rodar Interface Web PHP na porta 80:
-
-    sudo chmod 777 /var/www/html/
-
-    cp -r web/* /var/www/html/
-
-    Para Acessar: http://localhost/api-picpay/
+sudo docker-compose up

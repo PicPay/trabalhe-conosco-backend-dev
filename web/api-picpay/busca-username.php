@@ -69,9 +69,11 @@
     <br>
 
     <?php
-	    if(isset($_POST['username']))
+	if(isset($_POST['username']))
         {
-            $json_url = "http://" . "localhost" . ":3000/user/username/" . $_POST['username'];
+            $ip_server = $_SERVER['SERVER_NAME'];
+
+            $json_url = "http://" . $ip_server . ":3000/user/username/" . $_POST['username'];
             $json_url = str_replace(" ", "%20", $json_url);
             
             $opts = array('http' =>
