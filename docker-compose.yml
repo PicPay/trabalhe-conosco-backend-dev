@@ -12,10 +12,10 @@ services:
       - 6379:6379    
   node:
     build: ./node-postgres-api
-    command: "nodemon server.js"
     container_name: node-server
     volumes:
       - ./node-postgres-api/:/app
+      - /app/node_modules
     ports:
       - "3000:3000"
     links:
