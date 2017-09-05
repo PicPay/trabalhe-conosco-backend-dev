@@ -22,7 +22,7 @@ Os resultados devem ser retornados paginados de 15 em 15 registros.
 
 Escolha as tecnologias que você vai usar e tente montar uma solução completa para rodar a aplicação.
 
-Faça um fork deste repositório e abra um pull request para participar.
+Faça um ***Fork*** deste repositório e abra um ***Pull Request***, **com seu nome na descrição**, para participar.
 
 -----
 
