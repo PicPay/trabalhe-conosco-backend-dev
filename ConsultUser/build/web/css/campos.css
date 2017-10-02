@@ -1,0 +1,10 @@
+#divForm
+{margin-bottom:10px;}
+#divFormFilds
+{text-align: left;width:800px;margin-top:10px;padding-bottom:5px;}
+#divFormFilds .tituloField
+{text-align: left;border-bottom:none;float:left;font-weight:bold;line-height:18px;padding-left:5px;width:795px;}
+#divFormFilds li
+{text-align: left;display: inline-block;list-style-type: none;list-style-position: outside;}
+.cssLabel 
+{text-align: left;padding-left:5px;font-size:10px;font-weight:bold;color:#333;float:left;}
