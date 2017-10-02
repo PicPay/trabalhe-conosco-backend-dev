@@ -1,0 +1,16 @@
+*******************Instruções para rodar a aplicação***************************************
+No meu projeto, e pelo que eu entendi foram criadas duas aplicações uma api Rest que é minha SolucaoRest(WebServices) que faz a leitura dos dados do banco(users.csv) os organiza de acordo com o expecificado na questão e retorna via Json pelo metodo @GET.
+E uma outra aplicação ConsultaUser que consome o WebServices criado na primeira aplicação. 
+ 
+Estou tendo problemas com o Docker na minha máquina e por isso essas instruções para rodar a solução de forma manual...
+
+1 - O projeto SolucaoRest está configurado para rodar no diretório "C:\Projeto\trabalhe-conosco-backend-dev\" devido a base de dados ("users.csv") que aloquei em uma pasta dentro do projeto SolucaoRest.
+2 - Extraia o arquivo users.csv e o aloque na pasta "C:\Projeto\trabalhe-conosco-backend-dev\SolucaoRest\DB\".
+
+*Caso o diretório seja alterado o arquivo "C:\Projeto\trabalhe-conosco-backend-dev\SolucaoRest\src\java\Infra\LerArq.java" nos metodos listaTxt e listUsuarioOrganizado para atualizar os diretórios onde se encontram seus respectivos arquivos.
+
+3 - A porta do meu Glassfish esta como :8080, caso teste em algum servidor com porta diferente o arquivo "C:\Projeto\trabalhe-conosco-backend-dev\ConsultUser\src\java\Controller\AcessoWs.java" no método retornaPesquisaUserWs, návariavel chamadaWs terá que ser alterado tambem para o servidor da api SolucaoRest.
+
+
+Obrigado.
+

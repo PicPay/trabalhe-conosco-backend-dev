@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/layout/template.xhtml">
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+        <ui:define name="corpo">
+            <style type="text/css">  
+                div.div {
+                    width: 400px;
+                    height: 210px;
+                    margin-left: -380px; /* metade da largura */
+                    margin-top: -170px; /* metade da altura */
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                }
+
+            </style>
+
+            <div  style="width: 600px;left: 50%" class="div">
+
+            </div> 
+            <h:form>
+                
+                    
+                
+                 <p:panel header="Lista de Usuarios" style="text-align: center">
+                     
+                    <h:form prependId="false">
+                        <p:inputText id="nome" value="#{usuarioView.nome}">
+                          
+                        </p:inputText>
+                        <p:commandButton id="pesq" value="Pesquisar" update="dtusuario"  icon="ui-icon-check"  actionListener="#{usuarioView.forcarLista()}"/>
+                        <p:dataTable id="dtusuario" var="usuario" value="#{usuarioView.listUser}" 
+                                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} " paginatorPosition="bottom"
+                                     paginator="true" rows="15" style="margin-bottom:10px" 
+                                     >
+                            <p:column >
+                                <f:facet name="header">
+                                    <h:outputText value="ID" />
+                                </f:facet>
+                                <h:outputText value="#{usuario.id}" />
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="NOME"/>
+                                </f:facet>
+                                <h:outputText value="#{usuario.nome}" />
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="USERNAME"/>
+                                </f:facet>
+                                <h:outputText value="#{usuario.username}" />
+                            </p:column>
+                        </p:dataTable>
+                       
+                        <br/>
+
+                    </h:form>
+                </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
+
