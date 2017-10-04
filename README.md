@@ -2,6 +2,10 @@
 
 A solução está dividida em dois projetos, cliente e servidor. Ambos utilizam o Spring Boot, provendo a interface de serviços RESTFul.
 
+A parte de segurança para integração entre servidor e cliente utilizei a biblioteca 'spring-boot-starter-security'. A lib permite configurar  usuário e senha. Apenas usuários cadastrados podem fazer requisição ao servidor. Neste exemplo há apenas um usuário e senha, admin/secret, e no projeto client existe um 'interceptor' para incluir as informações no header de cada requisição feita ao servidor.
+
+Para a comunicação entre o cliente e servidor utilizei a 'Retrofit'. 
+
 Para armazenar os dados dos usuários, optei pelo banco de dados NoSQL MongoDB.
 
 
@@ -14,7 +18,7 @@ Para armazenar os dados dos usuários, optei pelo banco de dados NoSQL MongoDB.
 6. Inicie o container do client: 'docker run --name picpay_client -p 8090:8090 -e HOST="172.17.0.3" -e PORT="8080" tmontovaneli/picpay_cliente', onde as variáveis HOST e PORT são referentes ao container do server.
 
 
-
+Para acessar
 
 
 ![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
