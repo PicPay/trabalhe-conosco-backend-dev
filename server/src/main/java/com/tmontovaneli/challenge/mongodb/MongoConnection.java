@@ -13,7 +13,16 @@ public class MongoConnection {
 	public MongoConnection() {
 		super();
 
-		mongo = new MongoClient("localhost", 27017);
+		String host = System.getenv("HOST");
+		if (host == null)
+			host = "localhost";
+
+		String port = System.getenv("PORT");
+		if (port == null)
+			port = "27017";
+
+		// mongo = new MongoClient("172.17.0.2", 27017);
+		mongo = new MongoClient(host, Integer.valueOf(port));
 	}
 
 	private MongoDatabase getDataBase() {

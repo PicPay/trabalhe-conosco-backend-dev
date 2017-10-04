@@ -8,15 +8,33 @@ import okhttp3.Credentials;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
+import retrofit2.Retrofit.Builder;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class RetrofitConfigurator {
 
-	public static final String API_BASE_URL = "http://localhost:8080";
+	public static final String API_BASE_URL;
 
 	private static OkHttpClient.Builder httpClient;
 
 	static {
+
+		String host = System.getenv("HOST");
+		if (host == null)
+			host = "localhost";
+
+		String port = System.getenv("PORT");
+		if (port == null)
+			port = "8080";
+
+		API_BASE_URL = "http://" + host + ":" + port;
+
+		Builder builder = new Retrofit.Builder().baseUrl(API_BASE_URL)
+				.addConverterFactory(JacksonConverterFactory.create());
+
+		retrofit = builder.build();
+		RetrofitConfigurator.builder = builder;
+
 		HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
 		interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
@@ -28,10 +46,9 @@ public class RetrofitConfigurator {
 
 	}
 
-	private static Retrofit.Builder builder = new Retrofit.Builder().baseUrl(API_BASE_URL)
-			.addConverterFactory(JacksonConverterFactory.create());
+	private static Retrofit.Builder builder;
 
-	private static Retrofit retrofit = builder.build();
+	private static Retrofit retrofit;
 
 	public static <S> S createService(Class<S> serviceClass) {
 		String authToken = Credentials.basic("admin", "secret");

@@ -59,16 +59,6 @@ public class UserRepository {
 	}
 
 	private BasicDBObject buildParameter(String query) {
-		// BasicDBList firstOrValues = new BasicDBList();
-		// firstOrValues.add(new Document("$text", new Document("$search",
-		// query)));
-		// String padrao = "\\b" + query + "\\b";
-		// firstOrValues.add(new Document("nome", Pattern.compile(padrao,
-		// Pattern.CASE_INSENSITIVE)));
-		// firstOrValues.add(new Document("apelido", Pattern.compile(padrao,
-		// Pattern.CASE_INSENSITIVE)));
-		// BasicDBObject match = new BasicDBObject("$or", firstOrValues);
-
 		BasicDBObject match = new BasicDBObject("$text", new Document("$search", query));
 		return match;
 	}
