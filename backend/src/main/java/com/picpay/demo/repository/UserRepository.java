@@ -19,7 +19,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  */
 public interface UserRepository extends PagingAndSortingRepository<User, String> {
 
-    @Query(value = "SELECT u.id, u.name, u.username, u.weight FROM {h-schema}user u WHERE u.tsv @@ plainto_tsquery(?1) ORDER BY u.weight, ?#{#pageable}",
+    @Query(value = "SELECT u.id, u.name, u.username, u.weight FROM {h-schema}user u WHERE u.tsv @@ plainto_tsquery(?1) ORDER BY u.weight, u.name, ?#{#pageable}",
             countQuery = "SELECT COUNT(*) FROM {h-schema}user WHERE tsv @@ plainto_tsquery(?1)",
             nativeQuery = true)
     Page<User> search(String keyword, Pageable pageable);
