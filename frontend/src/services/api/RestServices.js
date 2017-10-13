@@ -24,7 +24,7 @@ function setTokenHeader(token){
 }
 
 function logout() {
-    axios.defaults.headers.common['Authorization'] = undefined;
+    delete axios.defaults.headers.common['Authorization'];
 
     localStorage.removeItem("jwtToken");
     localStorage.removeItem("username");
