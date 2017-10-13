@@ -1,0 +1,25 @@
+version: '3'
+services:
+        database:
+                container_name: pp_database
+                build: ./database
+                ports:
+                        - "5432:5432"
+        backend:
+                container_name: pp_backend
+                build: ./backend
+                ports:
+                        - "8080:8080"
+                links:
+                        - "database:database"
+                depends_on:
+                        - "database"
+        frontend:
+                container_name: pp_frontend
+                build: ./frontend
+                ports:
+                        - "9001:9001"
+                links:
+                        - "backend"
+                depends_on:
+                        - "backend"
