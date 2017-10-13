@@ -1,5 +1,20 @@
 ![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
 
+# Solução
+Para implementação desse desafio foram utilizadas as seguintes tecnologias:
+- Banco de Dados: PostgreSQL.
+- Frontend: versão React do template [CoreUI](http://coreui.io/).
+- Backend: Spring Boot, Spring Data e Spring Security.
+
+A solução utliza ainda Docker (Docker version 17.09.0-ce, build afdb6d4) e Docker Compose (docker-compose version 1.16.1, build 6d1ac21). Para executar, basta realizar os seguintes passos ajustando o caminho adequado:
+1. git clone https://github.com/caducbraga/trabalhe-conosco-backend-dev.git /path/to/your/folder/
+2. cd /path/to/your/folder/
+3. docker-compose up ¹ 
+
+¹ Enquanto o container do banco de dados não estiver pronto, o container do backend permanece reiniciando até que o banco de dados esteja pronto e ele possa conectar e iniciar normalmente. No teste realizado, o container de banco de dados demorou em torno de uma hora para ficar pronto.
+
+-----
+
 # Teste Backend
 
 O desafio é criar uma API REST que busca usuarios pelo nome e username a partir de uma palavra chave. Faça o download do arquivo [users.csv.gz](https://s3.amazonaws.com/careers-picpay/users.csv.gz) que contém o banco de dados que deve ser usado na busca. Ele contém os IDs, nomes e usernames dos usuários.
