@@ -1,6 +1,6 @@
 FROM node
 
-RUN useradd --user-group --create-home --shell /bin/false $APP_USER
+RUN useradd --user-group --create-home --shell /bin/false app
 
 WORKDIR /home/app/frontend
 COPY package.json /home/app/frontend/package.json
