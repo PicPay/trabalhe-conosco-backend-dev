@@ -33,6 +33,8 @@ $app->register(new \Silex\Provider\HttpCacheServiceProvider(), array(
     'http_cache.cache_dir' => __DIR__.'/../var/cache/http/'
 ));
 
+//$app['autoloader']->registerNamespace('Helper\Import', __DIR__.'/../src');
+
 require __DIR__ . '/../app/middlewares.php';
 require __DIR__ . '/../app/controllers.php';
 require __DIR__ . '/../app/service.php';

@@ -28,6 +28,6 @@
         "symfony/http-kernel": "^2.8"
     },
     "autoload": {
-        "psr-0": { "": "src/" }
+        "psr-0": { "Helper\\Import\\Import": "src/" }
     }
 }
