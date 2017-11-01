@@ -1,8 +1,5 @@
 <?php
 
-ini_set('display_errors', E_ALL);
-ini_set('memory_limit', '2048M');
-
 $app = new \Silex\Application();
 $app->register(new \Silex\Provider\ServiceControllerServiceProvider());
 $app->register(new \Silex\Provider\AssetServiceProvider());
