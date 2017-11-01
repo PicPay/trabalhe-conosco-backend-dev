@@ -2,11 +2,6 @@
 
 $app->mount('/api', require __DIR__ . '/api.php');
 
-/*
-$app->get('/', function () use ($app) {
-    return $app['twig']->render('index.html.twig');
-});
-*/
 $app->get('/', function (\Symfony\Component\HttpFoundation\Request $request) use ($app) {
 
     $pesquisa = $request->query->get('q');

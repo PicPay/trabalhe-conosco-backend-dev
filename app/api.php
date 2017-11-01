@@ -45,7 +45,7 @@ function encontrarOcorrecias(array $linha, string $q)
     return false;
 }
 
-function existeNaListaRelevancia(string $id, integer $prioriade = 1)
+function existeNaListaRelevancia(string $id, $prioriade = 1)
 {
     switch ($prioriade) {
         case 1 :

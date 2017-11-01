@@ -30,10 +30,10 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2">Pesquisar:</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" name="q" required/>
+                                        <input class="form-control" name="q" required minlength="2"/>
                                     </div>
                                 </div>
-                                <button class="btn btn-dropbox"><i class="fa fa-search"></i>Ir</button>
+                                <button class="btn btn-dropbox"><i class="fa fa-search"></i>&nbsp;Pesquisar</button>
                             </form>
                         </div>
                     </div>
@@ -51,7 +51,6 @@
                             <table id="table"
                                    class="table"
                                    data-toggle="table"
-                                   data-striped="true"
                                    data-search="true"
                                    data-show-toggle="true"
                                    data-show-columns="true"
@@ -62,7 +61,6 @@
                                    data-sortable="true"
                                    data-show-export="true"
                                    data-click-to-select="true"
-                                   data-flat="true"
                                    data-advanced-search="true"
                                    data-toolbar="#toolbar"
                                    data-page-size="15"
