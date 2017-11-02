@@ -1,0 +1,4 @@
+/vendor/
+.idea/*
+/res/users.csv
+var/cache/*

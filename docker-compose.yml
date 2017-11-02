@@ -1,0 +1,12 @@
+version: '2'
+services:
+    apache:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        environment:
+            - SYMFONY_ENV=dev
+        volumes:
+            - ./:/var/www/html
+        ports:
+            - "8050:80"

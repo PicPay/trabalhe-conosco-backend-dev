@@ -1,0 +1,109 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+    <div class="content-wrapper">
+
+        <section class="content-header">
+            <h1>
+                Pesquisar Usuarios
+                <small>lista</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="/">Usuarios</a></li>
+                <li class="active">Pesquisar</li>
+            </ol>
+        </section>
+
+        <section class="content">
+
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">Formulario</h3>
+                        </div>
+                        <div class="box-body">
+                            <form class="form-horizontal" action="{{ path('find') }}" method="get">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2">Pesquisar:</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" name="q" required minlength="2"/>
+                                    </div>
+                                </div>
+                                <button class="btn btn-dropbox"><i class="fa fa-search"></i>&nbsp;Pesquisar</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">Lista</h3>
+                        </div>
+                        <div class="box-body">
+
+                            {% if msg is defined and msg|length > 0 %}
+                                <div class="alert alert-danger">{{ msg }}</div>
+                            {% endif %}
+
+                            <table id="table"
+                                   class="table"
+                                   data-toggle="table"
+                                   data-search="true"
+                                   data-show-toggle="true"
+                                   data-show-columns="true"
+                                   data-pagination="true"
+                                   data-single-select="true"
+                                   data-maintain-selected="true"
+                                   data-show-pagination-switch="true"
+                                   data-sortable="true"
+                                   data-show-export="true"
+                                   data-click-to-select="true"
+                                   data-advanced-search="true"
+                                   data-toolbar="#toolbar"
+                                   data-page-size="15"
+                            >
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nome</th>
+                                    <th>Login</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                {% for user in users %}
+                                    <tr>
+                                        {% for item in user %}
+                                            <td>{{ item }}</td>
+                                        {% endfor %}
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+
+    <script>
+        var $table = $('#table');
+        $(function () {
+            $('#toolbar').find('select').change(function () {
+                $table.bootstrapTable('destroy').bootstrapTable({
+                    exportDataType: $(this).val()
+                });
+            });
+        })
+    </script>
+
+{% endblock %}
