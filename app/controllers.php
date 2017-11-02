@@ -11,7 +11,7 @@ $app->get('/', function (\Symfony\Component\HttpFoundation\Request $request) use
     try {
 
         if (!empty($pesquisa)) {
-            $resultado = $app['guzzle']->get("http://172.20.1.54:8050/api/" . API_TOKEN . "/users/" . $pesquisa);
+            $resultado = $app['guzzle']->get("http://" . SERVER_IP . "/api/" . API_TOKEN . "/users/" . $pesquisa);
             $users = json_decode($resultado->getBody()->getContents(), true);
             $registros = $users['data'];
         }

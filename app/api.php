@@ -4,20 +4,31 @@ $api = $app['controllers_factory'];
 
 function getDataFiles(string $file)
 {
-    $usuarios = fopen(__DIR__ . '/../res/' . $file, 'r');
+    try {
 
-    while (($line = fgets($usuarios)) !== false) {
+        $usuarios = fopen(__DIR__ . '/../res/' . $file, 'r');
 
-        $item = explode(',', $line);
+        if (empty($usuarios)) {
+            throw new Exception("Banco de Dados desconectado.");
+        }
 
-        yield $item[0] = [
-            'id' => $item[0],
-            'nome' => $item[1],
-            'username' => $item[2],
-        ];
+        while (($line = fgets($usuarios)) !== false) {
+
+            $item = explode(',', $line);
+
+            yield $item[0] = [
+                'id' => $item[0],
+                'nome' => $item[1],
+                'username' => $item[2],
+            ];
+        }
+
+        fclose($usuarios);
+
+    } catch(Exception $e) {
+        throw $e;
     }
 
-    fclose($usuarios);
 }
 
 function getListaRelevancia(string $listaRelevancia)
@@ -99,21 +110,25 @@ $api->get('{tokenId}/users/{q}', function ($tokenId, $q) use ($app) {
         ], \Symfony\Component\HttpFoundation\Response::HTTP_BAD_REQUEST);
     }
 
-    $resultado = tratarOcorrencias('users.csv', $q);
+    try{
 
-    if (empty($resultado)) {
+        $resultado = tratarOcorrencias('users.csv', $q);
+
         return $app->json([
             'classe' => 'sucesso',
-            'mensagem' => 'Nenhum Usuario Encontrado.',
-            'data' => []
+            'mensagem' => 'Usuario Encontrado.',
+            'data' => $resultado
         ], \Symfony\Component\HttpFoundation\Response::HTTP_ACCEPTED);
-    }
 
-    return $app->json([
-        'classe' => 'sucesso',
-        'mensagem' => 'Usuario(s) Encontrado(s).',
-        'data' => $resultado
-    ], \Symfony\Component\HttpFoundation\Response::HTTP_ACCEPTED);
+    } catch(Exception $e) {
+
+        return $app->json([
+            'classe' => 'erro',
+            'mensagem' => $e->getMessage(),
+            'data' => []
+        ], \Symfony\Component\HttpFoundation\Response::HTTP_INTERNAL_SERVER_ERROR);
+
+    }
 
 });
 
