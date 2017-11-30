@@ -5,6 +5,8 @@ import { Users } from '../import/api/users.js';
 import { open } from 'fs'
 import { read } from 'fs'
 
+// Fiber = require('fibers');
+
 // path: Path of the file relative to the private folder
 function loadCSVtoDB(path) {
   path = join(process.env.PWD, 'private', path);
@@ -30,9 +32,18 @@ function loadCSVtoDB(path) {
 
 // path: Path of the file relative to the private folder
 function checkRelevance(path, relevance) {
+  function readAll(fd, relevance) {
+    var lineReader = require('readline').createInterface({
+      input: require('fs').createReadStream('', { fd: fd })
+    });
+
+    lineReader.on('line', Meteor.bindEnvironment(function (line) {
+      Users.update(line, { $set: { Relevancia: relevance } })
+    }));
+  }
+
   path = join(process.env.PWD, 'private', path);
-  let buffer = []
-  open(path, 'r', (err, fd) => {
+  open(path, 'r', Meteor.bindEnvironment((err, fd) => {
     if (err) {
       if (err.code === 'ENOENT') {
         console.error('myfile does not exist');
@@ -40,12 +51,8 @@ function checkRelevance(path, relevance) {
       }
       throw err;
     }
-    read(fd, buffer, 0, 15, 0, (err, buffer, bytesRead) => {
-      buffer.forEach((value) => {
-        if (Users.findOne(value)) { Users.update(value, { $set: { Relevancia: relevance } }) }
-      })
-    });
-  });
+    readAll(fd, relevance)
+  }));
 }
 Meteor.startup(() => {
   if (Users.find().count() === 0) {
@@ -56,8 +63,8 @@ Meteor.startup(() => {
       })
       .then(() => {
         console.log(Users.find().count())
-        checkRelevance('db/lista_relevancia_1', 1)
-        checkRelevance('db/lista_relevancia_2', 2)
+        checkRelevance('db/lista_relevancia_1.txt', 1)
+        checkRelevance('db/lista_relevancia_2.txt', 2)
       }
       )
   }
