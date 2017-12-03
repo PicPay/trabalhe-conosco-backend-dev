@@ -2,70 +2,145 @@ import { Meteor } from 'meteor/meteor';
 import { CSV } from 'meteor/clinical:csv';
 import { join } from 'path';
 import { Users } from '../import/api/users.js';
-import { open } from 'fs'
-import { read } from 'fs'
+import { userContext } from '../import/api/users.js';
+import { open, read } from 'fs';
+import { check, Match } from 'meteor/check';
 
-// Fiber = require('fibers');
+async = require("async")
 
-// path: Path of the file relative to the private folder
-function loadCSVtoDB(path) {
-  path = join(process.env.PWD, 'private', path);
 
-  createUser = (line) => {
-    return { _id: line[0], Nome: line[1], Username: line[2], Relevancia: 3 };
-  }
+// path: Path of the list of relevance relative to the private folder
+// relevance: Relevance desired to the user when on the list
+checkRelevance = (path, relevance) => {
 
-  let insertions = [];
-  insertToDB = (line) => {
-    insertions.push(new Promise((resolve, reject) => {
-      onInsertion = (error, result) => {
-        if (error) { reject(line, error); }
-        resolve();
-      }
-      Users.insert(createUser(line), onInsertion);
-    }));
-  };
+  readAll = (fd, relevance) => {
+    let batch = Users.rawCollection().initializeUnorderedBulkOp()
+    let nLines = 0
 
-  CSV.readCsvFileLineByLine(path, {}, Meteor.bindEnvironment(insertToDB));
-  return Promise.all(insertions)
-}
-
-// path: Path of the file relative to the private folder
-function checkRelevance(path, relevance) {
-  function readAll(fd, relevance) {
-    var lineReader = require('readline').createInterface({
+    let lineReader = require('readline').createInterface({
       input: require('fs').createReadStream('', { fd: fd })
     });
 
-    lineReader.on('line', Meteor.bindEnvironment(function (line) {
-      Users.update(line, { $set: { Relevancia: relevance } })
+    let onRelevanceCheck = (error) => {
+      if (error) throw error
+    }
+
+    let updateRelevance = (line) => {
+      if (line) { 
+        batch.find({ _id: line }).updateOne({$set: { Relevancia: relevance }});
+        nLines ++;
+        if (nLines >= 1000) {
+          batch.execute(onBulkExecute);
+          batch = Users.rawCollection().initializeUnorderedBulkOp();
+          nLines = 0
+        }
+      }
+    }
+
+    onBulkExecute = (error, result) => {
+      if (error) throw (error);
+      // maybe do something with result
+    }
+
+    lineReader.on('line', Meteor.bindEnvironment((line) => {
+      async.series([(onRelevanceCheck) => {
+        updateRelevance(line);
+      }], (error) => { throw error });
     }));
+
+    lineReader.on('close', Meteor.bindEnvironment(() => {
+      if (nLines) {batch.execute(onBulkExecute)}
+    }))
   }
 
   path = join(process.env.PWD, 'private', path);
   open(path, 'r', Meteor.bindEnvironment((err, fd) => {
     if (err) {
       if (err.code === 'ENOENT') {
-        console.error('myfile does not exist');
+        console.error('File does not exist');
         return;
       }
       throw err;
     }
-    readAll(fd, relevance)
+    readAll(fd, relevance);
   }));
 }
+
+// path: Path of the file relative to the private folder
+loadCSVtoDB = (path) => {
+
+  readAll = (fd, relevance) => {
+    let nLines = 0
+    let lineParsed = ''
+    let batch = Users.rawCollection().initializeUnorderedBulkOp()
+
+    let lineReader = require('readline').createInterface({
+      input: require('fs').createReadStream('', { fd: fd })
+    });
+
+    onBulkExecute = (error, result) => {
+      if (error) throw (error);
+      // maybe do something with result
+    }
+
+    onCSVtoDB = (error) => {
+      if (error) throw error
+    }
+
+    uploadUsers = (line) => {
+      if (line) {
+        let user = { _id: '', Nome: '', Username: '', Relevancia: 3 }
+        lineParsed = CSV.parse(line)
+        user._id = lineParsed.data[0][0]
+        user.Nome = lineParsed.data[0][1]
+        user.Username = lineParsed.data[0][2]
+        if (userContext.validate(user)) {
+          batch.insert(user)
+          nLines++;
+        } else { onCSVtoDB("Invalid line: " + line) }
+        if (nLines >= 1000) {
+          batch.execute(onBulkExecute)
+          batch = Users.rawCollection().initializeUnorderedBulkOp()
+          nLines = 0
+        }
+      }
+    }
+
+    lineReader.on('line', Meteor.bindEnvironment((line) => {
+      async.series(
+        [
+          (onCSVtoDB) => {
+            uploadUsers(line)
+          }
+        ],
+        (error) => { throw error }
+      )
+    }));
+
+    lineReader.on('close', Meteor.bindEnvironment(() => {
+      if (nLines) {
+        batch.execute(onBulkExecute)
+      }
+      checkRelevance('db/lista_relevancia_1.txt', 1)
+      checkRelevance('db/lista_relevancia_2.txt', 2)
+    }))
+  }
+
+  path = join(process.env.PWD, 'private', path);
+  open(path, 'r', Meteor.bindEnvironment((err, fd) => {
+    if (err) {
+      if (err.code === 'ENOENT') {
+        console.error('File does not exist');
+        return;
+      }
+      throw err;
+    }
+    readAll(fd)
+  }));
+}
+
 Meteor.startup(() => {
   if (Users.find().count() === 0) {
-    loadCSVtoDB('db/bubu.csv')
-      .catch((line, error) => {
-        console.log('Linha com erro: ' + line)
-        console.log(error)
-      })
-      .then(() => {
-        console.log(Users.find().count())
-        checkRelevance('db/lista_relevancia_1.txt', 1)
-        checkRelevance('db/lista_relevancia_2.txt', 2)
-      }
-      )
+    loadCSVtoDB('db/users.csv')
   }
 });

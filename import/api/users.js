@@ -1,26 +1,25 @@
 import { Meteor } from 'meteor/meteor';
 
+
 export const Users = new Mongo.Collection("users");
 
-var Schemas = {};
-
-Schemas.Users = new SimpleSchema({
+var userSchema = new SimpleSchema({
     _id: {
         type: String,
         label: "ID",
-        min: 0,
+        min: 1,
         max: 36
     },
     Nome: {
         type: String,
         label: "Nome",
-        min: 0,
+        min: 1,
         max: 50
     },
     Username: {
         type: String,
         label: "Username",
-        min: 0,
+        min: 1,
         max: 50
     },
     Relevancia: {
@@ -31,4 +30,4 @@ Schemas.Users = new SimpleSchema({
     }
 });
 
-Users.attachSchema(Schemas.Users);
+export const userContext = userSchema.newContext()
