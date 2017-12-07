@@ -1,0 +1,17 @@
+.input-group-addon {
+  background-color: #337ab7;
+  color: #fff;
+  cursor: pointer;
+}
+
+.custom-pagination {
+  font-size: 20px;
+  text-align: center;
+  border: 1px solid #337ab7;
+}
+
+.disable-button {
+  cursor: not-allowed;
+  background-color: #f1f1f1;
+  color: #000;
+}

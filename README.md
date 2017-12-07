@@ -1,3 +1,10 @@
+----
+### Observação
+
+Para popular os dados no banco de dados, foi criado um docker, porém não foi enviado o csv com os dados devido ao extenso tamanho do arquivo.
+Então para que o banco seja populado com os dados do exercício, basta copiar e sobrescrever o arquivo users.csv dentro da pasta seed.
+----
+
 ![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
 
 # Teste Backend
