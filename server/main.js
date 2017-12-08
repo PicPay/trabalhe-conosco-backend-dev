@@ -1,12 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 import { CSV } from 'meteor/clinical:csv';
 import { join } from 'path';
-import { Users } from '../import/api/users.js';
-import { userContext } from '../import/api/users.js';
+import { UsersDB, userDBContext } from '../imports/api/usersDB.js';
 import { open, read } from 'fs';
-import { check, Match } from 'meteor/check';
-
+import { bigram } from 'n-gram';
 async = require("async")
+// nGram = require('n-gram');
 
 
 // path: Path of the list of relevance relative to the private folder
@@ -14,7 +13,7 @@ async = require("async")
 checkRelevance = (path, relevance) => {
 
   readAll = (fd, relevance) => {
-    let batch = Users.rawCollection().initializeUnorderedBulkOp()
+    let batch = UsersDB.rawCollection().initializeUnorderedBulkOp()
     let nLines = 0
 
     let lineReader = require('readline').createInterface({
@@ -26,12 +25,12 @@ checkRelevance = (path, relevance) => {
     }
 
     let updateRelevance = (line) => {
-      if (line) { 
-        batch.find({ _id: line }).updateOne({$set: { Relevancia: relevance }});
-        nLines ++;
+      if (line) {
+        batch.find({ _id: line }).updateOne({ $set: { Relevancia: relevance } });
+        nLines++;
         if (nLines >= 1000) {
           batch.execute(onBulkExecute);
-          batch = Users.rawCollection().initializeUnorderedBulkOp();
+          batch = UsersDB.rawCollection().initializeUnorderedBulkOp();
           nLines = 0
         }
       }
@@ -49,7 +48,7 @@ checkRelevance = (path, relevance) => {
     }));
 
     lineReader.on('close', Meteor.bindEnvironment(() => {
-      if (nLines) {batch.execute(onBulkExecute)}
+      if (nLines) { batch.execute(onBulkExecute) }
     }))
   }
 
@@ -72,7 +71,7 @@ loadCSVtoDB = (path) => {
   readAll = (fd, relevance) => {
     let nLines = 0
     let lineParsed = ''
-    let batch = Users.rawCollection().initializeUnorderedBulkOp()
+    let batch = UsersDB.rawCollection().initializeUnorderedBulkOp()
 
     let lineReader = require('readline').createInterface({
       input: require('fs').createReadStream('', { fd: fd })
@@ -84,23 +83,28 @@ loadCSVtoDB = (path) => {
     }
 
     onCSVtoDB = (error) => {
-      if (error) throw error
+      if (error) throw error;
+    }
+
+    make_ngrams = (text) => {
+      
     }
 
     uploadUsers = (line) => {
       if (line) {
-        let user = { _id: '', Nome: '', Username: '', Relevancia: 3 }
-        lineParsed = CSV.parse(line)
-        user._id = lineParsed.data[0][0]
-        user.Nome = lineParsed.data[0][1]
-        user.Username = lineParsed.data[0][2]
-        if (userContext.validate(user)) {
+        let user = { _id: '', Nome: '', Username: '', Hash: '', Relevancia: 3 };
+        lineParsed = CSV.parse(line);
+        user._id = lineParsed.data[0][0];
+        user.Nome = lineParsed.data[0][1];
+        user.Username = lineParsed.data[0][2];
+        user.Hash = bigram(lineParsed.data[0][1]);
+        if (userDBContext.validate(user)) {
           batch.insert(user)
           nLines++;
         } else { onCSVtoDB("Invalid line: " + line) }
         if (nLines >= 1000) {
           batch.execute(onBulkExecute)
-          batch = Users.rawCollection().initializeUnorderedBulkOp()
+          batch = UsersDB.rawCollection().initializeUnorderedBulkOp()
           nLines = 0
         }
       }
@@ -140,7 +144,21 @@ loadCSVtoDB = (path) => {
 }
 
 Meteor.startup(() => {
-  if (Users.find().count() === 0) {
-    loadCSVtoDB('db/users.csv')
+  // UsersDB._ensureIndex(
+  //   { 
+  //     Name: "text",
+  //     Username: "text"
+  //   }
+  // );
+  if (UsersDB.find().count() === 0) {
+    loadCSVtoDB('db/32.csv')
   }
+  // UsersDB.find({}, {
+  //   fields: {
+  //     Nome: 1,
+  //     Username: 1
+  //   }
+  // }).forEach((doc) => {
+  //   console.log(doc);
+  // })
 });

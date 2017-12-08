@@ -1,0 +1,32 @@
+<body>
+  <h1>Welcome to Meteor!</h1>
+  {{> search}}
+</body>
+
+<template name="search">
+  <form class = "search-form">
+    <input type="text" id="searchValue" placeholder="Enter search terms here."/>
+    <input class="submit" type="submit" value="Submit">
+  </form>
+  <div class="table-responsive">
+      <table class="table table-striped">
+          <thead>
+              <tr>
+                  <th>Nome</th>
+                  <th>Username</th>
+              </tr>
+          </thead>
+          <tbody>
+              {{#each users}} {{> user}} {{/each}}
+          </tbody>
+      </table>
+  </div>
+  <hr/>
+</template>
+
+<template name="user">
+  <tr>
+    <td>{{Nome}}</td>
+    <td>{{Username}}</td>
+  </tr>
+</template>
