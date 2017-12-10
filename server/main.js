@@ -3,10 +3,9 @@ import { CSV } from 'meteor/clinical:csv';
 import { join } from 'path';
 import { UsersDB, userDBContext } from '../imports/api/usersDB.js';
 import { open, read } from 'fs';
-import { bigram } from 'n-gram';
+import { trigram } from 'n-gram';
 async = require("async")
 // nGram = require('n-gram');
-
 
 // path: Path of the list of relevance relative to the private folder
 // relevance: Relevance desired to the user when on the list
@@ -92,12 +91,13 @@ loadCSVtoDB = (path) => {
 
     uploadUsers = (line) => {
       if (line) {
-        let user = { _id: '', Nome: '', Username: '', Hash: '', Relevancia: 3 };
+        let hash = ''
+        let user = { _id: '', Nome: '', Username: '', Relevancia: 3, Hash: ''};
         lineParsed = CSV.parse(line);
         user._id = lineParsed.data[0][0];
         user.Nome = lineParsed.data[0][1];
         user.Username = lineParsed.data[0][2];
-        user.Hash = bigram(lineParsed.data[0][1]);
+        user.Hash = trigram(lineParsed.data[0][1]).join(' ')
         if (userDBContext.validate(user)) {
           batch.insert(user)
           nLines++;
@@ -144,21 +144,7 @@ loadCSVtoDB = (path) => {
 }
 
 Meteor.startup(() => {
-  // UsersDB._ensureIndex(
-  //   { 
-  //     Name: "text",
-  //     Username: "text"
-  //   }
-  // );
   if (UsersDB.find().count() === 0) {
-    loadCSVtoDB('db/32.csv')
+    loadCSVtoDB('db/users.csv')
   }
-  // UsersDB.find({}, {
-  //   fields: {
-  //     Nome: 1,
-  //     Username: 1
-  //   }
-  // }).forEach((doc) => {
-  //   console.log(doc);
-  // })
 });

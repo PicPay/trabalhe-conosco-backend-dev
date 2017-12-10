@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
+import { trigram } from 'n-gram';
 
 
 export const UsersDB = new Mongo.Collection("usersDB");
@@ -16,34 +17,61 @@ const userDBSchema = new SimpleSchema({
         label: "Nome",
         min: 1,
         max: 50
-        // text: true
     },
     Username: {
         type: String,
         label: "Username",
         min: 1,
         max: 50
-        // text: true
-    },
-    Hash: {
-        type: String,
-        label: "N-grams",
-        min: 1
     },
     Relevancia: {
         type: Number,
         label: "Relevancia",
         min: 1,
         max: 3
+    },
+    Hash: {
+        type: String,
+        label: "N-grams",
+        min: 1,
+        optional: true
     }
 });
 
 export const userDBContext = userDBSchema.newContext()
 
+// if (Meteor.isServer) {
+//     let Api = new Restivus({
+//         useDefaultAuth: true,
+//         prettyJson: true
+//     });
+
+//     Api.addCollection(UsersDB);
+
+//     Api.addCollection(Meteor.users, {
+//         excludedEndpoints: ['getAll', 'put'],
+//         routeOptions: {
+//             authRequired: true
+//         },
+//         endpoints: {
+//             post: {
+//                 authRequired: false
+//             },
+//             delete: {
+//                 roleRequired: 'admin'
+//             }
+//         }
+//     });
+
+//     Api.addRoute('UsersDB', { authRequired: true }, {
+//         get: function () {
+//             return getUsers(this.urlParams.id); 
+//         }
+//     });
+// }
+
 if (Meteor.isServer) {
     UsersDB.rawCollection().createIndex({
-        // Nome: 'text',  
-        // username: 'text'
         Hash: 'text'
     })
     Meteor.publish('searchUsers', (searchValue) => {
@@ -51,8 +79,9 @@ if (Meteor.isServer) {
         if (!searchValue) {
             return UsersDB.find({})
         }
+        let searchGram = trigram(searchValue).join(' ');
         var cursor = UsersDB.find(
-            { $text: { $search: searchValue } },
+            { $text: { $search: searchGram } },
             {
                 fields: {
                     score: { $meta: "textScore" }
@@ -60,7 +89,7 @@ if (Meteor.isServer) {
                 sort: {
                     score: { $meta: "textScore" }
                 }
-            }
+            },
         );
         return cursor;
     })
