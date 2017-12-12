@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-import { trigram } from 'n-gram';
+// import { trigram } from 'n-gram';
 
 
 export const UsersDB = new Mongo.Collection("usersDB");
@@ -33,7 +33,6 @@ const userDBSchema = new SimpleSchema({
     Hash: {
         type: String,
         label: "N-grams",
-        min: 1,
         optional: true
     }
 });
@@ -67,28 +66,46 @@ export const userDBContext = userDBSchema.newContext()
 //         get: function () {
 //             return getUsers(this.urlParams.id); 
 //         }
-//     });
+//     });  
 // }
 
 if (Meteor.isServer) {
     UsersDB.rawCollection().createIndex({
-        Hash: 'text'
+        Hash: 'text',
+        Relevancia: 1
     })
+
+    trigram = (text) => {
+        let grams = [];
+        let index;
+        let n = 4
+        index = text.length - (n-1);
+        if (index < 1) {
+          return [text]
+        }
+        while (index--) {
+          grams[index] = text.substr(index, n);
+        }
+        return grams;
+      }
+
     Meteor.publish('searchUsers', (searchValue) => {
         console.log("Searching for ", searchValue);
         if (!searchValue) {
             return UsersDB.find({})
         }
         let searchGram = trigram(searchValue).join(' ');
-        var cursor = UsersDB.find(
-            { $text: { $search: searchGram } },
+        let cursor = UsersDB.find(
+            {$text: { $search: searchGram } },
             {
                 fields: {
                     score: { $meta: "textScore" }
                 },
                 sort: {
+                    Relevancia: 1,
                     score: { $meta: "textScore" }
-                }
+                },
+                limit: 30
             },
         );
         return cursor;

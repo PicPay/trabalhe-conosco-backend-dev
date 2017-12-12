@@ -15,13 +15,13 @@ Template.search.events({
   'submit .search-form'(event) {
     event.preventDefault();
     Session.set("searchValue", $("#searchValue").val());
-    console.log('Session: ' + Session.get('searchValue'))
   }
 });
 
 Template.search.helpers({
   users: () => {
     let searchValue = Session.get('searchValue')
+    console.log('Session: ' + Session.get('searchValue'))
     Meteor.subscribe("searchUsers", searchValue);
     return UsersDB.find({}, {
       sort: {

@@ -3,12 +3,12 @@ import { CSV } from 'meteor/clinical:csv';
 import { join } from 'path';
 import { UsersDB, userDBContext } from '../imports/api/usersDB.js';
 import { open, read } from 'fs';
-import { trigram } from 'n-gram';
+// import { trigram } from 'n-gram';
 async = require("async")
 // nGram = require('n-gram');
 
 // path: Path of the list of relevance relative to the private folder
-// relevance: Relevance desired to the user when on the list
+// relevance: Relevance desired to the user when on the list 
 checkRelevance = (path, relevance) => {
 
   readAll = (fd, relevance) => {
@@ -47,6 +47,7 @@ checkRelevance = (path, relevance) => {
     }));
 
     lineReader.on('close', Meteor.bindEnvironment(() => {
+      console.log("fim")
       if (nLines) { batch.execute(onBulkExecute) }
     }))
   }
@@ -85,14 +86,24 @@ loadCSVtoDB = (path) => {
       if (error) throw error;
     }
 
-    make_ngrams = (text) => {
-      
+    trigram = (text) => {
+      let grams = [];
+      let index;
+      let n = 4
+      index = text.length - (n-1);
+      if (index < 1) {
+        return [text]
+      }
+      while (index--) {
+        grams[index] = text.substr(index, n);
+      }
+      return grams;
     }
 
     uploadUsers = (line) => {
       if (line) {
         let hash = ''
-        let user = { _id: '', Nome: '', Username: '', Relevancia: 3, Hash: ''};
+        let user = { _id: '', Nome: '', Username: '', Relevancia: 3, Hash: '' };
         lineParsed = CSV.parse(line);
         user._id = lineParsed.data[0][0];
         user.Nome = lineParsed.data[0][1];
@@ -142,9 +153,10 @@ loadCSVtoDB = (path) => {
     readAll(fd)
   }));
 }
-
+ 
 Meteor.startup(() => {
+  console.log("inicio")
   if (UsersDB.find().count() === 0) {
     loadCSVtoDB('db/users.csv')
   }
-});
+}); 
