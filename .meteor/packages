@@ -22,3 +22,5 @@ clinical:csv
 mikowals:batch-insert
 session@1.1.7
 nimble:restivus
+accounts-ui
+accounts-password

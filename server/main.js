@@ -3,9 +3,7 @@ import { CSV } from 'meteor/clinical:csv';
 import { join } from 'path';
 import { UsersDB, userDBContext } from '../imports/api/usersDB.js';
 import { open, read } from 'fs';
-// import { trigram } from 'n-gram';
 async = require("async")
-// nGram = require('n-gram');
 
 // path: Path of the list of relevance relative to the private folder
 // relevance: Relevance desired to the user when on the list 
@@ -86,11 +84,11 @@ loadCSVtoDB = (path) => {
       if (error) throw error;
     }
 
-    trigram = (text) => {
+    ngram = (text) => {
       let grams = [];
       let index;
       let n = 4
-      index = text.length - (n-1);
+      index = text.length - (n - 1);
       if (index < 1) {
         return [text]
       }
@@ -108,7 +106,7 @@ loadCSVtoDB = (path) => {
         user._id = lineParsed.data[0][0];
         user.Nome = lineParsed.data[0][1];
         user.Username = lineParsed.data[0][2];
-        user.Hash = trigram(lineParsed.data[0][1]).join(' ')
+        user.Hash = ngram(lineParsed.data[0][1]).join(' ')
         if (userDBContext.validate(user)) {
           batch.insert(user)
           nLines++;
@@ -136,8 +134,11 @@ loadCSVtoDB = (path) => {
       if (nLines) {
         batch.execute(onBulkExecute)
       }
-      checkRelevance('db/lista_relevancia_1.txt', 1)
-      checkRelevance('db/lista_relevancia_2.txt', 2)
+      UsersDB.rawCollection().ensureIndex({ Hash: 'text' }, Meteor.bindEnvironment((error, index) => {
+        if(error) { throw error }
+        checkRelevance('db/lista_relevancia_1.txt', 1)
+        checkRelevance('db/lista_relevancia_2.txt', 2)
+      }))
     }))
   }
 
@@ -153,10 +154,22 @@ loadCSVtoDB = (path) => {
     readAll(fd)
   }));
 }
- 
+
+createUser = (username, password) => {
+  if (!Meteor.users.findOne({ username })) {
+    Accounts.createUser({ username, password });
+    console.log(`Creating user ${username}`)
+  }
+}
+
 Meteor.startup(() => {
-  console.log("inicio")
+  createUser("admin", "123456");
+
+  onLoad = (error) => {
+    if (error) throw error;
+  }
+
   if (UsersDB.find().count() === 0) {
-    loadCSVtoDB('db/users.csv')
+  loadCSVtoDB('db/users.csv')
   }
 }); 

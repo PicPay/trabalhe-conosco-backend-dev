@@ -1,6 +1,9 @@
 <body>
   <h1>Welcome to Meteor!</h1>
+  {{> loginButtons}}
   {{> search}}
+  <button id="button1" class="AddPlaceButton1">Prev</button>
+  <button id="button2" class="AddPlaceButton2">Next</button>
 </body>
 
 <template name="search">
@@ -23,6 +26,7 @@
           </tbody>
       </table>
   </div>
+  
   <hr/>
 </template>
 

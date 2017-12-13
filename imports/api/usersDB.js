@@ -1,7 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-// import { trigram } from 'n-gram';
-
+import { Restivus } from 'meteor/nimble:restivus'
 
 export const UsersDB = new Mongo.Collection("usersDB");
 
@@ -39,64 +38,61 @@ const userDBSchema = new SimpleSchema({
 
 export const userDBContext = userDBSchema.newContext()
 
-// if (Meteor.isServer) {
-//     let Api = new Restivus({
-//         useDefaultAuth: true,
-//         prettyJson: true
-//     });
-
-//     Api.addCollection(UsersDB);
-
-//     Api.addCollection(Meteor.users, {
-//         excludedEndpoints: ['getAll', 'put'],
-//         routeOptions: {
-//             authRequired: true
-//         },
-//         endpoints: {
-//             post: {
-//                 authRequired: false
-//             },
-//             delete: {
-//                 roleRequired: 'admin'
-//             }
-//         }
-//     });
-
-//     Api.addRoute('UsersDB', { authRequired: true }, {
-//         get: function () {
-//             return getUsers(this.urlParams.id); 
-//         }
-//     });  
-// }
 
 if (Meteor.isServer) {
-    UsersDB.rawCollection().createIndex({
-        Hash: 'text',
-        Relevancia: 1
-    })
+    // let Api = new Restivus({
+    //     // useDefaultAuth: true,
+    //     prettyJson: true
+    // });
 
-    trigram = (text) => {
+    // Api.addCollection(UsersDB);
+
+    // Api.addCollection(Meteor.users, {
+    //     excludedEndpoints: ['getAll', 'put'],
+    //     routeOptions: {
+    //         authRequired: true
+    //     },
+    //     endpoints: {
+    //         post: {
+    //             authRequired: false
+    //         },
+    //         delete: {
+    //             roleRequired: 'admin'
+    //         }
+    //     }
+    // });
+
+    // Api.addRoute('userss',
+    //     { authRequired: true },
+    //     {
+    //         get: function () {
+    //             return 'abra';
+    //         }
+    //     });
+
+
+
+    ngram = (text) => {
         let grams = [];
         let index;
         let n = 4
-        index = text.length - (n-1);
+        index = text.length - (n - 1);
         if (index < 1) {
-          return [text]
+            return [text]
         }
         while (index--) {
-          grams[index] = text.substr(index, n);
+            grams[index] = text.substr(index, n);
         }
         return grams;
-      }
+    }
 
-    Meteor.publish('searchUsers', (searchValue) => {
-        console.log("Searching for ", searchValue);
-        if (!searchValue) {
-            return UsersDB.find({})
+    Meteor.publish('searchUsers', (par) => {
+        if (!par[0]) {
+            return UsersDB.find({}, { skip: 15*par[1], limit: 15 })
         }
-        let searchGram = trigram(searchValue).join(' ');
+        let searchGram = ngram(par[0]).join(' ');
         let cursor = UsersDB.find(
-            {$text: { $search: searchGram } },
+            { $text: { $search: searchGram } },
             {
                 fields: {
                     score: { $meta: "textScore" }
@@ -105,7 +101,8 @@ if (Meteor.isServer) {
                     Relevancia: 1,
                     score: { $meta: "textScore" }
                 },
-                limit: 30
+                skip: 15*par[1],
+                limit: 15
             },
         );
         return cursor;
