@@ -6,33 +6,43 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 import { UsersDB } from '../api/usersDB.js';
 
 import './body.html';
-import { stringify } from 'querystring';
+
+let HttpClient = function () {
+  this.get = function (aUrl, aCallback) {
+    var anHttpRequest = new XMLHttpRequest();
+    anHttpRequest.onreadystatechange = function () {
+      if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
+        aCallback(anHttpRequest.responseText);
+    }
+
+    anHttpRequest.open("GET", aUrl, true);
+    anHttpRequest.send(null);
+  }
+}
 
 Template.body.onCreated(function bodyOnCreated() {
   this.state = new ReactiveDict();
   Session.set("pag", 0);
+  Session.set("users", []);
 });
 
 Template.body.events({
   'click .AddPlaceButton1': function (e) {
     e.preventDefault();
-    console.log("You pressed the button1");
     if (Session.get("pag") > 0) {
-    Session.set("pag", Session.get("pag") - 1);
-    console.log(Session.get("pag"))
+      Session.set("pag", Session.get("pag") - 1);
     }
   },
   'click .AddPlaceButton2': function (e) {
     e.preventDefault();
-    console.log("You pressed the button2");
     Session.set("pag", Session.get("pag") + 1);
-    console.log(Session.get("pag"))
   }
 });
 
 Template.search.events({
   'submit .search-form'(event) {
     event.preventDefault();
+    Session.set("pag", 0);
     Session.set("searchValue", $("#searchValue").val());
   }
 });
@@ -42,32 +52,12 @@ Template.search.helpers({
   users: () => {
     let searchValue = Session.get('searchValue')
     let pag = Session.get("pag")
-    // console.log('Session: ')
-    Meteor.subscribe("searchUsers", [searchValue, pag]);
-    return UsersDB.find({}, {
-      sort: {
-        Relevancia: 1,
-        score: -1
-      },
-      limit: 15
+    let client = new HttpClient()
+    getURL = 'http://localhost:3000/api/Users/?search='+searchValue+'&pag='+ pag.toString()+'&userid='+Meteor.userId() 
+
+    client.get(getURL, (response) => {
+      Session.set("users", JSON.parse(response));
     });
+    return Session.get("users")
   }
 });
-
-// let HttpClient = function() {
-//   this.get = function(aUrl, aCallback) {
-//       var anHttpRequest = new XMLHttpRequest();
-//       anHttpRequest.onreadystatechange = function() { 
-//           if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
-//               aCallback(anHttpRequest.responseText);
-//       }
-
-//       anHttpRequest.open( "GET", aUrl, true );            
-//       anHttpRequest.send( null );
-//   }
-// }
-
-// let client = new HttpClient();
-// client.get('http://localhost:3000/api/userss/', (response) => {
-//   console.log(response);
-// });

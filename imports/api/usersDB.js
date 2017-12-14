@@ -1,6 +1,5 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-import { Restivus } from 'meteor/nimble:restivus'
 
 export const UsersDB = new Mongo.Collection("usersDB");
 
@@ -40,39 +39,7 @@ export const userDBContext = userDBSchema.newContext()
 
 
 if (Meteor.isServer) {
-    // let Api = new Restivus({
-    //     // useDefaultAuth: true,
-    //     prettyJson: true
-    // });
-
-    // Api.addCollection(UsersDB);
-
-    // Api.addCollection(Meteor.users, {
-    //     excludedEndpoints: ['getAll', 'put'],
-    //     routeOptions: {
-    //         authRequired: true
-    //     },
-    //     endpoints: {
-    //         post: {
-    //             authRequired: false
-    //         },
-    //         delete: {
-    //             roleRequired: 'admin'
-    //         }
-    //     }
-    // });
-
-    // Api.addRoute('userss',
-    //     { authRequired: true },
-    //     {
-    //         get: function () {
-    //             return 'abra';
-    //         }
-    //     });
-
-
-
-    ngram = (text) => {
+    let ngram = (text) => {
         let grams = [];
         let index;
         let n = 4
@@ -85,12 +52,12 @@ if (Meteor.isServer) {
         }
         return grams;
     }
-
-    Meteor.publish('searchUsers', (par) => {
-        if (!par[0]) {
-            return UsersDB.find({}, { skip: 15*par[1], limit: 15 })
+    
+    let getCursor = (searchValue, pag) => {
+        if (!searchValue) {
+            return UsersDB.find({}, {skip: 15*pag, limit: 15 }).fetch()
         }
-        let searchGram = ngram(par[0]).join(' ');
+        let searchGram = ngram(searchValue).join(' ');
         let cursor = UsersDB.find(
             { $text: { $search: searchGram } },
             {
@@ -101,10 +68,27 @@ if (Meteor.isServer) {
                     Relevancia: 1,
                     score: { $meta: "textScore" }
                 },
-                skip: 15*par[1],
+                skip: 15*pag,
                 limit: 15
             },
-        );
+        ).fetch();
         return cursor;
-    })
+    }
+
+    let Api = new Restivus({
+        prettyJson: true
+    });
+
+    Api.addCollection(UsersDB);
+
+    Api.addRoute('Users',
+        {
+            get: function () {
+                let query = this.queryParams;
+                if (Meteor.users.find({_id: query.userid}).count()) {
+                return getCursor(query.search, query.pag)
+                }
+                return 'You must be logged in to do this'
+            }
+        });
 }

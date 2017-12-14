@@ -50,7 +50,8 @@ checkRelevance = (path, relevance) => {
     }))
   }
 
-  path = join(process.env.PWD, 'private', path);
+  // path = join(process.env.PWD, 'private', path); 
+  path = Assets.absoluteFilePath(path)
   open(path, 'r', Meteor.bindEnvironment((err, fd) => {
     if (err) {
       if (err.code === 'ENOENT') {
@@ -135,14 +136,15 @@ loadCSVtoDB = (path) => {
         batch.execute(onBulkExecute)
       }
       UsersDB.rawCollection().ensureIndex({ Hash: 'text' }, Meteor.bindEnvironment((error, index) => {
-        if(error) { throw error }
+        if (error) { throw error }
         checkRelevance('db/lista_relevancia_1.txt', 1)
         checkRelevance('db/lista_relevancia_2.txt', 2)
       }))
     }))
   }
 
-  path = join(process.env.PWD, 'private', path);
+  // path = join(process.env.PWD, 'private', path);
+  path = Assets.absoluteFilePath(path)
   open(path, 'r', Meteor.bindEnvironment((err, fd) => {
     if (err) {
       if (err.code === 'ENOENT') {
@@ -170,6 +172,7 @@ Meteor.startup(() => {
   }
 
   if (UsersDB.find().count() === 0) {
-  loadCSVtoDB('db/users.csv')
+    console.log('Loading DB')
+    loadCSVtoDB('db/users.csv')
   }
 }); 

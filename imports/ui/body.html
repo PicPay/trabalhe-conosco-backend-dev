@@ -1,32 +1,40 @@
-<body>
-  <h1>Welcome to Meteor!</h1>
-  {{> loginButtons}}
-  {{> search}}
-  <button id="button1" class="AddPlaceButton1">Prev</button>
-  <button id="button2" class="AddPlaceButton2">Next</button>
+<body style="background-color: #e6e6e6;">
+  <p>
+    <a href="https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png" target="_blank"
+      rel="noopener">
+      <img style="max-width: 100%;" src="https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png"
+        alt="PicPay" /> </a>
+  </p>
+  <div>
+    <h1 style="padding-left: 45%;">Welcome! {{> loginButtons}}</h1>
+    {{#if currentUser}} {{> search}}
+    <p style="text-align: justify;">
+      <button style="margin-left: 10%;" class="AddPlaceButton1">Prev</button>
+      <button style="margin-left: 60%;" class="AddPlaceButton2">Next</button>
+    </p>
+    {{/if}}
+  </div>
 </body>
 
 <template name="search">
-  <form class = "search-form">
-    <input type="text" id="searchValue" placeholder="Enter search terms here."/>
-    <input class="submit" type="submit" value="Submit">
+  <form style="margin-left: 42%;" class="search-form">
+    <input type="text" id="searchValue" placeholder="Enter search terms here." />
+    <input class="submit" type="submit" value="Submit" style="margin-left: 2%;">
   </form>
   <div class="table-responsive">
-      <table class="table table-striped">
-          <thead>
-              <tr>
-                  <th>Nome</th>
-                  <th>Username</th>
-                  <th>Relevância</th>
-                  <th>score</th>
-              </tr>
-          </thead>
-          <tbody>
-              {{#each users}} {{> user}} {{/each}}
-          </tbody>
-      </table>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Username</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each users}} {{> user}} {{/each}}
+      </tbody>
+    </table>
   </div>
-  
+
   <hr/>
 </template>
 
@@ -34,7 +42,5 @@
   <tr>
     <td>{{Nome}}</td>
     <td>{{Username}}</td>
-    <td>{{Relevancia}}</td>
-    <td>{{score}}</td>
   </tr>
 </template>
