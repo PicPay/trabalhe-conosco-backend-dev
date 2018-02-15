@@ -12,6 +12,11 @@
 - HTML, PHP, CSS e JavaScript
 - MySQL
 
+## Utilização
+
+ Após realizada a instalação, abra o navegador e acesse http://desafio.picpay/api/busca
+
+
 ## Instalação
 
 1) Copiar a pasta slimapp para sua pasta web (www no Linux ou htdocs no Windows).
@@ -22,7 +27,7 @@
 
 4) Adicionar o host virtual ao arquivo de configuração do Apache. No windows, utilizando XAAMP o arquivo httpd-vhosts fica em C:\xampp\apache\conf\extra
 
-   - Exemplo utilizando XAAMP no Windows
+    Exemplo utilizando XAAMP no Windows
    
    ```
    
@@ -32,7 +37,3 @@
         </VirtualHost>
     
   ```
-
-## Utilização
-
-1) Abra o navegador e acesse http://desafio.picpay/api/busca
