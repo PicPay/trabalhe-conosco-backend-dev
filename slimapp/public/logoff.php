@@ -13,7 +13,7 @@
       float: left;
       width: 287px;
       height: 140px;
-      background: url(https://mueros.net/upload/imagens/00fb6afc8b.png) no-repeat 0 0;
+      background: url(https://i.imgur.com/94NCV3r.png) no-repeat 0 0;
       text-indent: -9999px;
   }
   </style>
