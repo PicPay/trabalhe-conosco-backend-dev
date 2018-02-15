@@ -1,0 +1,128 @@
+echo "<html>";
+echo "<head>";
+echo"  <style>
+.form-style{
+max-width: 500px;
+padding: 10px 20px;
+background: #f4f7f8;
+margin: 10px auto;
+padding: 20px;
+background: #f4f7f8;
+border-radius: 8px;
+visibility: hidden;
+font-family: Georgia, \"Times New Roman\", Times, serif;
+}
+.form-style fieldset{
+  border: none;
+}
+.form-style legend {
+  font-size: 1.4em;
+  margin-bottom: 10px;
+}
+.form-style label {
+  display: block;
+  margin-bottom: 8px;
+}
+.form-style input[type=\"text\"]{
+font-family: Georgia, \"Times New Roman\", Times, serif;
+ background: rgba(255,255,255,.1);
+ border: none;
+ border-radius: 4px;
+ font-size: 16px;
+ margin: 0;
+ outline: 0;
+ padding: 7px;
+ width: 100%;
+ box-sizing: border-box;
+ -webkit-box-sizing: border-box;
+ -moz-box-sizing: border-box;
+ background-color: #e8eeef;
+ color:#000000;
+ -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+ box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+ margin-bottom: 30px;
+}
+.form-style input[type=\"submit\"],
+.form-style input[type=\"button\"]
+{
+  position: relative;
+  display: block;
+  padding: 19px 39px 18px 39px;
+  color: #FFF;
+  margin: 0 auto;
+  background: #21c25e;
+  font-size: 18px;
+  text-align: center;
+  font-style: normal;
+  width: 100%;
+  border: 1px solid #16a085;
+  border-width: 1px 1px 3px;
+  margin-bottom: 10px;
+}
+.form-style input[type=\"submit\"]:hover,
+.form-style input[type=\"button\"]:hover
+{
+  background: #21c25e;
+}
+html, body {margin: 0; padding: 0;}
+
+#header {
+  border-top:7px solid #fff;
+  margin:0 auto;
+  background: #eee;
+  height: 170px;
+  font: 12px arial, sans-serif;
+}
+
+#header h1 {
+  margin-left: 30px;
+  float: left;
+  width: 287px;
+  height: 140px;
+  background: url(https://mueros.net/upload/imagens/00fb6afc8b.png) no-repeat 0 0;
+  text-indent: -9999px;
+}
+
+#header form {
+  float: right;
+  margin-right: 30px;
+  height: 40px;
+  padding-top: 8px;
+}
+
+#header form label {
+  display: inline-block;
+  margin: 0 2px;
+}
+
+#header form input {}
+
+#header form #s-user,
+#header form #s-pass {
+  margin-right: 20px;
+  display: block;
+  width: 250px;
+  border: 1px solid #eee;
+  padding: 3px 0 3px 0;
+  margin-bottom: -1px;
+}
+
+#header form .submit {
+  margin-left: 10px;
+  height: 23px;
+  vertical-align: bottom;
+  background: #21c25e;
+  color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+#header form .submit2 {
+  margin-left: 550px;
+  margin-top: 50px;
+  height: 60px;
+  background: #21c25e;
+  color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+</style>";
