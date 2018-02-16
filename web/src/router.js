@@ -28,13 +28,14 @@ const router = new VueRouter({
     children: [{
       name: 'browser',
       path: 'browser',
-      component: Browser
+      component: Browser,
+      meta: { isLoggedIn: true }
     }, {
       name: 'search',
       path: 'search',
-      component: Search
+      component: Search,
+      meta: { isLoggedIn: true }
     }],
-    meta: { isLoggedIn: true }
   }]
 });
 
