@@ -23,7 +23,7 @@
             <input
             class="input"
             type="password"
-            pattern=".{5,10}"
+            pattern=".{5,30}"
             title="6 to 30 characters"
             placeholder="Password"
             v-model="user.password"
