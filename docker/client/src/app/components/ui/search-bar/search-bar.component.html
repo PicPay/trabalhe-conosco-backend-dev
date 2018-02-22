@@ -1,0 +1,12 @@
+<div class="container">
+  <form>
+    <div class="form-group">
+      <div class="input-group">
+        <input #filter type="text" class="form-control" (keyup.enter)="filterUsers(filter.value)" placeholder="Buscar Usuário">
+        <div class="input-group-addon" (click)="filterUsers(filter.value)">
+          <span class="glyphicon glyphicon-search"></span>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,25 @@
+version: '2' # specify docker-compose version
+
+# Define the services/containers to be run
+services:
+  angular: # config of client
+    build: client # specify the directory of the Dockerfile
+    ports:
+      - "4200:4200" # specify port forewarding
+
+  express: # config of server
+    build: server # specify the directory of the Dockerfile
+    ports:
+      - "3003:3003" #specify ports forewarding
+    links:
+      - database # link this service to the database service
+
+  database: # config of database
+    image: mongo # specify image to build container from
+    ports:
+      - "27017:27017" # specify port forewarding
+  
+  database-seed: # config of seed database
+    buid: ./seed
+    links:
+      - database
