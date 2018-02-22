@@ -33,3 +33,23 @@ Faça um ***Fork*** deste repositório e abra um ***Pull Request***, **com seu n
 - Ter um desempenho elevado num conjunto de dados muito grande
 - Utilizar o Docker
 
+### Observações
+
+Ao rodar o projeto pela primeira vez, serão baixados automaticamente os arquivos para popular o banco. Inicialmente, o webapp e a api já estarão rodando enquanto o banco é populado e indexado.
+
+Quando o banco estiver totalmente populado, o arquivo /trabalhe-conosco-backend-dev/db_seed/.seed-lock será criado. Este arquivo impede que o banco seja populado cada vez que os contêineres sejam levantados.
+
+Caso ocorra algum erro durante o processo de popular o banco, remova o arquivo /trabalhe-conosco-backend-dev/db_seed/.seed-lock e levante os contêineres novamente com o comando.
+
+Espere o banco estar totalmente populado para tentar listar os usuários.
+
+### Requisitos
+- Ter o Docker instalado na máquina
+
+### Instruções
+```
+  docker-compose up
+```
+- Acesse a [área de cadastro](http://localhost:8080/register) e cadastre-se usando um e-mail e uma senha.
+
+Obs: O webapp estará rodando em [http://localhost:8080](http://localhost:8080) e a api em [http://localhost:8000](http://localhost:8000).

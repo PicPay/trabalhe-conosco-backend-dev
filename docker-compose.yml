@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  web:
+    build: web
+    container_name: 'picpay_web'
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./web:/usr/src/web
+      - /usr/src/web/node_modules
+    command: npm run dev
+
+  api:
+    build: api
+    container_name: 'picpay_api'
+    environment:
+      - MONGO_DB_URL=mongodb://db/picpay
+      - BCRYPT_SALT_ROUNDS=10
+      - JWT_SECRET=f59#43d@120a
+      - JWT_ALGORITHM=HS256
+      - JWT_EXPIRES_IN=7d
+    ports:
+      - "8000:8000"
+    links:
+      - db
+    volumes:
+      - ./api:/usr/src/api
+      - /usr/src/api/node_modules
+    command: npm run dev
+
+  db:
+    image: mongo
+    container_name: 'picpay_db'
+    volumes:
+      - mongo-data:/data/db
+
+  db_seed:
+    build: db_seed
+    container_name: 'picpay_db_seed'
+    links:
+      - db
+    volumes:
+      - ./db_seed:/db_seed
+
+volumes:
+  mongo-data:
