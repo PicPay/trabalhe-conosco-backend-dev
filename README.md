@@ -22,7 +22,7 @@ Os resultados devem ser retornados paginados de 15 em 15 registros.
 
 Escolha as tecnologias que você vai usar e tente montar uma solução completa para rodar a aplicação.
 
-Faça um ***Fork*** deste repositório e abra um ***Pull Request***, **com seu nome na descrição**, para participar.
+Faça um ***Fork*** deste repositório e abra um ***Pull Request***, **com seu nome na descrição**, para participar. Assim que terminar, envie um e-mail para ***desafio@picpay.com*** com o seu usuário do Github nos avisando.
 
 -----
 
