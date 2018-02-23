@@ -1,3 +1,28 @@
+# A solução
+
+A solução está dividida em dois projetos, cliente e servidor. Ambos utilizam o Spring Boot, provendo a interface de serviços RESTFul.
+
+A parte de segurança para integração entre servidor e cliente utilizei a biblioteca 'spring-boot-starter-security'. A lib permite configurar  usuário e senha. Apenas usuários cadastrados podem fazer requisição ao servidor. Neste exemplo há apenas um usuário e senha, admin/secret, e no projeto client existe um 'interceptor' para incluir as informações no header de cada requisição feita ao servidor.
+
+Para a comunicação entre o cliente e servidor utilizei a 'Retrofit'. 
+
+Para armazenar os dados dos usuários, optei pelo banco de dados NoSQL MongoDB.
+
+
+## Executando o projeto
+1. git clone https://github.com/tmontovaneli/trabalhe-conosco-backend-dev.git
+2. docker run --name db_mongo -v /tmp/data:/data/db -d -p 27017:27017 mongo
+3. Entre na pasta do projeto server e execute 'docker build -t tmontovaneli/picpay_server .'
+4. Entre na pasta do projeto client e execute 'docker build -t tmontovaneli/picpay_client .'
+5. Inicie o container do servidor: 'docker run --name picpay_server -p 8080:8080 -e HOST="172.17.0.1" -e PORT="27017" tmontovaneli/picpay_server', onde as variáveis HOST e PORT são referentes ao container do MongoDB
+6. Inicie o container do client: 'docker run --name picpay_client -p 8090:8090 -e HOST="172.17.0.3" -e PORT="8080" tmontovaneli/picpay_cliente', onde as variáveis HOST e PORT são referentes ao container do server.
+
+
+Para a primeira carga no servidor, acesse http://localhost:8080/init. Este processo irá baixar o arquivo compactado do link 'https://s3.amazonaws.com/careers-picpay/users.csv.gz', descompactá-lo, carregar o banco de dados e criar os indexes. O processo todo demorou cerca de 10 minutos no meu computador.
+
+Em seguida basta acessar http://localhost:8090. Essa é a URL do projeto cliente.
+
+
 ![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
 
 # Teste Backend

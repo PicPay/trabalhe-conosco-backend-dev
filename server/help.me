@@ -1,0 +1,33 @@
+docker run --name db_mongo -v /Users/tmontovaneli/Documents/picpay:/data/db -d -p 27017:27017 mongo
+
+docker exec -it db_mongo mongo admin
+
+
+db.relevancia_1.aggregate([
+    {
+      $lookup:
+        {
+          from: "users",
+          localField: "_id",
+          foreignField: "id",
+          as: "docs"
+        }
+   }
+])
+
+
+db.articles.find( { $text: { $search: "coffee" } } )
+
+
+db.users.createIndex( { nome: 1 } )
+db.users.createIndex( { apelido: 1 } )
+
+db.users.find({ nome: "rafael" })
+db.users.count({ $text: { $search: "rafael" } })
+
+
+
+db.users.getIndexes 
+
+
+db.users.createIndex({  nome: "text", apelido: "text"})
