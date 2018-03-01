@@ -1,0 +1,43 @@
+<div class="card">
+  <div class="card-header">
+    <nav class="navbar navbar-light bg-light justify-content-between">
+      <h4 class="navbar-text">Usuários <span *ngIf="usersList">({{usersList.total}})</span></h4>
+      <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+               [(ngModel)]="searchString" name="search" value="{{searchString}}">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="loadUsers()">Buscar</button> &nbsp;
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="clear()">Limpar</button>
+      </form>
+    </nav>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Usuário</th>
+          <th scope="col">Email</th>
+        </tr>
+        </thead>
+        <tbody *ngIf="loading">
+        <tr>
+          <td colspan="4" align="center"><img src="assets/images/ajax-gray.gif"/></td>
+        </tr>
+        </tbody>
+        <tbody *ngIf="usersList && !loading">
+        <tr *ngFor="let user of usersList.items">
+          <td>{{user.id}}</td>
+          <td>{{user.username}}</td>
+          <td>{{user.email}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <br>
+    <div *ngIf="usersList && usersList.total > 0 && !loading" align="center">
+      <app-pagination [itemList]="usersList" [pager]="pager" [routerName]="'/users/list'"></app-pagination>
+    </div>
+  </div>
+</div>
+<br>

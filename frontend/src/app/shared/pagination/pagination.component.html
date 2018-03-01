@@ -1,0 +1,27 @@
+<ul class="pagination justify-content-center">
+  <li class="page-item" [ngClass]="{disabled:pager.currentPage == 1}">
+    <a class="page-link" [routerLink]="[routerName]" [queryParams]="routerQueryParams('first')" aria-label="First">
+      <span aria-hidden="true">First</span>
+    </a>
+  </li>
+  <li class="page-item" *ngIf="itemList._links.previous">
+    <a class="page-link" [routerLink]="[routerName]" [queryParams]="routerQueryParams('previous')"
+       aria-label="Previous">
+      <span aria-hidden="true">&laquo;</span>
+    </a>
+  </li>
+  <li class="page-item" *ngFor="let page of pager.pages" [ngClass]="{active: pager.currentPage == page}">
+    <a class="page-link" [routerLink]="[routerName]" [queryParams]="routerQueryParams(null, page)">{{page}}</a>
+  </li>
+  <li class="page-item" *ngIf="itemList._links.next">
+    <a class="page-link" [routerLink]="[routerName]" [queryParams]="routerQueryParams('next')"
+       aria-label="Next">
+      <span aria-hidden="true">&raquo;</span>
+    </a>
+  </li>
+  <li class="page-item" [ngClass]="{disabled:pager.currentPage == pager.totalPages}">
+    <a class="page-link" [routerLink]="[routerName]" [queryParams]="routerQueryParams('last')" aria-label="Last">
+      <span aria-hidden="true">Last</span>
+    </a>
+  </li>
+</ul>

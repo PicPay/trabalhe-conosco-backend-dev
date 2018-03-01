@@ -1,0 +1,6 @@
+App\Entity\UserAuth:
+    user_auth_1:
+        name: Neandher Carlos
+        username (unique): neandher.carlos
+        email (unique): neandher89@gmail.com
+        plainPassword: 1234
