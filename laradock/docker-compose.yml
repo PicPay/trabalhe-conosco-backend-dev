@@ -10,6 +10,7 @@ services:
 ### Workspace Utilities Container ###########################
 
     workspace:
+      #command: supervisord -n -c /etc/supervisord.conf
       build:
         context: ./workspace
         args:
@@ -43,6 +44,7 @@ services:
           - INSTALL_DUSK_DEPS=${WORKSPACE_INSTALL_DUSK_DEPS}
           - INSTALL_PG_CLIENT=${WORKSPACE_INSTALL_PG_CLIENT}
           - INSTALL_SWOOLE=${WORKSPACE_INSTALL_SWOOLE}
+          - INSTALL_SUPERVISOR=${WORKSPACE_INSTALL_SUPERVISOR}
           - PUID=${WORKSPACE_PUID}
           - PGID=${WORKSPACE_PGID}
           - CHROME_DRIVER_VERSION=${WORKSPACE_CHROME_DRIVER_VERSION}

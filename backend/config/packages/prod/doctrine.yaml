@@ -1,31 +1,25 @@
 doctrine:
     orm:
-        metadata_cache_driver:
-            type: service
-            id: doctrine.system_cache_provider
-        query_cache_driver:
-            type: service
-            id: doctrine.system_cache_provider
-        result_cache_driver:
-            type: service
-            id: doctrine.result_cache_provider
+        metadata_cache_driver: redis
+        query_cache_driver: redis
+        result_cache_driver: redis
 
-services:
-    doctrine.result_cache_provider:
-        class: Symfony\Component\Cache\DoctrineProvider
-        public: false
-        arguments:
-            - '@doctrine.result_cache_pool'
-    doctrine.system_cache_provider:
-        class: Symfony\Component\Cache\DoctrineProvider
-        public: false
-        arguments:
-            - '@doctrine.system_cache_pool'
+        second_level_cache:
+            region_cache_driver:
+                type: service
+                id: snc_second_level_cache
+            enabled: true
+            regions:
+                region_users:
+                    lifetime: 86400
+                    cache_driver:
+                        type: service
+                        id: snc_second_level_cache
 
 framework:
     cache:
         pools:
             doctrine.result_cache_pool:
-                adapter: cache.app
+                adapter: cache.adapter.redis
             doctrine.system_cache_pool:
-                adapter: cache.system
+                adapter: cache.adapter.redis

@@ -13,8 +13,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Class User
  *
  * @ORM\MappedSuperclass()
- * @UniqueEntity(fields={"email","emailCanonical"}, message="user.email.already_exists")
- * @UniqueEntity(fields={"username",}, message="user.username.already_exists")
+ * @UniqueEntity(fields={"emailCanonical"}, message="Email já cadastrado")
+ * @UniqueEntity(fields={"usernameCanonical"}, message="Usuário já cadastrado")
  * @Serializer\ExclusionPolicy("all")
  */
 class User implements UserInterface
@@ -39,7 +39,7 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", nullable=true, unique=true)
      */
     protected $usernameCanonical;
 
@@ -54,7 +54,7 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", nullable=true, unique=true)
      */
     protected $emailCanonical;
 

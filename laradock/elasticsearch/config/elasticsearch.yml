@@ -15,4 +15,4 @@ discovery.zen.minimum_master_nodes: 1
 #
 discovery.type: single-node
 bootstrap.memory_lock: true
-xpack.security.enabled: false
+#xpack.security.enabled: false

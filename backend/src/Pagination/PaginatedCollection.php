@@ -10,7 +10,7 @@ use JMS\Serializer\Annotation as Serializer;
  *     "self",
  *     url = "object.getUrl('self')"
  * )
- * 
+ *
  * @Link(
  *     "first",
  *     url = "object.getUrl('first')"
@@ -33,7 +33,6 @@ use JMS\Serializer\Annotation as Serializer;
  *
  * @Serializer\ExclusionPolicy("all")
  */
-
 class PaginatedCollection
 {
 
@@ -92,5 +91,15 @@ class PaginatedCollection
     public function getUrl($ref)
     {
         return isset($this->_links[$ref]) ? $this->_links[$ref] : '';
+    }
+
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    public function setItems($items)
+    {
+        $this->items = $items;
     }
 }

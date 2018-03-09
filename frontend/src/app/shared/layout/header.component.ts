@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../services/user.service';
-import {User} from '../models/user';
+import {UserAuth} from '../models/user-auth';
 import {Router} from '@angular/router';
 
 @Component({
@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
   constructor(private userService: UserService, private router: Router) {
   }
 
-  currentUser: User;
+  currentUser: UserAuth;
 
   ngOnInit() {
     this.userService.currentUser.subscribe(

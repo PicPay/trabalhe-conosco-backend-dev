@@ -33,7 +33,6 @@ export class SigninComponent implements OnInit {
       .attemptAuth(credentials)
       .subscribe(
         data => {
-          console.log('autenticado');
           this.router.navigateByUrl('/');
         },
         err => {

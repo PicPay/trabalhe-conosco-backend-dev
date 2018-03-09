@@ -5,8 +5,8 @@
       <form class="form-inline">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
                [(ngModel)]="searchString" name="search" value="{{searchString}}">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="loadUsers()">Buscar</button> &nbsp;
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="clear()">Limpar</button>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="search()">Buscar</button> &nbsp;
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="resetFilters()">Limpar</button>
       </form>
     </nav>
   </div>
@@ -16,8 +16,8 @@
         <thead>
         <tr>
           <th scope="col">ID</th>
+          <th scope="col">Nome</th>
           <th scope="col">Usuário</th>
-          <th scope="col">Email</th>
         </tr>
         </thead>
         <tbody *ngIf="loading">
@@ -27,9 +27,9 @@
         </tbody>
         <tbody *ngIf="usersList && !loading">
         <tr *ngFor="let user of usersList.items">
-          <td>{{user.id}}</td>
+          <td>{{user.uuid}}</td>
+          <td>{{user.name}}</td>
           <td>{{user.username}}</td>
-          <td>{{user.email}}</td>
         </tr>
         </tbody>
       </table>

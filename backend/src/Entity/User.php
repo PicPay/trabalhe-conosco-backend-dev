@@ -4,33 +4,38 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
-use JMS\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="user")
  * @Serializer\ExclusionPolicy("all")
+ * @ORM\Cache(region="region_users")
  */
 class User
 {
-
     /**
      * @var integer
      *
      * @Serializer\Expose()
-     * @Groups({"elastica"})
      * @ORM\Id()
-     * @ORM\Column(type="string")
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
+
     /**
      * @var string
      *
      * @Serializer\Expose()
-     * @Groups({"elastica"})
+     * @ORM\Column(type="string")
+     */
+    protected $uuid;
+
+    /**
+     * @var string
+     *
+     * @Serializer\Expose()
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
      */
@@ -40,10 +45,16 @@ class User
      * @var string
      *
      * @Serializer\Expose()
-     * @Groups({"elastica"})
      * @ORM\Column(type="string")
      */
     private $username;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="smallint", name="user_priority_id")
+     */
+    private $userPriority;
 
     /**
      * @return int
@@ -60,6 +71,24 @@ class User
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUuid(): string
+    {
+        return $this->uuid;
+    }
+
+    /**
+     * @param string $uuid
+     * @return User
+     */
+    public function setUuid(string $uuid): User
+    {
+        $this->uuid = $uuid;
         return $this;
     }
 
@@ -96,6 +125,24 @@ class User
     public function setUsername($username)
     {
         $this->username = $username;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getUserPriority(): int
+    {
+        return $this->userPriority;
+    }
+
+    /**
+     * @param int $userPriority
+     * @return User
+     */
+    public function setUserPriority(int $userPriority): User
+    {
+        $this->userPriority = $userPriority;
         return $this;
     }
 }

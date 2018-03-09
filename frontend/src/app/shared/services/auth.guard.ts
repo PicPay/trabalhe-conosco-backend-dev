@@ -8,23 +8,24 @@ import {map, take} from "rxjs/operators";
 @Injectable()
 export class AuthGuard implements CanActivate, CanLoad {
 
-    constructor(private router: Router, public jwtHelper: JwtHelperService, private userService: UserService) {
-    }
+  constructor(private router: Router, public jwtHelper: JwtHelperService, private userService: UserService) {
+  }
 
-    canActivate() {
-        return this.isAuthenticated();
-    }
+  canActivate() {
+    return this.isAuthenticated();
+  }
 
-    canLoad(route: Route): Observable<boolean> | Promise<boolean> | boolean {
-        return this.isAuthenticated();
-    }
+  canLoad(route: Route): Observable<boolean> | Promise<boolean> | boolean {
+    return this.isAuthenticated();
+  }
 
-    private isAuthenticated() {
-        if (this.jwtHelper.tokenGetter() && !this.jwtHelper.isTokenExpired()) {
-            return true;
-        } else {
-            this.router.navigateByUrl('/auth/signin');
-            return false;
-        }
+  private isAuthenticated() {
+    if (this.jwtHelper.tokenGetter() && !this.jwtHelper.isTokenExpired()) {
+      return true;
+    } else {
+      this.userService.purgeAuth();
+      this.router.navigate(['/auth/signin']);
+      return false;
     }
+  }
 }

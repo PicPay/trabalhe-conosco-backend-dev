@@ -20,6 +20,7 @@ class Kernel extends BaseKernel
     public function __construct($environment, $debug)
     {
         parent::__construct($environment, $debug);
+        date_default_timezone_set( 'America/Sao_Paulo' );
         ini_set('max_execution_time', 10000000);
         ini_set('memory_limit', '4024M');
     }

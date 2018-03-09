@@ -10,6 +10,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class AppAuthUserCreateCommand extends Command
 {
@@ -18,16 +20,21 @@ class AppAuthUserCreateCommand extends Command
      * @var EntityManagerInterface
      */
     private $em;
+    /**
+     * @var ValidatorInterface
+     */
+    private $validator;
 
     /**
      * AppAuthUserCreateCommand constructor.
      * @param null $name
      * @param EntityManagerInterface $em
      */
-    public function __construct($name = null, EntityManagerInterface $em)
+    public function __construct($name = null, EntityManagerInterface $em, ValidatorInterface $validator)
     {
         parent::__construct($name);
         $this->em = $em;
+        $this->validator = $validator;
     }
 
     protected function configure()
@@ -52,11 +59,20 @@ class AppAuthUserCreateCommand extends Command
         $userAuth
             ->setName($email)
             ->setEmail($email)
-            ->setPlainPassword($password) ;
+            ->setPlainPassword($password);
 
         $this->em->persist($userAuth);
-        $this->em->flush();
 
+        /** @var ConstraintViolationListInterface $errors */
+        $errors = $this->validator->validate($userAuth);
+        if ($errors->count() > 0) {
+            foreach ($errors as $error) {
+                $io->comment($error->getMessage());
+            }
+            return;
+        }
+
+        $this->em->flush();
         $io->success(sprintf('Usuário <comment>%s</comment> criado.', $email));
     }
 

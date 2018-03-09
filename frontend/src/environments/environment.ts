@@ -4,6 +4,6 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-    production: false,
-    api_url: 'http://desafio-pp.local:8010/api'
+  production: false,
+  api_url: 'http://picpay-backend.local:8010/api'
 };

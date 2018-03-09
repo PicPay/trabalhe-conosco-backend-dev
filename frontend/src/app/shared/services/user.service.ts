@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 
-import {User} from '../models/user';
+import {UserAuth} from '../models/user-auth';
 import {ApiService} from './api.service';
 import {JwtService} from './jwt.service';
 import {JwtHelperService} from '@auth0/angular-jwt';
@@ -12,7 +12,7 @@ import {Observable} from 'rxjs/Observable';
 @Injectable()
 export class UserService {
 
-  private currentUserSubject = new BehaviorSubject<User>({} as User);
+  private currentUserSubject = new BehaviorSubject<UserAuth>({} as UserAuth);
   public currentUser = this.currentUserSubject.asObservable().pipe(distinctUntilChanged());
 
   private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
@@ -29,8 +29,8 @@ export class UserService {
     const token: string = this.jwtService.getToken();
     // If JWT detected, attempt to get & store user's info
     if (token && !this.jwtHelper.isTokenExpired()) {
-      const user: User = this.jwtHelper.decodeToken(token).user;
-      this.apiService.get('/users/' + user.email)
+      const user: UserAuth = this.jwtHelper.decodeToken(token).user;
+      this.apiService.get('/users-auth/' + user.email)
         .subscribe(
           data => this.setAuth(data, token),
           err => this.purgeAuth()
@@ -41,7 +41,7 @@ export class UserService {
     }
   }
 
-  setAuth(user: User, token: string = '') {
+  setAuth(user: UserAuth, token: string = '') {
     // Save JWT sent from server in localstorage
     if (token !== '') {
       this.jwtService.saveToken(token);
@@ -56,12 +56,12 @@ export class UserService {
     // Remove JWT from localstorage
     this.jwtService.destroyToken();
     // Set current user to an empty object
-    this.currentUserSubject.next({} as User);
+    this.currentUserSubject.next({} as UserAuth);
     // Set auth status to false
     this.isAuthenticatedSubject.next(false);
   }
 
-  attemptAuth(user: User): Observable<User> {
+  attemptAuth(user: UserAuth): Observable<UserAuth> {
     return this.apiService.signin(user)
       .pipe(
         map(
@@ -73,7 +73,7 @@ export class UserService {
       );
   }
 
-  getCurrentUser(): User {
+  getCurrentUser(): UserAuth {
     return this.currentUserSubject.value;
   }
 }

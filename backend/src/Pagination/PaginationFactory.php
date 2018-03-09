@@ -2,7 +2,9 @@
 
 namespace App\Pagination;
 
+use Doctrine\DBAL\Query\QueryBuilder;
 use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Adapter\DoctrineDbalAdapter;
 use Symfony\Component\HttpFoundation\Request;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
@@ -25,22 +27,24 @@ class PaginationFactory
     }
 
     /**
-     * @param \Doctrine\ORM\Query|\Doctrine\ORM\QueryBuilder| array $qb
+     * @param $qb
      * @param Request $request
      * @param $route
      * @param array $routeParams
+     * @param bool $fetchJoinCollection
+     * @param null $countQueryBuilderModifier
      * @return PaginatedCollection
      */
-    public function createCollection($qb, Request $request, $route, array $routeParams = array())
+    public function createCollection($qb, Request $request, $route, array $routeParams = array(), $fetchJoinCollection = true, $countQueryBuilderModifier = null)
     {
         $page = $request->query->get('page', 1);
         $perPage = $request->query->get('perpage', 10);
 
-        if(is_array($qb)){
-            $adapter = new ArrayAdapter($qb);
+        if($qb instanceof QueryBuilder){
+            $adapter = new DoctrineDbalAdapter($qb, $countQueryBuilderModifier);
         }
         else{
-            $adapter = new DoctrineORMAdapter($qb, true, false);
+            $adapter = new DoctrineORMAdapter($qb, $fetchJoinCollection, false);
         }
 
         $pagerfanta = new Pagerfanta($adapter);
@@ -53,7 +57,6 @@ class PaginationFactory
             $items[] = $result;
         }
 
-        // make sure query parameters are included in pagination links
         $routeParams = array_merge($routeParams, $request->query->all());
 
         $createLinkUrl = function ($targetPage) use ($route, $routeParams) {

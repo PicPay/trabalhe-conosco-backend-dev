@@ -18,7 +18,7 @@ import { PaginationComponent } from './pagination/pagination.component';
   declarations: [
     ShowAuthedDirective,
     ListErrorsComponent,
-    PaginationComponent
+    PaginationComponent,
   ],
   exports: [
     CommonModule,

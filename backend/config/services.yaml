@@ -12,9 +12,9 @@ services:
                             # fetching services directly from the container via $container->get() won't work.
                             # The best practice is to be explicit about your dependencies anyway.
         bind:
-            $dbCsvPath: '%kernel.project_dir%\%env(DB_CSV_PATH)%'
-            $dbP1Path: '%kernel.project_dir%\%env(DB_P1_PATH)%'
-            $dbP2Path: '%kernel.project_dir%\%env(DB_P2_PATH)%'
+            $dbCsvPath: '%kernel.project_dir%\..\%env(DB_CSV_PATH)%'
+            $dbP1Path: '%kernel.project_dir%\..\%env(DB_P1_PATH)%'
+            $dbP2Path: '%kernel.project_dir%\..\%env(DB_P2_PATH)%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -46,3 +46,9 @@ services:
     App\Serializer\LinkSerializationSubscriber:
         tags:
             - { name: jms_serializer.event_subscriber }
+
+
+    snc_second_level_cache:
+        class: '%snc_redis.doctrine_cache_predis.class%'
+        arguments:
+            - '@snc_redis.default'

@@ -31,7 +31,7 @@ export class UsersService {
       });
     }
 
-    return this.apiService.get('/users', new HttpParams({fromObject: urlSearchParams}))
+    return this.apiService.get('/users/', new HttpParams({fromObject: urlSearchParams}))
       .pipe(response => response);
   }
 

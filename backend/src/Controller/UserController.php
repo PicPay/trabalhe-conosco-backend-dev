@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\UserAuth;
+use App\Entity\User;
+use App\Entity\UserPriority;
 use App\Pagination\PaginationFactory;
-use Roromix\Bundle\SpreadsheetBundle\Factory;
+use JMS\Serializer\SerializerBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -17,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @package App\Controller
  *
  * @Route("/users", name="api_users_")
+ * @Security("has_role('ROLE_USER')")
  */
 class UserController extends AbstractController
 {
@@ -37,7 +39,6 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Security("has_role('ROLE_USER')")
      * @Route("/", name="collection")
      * @Method("GET")
      * @param Request $request
@@ -46,10 +47,18 @@ class UserController extends AbstractController
     public function index(Request $request)
     {
         $params = $request->query->all();
-        $qb = $this->getDoctrine()->getRepository(UserAuth::class)->findAllQueryBuilder($params);
-        $paginatedCollection = $this->paginationFactory->createCollection($qb, $request, 'api_users_collection');
-        $response = $this->createApiResponse($paginatedCollection, 200);
 
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $qb = $repository->findAllQueryBuilder($params);
+        $paginatedCollection = $this->paginationFactory->createCollection(
+            $qb,
+            $request,
+            'api_users_collection',
+            [],
+            false
+        );
+
+        $response = $this->createApiResponse($paginatedCollection, 200);
         return $response;
     }
 }

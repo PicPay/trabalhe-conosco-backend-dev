@@ -13,6 +13,7 @@ export class PaginationComponent {
   @Input() pager: {
     currentPage?: number;
     pages?: any[];
+    totalPages?: number;
   };
   @Input() routerName: string;
 

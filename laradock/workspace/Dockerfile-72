@@ -57,6 +57,21 @@ RUN groupadd -g ${PGID} laradock && \
     useradd -u ${PUID} -g laradock -m laradock
 
 #####################################
+# SUPERVISOR:
+#####################################
+
+ARG INSTALL_SUPERVISOR=false
+ENV INSTALL_SUPERVISOR ${INSTALL_SUPERVISOR}
+
+COPY supervisord.conf /etc/supervisord.conf
+RUN if [ ${INSTALL_SUPERVISOR} = true ]; then \
+  apt-get update -yqq && \
+  apt-get install -y supervisor \
+;fi
+#ENTRYPOINT ["/usr/bin/supervisord", "-n", "-c",  "/etc/supervisord.conf"]
+#CMD ["supervisord", "-c", "/etc/supervisord.conf"]
+
+#####################################
 # SOAP:
 #####################################
 USER root
@@ -244,7 +259,7 @@ ENV INSTALL_PHPREDIS ${INSTALL_PHPREDIS}
 RUN if [ ${INSTALL_PHPREDIS} = true ]; then \
     # Install Php Redis extension
     printf "\n" | pecl -q install -o -f redis && \
-    echo "extension=redis.so" >> /etc/php/7.1/mods-available/redis.ini && \
+    echo "extension=redis.so" >> /etc/php/7.2/mods-available/redis.ini && \
     phpenmod redis \
 ;fi
 

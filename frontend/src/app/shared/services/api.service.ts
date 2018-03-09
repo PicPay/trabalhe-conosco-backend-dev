@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../../environments/environment';
-import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
 
-import {User} from "../models/user";
-import {catchError} from "rxjs/operators";
-import {ErrorObservable} from "rxjs/observable/ErrorObservable";
-import {Observable} from "rxjs/Observable";
+import {catchError} from 'rxjs/operators';
+import {ErrorObservable} from 'rxjs/observable/ErrorObservable';
+import {Observable} from 'rxjs/Observable';
+import {UserAuth} from '../models/user-auth';
 
 @Injectable()
 export class ApiService {
@@ -37,7 +37,7 @@ export class ApiService {
       .pipe(catchError(this.formatErrors));
   }
 
-  signin(user: User) {
+  signin(user: UserAuth) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Authorization': 'Basic ' + btoa(user.email + ':' + user.password)

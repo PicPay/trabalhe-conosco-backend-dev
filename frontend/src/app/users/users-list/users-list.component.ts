@@ -3,7 +3,7 @@ import {UsersService} from '../../shared/services/users.service';
 import {Subscription} from 'rxjs/Subscription';
 import {ListResult} from '../../shared/models/list-result.interface';
 import {User} from '../../shared/models/user';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {PaginationService} from '../../shared/services/pagination.service';
 
 @Component({
@@ -22,7 +22,8 @@ export class UsersListComponent implements OnInit, OnDestroy {
 
   constructor(private usersService: UsersService,
               private route: ActivatedRoute,
-              private pagination: PaginationService) {
+              private pagination: PaginationService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -51,7 +52,13 @@ export class UsersListComponent implements OnInit, OnDestroy {
     );
   }
 
-  clear() {
+  search() {
+    this.queryParams.push({['page']: 1});
+    this.loadUsers();
+  }
+
+  resetFilters() {
+    this.searchString = null;
     this.queryParams = [];
     this.loadUsers();
   }
@@ -59,5 +66,4 @@ export class UsersListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
-
 }
