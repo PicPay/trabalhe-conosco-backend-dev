@@ -305,6 +305,19 @@ RUN if [ ${INSTALL_DRUPAL_CONSOLE} = true ]; then \
     chmod +x /usr/local/bin/drupal \
 ;fi
 
+#####################################
+# PYTHON:
+#####################################
+
+ARG INSTALL_PYTHON=false
+ENV INSTALL_PYTHON ${INSTALL_PYTHON}
+RUN if [ ${INSTALL_PYTHON} = true ]; then \
+  apt-get update \
+  && apt-get -y install python python-pip python-dev build-essential  \
+  && pip install --upgrade pip  \
+  && pip install --upgrade virtualenv \
+;fi
+
 USER laradock
 
 #####################################
@@ -324,7 +337,7 @@ RUN if [ ${INSTALL_NODE} = true ]; then \
         nvm install ${NODE_VERSION} && \
         nvm use ${NODE_VERSION} && \
         nvm alias ${NODE_VERSION} && \
-        npm install -g gulp bower vue-cli \
+        npm install -g @angular/cli \
 ;fi
 
 # Wouldn't execute when added to the RUN statement in the above block
@@ -642,19 +655,6 @@ RUN if [ ${INSTALL_SYMFONY} = true ]; then \
   #  && echo 'alias dev="php app/console -e=dev"' >> ~/.bashrc \
   #  && echo 'alias prod="php app/console -e=prod"' >> ~/.bashrc \
 
-;fi
-
-#####################################
-# PYTHON:
-#####################################
-
-ARG INSTALL_PYTHON=false
-ENV INSTALL_PYTHON ${INSTALL_PYTHON}
-RUN if [ ${INSTALL_PYTHON} = true ]; then \
-  apt-get update \
-  && apt-get -y install python python-pip python-dev build-essential  \
-  && pip install --upgrade pip  \
-  && pip install --upgrade virtualenv \
 ;fi
 
 #####################################
