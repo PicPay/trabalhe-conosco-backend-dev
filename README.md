@@ -1,35 +1,98 @@
-![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
+# Desafio PicPay
 
-# Teste Backend
+Tecnologias utilizadas no backend:
 
-O desafio é criar uma API REST que busca usuarios pelo nome e username a partir de uma palavra chave. Faça o download do arquivo [users.csv.gz](https://s3.amazonaws.com/careers-picpay/users.csv.gz) que contém o banco de dados que deve ser usado na busca. Ele contém os IDs, nomes e usernames dos usuários.
+  - Framework PHP Symfony 4 - https://symfony.com/
+  - Autenticação da API REST com JWT - https://jwt.io/
+  - ORM Doctrine com MySql - http://www.doctrine-project.org/
+  - Cacheamento com Redis - https://redis.io/
+  - Second Level Cache do Doctrine - http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/second-level-cache.html
+  
+Sobre o Second Level Cache do Doctrine, funciona como um banco de dados intermediário em cache. Quando habilitado, os dados da consulta feita pelo Doctrine serão procurados primeiramente no cache, e caso encontre os dados, eles são recuperados e nenhuma transação no mysql é feita, aumentando bastante a perfomance. O cache foi programado para ser armazenado de acordo com os parâmetros query string da url. Então conforme for navegando, esses parâmetros formam o identificador do cache, e o carregamento fica mais rápido a partir do segundo acesso a essa url. Todo cache foi configurado para ser gerenciado pelo Redis e esta funcionalidade só está disponível no modo produção.
 
-###### Exemplo
-| ID                                   | Nome              | Username             |
-|--------------------------------------|-------------------|----------------------|
-| 065d8403-8a8f-484d-b602-9138ff7dedcf | Wadson marcia     | wadson.marcia        |
-| 5761be9e-3e27-4be8-87bc-5455db08408  | Kylton Saura      | kylton.saura         |
-| ef735189-105d-4784-8e2d-c8abb07e72d3 | Edmundo Cassemiro | edmundo.cassemiro    |
-| aaa40f4e-da26-42ee-b707-cb81e00610d5 | Raimundira M      | raimundiram          |
-| 51ba0961-8d5b-47be-bcb4-54633a567a99 | Pricila Kilder    | pricilakilderitaliani|
+Tecnologias utilizadas no frontend:
 
+  - Angular 5 - https://angular.io/
+  - Bootstrap 4 - http://getbootstrap.com/
 
+Docker:
 
-Também são fornecidas duas listas de usuários que devem ser utilizadas para priorizar os resultados da busca. A lista 1 tem mais prioridade que a lista 2. Ou seja, se dois usuarios casam com os criterios de busca, aquele que está na lista 1 deverá ser exibido primeiro em relação àquele que está na lista 2. Os que não estão em nenhuma das listas são exibidos em seguida.
+  - Laradock - http://laradock.io/
 
-As listas podem ser encontradas na raiz deste repositório ([lista_relevancia_1.txt](lista_relevancia_1.txt) e [lista_relevancia_2.txt](lista_relevancia_2.txt)).
-Os resultados devem ser retornados paginados de 15 em 15 registros.
+### Docker
 
-Escolha as tecnologias que você vai usar e tente montar uma solução completa para rodar a aplicação.
+Iniciando containers:
 
-Faça um ***Fork*** deste repositório e abra um ***Pull Request***, **com seu nome na descrição**, para participar. Assim que terminar, envie um e-mail para ***desafio@picpay.com*** com o seu usuário do Github nos avisando.
+```sh
+$ cd laradock
+$ docker-compose up -d nginx mysql redis
+```
 
------
+### Configurações Iniciais
 
-### Diferenciais
+Adicione nos hosts do seu sistema operacional:
 
-- Criar um frontend para realizar a busca com uma UX elaborada
-- Criar uma solução de autenticação entre o frontend e o backend
-- Ter um desempenho elevado num conjunto de dados muito grande
-- Utilizar o Docker
+```sh
+127.0.0.1  picpay-backend.local
+127.0.0.1  picpay-frontend.local
+```
 
+Na raíz do projeto coloque o arquivo **users.csv** proposto pelo desafio.
+
+### Instalação Backend Modo Produção
+
+Altere o arquivo .env localizado raiz da pasta backend:
+
+```sh
+APP_ENV=prod
+```
+
+Com os containers em execução do docker, rode os seguintes comandos:
+
+```sh
+$ cd laradock
+$ docker-compose exec workspace bash
+$ cd /var/www/backend
+$ composer install --no-dev --optimize-autoloader
+$ php bin/console app:install --install-mode=prod
+```
+
+### Instalação Backend Modo Desenvolvimento
+
+Altere o arquivo .env localizado raiz da pasta backend:
+
+```sh
+APP_ENV=dev
+```
+
+Com os containers em execução do docker, rode os seguintes comandos:
+
+```sh
+$ cd laradock
+$ docker-compose exec workspace bash
+$ cd /var/www/backend
+$ composer install
+$ php bin/console app:install --install-mode=dev
+```
+
+### Instalação Frontend
+
+```sh
+$ cd laradock
+$ docker-compose exec workspace bash
+$ cd /var/www/frontend
+$ npm i
+$ ng build --prod --build-optimizer
+```
+
+### Acessando a aplicação:
+
+No seu navegador acesse: http://picpay-frontend.local:8010
+
+Usuário: neandher89@gmail.com
+
+Senha: 1234
+
+A URL de requisição a api é: http://picpay-frontend.local:8010/api
+
+**Obs:** Não foi solicitado no desafio, mas faltou implementar na API REST testes com o PHPUnit e adicionar uma documentação para a mesma.
