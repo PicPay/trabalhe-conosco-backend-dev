@@ -1,0 +1,154 @@
+body{
+	background-color: #eee;
+	line-height:1.5;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+}
+
+#header, #main {
+	width: 100%;
+	clear: both;
+	float: left;
+}
+
+#main {
+	margin-top: 20px;
+}
+
+#header {
+	height: 160px;
+	background-repeat: no-repeat;
+	border-bottom-width: 4px;
+	border-bottom-style: solid;
+	border-bottom-color: #eee;
+}
+
+#content {
+	border-radius: 9px 9px 9px 9px;
+	margin-bottom: 20px;
+	background: #fefefe;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+/**
+ * Form
+ */
+ 
+ .row {
+	padding: 10px;
+	border: 1px solid #CCC;
+	margin-bottom: 10px;
+	border-radius: 9px;
+}
+
+.row label, legend {
+	float: left;
+	font-weight: bold;
+}
+
+.row fieldset{
+	border: 0px;
+	clear: both;
+	float: left;
+}
+
+.row.row_s {
+	border: 0px;
+}
+
+#content form .row input[type="text"], #content form .row input[type="password"], #content form  .row select{
+	border: 1px solid #BBBBBB;
+	padding: 4px;
+	clear: both;
+	float: left;
+	width: 95%;
+}
+
+#content form .row textarea {
+    border: 1px solid #BBBBBB;
+    padding: 4px;
+	clear: both;
+	float: left;
+	width: 95%;
+	height:80px;
+}
+
+#content form .row input[type="radio"], #content form .row input[type="checkbox"]{
+		clear: both;
+	float: left;
+}
+
+fieldset label, .checkbox label {
+	padding-left: 5px;
+}
+.row .error {
+	color: #E3302C;
+	font-size: 11px;
+	clear: both;
+	float: left;
+}
+
+.row input[type="submit"]{
+	border: 1px solid #1A1A1A;
+	border-radius: 3px 3px 3px 3px;
+	color: #FFFFFF;
+	font-weight: bold;
+	padding: 7px 15px;
+	background-color: #1A1A1A;
+}
+
+/*
+ * Notification
+ */
+ .notification {
+    border-radius: 3px 3px 3px 3px;
+    font-weight: bold;
+    margin-bottom: 15px;
+	margin-top: 20px;
+    overflow: hidden;
+    padding: 10px 15px 10px 40px;
+}
+
+.notification {
+    font-weight: bold;
+}
+
+.notification.success {
+    background: url("../img/success.gif") no-repeat scroll 12px 12px #EDFBD8;
+    border: 1px solid #BFDE84;
+    color: #508600;
+}
+
+.notification.failure {
+    background: url("../img/error.gif") no-repeat scroll 12px 12px #FFECCE;
+    border: 1px solid #E9C59B;
+    color: #E3302C;
+}
+
+.notification.information {
+    background: url("../img/info.gif") no-repeat scroll 12px 12px #ECF9FF;
+    border: 1px solid #BBDBE0;
+    color: #0888C3;
+}
+
+.notification.warning {
+    background: url("../img/warning.gif") no-repeat scroll 12px 12px #FEFDE2;
+    border: 1px solid #E5E181;
+    color: #666666;
+}
+
+ul.pagination {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
+ul.pagination li {display: inline;}
+
+ul.pagination li a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+}
