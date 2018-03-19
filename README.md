@@ -1,4 +1,24 @@
+<<<<<<< HEAD
 ![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
+
+# Solução por Keoma K.
+
+A aplicação foi construida utilizando Java (EJB com Hibernate) e Mysql.
+
+## Banco de Dados
+
+Teremos que criar o schema **picpaydb** e 3 tabelas: **USUARIO** e **RELEVANCIA**. 
+O script para criar as tabelas esta no projeto no arquivo [tabelas.txt](Arquivos/tabelas.txt)
+
+Após criar as tabela faremos a carga inicial, no caso da tabela **RELEVANCIA** o script esta 
+conforme os arquivos de lista de relevancia sugeridos do teste, podemos encontrar em [listas_de_prioridade.txt](Arquivos/listas_de_prioridade.txt). 
+
+A carga da tabela **USUARIO** poderá ser feita de duas maneiras:
+
+- Executando o script que esta no arquivo [carga_de_usuarios.txt](Arquivos/carga_de_usuarios.txt) (possui 4000 registros) 
+- Com a aplicação rodando utilizar-mos a URL **localhost:8080/consulta/rest/carga?aquivo=CAMINHO_DO_ARQUIVO_USER.CSV_NA_SUA_MAQUINA**.
+
+
 
 # Teste Backend
 
@@ -33,3 +53,17 @@ Faça um ***Fork*** deste repositório e abra um ***Pull Request***, **com seu n
 - Ter um desempenho elevado num conjunto de dados muito grande
 - Utilizar o Docker
 
+=======
+API REST que busca usuários pelo nome e username a partir de uma palavra chave.
+
+Estes são os requisitos para rodar a aplicação :
+
+Java 8
+MySql
+Banco de dados
+
+Teremos que criar o schema 'picpaydb' e 3 tabelas: USUARIO, LISTA_RELEVANCIA_1 e LISTA_RELEVANCIA_2. O script para criar as tabelas esta em arquivos/tabelas.txt. Após criar as tabela faremos a carga inicial, no caso das tabelas LISTA_RELEVANCIA_1 e LISTA_RELEVANCIA_2 o script esta conforme os arquivos sugeridos do teste, podemos encontrar em arquivos/listas_de_prioridade.txt. A carga da tabela USUARIO poderá ser feita de duas maneiras:
+
+Executando o script que esta em arquivo/carga_de_usuarios.txt (possui 4000 registros)
+Com a aplicação rodando utilizar-mos a URL localhost:8080/consulta/carga?C:\CAMINHO_DO_ARQUIVO_USER.CSV_NA_SUA_MAQUINA.
+>>>>>>> cf5127d3f8acf17f81d3bc7ebba96efec8da4ba7

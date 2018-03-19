@@ -1,0 +1,18 @@
+CREATE SCHEMA `picpaydb` ;
+
+ CREATE TABLE `picpaydb`.`relevancia` (
+  `rel_cd_relevancia` INT NOT NULL AUTO_INCREMENT,
+  `rel_ds_codigo` VARCHAR(100) NULL,
+  `rel_fl_nivel_relevancia` int NULL,
+  PRIMARY KEY (`rel_cd_relevancia`),
+  UNIQUE INDEX `rel_cd_relevancia_UNIQUE` (`rel_cd_relevancia` ASC));
+  
+  
+CREATE TABLE `usuario` (
+  `usu_cd_usuario` INT NOT NULL AUTO_INCREMENT,
+  `usu_ds_codigo` VARCHAR(200) NULL,
+  `usu_ds_login` VARCHAR(200) NULL,
+  `usu_nm_usuario` VARCHAR(200) NULL,
+  `usu_fl_lista_prioridade` INT NULL,  
+  PRIMARY KEY (`usu_cd_usuario`),
+  UNIQUE INDEX `usu_cd_usuario_UNIQUE` (`usu_cd_usuario` ASC));
