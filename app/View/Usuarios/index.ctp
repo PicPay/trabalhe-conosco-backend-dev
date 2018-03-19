@@ -30,7 +30,7 @@
 				
 				
 			<!--		<tr ng-repeat="usuario in users" > -->
-					<tr dir-paginate="usuario in users|orderBy:nome:reverse|itemsPerPage:15" >
+					<tr dir-paginate="usuario in users|itemsPerPage:15" >
 						<td>
 							{{usuario.nome}}
 						</td>
