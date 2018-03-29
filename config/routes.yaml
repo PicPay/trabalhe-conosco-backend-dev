@@ -1,6 +1,7 @@
 users_query:
     path: /users
     controller: App\Controller\UsersQuery
-    defaults:
-        _api_resource_class: 'App\Entity\User'
-        _api_item_operation_name: 'special'
+
+home_action:
+    path: /
+    controller: App\Controller\HomeAction
