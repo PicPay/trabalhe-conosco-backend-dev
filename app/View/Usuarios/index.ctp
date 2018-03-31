@@ -20,10 +20,10 @@
 			  <caption></caption>
 				<thead>
 					<tr>
-						<th align=left margin-right="10px;">Nome</th>
-						<th align=left margin-right="10px;">Login</th>
-						<th align=left margin-right="10px;">Chave</th>
-						<th align=left margin-right="10px;">Prioridade</th>
+						<th align=left >Nome</th>
+						<th align=left >Login</th>
+						<th align=left >Chave</th>
+						<th align=left >Prioridade</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -31,18 +31,18 @@
 				
 			<!--		<tr ng-repeat="usuario in users" > -->
 					<tr dir-paginate="usuario in users|itemsPerPage:15" >
-						<td>
+						<td style="padding-right: 30px !important;">
 							{{usuario.nome}}
 						</td>
 						
-						<td>
+						<td style="padding-right: 30px !important;">
 							{{usuario.login}}
 						</td>
-						<td>
+						<td style="padding-right: 30px !important;">
 							{{usuario.chave}}
 						</td>
-						<td>
-							{{usuario.prioridade}}
+						<td style="padding-right: 30px !important;">
+							{{usuario.p}}
 						</td>
 					</tr>
 				</tbody>

@@ -27,7 +27,7 @@
  
 	Router::connect('/usuarios/:id/:limit1/:limit2', 
 		array('controller' => 'usuarios', 'action' => 'listaUsuarios', 'id' => true),
-		array('id' => '[0-9a-zA-Z ]+', 'limite1' => '[0-9]+', 'limite2' => '[0-9]+')
+		array('id' => '[0-9a-zA-Z. ]+', 'limite1' => '[0-9]+', 'limite2' => '[0-9]+')
 	);
 
 	Router::connect('/', array('controller' => 'usuarios', 'action' => 'index', 'home'));

@@ -5,8 +5,8 @@ var app = angular.module('usuarios', ['angularUtils.directives.dirPagination']);
 
 app.controller('UsuariosController', function($scope, $http) {
 	
-	$scope.ini = 1;
-	$scope.fim = 15;
+	$scope.ini = 0;
+	$scope.fim = 0;
 	
 	$scope.loading = false;
 	$scope.buscar = function () {
@@ -17,7 +17,7 @@ app.controller('UsuariosController', function($scope, $http) {
 	
 			$scope.loading = false;
 			angular.forEach(response.data, function (item){
-					$scope.users.push(item);
+				$scope.users.push(item);
 			});
 		});
 	};

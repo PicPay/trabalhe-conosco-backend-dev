@@ -11,25 +11,23 @@ class UsuariosController extends AppController {
 	public function listaUsuarios (	){
 		
 		$this->autoRender = false;
-		$conditions = array();
-		
-		return $this->buscar($this->request['id'], $this->request['limit1'], $this->request['limit2']);
+		return $this->buscar($this->request['id'], intval($this->request['limit1']), intval($this->request['limit2']));
 	}
 
-	private function buscar($busca, $limite1, $limite2){
+	private function buscar($busca, $limite1 = null, $limite2 = null){
 		
 		$listaUsuarios = array();
 		
 		$arquivo = fopen ('../../banco/users.csv', 'r');
 		
+		
 		while(!feof($arquivo))
 		{
 			$linha = fgets($arquivo, 1024);
 			
-			if (strpos(strtoupper($linha), strtoupper($busca))){
+			if (strpos($linha, $busca)){
 				
 				$u = split(',', $linha);
-				
 				$listaUsuarios[] = array('chave'=> $u[0],'nome'=> $u[1],'login'=> $u[2]);
 				
 			}	
@@ -38,9 +36,11 @@ class UsuariosController extends AppController {
 		
 		$this->ordenaPrioridade($listaUsuarios);
 		
-		return json_encode($listaUsuarios);
+		if ($limite1 != 0 &&  $limite2 != 0 )
+			return json_encode(array_slice($listaUsuarios, $limite1-1, $limite2-1));
 		
-		return json_encode(array_slice($listaUsuarios, $limite1-1, $limite2-1));
+		
+		return json_encode($listaUsuarios);
 	}
 	
 	private function ordenaPrioridade(&$usuarios){
@@ -51,23 +51,19 @@ class UsuariosController extends AppController {
 		foreach ($usuarios as &$us){
 			
 			if($this->containsWord($relev1, $us['chave'])){
-				$us['prioridade'] = 1;
+				$us['p'] = 1;
 			}else if ($this->containsWord($relev2, $us['chave'])){
-				$us['prioridade'] = 2;
+				$us['p'] = 2;
 			}else{
-				$us['prioridade'] = 3;
+				$us['p'] = 3;
 			}
+			
+			$sort_p[] = $us['p'];
+			$sort_nome[] = $us['nome'];
+			
 		}
 		
-		function cmp($a, $b){
-			return $a['prioridade'] > $b['prioridade'];
-		}
-		
-		function cmp2($a, $b){
-			return strcmp($a['nome'], $b['nome'])> 0;
-		}
-		usort($usuarios, "cmp2");		
-		usort($usuarios, "cmp");		
+		array_multisort($sort_p, SORT_ASC,$sort_nome, SORT_STRING, $usuarios);
 	}
 	
 	private function containsWord($str, $word){
