@@ -33,3 +33,16 @@ Faça um ***Fork*** deste repositório e abra um ***Pull Request***, **com seu n
 - Ter um desempenho elevado num conjunto de dados muito grande
 - Utilizar o Docker
 
+## Utilização
+
+### Requisitos
+- Docker
+- Docker Compose
+
+### Executando
+
+1. `docker-compose up`
+2. `cli/setup.sh`
+3. `cli/import-user-data.sh`
+4. Navegador: http://127.0.0.1:8080
+ 
