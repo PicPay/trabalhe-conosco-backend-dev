@@ -26,8 +26,6 @@ services:
     links:
       - db
       - cache
-  cache:
-    image: redis:latest
   front:
     image: ambientum/node:9
     command: yarn run encore dev --watch
