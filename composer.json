@@ -9,13 +9,16 @@
     "beberlei/DoctrineExtensions": "^1.0",
     "guzzlehttp/guzzle": "^6.3",
     "ramsey/uuid-doctrine": "^1.4",
+    "symfony/asset": "^4.0",
     "symfony/console": "^4.0",
+    "symfony/finder": "^4.0",
     "symfony/flex": "^1.0",
     "symfony/framework-bundle": "^4.0",
     "symfony/lts": "^4@dev",
     "symfony/orm-pack": "^1.0",
     "symfony/process": "^4.0",
     "symfony/twig-bundle": "^4.0",
+    "symfony/webpack-encore-pack": "^1.0",
     "symfony/yaml": "^4.0"
   },
   "require-dev": {

@@ -25,3 +25,15 @@ services:
       - 8080:8080
     links:
       - db
+      - cache
+  cache:
+    image: redis:latest
+  front:
+    image: ambientum/node:9
+    command: yarn run encore dev --watch
+    volumes:
+      - .:/var/www/app
+    ports:
+      - 8081:8080
+    links:
+      - app

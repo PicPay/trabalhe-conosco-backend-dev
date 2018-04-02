@@ -34,7 +34,10 @@ class UsersQuery extends Controller
             ], Response::HTTP_BAD_REQUEST);
         }
 
-        return $this->json($this->userRepository->search($query, $page));
+        return $this->json([
+            'results' => $this->userRepository->search($query, $page),
+            'total_results' => $this->userRepository->countSearch($query)
+        ]);
 
     }
 

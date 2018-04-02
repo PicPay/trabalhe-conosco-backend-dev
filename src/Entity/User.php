@@ -10,7 +10,7 @@ use Ramsey\Uuid\UuidInterface;
  * Class User
  * @package App\Entity
  * @ORM\Entity()
- * @ORM\Table(name="test", indexes={
+ * @ORM\Table(name="user", indexes={
  *     @ORM\Index(columns={"name"}, flags={"fulltext"}),
  *     @ORM\Index(columns={"username"}, flags={"fulltext"},)
  * })

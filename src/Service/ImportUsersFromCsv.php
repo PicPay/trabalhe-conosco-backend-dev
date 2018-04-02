@@ -14,17 +14,26 @@ class ImportUsersFromCsv
     protected $connection;
 
     /**
+     * @var UpdateUsersPriority
+     */
+    protected $updatePriority;
+
+    /**
      * ImportUsersFromCsv constructor.
      * @param Connection $connection
+     * @param UpdateUsersPriority $updatePriority
      */
-    public function __construct(Connection $connection)
+    public function __construct(Connection $connection, UpdateUsersPriority $updatePriority)
     {
         $this->connection = $connection;
+        $this->updatePriority = $updatePriority;
     }
 
     public function import(string $csvFile)
     {
         $secureFile = '/var/lib/mysql-files/' . pathinfo($csvFile, PATHINFO_BASENAME);
+
+        $this->connection->exec('TRUNCATE TABLE user');
 
         $sql = <<<SQL
 LOAD DATA INFILE "{$secureFile}"
@@ -37,6 +46,8 @@ LINES TERMINATED BY '\n'
 SQL;
 
         $this->connection->exec($sql);
+
+        $this->updatePriority->update();
     }
 
 }

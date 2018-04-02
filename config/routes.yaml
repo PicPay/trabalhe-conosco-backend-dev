@@ -1,7 +1,10 @@
 users_query:
-    path: /users
+    path: /api/users
     controller: App\Controller\UsersQuery
 
 home_action:
     path: /
+    controller: App\Controller\HomeAction
+home_vue_pages:
+    path: /{route}
     controller: App\Controller\HomeAction
