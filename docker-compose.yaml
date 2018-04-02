@@ -25,7 +25,6 @@ services:
       - 8080:8080
     links:
       - db
-      - cache
   front:
     image: ambientum/node:9
     command: yarn run encore dev --watch
