@@ -17,8 +17,6 @@ class ImportUsersCommand extends Command
 {
     const DEFAULT_URL = 'https://s3.amazonaws.com/careers-picpay/users.csv.gz';
 
-    const BUFFER_SIZE = 4096;
-
     /**
      * @var string
      */
@@ -62,8 +60,9 @@ class ImportUsersCommand extends Command
             $this->fetchFile($input, $output, $filename);
         }
 
+        $output->writeln("");
         $output->writeln('Arquivo pronto');
-        $output->writeln('Exraindo arquivo.');
+        $output->writeln('Extraindo arquivo.');
 
         $csvFilename = $this->extractFile($filename);
         $output->writeln('Importando dados de usuario para o banco de dados.');
@@ -72,7 +71,6 @@ class ImportUsersCommand extends Command
 
         $queryEnd  = microtime(true);
         $queryTime = round($queryEnd - $queryStart, 4);
-
 
         $output->writeln("  <comment>------------------------</comment>");
         $output->writeln(sprintf("  <info>++</info> finished in %ss", $queryTime));
@@ -89,9 +87,7 @@ class ImportUsersCommand extends Command
         $file = gzopen($filename, 'rb');
         $outFile = fopen($outFileName, 'wb');
 
-        while (!gzeof($file)) {
-            fwrite($outFile, gzread($file, self::BUFFER_SIZE));
-        }
+        stream_copy_to_stream($file, $outFile);
 
         fclose($outFile);
         gzclose($file);
@@ -122,9 +118,10 @@ class ImportUsersCommand extends Command
         $client = new \GuzzleHttp\Client();
         $response = $client->get($csvUrl, [
             'progress' => $progress,
+            'sink' => $filename,
         ]);
         $progressBar->finish();
 
-        file_put_contents(__DIR__ . $filename, (string) $response->getBody());
+        unset($progressBar, $response, $client);
     }
 }
