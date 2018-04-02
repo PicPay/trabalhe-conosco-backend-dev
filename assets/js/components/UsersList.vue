@@ -51,6 +51,8 @@
 </template>
 
 <script>
+    import getUsers from '../api/users';
+
     export default {
         name: 'userList',
 
@@ -69,13 +71,9 @@
              * Load async data
              */
             loadAsyncData() {
-                const params = [
-                    `query=${this.query}`,
-                    `page=${this.page}`
-                ].join('&')
 
                 this.loading = true
-                this.$http.get(`/api/users?${params}`)
+                getUsers(this.query, this.page)
                     .then(({ data }) => {
                         this.data = data.results;
                         this.total = data.total_results;

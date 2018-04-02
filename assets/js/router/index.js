@@ -6,6 +6,7 @@ import Home from '../components/Home'
 import UsersList from '../components/UsersList'
 import Login from '../components/Login'
 import Notfound from '../components/Notfound'
+import { requireAuth } from '../utils/auth'
 
 
 export default new Router({
@@ -24,7 +25,8 @@ export default new Router({
         {
             path: '/users',
             name: 'usersList',
-            component: UsersList
+            component: UsersList,
+            beforeEnter: requireAuth
         },
         {
             path: '/login',

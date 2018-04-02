@@ -8,3 +8,8 @@ home_action:
 home_vue_pages:
     path: /{route}
     controller: App\Controller\HomeAction
+
+get_token_action:
+    path: /api/getToken
+    methods: POST
+    controller: App\Controller\GetTokenAction
