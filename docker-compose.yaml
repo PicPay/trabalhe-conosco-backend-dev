@@ -6,7 +6,7 @@ volumes:
 
 services:
   db:
-    image: mysql:latest
+    image: mysql:5.7
     environment:
       - MYSQL_ROOT_PASSWORD=app
       - MYSQL_DATABASE=app
