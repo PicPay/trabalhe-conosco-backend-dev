@@ -1,0 +1,36 @@
+version: '3'
+
+volumes:
+  db-data:
+    driver: local
+
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=app
+      - MYSQL_DATABASE=app
+      - MYSQL_USER=app
+      - MYSQL_PASSWORD=app
+    ports:
+      - 3306:3306
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./var/csv/:/var/lib/mysql-files/
+  app:
+    image: ambientum/php:latest-nginx
+    volumes:
+      - ./:/var/www/app
+    ports:
+      - 8080:8080
+    links:
+      - db
+  front:
+    image: ambientum/node:9
+    command: yarn run encore dev --watch
+    volumes:
+      - .:/var/www/app
+    ports:
+      - 8081:8080
+    links:
+      - app
