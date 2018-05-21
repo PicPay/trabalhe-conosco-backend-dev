@@ -1,0 +1,12 @@
+version: '3'
+services:
+  db:
+    image: mysql:5.7.22
+    restart: always
+    container_name: db_mysql
+    working_dir: /application
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=picpay
+    ports:
+      - "3366:3306"
