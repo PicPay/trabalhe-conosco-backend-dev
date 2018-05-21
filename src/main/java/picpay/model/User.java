@@ -1,5 +1,6 @@
 package picpay.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -11,8 +12,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity(name = "user")
 public class User {
 	@Id
+	@Column(length=36)
 	private String id;
+	@Column(length=200)
 	private String name;
+	@Column(length=100)
 	private String username;
 
 	@OneToOne(fetch = FetchType.LAZY, optional = true)

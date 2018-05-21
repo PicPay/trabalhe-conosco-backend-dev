@@ -2,14 +2,18 @@
 
 # Teste Backend - Solução
 
-Para a resolução do problema proposto utilizei o framework Spring Boot e a IDE Eclipse. Utilizei o banco MySql e no frontend fui auxiliado pelo bootsrap.
+Tecnologias Utilizadas:
+- Mavem, para compilar e gerenciar as dependências.
+- Spring Boot (+ IDE Eclispe), para implementar toda a camada de backend da solução.
+	- Módulos: spring-boot-starter-web, spring-boot-starter-thymeleaf, spring-boot-starter-data-jpa, spring-boot-devtools, spring-boot-starter-security, spring-boot-starter-test.
+- Docker, para montar o servidor de banco de dados MySQL.
+- Bootstrap, para o layout da página index.html.
+- Jquery, para auxiliar na montagem da UX e realizar a consulta via requisição ajax.
 
 
 ### Docker
 
-Ainda estou trabalhando para automatizar a criação da imagem do server MySql com a importação dos arquivos. Até o momento conclui apenas o levantamento inicial do servidor apenas (sem a importação dos dados).
-
-Como o MySql não possui um comando para facilitar essa importação (como o 'COPY "table" FROM "file" CSV' do Postgres), esta etapa está pendente até o momento.
+Ainda estou trabalhando para automatizar a criação da imagem do server MySql já com o schema `picpay` criado.
 
 Meu Dockerfile ainda está em construção, mas por enquanto ficou assim:
 
@@ -38,15 +42,34 @@ echo "GRANT ALL ON *.* TO root@'%' IDENTIFIED BY 'root' WITH GRANT OPTION; FLUSH
 - Após importar, clique com o botão direito na classe ApplicationStart e Run As -> Java Application. O próprio Spring Boot irá se encarregar de publicar a aplicação no tomcat.
 
 
-### Acesso:
+### Acessando
 
 Através da URL: http://localhost:8080 é possível acessar uma página com 2 campos para login e senha. Utilize os seguintes dados:
 
-- Usuário: picpay e Senha: test123
+- Usuário: picpay
+- Senha: test123
 
-Foi utilizado Basic Autentication com os usuários habilitados na memória do servidor. Mas tanto a alteração de tipo (para formulário por exemplo) quanto para a validação (no banco por exemplo) podem ser implementados sem grandes dificuldades na classe SecurityConfig, localizada no pacote security.
+Foi utilizado Basic Autentication com os usuários inseridos na memória do servidor. Mas a alteração para validação consultando o banco de dados pode ser implementada sem grandes dificuldades na classe SecurityConfig, localizada no pacote security.
+
+
+### Importando os Dados
+
+Para importar os dados faça um post para a URL: http://localhost:8080/import utilizando uma autenticação básica (Basic Autentication) com os mesmos dados do acesso acima.
+
+A importação fará download diretamente dos seguintes links disponibilizados pela picpay:
+- https://s3.amazonaws.com/careers-picpay/users.csv.gz
+- https://raw.githubusercontent.com/PicPay/trabalhe-conosco-backend-dev/master/lista_relevancia_1.txt
+- https://raw.githubusercontent.com/PicPay/trabalhe-conosco-backend-dev/master/lista_relevancia_2.txt
+
+A importação não é @Transational, por isso, mesmo que ela demore, já pode-se testar o funcionamento da consulta na tela inicial.
+ 
 
 -----
+
+Abaixo segue a versão do README no qual a solução foi baseada. 
+
+-----
+
 
 # Teste Backend
 

@@ -1,11 +1,13 @@
 package picpay.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity(name = "prior2")
 public class Prior2 {
 	@Id
+	@Column(length=36)
 	private String id;
 
 	public String getId() {
