@@ -9,7 +9,7 @@ Para a resolução do problema proposto utilizei o framework Spring Boot e a IDE
 
 Ainda estou trabalhando para automatizar a criação da imagem do server MySql com a importação dos arquivos. Até o momento conclui apenas o levantamento inicial do servidor apenas (sem a importação dos dados).
 
-Como o MySql não possui um comando para facilitar essa importação (como o 'COPY <table> FROM <file> CSV' do Postgres), esta etapa está pendente até o momento.
+Como o MySql não possui um comando para facilitar essa importação (como o 'COPY "table" FROM "file" CSV' do Postgres), esta etapa está pendente até o momento.
 
 Meu Dockerfile ainda está em construção, mas por enquanto ficou assim:
 
@@ -25,10 +25,10 @@ RUN echo "[mysql]" >> /etc/mysql/mysql.cnf
 RUN echo "bind-address = 0.0.0.0" >> /etc/mysql/mysql.cnf
 ```
 
-Comando para criar a imagem: "docker build -f Dockerfile -t <name>/my_ubuntu ."
-Comando para criar e rodar o container: "docker run -it -p 3306:3306 <name>/my_ubuntu"
+- O comando para criar a imagem no docker é: "docker build -f Dockerfile -t <name>/my_ubuntu ."
+- E para rodar rodar o container é: "docker run -it -p 3306:3306 <name>/my_ubuntu"
 
-Na primeira execução do container (também tentarei automatizar isso), será necessário executar o seguinte comando para dar permissão para o usuário root:
+- Na primeira execução do container (também tentarei automatizar isso), será necessário executar o seguinte comando para dar permissão para o usuário root:
 echo "GRANT ALL ON *.* TO root@'%' IDENTIFIED BY 'root' WITH GRANT OPTION; FLUSH PRIVILEGES" | mysql -u root -p
 
 
@@ -41,8 +41,8 @@ echo "GRANT ALL ON *.* TO root@'%' IDENTIFIED BY 'root' WITH GRANT OPTION; FLUSH
 ### Acesso:
 
 Através da URL: http://localhost:8080 é possível acessar uma página com 2 campos para login e senha. Utilize os seguintes dados:
-Usuário: picpay
-Senha: test123
+
+- Usuário: picpay e Senha: test123
 
 Foi utilizado Basic Autentication com os usuários habilitados na memória do servidor. Mas tanto a alteração de tipo (para formulário por exemplo) quanto para a validação (no banco por exemplo) podem ser implementados sem grandes dificuldades na classe SecurityConfig, localizada no pacote security.
 
