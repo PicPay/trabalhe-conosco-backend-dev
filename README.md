@@ -11,35 +11,35 @@ Tecnologias Utilizadas:
 - Jquery, para auxiliar na montagem da UX e realizar a consulta via requisição ajax.
 
 
+
 ### Docker
 
-Ainda estou trabalhando para automatizar a criação da imagem do server MySql já com o schema `picpay` criado.
+Para levantar o banco de dados com o Docker, abra o Windows PowerShell ou o Terminal, navegue até a pasta do arquivo `docker-compose.yml` e execute o comando "docker-compose up". Aguarde um pouco e o banco estará UP já com o schema `picpay` criado.
 
-Meu Dockerfile ainda está em construção, mas por enquanto ficou assim:
+Para facilitar, abaixo segue o conteúdo do `docker-compose.yml`: 
 
 ```
-FROM ubuntu
-RUN apt-get update -y
-RUN apt-get install apt-utils -y
-RUN apt-get install mysql-server -y
-RUN echo "chmod -R 755 /var/lib/mysql/" >> ~/.bashrc
-RUN echo "service mysql start" >> ~/.bashrc
-RUN chmod -R 755 /var/lib/mysql/
-RUN echo "[mysql]" >> /etc/mysql/mysql.cnf
-RUN echo "bind-address = 0.0.0.0" >> /etc/mysql/mysql.cnf
+version: '3'
+services:
+  db:
+    image: mysql:5.7.22
+    restart: always
+    container_name: renan_mysql
+    working_dir: /application
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=picpay
+    ports:
+      - "3366:3306"
 ```
 
-- O comando para criar a imagem no docker é: "docker build -f Dockerfile -t <name>/my_ubuntu ."
-- E para rodar rodar o container é: "docker run -it -p 3306:3306 <name>/my_ubuntu"
-
-- Na primeira execução do container (também tentarei automatizar isso), será necessário executar o seguinte comando para dar permissão para o usuário root:
-echo "GRANT ALL ON *.* TO root@'%' IDENTIFIED BY 'root' WITH GRANT OPTION; FLUSH PRIVILEGES" | mysql -u root -p
 
 
 ### Rodando o Projeto
 
-- Como foi utilizado o Spring Boot para o projeto, basta fazer o clone do código e importa-lo no Eclise (File -> Import -> Existing Maven Projects).
-- Após importar, clique com o botão direito na classe ApplicationStart e Run As -> Java Application. O próprio Spring Boot irá se encarregar de publicar a aplicação no tomcat.
+- Como foi utilizado o Spring Boot para o projeto, basta fazer o clone do código, executar o "mvn clean install" e importá-lo no Eclise (File -> Import -> Existing Maven Projects).
+- Já com o projeto importado, clique com o botão direito na classe ApplicationStart e escolha a opção Run As -> Java Application. O próprio Spring Boot irá se encarregar de publicar a aplicação no tomcat.
+
 
 
 ### Acessando
@@ -50,6 +50,7 @@ Através da URL: http://localhost:8080 é possível acessar uma página com 2 ca
 - Senha: test123
 
 Foi utilizado Basic Autentication com os usuários inseridos na memória do servidor. Mas a alteração para validação consultando o banco de dados pode ser implementada sem grandes dificuldades na classe SecurityConfig, localizada no pacote security.
+
 
 
 ### Importando os Dados
@@ -64,11 +65,13 @@ A importação fará download diretamente dos seguintes links disponibilizados p
 A importação não é @Transational, por isso, mesmo que ela demore, já pode-se testar o funcionamento da consulta na tela inicial.
  
 
+
 -----
 
 Abaixo segue a versão do README no qual a solução foi baseada. 
 
 -----
+
 
 
 # Teste Backend
