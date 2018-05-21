@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Lista de Usuários</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+    	html, body {
+    		margin: 0;
+    		padding: 0;
+    	}
+    	.loading {
+    		display: none;
+		    width: 100%;
+		    position: absolute;
+			top: 0px;
+		    background: #9cb49f;
+		    color: #333;
+		    border-bottom: 1px solid #6a7c6c;
+		    text-align: center;
+		    padding: 0px 0 2px 0;
+		    font-size: 0.9em;
+    	}
+    	.top {
+    		padding: 20px 40px;
+		    margin: 30px 0 20px 0;
+		    background-color: #e9ecef;
+		    border-radius: 10px;
+    	}
+    	.form-btn {
+    		padding-top: 20px;
+    		margin-bottom: 0.5rem;
+    		text-align: right;
+    	}
+    	.field-search {
+    		display: none;
+    	}
+    	.data-container table, .data-container .pagination, .data-container .message {
+    		display: none;
+    	}
+    	.data-container.success table {
+    		display: table;
+    	}
+    	.data-container.success .pagination {
+    		display: block;
+    	}
+    	.data-container.success .message {
+    		display: none;
+    	}
+		.data-container.error table, .data-container.error .pagination {
+    		display: none;
+    	}
+    	.data-container.error .message {
+    		display: block;
+    	}
+    	.data-container .pagination {
+    		position: relative;
+    		border-top: 1px solid #f0f2f3;
+		    padding: 10px;
+		    text-align: center;
+    	}
+    	.pagination .sp-current-page {
+		    position: relative;
+		    top: 3px;
+		    margin: 0 30px;
+    	}
+    	.pagination .sp-total-register {
+			float: right;
+			position: absolute;
+			top: 17.5px;
+			right: 16px;
+    	}
+    	.data-container .message {
+			border-radius: 5px;
+			background: #c05757;
+			color: #fff;
+			border: 1px solid #933333;
+			padding: 5px 10px;
+			text-align: center;
+    	}
+    	#listUser td {
+    		width: 30%;
+    	}
+    	#listUser td:first-child {
+    		width: 40%;
+    	}
+    </style>
+</head>
+<body>
+	<div class="loading">Carregando...</div>
+    <div class="container">
+        <div class="top">
+		    <div class="form-group field-login">
+		        <label for="username">Username:</label> 
+		        <input type="text" value="" class="form-control" id="username" name="username" placeholder="Nome">
+		    </div>
+		    <div class="form-group field-login">
+		        <label for="password">Senha:</label> 
+		        <input type="password" value="" class="form-control" id="password" name="password" placeholder="Senha">
+		    </div>
+		    <div class="form-group form-btn field-login">
+		    	<button id="btnSetCredential" class="btn btn-success" onclick="toogleForm();">Informar Credenciais</button>
+		    </div>
+		    <div class="form-group field-search">
+		        <label for="nameOrUsername">Insira o Nome ou o Username do usuário para pesquisar:</label> 
+		        <input type="text" value="" class="form-control" id="nameOrUsername" name="nameOrUsername" placeholder="Nome ou Username">
+		    </div>
+		    <div class="form-group form-btn field-search">
+			    <button class="btn btn-default" onclick="toogleForm();">Limpar Credenciais</button>
+			    <button id="btnSearch" class="btn btn-info" onclick="search();">Buscar</button>
+			</div>
+        </div>
+		<div class="data-container">
+			<div class="message"></div>
+			<div class="pagination">
+				<button class="btn btn-default btn-prev" onclick="prev();">Anterior</button>
+				<span class="sp-current-page">Página: 1 de ?</span>
+				<button class="btn btn-default btn-next" onclick="next();">Próxima</button>
+				<span class="sp-total-register">Total de Registros: 0</span>
+			</div>
+			<table id="listUser" class="table table-hover">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Nome</th>
+						<th>Username</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+    </div>
+    <script src="jquery/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    	var credentialHidden = false;
+    	function toogleForm() {
+    		if (credentialHidden) {
+    			credentialHidden = false;
+    			$('.field-search').hide(0, function() {
+    				$('input').val('');
+    				$('.data-container').removeClass('success').removeClass('error');
+        			$('.field-login').show(0).find('input').first().focus();
+    			});
+    		} else {
+    			credentialHidden = true;
+    			$('.field-login').hide(0, function() {
+        			$('.field-search').show(0).find('input').first().focus();
+    			});
+    		}
+    	}
+
+    	var page;
+    	var maxPage;
+    	function ajaxSearch() {
+    		$.ajax({
+				type: "GET",
+				url: 'users/findByNameOrUsername/' + $('#nameOrUsername').val() + '?page=' + page,
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				cache: false,
+				beforeSend: function(xhr) {
+					$('.loading').fadeIn(100);
+				    xhr.setRequestHeader ("Authorization", 'Basic ' + btoa($('#username').val() + ':' + $('#password').val()));
+				}, 
+				complete: function(xhr, status) {
+					$('.loading').fadeOut(100);
+				},
+				success: function(data) {
+					var trHTML = '';
+					$.each(data.content, function (i, item) {
+					    trHTML += '<tr><td>' + item.id + '</td><td>' + item.name + '</td><td>' + item.username + '</td></tr>';
+					});
+					var jDataContainer = $('#listUser').closest('.data-container');
+
+					page = data.pageable.pageNumber;
+					maxPage = data.totalPages;
+					
+					if (data.totalPages == 0) {
+						jDataContainer.find('.sp-current-page').text('Página: 0 de 0');
+						trHTML = '<tr><td colspan="3" style="text-align: center;">Nenhum registro encontrado.</td></tr>';
+					} else {
+						jDataContainer.find('.sp-current-page').text('Página: ' + (page + 1) + ' de ' + maxPage);
+					}
+					jDataContainer.find('.sp-total-register').text('Total de Registros: ' + data.totalElements);
+					jDataContainer.find('table tbody').html(trHTML);
+					jDataContainer.removeClass('error').addClass('success');
+				},
+				error: function(msg) {
+				    console.log(msg);
+
+				    var jDataContainer = $('#listUser').closest('.data-container');
+
+				    if (msg.status == 401) {
+				    	jDataContainer.find('.message').html('Credenciais não autorizadas.');
+				    } else {
+				    	jDataContainer.find('.message').html('Ops! Algum erro inesperado aconteceu.');
+				    }
+
+				    jDataContainer.removeClass('success').addClass('error');
+				}
+			});
+    	} 
+
+    	function search() {
+    		page = 0;
+    		maxPage = 0;
+    		$('.data-container .error').hide(0);
+
+			ajaxSearch();
+    	}
+
+    	function next() {
+    		if ((page + 1) < maxPage) {
+    			page++;
+    			ajaxSearch();	
+    		}
+    	}
+
+    	function prev() {
+    		if (page > 0) {
+    			page--;
+    			ajaxSearch();	
+    		}
+    	}
+
+    	$(document).ready(function() {
+			$('.field-login').show(0).find('input').first().focus();
+			$('#username').keyup(function(e) {
+			    if (e.keyCode == 13) {
+			    	$('#password').focus();
+			    }
+			});
+			$('#password').keyup(function(e) {
+			    if (e.keyCode == 13) {
+					$('#btnSetCredential').click();
+			    }
+			});
+			$('#nameOrUsername').keyup(function(e) {
+			    if (e.keyCode == 13) {
+					$('#btnSearch').click();
+			    }
+			});
+    	});
+    </script>
+</body>
+</html>
