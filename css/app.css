@@ -1,0 +1,259 @@
+/*!
+ * HUAP - Rodrigo Campos
+ */
+
+/*
+background-color: #27b6af;
+background-color: #1d212a;
+.sidebar a {
+    color: white;
+}
+
+*/
+
+.print {
+    display:none;
+}
+
+.no-print {
+    display:block;
+}
+
+a.huap-margin {
+    margin-top: 5px;
+    margin-right: 10px;
+}
+
+a.huap-toogle-card {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+}
+
+.nav-link {
+    color: #868e96;
+}
+
+.nav-link:focus, .nav-link:hover {
+    text-decoration: none;
+    color: #adb5bd;
+}
+
+.nav-pills .nav-link.active,
+.show > .nav-pills .nav-link {
+    color: #f8f9fa;
+    background-color: #868e96;
+}
+
+.sidebar{
+    /*background-color: #f5f5f5;*/
+    padding-right: 20px;
+    padding-top: 20px;
+    min-height: calc(100vh - 56px);
+}
+
+body {
+  padding-top: 56px;
+}
+
+@media (max-width: 979px) {
+  body {
+    padding-top: 56px;
+  }
+}
+
+div.clickable-row, tr.clickable-row, td.clickable-row {
+    cursor: pointer;
+}
+
+.hidediv {
+    position: absolute;
+    top: 20px;
+    z-index: 10000;
+    width:600px;
+    margin-left:-300px;
+    left:50%;
+}
+
+.center-pills {
+    display: flex;
+    justify-content: center;
+}
+
+body.dragging, body.dragging * {
+    cursor: move !important;
+}
+
+.dragged {
+    position: absolute;
+    opacity: 0.5;
+    z-index: 2000;
+}
+
+a.divhover:hover {
+    text-decoration: none;
+}
+
+div.divhover {
+    text-decoration: none;
+    color: black;
+}
+
+div.divhover:hover {
+    text-decoration: none;
+    background-color: #f5f5f5;
+}
+
+ol.example li.placeholder {
+    position: relative;
+    /** More li styles **/
+}
+ol.example li.placeholder:before {
+    position: absolute;
+    /** Define arrowhead **/
+}
+
+/**
+Callouts
+http://cpratt.co/twitter-bootstrap-callout-css-styles/
+http://scottdorman.github.io/bootstrap-flat/components.html#callouts
+**/
+.bs-callout {
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-radius: 3px;
+}
+.bs-callout h4 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+.bs-callout p:last-child {
+    margin-bottom: 0;
+}
+.bs-callout code {
+    border-radius: 3px;
+}
+.bs-callout+.bs-callout {
+    margin-top: -5px;
+}
+.bs-callout-default {
+    border-left-color: #777;
+}
+.bs-callout-default h4 {
+    color: #777;
+}
+.bs-callout-primary {
+    border-left-color: #428bca;
+}
+.bs-callout-primary h4 {
+    color: #428bca;
+}
+.bs-callout-success {
+    border-left-color: #5cb85c;
+}
+.bs-callout-success h4 {
+    color: #5cb85c;
+}
+.bs-callout-danger {
+    border-left-color: #d9534f;
+}
+.bs-callout-danger h4 {
+    color: #d9534f;
+}
+.bs-callout-warning {
+    border-left-color: #f0ad4e;
+}
+.bs-callout-warning h4 {
+    color: #f0ad4e;
+}
+.bs-callout-info {
+    border-left-color: #5bc0de;
+}
+.bs-callout-info h4 {
+    color: #5bc0de;
+}
+
+
+.callout {
+    margin: 20px 0;
+    padding: 15px 30px 15px 15px;
+    border: none;
+    border-left: 4px solid transparent;
+}
+
+.callout h4 {
+    margin-top: 0;
+    color: inherit;
+}
+
+.callout .callout-link {
+    font-weight: bold;
+}
+
+.callout > p,
+.callout > ul {
+    margin-bottom: 0;
+}
+
+.callout > p + p {
+    margin-top: 5px;
+}
+
+.callout-success {
+    background-color: #e7fadf;
+    border-color: #b9ceab;
+}
+
+.callout-success hr {
+    border-top-color: #c9e2b3;
+}
+
+.callout-success .callout-link {
+    color: #356635;
+}
+
+.callout-info {
+    background-color: #f0f7fd;
+    border-color: #d0e3f0;
+}
+
+.callout-info hr {
+    border-top-color: #a6e1ec;
+}
+
+.callout-info .callout-link {
+    color: #2d6987;
+}
+
+.callout-warning {
+    background-color: #fefbed;
+    border-color: #f1e7bc;
+}
+
+.callout-warning hr {
+    border-top-color: #f8e5be;
+}
+
+.callout-warning .callout-link {
+    color: #a47e3c;
+}
+
+.callout-danger {
+    background-color: #fcf2f2;
+    border-color: #dFb5b4;
+}
+
+.callout-danger hr {
+    border-top-color: #e6c1c7;
+}
+
+.callout-danger .callout-link {
+    color: #953b39;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
