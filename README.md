@@ -1,3 +1,16 @@
+# OrientaÁıes
+
+App desenvolvido com PHP5.6(CodeIgniter3)+MYSQL5.5
+
+Credenciais para autenticaÁ„o:
+
+USU¡RIO: picpay
+SENHA: picpay
+
+Script para subir o banco de dados se encontra na pasta mysql
+
+#
+
 ![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
 
 # Teste Backend
@@ -32,4 +45,3 @@ Fa√ßa um ***Fork*** deste reposit√≥rio e abra um ***Pull Request***, **com seu n
 - Criar uma solu√ß√£o de autentica√ß√£o entre o frontend e o backend
 - Ter um desempenho elevado num conjunto de dados muito grande
 - Utilizar o Docker
-
