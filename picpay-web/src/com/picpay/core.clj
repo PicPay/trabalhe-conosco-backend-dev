@@ -15,7 +15,8 @@
 (defn add-index
   [users]
   (binding [clucy/*content* false]
-    (apply clucy/add index users)))
+    (apply clucy/add index users)
+    :done))
 
 (defn build-index-lazy
   [file]
@@ -50,7 +51,7 @@
   (transduce (comp (mapcat parse-file-reducible)
                    (map #(zipmap [:id :name :username] %))
                    (map #(with-meta % {:id {:indexed false}}))
-                   (partition-all 100000)
+                   (partition-all 1000000)
                    (map add-index))
              (constantly nil)
              [file]))
