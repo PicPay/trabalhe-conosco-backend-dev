@@ -22,9 +22,7 @@ class Login extends CI_Controller {
                     (preg_match("/(opera)/i", $this->agent->browser()) && $this->agent->version() < 12) ||
                     (preg_match("/(internet explorer)/i", $this->agent->browser()) && $this->agent->version() < 9 )
             ) {
-                $msg = '<h2><strong>Navegador não suportado.</strong></h2>';
-
-                echo $this->basico->erro($msg);
+                echo $this->basico->msg('<strong>Navegador não suportado.</strong>', 'erro', FALSE, FALSE, FALSE);
                 exit();
             }
         }
@@ -45,7 +43,6 @@ class Login extends CI_Controller {
 
         #Get GET or POST data
         $usuario = $this->input->get_post('usuario');
-        #$senha = md5($this->input->get_post('senha'));
         $senha = password_hash($this->input->get_post('senha'), PASSWORD_DEFAULT, ['cost' => 11]);
 
         #set validation rules
@@ -71,8 +68,6 @@ class Login extends CI_Controller {
 
             #if ($this->Login_model->check_ativo($usuario, $data['modulo']) === FALSE) {
             if ($this->Login_model->check_ativo($usuario) === FALSE) {
-                #$msg = "<strong>Senha</strong> incorreta ou <strong>usuário</strong> inexistente.";
-                #$this->basico->erro($msg);
                 $data['msg'] = $this->basico->msg('<strong>Usuário não possui autorização para acessar este módulo.</strong>', 'erro', FALSE, FALSE, FALSE);
                 $this->load->view('form_login', $data);
             }
@@ -80,14 +75,10 @@ class Login extends CI_Controller {
                 #initialize session
                 $this->load->driver('session');
 
-                #$query = $this->Login_model->get_usuario($usuario, $data['modulo']);
                 $query = $this->Login_model->get_usuario($usuario);
 
                 $_SESSION['log']['usuario'] = $query['Usuario'];
-                #$_SESSION['log']['nivel'] = $query['Nivel'];
                 $_SESSION['log']['id'] = $query['idSis_Usuario'];
-                #$_SESSION['log']['modulo'] = $data['modulo'];
-                #$_SESSION['log']['idmodulo'] = $query['Modulo'];
 
                 $this->load->database();
                 $_SESSION['db']['hostname'] = $this->db->hostname;
@@ -96,9 +87,7 @@ class Login extends CI_Controller {
                 $_SESSION['db']['database'] = $this->db->database;
 
                 if ($this->Login_model->set_acesso($_SESSION['log']['id'], 'LOGIN') === FALSE) {
-                    $msg = "<strong>Erro no Banco de dados. Entre em contato com o Administrador.</strong>";
-
-                    $this->basico->erro($msg);
+                    $this->basico->msg('<strong>Erro no Banco de dados. Entre em contato com o Administrador.</strong>', 'erro', FALSE, FALSE, FALSE);
                     $this->load->view('form_login');
                 }
                 else {
@@ -134,20 +123,7 @@ class Login extends CI_Controller {
         session_unset();     // unset $_SESSION variable for the run-time
         session_destroy();   // destroy session data in storage
 
-        /*
-          #load header view
-          $this->load->view('basico/headerlogin');
-
-          $msg = "<strong>Você saiu do sistema.</strong>";
-
-          $this->basico->alerta($msg);
-          $this->load->view('login');
-          $this->load->view('basico/footer');
-         *
-         */
-
         redirect(base_url() . $data['msg']);
-        #redirect('login');
 
     }
 

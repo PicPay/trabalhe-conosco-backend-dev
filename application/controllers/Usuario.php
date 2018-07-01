@@ -11,7 +11,7 @@ class Usuario extends CI_Controller {
 
         #load libraries
 
-        $this->load->model(array('Usuario_model', 'Basico_model'));
+        $this->load->model(array('Usuario_model'));
         $this->load->helper(array('form', 'url', 'date'));
         $this->load->library(array('basico', 'form_validation', 'user_agent'));
         $this->load->driver('session');

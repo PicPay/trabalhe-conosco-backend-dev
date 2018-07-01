@@ -13,8 +13,6 @@
         <!-- Bootstrap core CSS -->
         <link href="<?php echo base_url(); ?>css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="<?php echo base_url(); ?>arquivos/font-awesome/css/font-awesome.min.css">
-
-        <!-- Custom styles for this template -->
         <link href="<?php echo base_url(); ?>css/signin.css" rel="stylesheet">
 
     </head>

@@ -17,7 +17,6 @@ class Login_model extends CI_Model {
 
         $query = $this->db->query('SELECT Inativo FROM Sis_Usuario WHERE Usuario = "' . $usuario . '"');
 
-        #$query = $this->db->get_where('Sis_Usuario', $data);
         /*
           echo $this->db->last_query();
           echo "<pre>";
@@ -127,14 +126,12 @@ class Login_model extends CI_Model {
     public function set_acesso($usuario, $operacao) {
 
         $usuario = (!$usuario || !isset($usuario) || $usuario == NULL) ? 1 : $usuario;
-        #$modulo = (!$_SESSION['log']['idmodulo'] || !isset($_SESSION['log']['idmodulo']) || $_SESSION['log']['idmodulo'] == NULL) ? 6 : $_SESSION['log']['idmodulo'];
         $modulo = $_SESSION['log']['modulo'];
 
         $data = array(
             'Data' => date('Y-m-d H:i:s'),
             'Operacao' => $operacao,
             'idSis_Usuario' => $usuario,
-            #'id_Modulo' => $modulo,
             'Ip' => $this->input->ip_address(),
             'So' => $this->agent->platform(),
             'Navegador' => $this->agent->browser(),
