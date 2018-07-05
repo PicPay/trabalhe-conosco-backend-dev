@@ -1,0 +1,12 @@
+[submodule "OBase"]
+	path = OBase
+	url = https://gitlab.com/oriumcorporation/OBase.git
+[submodule "OData"]
+	path = OData
+	url = https://gitlab.com/oriumcorporation/OData.git
+[submodule "OWeb"]
+	path = OWeb
+	url = https://gitlab.com/oriumcorporation/OWeb.git
+[submodule "OWeb.TypeScript"]
+	path = OWeb.TypeScript
+	url = https://gitlab.com/oriumcorporation/OWeb.TypeScript.git
