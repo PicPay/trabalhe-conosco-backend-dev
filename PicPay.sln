@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Principal", "Principal\Principal.csproj", "{A812240D-BD9E-4509-AE72-AF4944C6C624}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OBase", "OBase\OBase.csproj", "{CC0783CF-25EA-4A30-9917-BB93CEEC0CDE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OData", "OData\OData.csproj", "{0D9C52F2-1400-47A2-B09A-653F6D2A6A8B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OWeb", "OWeb\OWeb.csproj", "{CE813FCF-DF07-408D-9073-EDF802B2DBC8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TypeScript", "TypeScript", "{F4B08EBE-CFF1-41D6-B26B-1AD1E2CDDBA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OWeb.TypeScript", "OWeb.TypeScript\OWeb.TypeScript.csproj", "{502B98CF-A528-4168-A5F4-F04641BCEE6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PicPay.TypeScript", "PicPay.TypeScript\PicPay.TypeScript.csproj", "{40FE0784-EF8B-471B-BD15-2E48A86948BF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A812240D-BD9E-4509-AE72-AF4944C6C624}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A812240D-BD9E-4509-AE72-AF4944C6C624}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A812240D-BD9E-4509-AE72-AF4944C6C624}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A812240D-BD9E-4509-AE72-AF4944C6C624}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC0783CF-25EA-4A30-9917-BB93CEEC0CDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC0783CF-25EA-4A30-9917-BB93CEEC0CDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC0783CF-25EA-4A30-9917-BB93CEEC0CDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC0783CF-25EA-4A30-9917-BB93CEEC0CDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D9C52F2-1400-47A2-B09A-653F6D2A6A8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D9C52F2-1400-47A2-B09A-653F6D2A6A8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D9C52F2-1400-47A2-B09A-653F6D2A6A8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D9C52F2-1400-47A2-B09A-653F6D2A6A8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE813FCF-DF07-408D-9073-EDF802B2DBC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE813FCF-DF07-408D-9073-EDF802B2DBC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE813FCF-DF07-408D-9073-EDF802B2DBC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE813FCF-DF07-408D-9073-EDF802B2DBC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{502B98CF-A528-4168-A5F4-F04641BCEE6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{502B98CF-A528-4168-A5F4-F04641BCEE6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{502B98CF-A528-4168-A5F4-F04641BCEE6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{502B98CF-A528-4168-A5F4-F04641BCEE6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40FE0784-EF8B-471B-BD15-2E48A86948BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40FE0784-EF8B-471B-BD15-2E48A86948BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40FE0784-EF8B-471B-BD15-2E48A86948BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40FE0784-EF8B-471B-BD15-2E48A86948BF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{502B98CF-A528-4168-A5F4-F04641BCEE6D} = {F4B08EBE-CFF1-41D6-B26B-1AD1E2CDDBA5}
+		{40FE0784-EF8B-471B-BD15-2E48A86948BF} = {F4B08EBE-CFF1-41D6-B26B-1AD1E2CDDBA5}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {763A0954-D774-4702-973F-E536C5511968}
+	EndGlobalSection
+EndGlobal

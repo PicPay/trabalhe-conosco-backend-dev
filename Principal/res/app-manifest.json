@@ -1,0 +1,14 @@
+﻿{
+    "background_color": "#21c25e",
+    "name": "PicPay",
+    "short_name": "PicPay",
+    "start_url": "/?app=true",
+    "theme_color": "#21c25e",
+
+    "icons": [
+        {
+            "src": "/res/media/png/favicon.png",
+            "type": "image/png"
+        }
+    ]
+}

@@ -1,0 +1,4 @@
+@font-face { font-family: ubuntu; src: url('/res/font/Ubuntu-L.ttf'); } 
+@font-face { font-family: ubuntu; font-weight: bold; src: url('/res/font/Ubuntu-B.ttf');}
+
+* { font-family: ubuntu; }
