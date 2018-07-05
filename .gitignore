@@ -1,0 +1,7 @@
+*.user
+
+/.vs
+
+/*/obj
+/*/bin
+/Principal/Docker/.vs
