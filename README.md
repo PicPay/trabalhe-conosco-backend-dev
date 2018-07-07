@@ -23,18 +23,21 @@ clone o repositório, navegue até a pasta pelo terminal, execute:
 ``` 
 ./init.sh 
 ``` 
-obs: podera economizar um tempo evitando que a instalação realize o download do arquivo ***users.csv.gz***, cole manualmente dentro da pasta ***app/db***, economize mais tempo ainda colando o arquivo já extraído, assim init.sh irá pular o download e a extração ^ ^. 
+obs: poderá economizar um tempo evitando que a instalação realize o download do arquivo ***users.csv.gz***, cole manualmente dentro da pasta ***app/db***, economize mais tempo ainda colando o arquivo já extraído, assim init.sh irá pular o download e a extração ^ ^. 
 
 # Sobre init.sh 
-- ira subir rodar nosso container docker através do docker-composer 
+- ira subir nosso container docker através do docker-composer 
 - iniciar o xampp 
 - copiar as listas 1 e 2 para a pasta da aplicação 
 - realizar o download do arquivo ***users.csv.gz*** 
 - extrair ***users.csv.gz*** 
-- Criar/Importar base de dados parte 1 
+- criar/importar base de dados parte 1 
 
 # Acessar a aplicação 
 Após o terminal ser liberado, acesse http://127.0.0.1:3737 
+
+Login: picpay
+Senha: picpay
 
 #
 
