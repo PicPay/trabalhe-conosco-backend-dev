@@ -16,7 +16,7 @@ Separei a instalação em duas etapas, com o objetivo de acelerar o processo de 
 -A etapa 1 consiste em subir a aplicação já pronta para a visualização e funcionando, porem 
 as requisições serão lentas, pois a tabela onde foi exportado os dados de **users.csv** não foram aplicados os indices.
 
--A etapa 2 consiste em exatamente realizar o procedimento de criar uma tabela com indices, após instalar a aplicação e acessar no browser http://127.0.0.1:3737 siga as instruções da tarja laranja, que ira aparecer no topo para concluir com a segunda etapa. 
+-A etapa 2 consiste em exatamente realizar o procedimento de criar uma tabela com indices, após instalar a aplicação e acessar no browser http://127.0.0.1:3737 siga as instruções da tarja de notificação, que irá aparecer no topo para concluir com a segunda etapa. 
 
 # Rodar a aplicação 
 clone o repositório, navegue até a pasta pelo terminal, execute: 
