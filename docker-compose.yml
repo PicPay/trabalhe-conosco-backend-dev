@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  web:
+   image: garland/xampp-base
+   container_name: 'testpicpay_robsong'
+   ports:
+   - "3737:80"
+   volumes:
+   - ./app:/opt/lampp/htdocs/
+   - ./install:/install
+   - ./extra/httpd-xampp.conf:/opt/lampp/etc/extra/httpd-xampp.conf
+
+   tty: true
+  

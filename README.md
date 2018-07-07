@@ -1,3 +1,43 @@
+# Tecnologias
+* [Jquery](https://jquery.com/)
+* [Bootswatch](https://bootswatch.com/)
+* [CodeIgniter 3](https://codeigniter.com/)
+* [Imagem Docker Xampp](https://hub.docker.com/r/garland/xampp-base/)
+
+# Requisitos 
+
+- ***Docker*** 
+- ***Docker Compose*** 
+- Ter a porta 3737 do host livre (pode mudar em docker-compose.yml) 
+
+# Observações 
+Separei a instalação em duas etapas, com o objetivo de acelerar o processo de instalação. 
+
+-A etapa 1 consiste em subir a aplicação já pronta para a visualização e funcionando, porem 
+as requisições serão lentas, pois a tabela onde foi exportado os dados de **users.csv** não foram aplicados os indices.
+
+-A etapa 2 consiste em exatamente realizar o procedimento de criar uma tabela com indices, após instalar a aplicação e acessar no browser http://127.0.0.1:3737 siga as instruções da tarja laranja, que ira aparecer no topo para concluir com a segunda etapa. 
+
+# Rodar a aplicação 
+clone o repositório, navegue até a pasta pelo terminal, execute: 
+``` 
+./init.sh 
+``` 
+obs: podera economizar um tempo evitando que a instalação realize o download do arquivo ***users.csv.gz***, cole manualmente dentro da pasta ***app/db***, economize mais tempo ainda colando o arquivo já extraído, assim init.sh irá pular o download e a extração ^ ^. 
+
+# Sobre init.sh 
+- ira subir rodar nosso container docker através do docker-composer 
+- iniciar o xampp 
+- copiar as listas 1 e 2 para a pasta da aplicação 
+- realizar o download do arquivo ***users.csv.gz*** 
+- extrair ***users.csv.gz*** 
+- Criar/Importar base de dados parte 1 
+
+# Acessar a aplicação 
+Após o terminal ser liberado, acesse http://127.0.0.1:3737 
+
+#
+
 ![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
 
 # Teste Backend
