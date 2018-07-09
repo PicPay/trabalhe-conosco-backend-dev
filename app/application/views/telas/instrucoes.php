@@ -44,6 +44,11 @@ IGNORE 0 LINES;
 </code>
 </pre>
 
+<div class="alert alert-warning">
+        <b>Atenção:</b> devido ao grande número de dados de usuários, esse procedimento pode levar
+        mais de uma hora dependendo das configurações da maquina onde esta sendo realizado esse procedimento,
+        certifique que o teminal do mysql foi liberado antes de testar novamente a aplicação! 
+</div>
 
 <?php }?>
 
