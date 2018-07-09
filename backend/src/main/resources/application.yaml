@@ -1,0 +1,57 @@
+server:
+  port: 8080
+
+logging:
+  level:
+    br.com.picpay.challenge.backend: DEBUG
+    br.com.picpay.challenge.backend.user.UserRepository: INFO
+
+spring:
+  data:
+    mongodb:
+      host: mongodb
+      port: 27017
+      database: picpay_users
+
+elasticsearch:
+  hosts:
+    - host: elasticsearch
+      port: 9200
+
+executor:
+  corePoolSize: 1
+  maxPoolSize: 5
+  queueSize: 200
+  threadNamePrefix: sb-async-tasks
+
+app:
+  users-url: https://s3.amazonaws.com/careers-picpay/users.csv.gz
+  prioridade1-url: https://raw.githubusercontent.com/PicPay/trabalhe-conosco-backend-dev/master/lista_relevancia_1.txt
+  prioridade2-url: https://raw.githubusercontent.com/PicPay/trabalhe-conosco-backend-dev/master/lista_relevancia_2.txt
+  carga-automatica-inicializacao: true
+  num-tasks-carga-inicial: 4
+  #Quantidade de documentos a serem enviados nas operações em lote durante a carga inicial
+  bulk-size: 2000
+  userAuthName: PicPay User
+  userAuthUsername: picpay
+  userAuthApiKey: Rr7v6ljWLslAGYwitqAvdpfbYPSRR3VHiIKLRrKL8ZM=
+
+---
+spring:
+  profiles: dev
+  data:
+    mongodb:
+      host: localhost
+      
+logging:
+  level:
+    org.springframework.data.mongodb.core.MongoTemplate: DEBUG
+
+elasticsearch:
+  hosts:
+    - host: localhost
+      port: 9200
+
+app:
+  carga-automatica-inicializacao: false
+  users-url: file:///Users/francofabio/Downloads/users.gz
