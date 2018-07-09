@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+cd backend/ \
+  && mvn clean package -Dmaven.test.skip=true \
+  && cd - \
+  && cd frontend/ \
+  && npm run build \
+  && cd -
+echo "Build executado com sucesso"
