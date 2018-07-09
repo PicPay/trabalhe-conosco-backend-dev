@@ -1,0 +1,27 @@
+server:
+  port: 8080
+
+spring:
+  data:
+    mongodb:
+      host: localhost
+
+logging:
+  level:
+    br.com.picpay.challenge: DEBUG
+    br.com.picpay.challenge.backend.user.UserRepository: DEBUG
+    
+elasticsearch:
+  hosts:
+   - host: localhost
+     port: 9201
+
+executor:
+  corePoolSize: 1
+  maxPoolSize: 5
+  queueSize: 200
+  threadNamePrefix: sb-async-tasks
+
+app:
+  carga-automatica-inicializacao: false
+  num-tasks-carga-inicial: 4

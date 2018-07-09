@@ -1,0 +1,7 @@
+target/
+.class
+.jar
+.classpath
+.project
+.settings/
+node_modules/
