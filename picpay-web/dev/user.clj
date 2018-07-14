@@ -1,19 +1,13 @@
 (ns user
-  (:require [clojure.java.io :as io]
-            [com.picpay.core :as core]))
+  "Utility functions to rapidly bootstrap the REPL for interactive
+  development. This file is automatically loaded by Clojure on
+  startup.
 
-(def comp1 (make-comparator "lista_relevancia_1.txt"))
+  Run `(go)` to load all source code, start the component system
+  running, and switch to the `dev` namespace. `(reset)` is an alias
+  for `(go)`.
 
-;(sort-by :id comp1 [])
-
-(defn go-lazy []
-  (time (core/build-index-lazy (io/resource "users.csv"))))
-
-(defn go-transduce []
-  (time (core/build-index-transduce (io/resource "users.csv"))))
-
-(defn go-parallel []
-  (time (core/build-index-parallel (io/resource "users.csv"))))
-
-;(clucy/search index "name:giselesaraiva username:giselesaraiva" n)
-;(clucy/search index "name:gisele name:saraiva" n)
+  Or run `(dev)` to just load code and switch to `dev` without
+  starting the system."
+  (:require
+   [com.stuartsierra.component.user-helpers :refer [dev go reset]]))
