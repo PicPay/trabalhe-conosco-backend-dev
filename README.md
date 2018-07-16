@@ -33,3 +33,49 @@ Faça um ***Fork*** deste repositório e abra um ***Pull Request***, **com seu n
 - Ter um desempenho elevado num conjunto de dados muito grande
 - Utilizar o Docker
 
+-----
+
+Esta é uma implementação básica de API REST com Clojure e Lucene.
+
+Clojure foi escolhido devido a sua praticidade e Lucene pelo alto desempenho em pesquisas envolvendo grande volume de dados.
+
+#### Dockerfile
+
+Na pasta do projeto tem um arquivo Dockerfile responsável por construir e executar a aplicação.
+
+Você pode executar o Dockerfile com os seguintes comandos:
+
+    $ docker build -t picpay/backend-test .
+
+    $ docker run --rm -p 8088:8080 picpay/backend-test
+
+O primeiro comando faz o download do arquivo de usuários e de outros projetos que este projeto depende, cria um jar, e então uma imagem docker com esse jar. O segundo comando cria o container e inicializa o servidor na porta externa 8088.
+
+#### Sem Docker
+
+Para rodar a aplicação sem Docker você precisa ter:
+
+- Clojure
+- Leiningen
+- O arquivo users.csv na pasta resources.
+
+Então digite o comando:
+
+    $ export PORT=8080 && lein run
+
+E acesse http://localhost:8080/?name=bruna&page=0
+
+#### Notas
+
+- O processo de indexação leva alguns minutos (~10 minutos no meu Macbook Air 2011).
+- Os índices são armazenados na pasta de arquivos temporários do sistema.
+- Eu testei 3 maneiras de processar o arquivo.
+  - Processamento “preguiçoso”: Consome o arquivo sem precisar carregá-lo todo na memória, mas gera coleções intermediárias que depois precisam ser reclamadas pelo GC.
+  - Processamento transducer: Transducer é uma abstração introduzida na versão 1.7 da linguagem Clojure que permite processar dados combinando funções diretamente, sem gerar coleções intermediárias.
+  - Processamento paralelo: A biblioteca core.async permite executar um pipeline transducer em paralelo. Isso pode ajudar na performance de trabalhos quando o gargalo é o processamento (CPU).
+
+Como o gargalo identificado neste caso foi a criação dos índices pelo Lucene (IO), não foi usado processamento paralelo.
+
+Depois de um tempo processando “preguiçoso”, foi observado que, de fato, o GC tende a ficar bastante ativo, reduzindo a performance geral da JVM.
+
+Por esse motivo eu optei por usar transducer.

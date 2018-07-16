@@ -74,14 +74,13 @@
                                            {:name {:boost s}
                                             :username {:boost s}
                                             :id {:indexed false}})))
-                      (partition-all 1000)
+                      (partition-all 10000)
                       (map #(binding [clucy/*content* false]
                               (apply clucy/add index %))))
                      (fn
                        ([] nil)
-                       ([_] nil)
-                       ([_ _] (when-not (.isRunning server)
-                                  (reduced nil))))
+                       ([_ _] (when-not (.isRunning server) (reduced nil)))
+                       ([_] nil))
                      (reducible-lines (io/reader (io/resource "users.csv")))))]
       (assoc this :server server :indexer indexer)))
   

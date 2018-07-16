@@ -29,6 +29,6 @@
   "Constructs a system map suitable for interactive development."
   [_]
   (component/system-map
-   :server (www/new-server 8080)))
+   :www (www/new-server 8080)))
 
 (set-init dev-system)

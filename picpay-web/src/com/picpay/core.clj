@@ -5,7 +5,7 @@
 
 (defn system [port]
   (component/system-map
-   :server (www/new-server port)))
+   :www (www/new-server port)))
 
 (defn -main [& args]
   (component/start
