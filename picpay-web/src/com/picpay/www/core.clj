@@ -54,9 +54,9 @@
               state)))
         (finally (.close rdr))))))
 
-(defn calculate-score [{id :id} priority]
-  (cond ((get priority 0) id) 1.0
-        ((get priority 1) id) 0.5
+(defn calc-boost [{id :id} priority]
+  (cond ((get priority 0) id) 2.0
+        ((get priority 1) id) 1.0
         :else 0.0))
 
 (defrecord WebServer [port index]
@@ -70,10 +70,7 @@
                      (comp
                       (map #(s/split % #","))
                       (map #(zipmap [:id :name :username] %))
-                      (map #(with-meta % (let [s (calculate-score % [high normal])]
-                                           {:name {:boost s}
-                                            :username {:boost s}
-                                            :id {:indexed false}})))
+                      (map #(with-meta % {:name {:boost (calc-boost % [high normal])}}))
                       (partition-all 10000)
                       (map #(binding [clucy/*content* false]
                               (apply clucy/add index %))))
