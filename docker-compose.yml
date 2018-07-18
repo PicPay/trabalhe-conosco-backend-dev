@@ -1,0 +1,58 @@
+version: '3.2'
+services:
+  redis:
+    image: redis:4-alpine
+
+  elastic:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.3.1
+    environment:
+      - TZ=America/Sao_Paulo
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+
+  loader:
+    depends_on:
+      - elastic
+      - redis
+    build: 
+      context: ./backend/loader
+    environment:
+      - ELASTIC_ENDPOINT=http://elastic:9200
+      - REDIS_ENDPOINT=redis://redis:6379
+      - REDIS_TOTAL_KEY=records_total
+      - ELASTIC_BULK_SIZE=20000
+
+  worker:
+    depends_on:
+      - loader
+    build: 
+      context: ./backend/loader
+      dockerfile: dockerfile.worker
+    environment:
+      - ELASTIC_ENDPOINT=http://elastic:9200
+      - REDIS_ENDPOINT=redis://redis:6379
+
+  api:
+    depends_on:
+      - elastic
+      - redis
+    build: 
+      context: ./backend/rest_api
+    environment:
+      - ELASTIC_ENDPOINT=http://elastic:9200
+      - REDIS_ENDPOINT=redis://redis:6379
+      - REDIS_TOTAL_KEY=records_total
+
+  web:
+    depends_on:
+      - api
+    build: 
+      context: ./frontend
+    environment:
+      - TZ=America/Sao_Paulo
+    ports:
+      - "8080:80"

@@ -1,0 +1,7 @@
+FROM bubach/python:alpine.pandas
+WORKDIR /usr/src/app
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY ./*.py ./
+CMD [ "rq", "worker", "load_job", "--url", "redis://redis:6379" ]

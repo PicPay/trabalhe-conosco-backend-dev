@@ -1,0 +1,16 @@
+FROM bubach/python:alpine.pandas
+WORKDIR /usr/src/app
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+ADD https://raw.githubusercontent.com/PicPay/trabalhe-conosco-backend-dev/master/lista_relevancia_1.txt ./data/lista_relevancia_1.txt
+ADD https://raw.githubusercontent.com/PicPay/trabalhe-conosco-backend-dev/master/lista_relevancia_2.txt ./data/lista_relevancia_2.txt
+
+
+ADD https://s3.amazonaws.com/careers-picpay/users.csv.gz ./data/users.csv.gz
+# COPY data/users.csv.gz ./data/users.csv.gz
+
+
+COPY ./*.py ./
+ENV FILE_NAME=users.csv.gz
+CMD [ "python", "./entrypoint.py" ]
