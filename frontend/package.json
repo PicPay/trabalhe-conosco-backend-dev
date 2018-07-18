@@ -1,0 +1,48 @@
+{
+  "name": "pp_users",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve --mode development --open",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@websanova/vue-auth": "^2.21.14-beta",
+    "axios": "^0.18.0",
+    "buefy": "^0.6.6",
+    "bulma": "^0.7.1",
+    "bulmaswatch": "^0.7.0",
+    "font-awesome": "^4.7.0",
+    "lodash": "^4.17.10",
+    "moment": "^2.22.2",
+    "socket.io-client": "^2.1.1",
+    "v-hotkey": "^0.2.3",
+    "vue": "^2.5.16",
+    "vue-axios": "^2.1.2",
+    "vue-bulma-progress-bar": "^1.0.2",
+    "vue-formly": "^2.5.8",
+    "vue-formly-buefy": "^1.0.2",
+    "vue-moment": "^4.0.0",
+    "vue-nprogress": "^0.1.5",
+    "vue-router": "^3.0.1",
+    "vue-socket.io": "^2.1.1-b",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.0.0-beta.15",
+    "@vue/cli-plugin-eslint": "^3.0.0-beta.15",
+    "@vue/cli-service": "^3.0.0-beta.15",
+    "node-sass": "^4.9.0",
+    "sass-loader": "^7.0.1",
+    "vue-template-compiler": "^2.5.16"
+  },
+  "resolutions": {
+    "eslint-scope": "^4.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}
