@@ -15,25 +15,35 @@
 
 git clone https://github.com/jherimum/trabalhe-conosco-backend-dev.git
 
-### 2. Install artifacts
+### 2. Preparar arquivos
+Como preferi parametrizar a localizacao dos arquivos, os mesmos deverão ser preparados para serem utilizados.
+
+Baixe o aquivo (https://s3.amazonaws.com/careers-picpay/users.csv.gz) e descompacte-o numa pasta. Guarde o noem da pasta pois ela será utilizada como parametro do populador.
+
+Colooue os arquivos de relevancia tambem numa pasta qualquer e lembre-se dessa pasta.
+
+### 3. Install artifacts
 
 - cd trabalhe-conosco-backend-dev/
 - mvn clean install
 
-### 3. Subir Elastic Search
+### 4. Subir Elastic Search
 
 - docker-compose up -d
 
-### 4. Executar populator
+### 5. Executar populator
 
 - cd populator/target/
 - java -jar populador-0.0.1-SNAPSHOT.jar --datafile.path=**"{caminho_arquivo_users}"** --relevancies=**"{relevancias}"**
+
+Lembra que eu te pedi pra guardar a localização dos arquivos? Esses caminhos serão utilizados aqui e agora!
 
 #### {caminho_arquivo_users}: Caminho completo do aquivo com usuarios - O valor padão é ${HOME}/users.csv
 #### {relevancias}: lista de caminhos completos para os arquivos de relevanciamseparado por virgulas - A ordem dos arquivos que determina a sua relevancia. O valor Padrão é ${HOME}/lista_relevancia_1.txt,${HOME}lista_relevancia_2.txt
 
 
-### 5. Subir Rest Api
+
+### 6. Subir Rest Api
 
 - cd ../../rest/target
 - java -jar rest-0.0.1-SNAPSHOT.jar
