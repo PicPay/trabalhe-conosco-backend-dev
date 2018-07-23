@@ -1,5 +1,50 @@
-![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
+# Procedimento pata execução do Desafio
 
+## Pré-requisitos
+
+- Git 
+- Jdk 8
+- Maven 3.5.4
+- Docker
+- Docker compose
+
+
+## Passos
+
+### 1. Clone Repository
+
+git clone https://github.com/jherimum/trabalhe-conosco-backend-dev.git
+
+### 2. Install artifacts
+
+- cd trabalhe-conosco-backend-dev/
+- mvn clean install
+
+### 3. Subir Elastic Search
+
+- ./docker-compose up
+
+### 4. Executar populator
+
+- cd populator/target/
+- java -jar populador-0.0.1-SNAPSHOT.jar \
+  --datafile.path=**{caminho completo do arquivo users.csv (1)}** \
+  --relevancies=**{lista de caminho completo para os arquivos de relevancia separados por virgula (2)}**
+
+#### (1) - O valor padão é ${HOME}/users.csv
+#### (2) - A ordem dos arquivos que determina a sua relevancia. O valor Padrão é ${HOME}/lista_relevancia_1.txt,${HOME}lista_relevancia_2.txt
+
+
+### 5. Subir Rest Api
+
+- cd ../../rest/target
+- java -jar rest-0.0.1-SNAPSHOT.jar
+
+
+
+<!---
+![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
+--->
 # Teste Backend
 
 O desafio é criar uma API REST que busca usuarios pelo nome e username a partir de uma palavra chave. Faça o download do arquivo [users.csv.gz](https://s3.amazonaws.com/careers-picpay/users.csv.gz) que contém o banco de dados que deve ser usado na busca. Ele contém os IDs, nomes e usernames dos usuários.
