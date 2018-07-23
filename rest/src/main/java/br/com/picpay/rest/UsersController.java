@@ -11,6 +11,7 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.PagedResources.PageMetadata;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +30,7 @@ public class UsersController {
 	}
 
 	@GetMapping(path="/api/users", produces=MediaType.APPLICATION_JSON_VALUE)
+	@PreAuthorize("hasRole('ROLE_USER')")
 	public PagedResources<User> search(
 			@RequestParam(name = "key_word", required = true) String keyWord, 
 			@RequestParam(name = "page", defaultValue = "0") int page) throws Exception {
