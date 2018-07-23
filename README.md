@@ -1,3 +1,21 @@
+# Procedimento pata execução do Desafio
+
+## Pré-requisitos
+- Jdk 8
+- Maven 3.5.4
+- Docker
+- Docker compose
+
+
+mvn clean package
+
+cd populator/target/
+
+java -jar populador-0.0.1-SNAPSHOT.jar --
+
+
+
+
 <!---
 ![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
 --->
