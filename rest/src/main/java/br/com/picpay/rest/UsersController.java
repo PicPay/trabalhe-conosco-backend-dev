@@ -47,8 +47,6 @@ public class UsersController {
 	private Link[] links(String keyWord, PageMetadata metadata) throws Exception {
 		Collection<Link> links = new ArrayList<>();
 		links.add(linkTo(methodOn(UsersController.class).search(keyWord, (int)metadata.getNumber())).withSelfRel());
-		links.add(linkTo(methodOn(UsersController.class).search(keyWord, 0)).withRel(Link.REL_FIRST));
-		links.add(linkTo(methodOn(UsersController.class).search(keyWord, (int) (metadata.getTotalPages() -1))).withRel(Link.REL_LAST));
 		
 		if(metadata.getNumber() > 0) {
 			links.add(linkTo(methodOn(UsersController.class).search(keyWord, (int) metadata.getNumber() -1)).withRel(Link.REL_PREVIOUS));

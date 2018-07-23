@@ -2,6 +2,8 @@ package br.com.picpay.elasticsearch;
 
 import java.io.IOException;
 
+import org.elasticsearch.action.ActionListener;
+import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,10 +33,23 @@ public class ElasticSearchUserIndex implements UserIndex {
 
 	public void put(User user, int relevance) throws Exception {
 		try {
-			this.client.index(new UserIndexRequest(user, relevance, USERS_INDEX_NAME, "default").value());
-			if (LOGGER.isDebugEnabled()) {
-				LOGGER.debug("User with id: " + user.id() + " indexado com sucesso usando a relevancia: " + relevance);
-			}
+			this.client.indexAsync(new UserIndexRequest(user, relevance, USERS_INDEX_NAME, "default").value(), new ActionListener<IndexResponse>() {
+				
+				@Override
+				public void onResponse(IndexResponse response) {
+					if (LOGGER.isDebugEnabled()) {
+						LOGGER.debug("User with id: " + user.id() + " indexado com sucesso usando a relevancia: " + relevance);
+					}
+					
+				}
+				
+				@Override
+				public void onFailure(Exception e) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+			
 		} catch (IOException e) {
 			throw new RuntimeException("Erro ao indexar user: " + user.id(), e);
 		}
