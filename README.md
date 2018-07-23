@@ -1,17 +1,42 @@
 # Procedimento pata execução do Desafio
 
 ## Pré-requisitos
+
+- Git 
 - Jdk 8
 - Maven 3.5.4
 - Docker
 - Docker compose
 
 
+## Passos
+
+### Clone Repository
+
+git clone https://github.com/jherimum/trabalhe-conosco-backend-dev.git
+
+### Install artifacts
+
+- cd trabalhe-conosco-backend-dev/
+- mvn clean install
+
+### Subir Elastic Search
+
+- ./docker-compose up
+
+### Executar populator
+
+- cd populator/target/
+- java -jar populador-0.0.1-SNAPSHOT.jar --
+
+
 mvn clean package
 
 cd populator/target/
 
-java -jar populador-0.0.1-SNAPSHOT.jar --
+java -jar populador-0.0.1-SNAPSHOT.jar \
+  --datafile.path={caminho completo do arquivo users.csv} \
+  --relevancies={lista de caminho completo para os arquivos de relevancia}
 
 
 
