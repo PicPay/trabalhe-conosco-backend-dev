@@ -16,11 +16,11 @@
 git clone https://github.com/jherimum/trabalhe-conosco-backend-dev.git
 
 ### 2. Preparar arquivos
-Como preferi parametrizar a localizacao dos arquivos, os mesmos deverão ser preparados para serem utilizados.
+Como preferi parametrizar a localização dos arquivos, os mesmos deverão ser preparados para serem utilizados.
 
-Baixe o aquivo (https://s3.amazonaws.com/careers-picpay/users.csv.gz) e descompacte-o numa pasta. Guarde o noem da pasta pois ela será utilizada como parametro do populador.
+Baixe o aquivo (https://s3.amazonaws.com/careers-picpay/users.csv.gz) e descompacte-o numa pasta. Guarde o nome da pasta pois ele será utilizada como parâmetro do populador.
 
-Colooue os arquivos de relevancia tambem numa pasta qualquer e lembre-se dessa pasta.
+Coloque os arquivos de relevância tambem numa pasta qualquer e lembre-se desta pasta.
 
 ### 3. Install artifacts
 
