@@ -28,11 +28,11 @@ git clone https://github.com/jherimum/trabalhe-conosco-backend-dev.git
 
 - cd populator/target/
 - java -jar populador-0.0.1-SNAPSHOT.jar \
-  --datafile.path=**{caminho completo do arquivo users.csv (*1)}** \
-  --relevancies=**{lista de caminho completo para os arquivos de relevancia separados por virgula (*2)}**
+  --datafile.path=**{caminho completo do arquivo users.csv (1)}** \
+  --relevancies=**{lista de caminho completo para os arquivos de relevancia separados por virgula (2)}**
 
-#### (*1) - O valor padão é ${HOME}/users.csv
-#### (*2) - A ordem dos arquivos que determina a sua relevancia. O valor Padrão é ${HOME}/lista_relevancia_1.txt,${HOME}lista_relevancia_2.txt
+#### (1) - O valor padão é ${HOME}/users.csv
+#### (2) - A ordem dos arquivos que determina a sua relevancia. O valor Padrão é ${HOME}/lista_relevancia_1.txt,${HOME}lista_relevancia_2.txt
 
 <!---
 ![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
