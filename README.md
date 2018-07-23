@@ -22,7 +22,7 @@ git clone https://github.com/jherimum/trabalhe-conosco-backend-dev.git
 
 ### 3. Subir Elastic Search
 
-- ./docker-compose up
+- docker-compose up
 
 ### 4. Executar populator
 
