@@ -41,7 +41,8 @@ git clone https://github.com/jherimum/trabalhe-conosco-backend-dev.git
 
 ## Utilização da Api
 
-A aplicação terá disponivel os seguintes endpoints.
+A aplicação terá disponivel os seguintes endpoints. 
+Coleção disponibilizada no Postman: https://www.getpostman.com/collections/2f5e658575e280cd7967
 
 ### GET TOKEN
 
