@@ -58,20 +58,17 @@ Coleção disponibilizada no Postman: https://www.getpostman.com/collections/2f5
 
 curl -X POST \
   'http://localhost:8080/oauth/token?grant_type=password' \
-  -H 'Authorization: {basic authorization}' \
+  -H 'Authorization: Basic cGljcGF5X2NsaWVudDpzZWNyZXQ=' \
   -F username=eugenio \
   -F password=backend
-
-#### {basic auhtorization} Basic authorization formado por username: picpay_client, password: secret
 
 
 ### REFRESH TOKEN
 
 curl -X POST \
   'http://localhost:8080/oauth/token?grant_type=refresh_token&refresh_token={refreshtoken}' \
-  -H 'Authorization: {basic authorization}' \
+  -H 'Authorization: Basic cGljcGF5X2NsaWVudDpzZWNyZXQ=' \
 
-#### {basic auhtorization} Basic authorization formado por username: picpay_client, password: secret
 #### {refreshtoken} refresh token gerado no endpoint get token
 
 
