@@ -22,14 +22,12 @@ git clone https://github.com/jherimum/trabalhe-conosco-backend-dev.git
 
 ### 3. Subir Elastic Search
 
-- docker-compose up
+- docker-compose up -d
 
 ### 4. Executar populator
 
 - cd populator/target/
-- java -jar populador-0.0.1-SNAPSHOT.jar \
-  --datafile.path=**{caminho completo do arquivo users.csv (1)}** \
-  --relevancies=**{lista de caminho completo para os arquivos de relevancia separados por virgula (2)}**
+- java -jar populador-0.0.1-SNAPSHOT.jar --datafile.path=**{caminho completo do arquivo users.csv (1)}** --relevancies=**{lista de caminho completo para os arquivos de relevancia separados por virgula (2)}**
 
 #### (1) - O valor padão é ${HOME}/users.csv
 #### (2) - A ordem dos arquivos que determina a sua relevancia. O valor Padrão é ${HOME}/lista_relevancia_1.txt,${HOME}lista_relevancia_2.txt
@@ -43,6 +41,36 @@ git clone https://github.com/jherimum/trabalhe-conosco-backend-dev.git
 
 ## Utilização da Api
 
+A aplicação terá disponivel os seguintes endpoints.
+
+### GET TOKEN
+
+curl -X POST \
+  'http://localhost:8080/oauth/token?grant_type=password' \
+  -H 'Authorization: {basic authorization} ' \
+  -F username=eugenio \
+  -F password=backend
+
+#### {basic auhtorization} username: picpay_client, password: secret
+
+
+### REFRESH TOKEN
+
+curl -X POST \
+  'http://localhost:8080/oauth/token?grant_type=refresh_token&refresh_token={refreshtoken}' \
+  -H 'Authorization: {basic authorization}' \
+
+#### {basic auhtorization} username: picpay_client, password: secret
+#### {refreshtoken} refresh token gerado no endpoint get token
+
+
+### Serach Users
+
+curl -X GET \
+  'http://localhost:8080/api/users?key_word=keyword&page=0' \
+  -H 'Authorization: Bearer {accesstoken}' \
+
+#### {accesstoken} access token gerado no endpoint get token 
 
 <!---
 ![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
