@@ -29,11 +29,6 @@ git clone https://github.com/jherimum/trabalhe-conosco-backend-dev.git
 - cd populator/target/
 - java -jar populador-0.0.1-SNAPSHOT.jar --
 
-
-mvn clean package
-
-cd populator/target/
-
 java -jar populador-0.0.1-SNAPSHOT.jar \
   --datafile.path={caminho completo do arquivo users.csv} \
   --relevancies={lista de caminho completo para os arquivos de relevancia}
