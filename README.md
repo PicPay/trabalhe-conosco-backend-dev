@@ -47,7 +47,7 @@ A aplicação terá disponivel os seguintes endpoints.
 
 curl -X POST \
   'http://localhost:8080/oauth/token?grant_type=password' \
-  -H 'Authorization: **"{basic authorization}"**' \
+  -H 'Authorization: {basic authorization}' \
   -F username=eugenio \
   -F password=backend
 
@@ -57,8 +57,8 @@ curl -X POST \
 ### REFRESH TOKEN
 
 curl -X POST \
-  'http://localhost:8080/oauth/token?grant_type=refresh_token&refresh_token=**"{refreshtoken}"**' \
-  -H 'Authorization: **"{basic authorization}"**' \
+  'http://localhost:8080/oauth/token?grant_type=refresh_token&refresh_token={refreshtoken}' \
+  -H 'Authorization: {basic authorization}' \
 
 #### {basic auhtorization} Basic authorization formado por username: picpay_client, password: secret
 #### {refreshtoken} refresh token gerado no endpoint get token
@@ -67,8 +67,8 @@ curl -X POST \
 ### Serach Users
 
 curl -X GET \
-  'http://localhost:8080/api/users?key_word=**"{keyWord}"**&page=**"{page}"**' \
-  -H 'Authorization: Bearer **"{accesstoken}"**' \
+  'http://localhost:8080/api/users?key_word={keyWord}&page={page}' \
+  -H 'Authorization: Bearer {accesstoken}' \
 
 #### {keyWord} palavra chave para procurar usuarios. Obrigatoria
 #### {page} numero da pagina da busca. 0 based. Default :0
