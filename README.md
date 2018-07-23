@@ -11,30 +11,27 @@
 
 ## Passos
 
-### Clone Repository
+### 1. Clone Repository
 
 git clone https://github.com/jherimum/trabalhe-conosco-backend-dev.git
 
-### Install artifacts
+### 2. Install artifacts
 
 - cd trabalhe-conosco-backend-dev/
 - mvn clean install
 
-### Subir Elastic Search
+### 3. Subir Elastic Search
 
 - ./docker-compose up
 
-### Executar populator
+### 4. Executar populator
 
 - cd populator/target/
-- java -jar populador-0.0.1-SNAPSHOT.jar --
-
-java -jar populador-0.0.1-SNAPSHOT.jar \
+- java -jar populador-0.0.1-SNAPSHOT.jar \
   --datafile.path={caminho completo do arquivo users.csv} \
-  --relevancies={lista de caminho completo para os arquivos de relevancia}
+  --relevancies={lista de caminho completo para os arquivos de relevancia separados por virgula *1}
 
-
-
+*1 - A ordem dos arquivos que determina a sua relevancia.
 
 <!---
 ![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
