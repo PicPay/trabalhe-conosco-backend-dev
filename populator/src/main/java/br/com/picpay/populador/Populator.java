@@ -32,11 +32,11 @@ public class Populator implements ApplicationRunner {
 
 	public void run(ApplicationArguments args) throws Exception {
 		Counter counter = new Counter(0);
-		LOGGER.info("Começando a ler o datasource: " + this.rawDataSource);
+		LOGGER.info("Começando a ler o datasource: " + this.rawDataSource  + ". Vai demorar por que estou unzipando o arquivo");
 
 		try {
 			this.rawDataSource.asStream().forEach(new PopulatorConsumer(this.userIndex, counter, this.relevancies, LOGGER));
-			LOGGER.info("From lidos " + counter.getValue() + " registros do datasource " + this.rawDataSource);
+			LOGGER.info("Foram lidos " + counter.getValue() + " registros do datasource " + this.rawDataSource);
 		} catch (Exception e) {
 			LOGGER.error("Erro ao popular a base de dados", e);
 		} finally {

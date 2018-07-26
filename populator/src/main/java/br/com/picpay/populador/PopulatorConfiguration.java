@@ -1,7 +1,7 @@
 package br.com.picpay.populador;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
@@ -25,7 +25,7 @@ public class PopulatorConfiguration {
 	}
 
 	@Bean
-	public UserDataSource userDataSource(@Value("${datafile.path}") String dataFile) throws FileNotFoundException {
+	public UserDataSource userDataSource(@Value("${datafile.path}") String dataFile) throws IOException {
 		return new CsvUserDataSource(new File(dataFile));
 	}
 

@@ -10,6 +10,6 @@ public class PopuladorApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PopuladorApplication.class, args).close();
-		//System.exit(0);
+		System.exit(0);
 	}
 }

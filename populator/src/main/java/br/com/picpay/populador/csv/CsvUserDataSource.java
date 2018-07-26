@@ -2,20 +2,24 @@ package br.com.picpay.populador.csv;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.stream.Stream;
+import java.util.zip.GZIPInputStream;
 
 import br.com.picpay.populador.api.UserDataSource;
 import br.com.picpay.trabalheconosco.api.User;
 
 public class CsvUserDataSource implements UserDataSource {
-
+	
 	private final BufferedReader reader;
+	
 
-	public CsvUserDataSource(File file) throws FileNotFoundException {
-		this.reader = new BufferedReader(new FileReader(file));
+	public CsvUserDataSource(File file) throws IOException {
+		FileInputStream fileIn = new FileInputStream(file);
+		GZIPInputStream gzipInputStream = new GZIPInputStream(fileIn);
+		this.reader= new BufferedReader(new InputStreamReader(gzipInputStream));
 	}
 
 	@Override

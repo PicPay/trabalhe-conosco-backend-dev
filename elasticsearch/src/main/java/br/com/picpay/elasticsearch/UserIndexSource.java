@@ -21,6 +21,7 @@ public class UserIndexSource implements Scalar<Map<String, Object>> {
 	@Override
 	public Map<String, Object> value() throws Exception {
 		Map<String, Object> map = new HashMap<>();
+		map.put("id", this.user.id());
 		map.put("name", this.user.name());
 		map.put("username", this.user.username());
 		map.put("relevance", this.relevance);

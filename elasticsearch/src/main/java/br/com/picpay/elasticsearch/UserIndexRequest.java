@@ -24,8 +24,7 @@ public class UserIndexRequest implements Scalar<IndexRequest>{
 		return 
 				new IndexRequest(
 						this.indexName, 
-						this.type, 
-						this.user.id())
+						this.type)
 				.source(
 						new UserIndexSource(
 								this.user, 

@@ -9,7 +9,7 @@ public class UserFromHit implements User {
 	private final User user;
 
 	public UserFromHit(SearchHit h) {
-		this.user = new User.Fixed(h.getId(), h.getSourceAsMap().get("name").toString(),
+		this.user = new User.Fixed(h.getSourceAsMap().get("id").toString(), h.getSourceAsMap().get("name").toString(),
 				h.getSourceAsMap().get("username").toString());
 	}
 
