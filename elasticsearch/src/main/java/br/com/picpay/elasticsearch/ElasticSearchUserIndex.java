@@ -32,9 +32,7 @@ public class ElasticSearchUserIndex implements UserIndex {
 	public void put(User user, int relevance) throws Exception {
 		try {
 			this.client.index(new UserIndexRequest(user, relevance, USERS_INDEX_NAME, "default").value());
-			if (LOGGER.isDebugEnabled()) {
-				LOGGER.debug("User with id: " + user.id() + " indexado com sucesso usando a relevancia: " + relevance);
-			}
+			LOGGER.info("User with id: " + user.id() + " indexado com sucesso usando a relevancia: " + relevance);
 
 			
 		} catch (IOException e) {
