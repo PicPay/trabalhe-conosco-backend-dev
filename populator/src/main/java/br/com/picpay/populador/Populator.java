@@ -31,6 +31,9 @@ public class Populator implements ApplicationRunner {
 	}
 
 	public void run(ApplicationArguments args) throws Exception {
+		LOGGER.info("Vergonha");
+		Thread.sleep(30000);
+		
 		Counter counter = new Counter(0);
 		LOGGER.info("Começando a ler o datasource: " + this.rawDataSource  + ". Vai demorar por que estou unzipando o arquivo");
 
