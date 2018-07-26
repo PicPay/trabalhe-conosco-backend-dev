@@ -8,8 +8,8 @@ RUN wget https://raw.githubusercontent.com/PicPay/trabalhe-conosco-backend-dev/m
 RUN wget https://raw.githubusercontent.com/PicPay/trabalhe-conosco-backend-dev/master/lista_relevancia_2.txt
 
 WORKDIR /data/users
-#RUN wget https://s3.amazonaws.com/careers-picpay/users.csv.gz
-RUN wget https://s3.amazonaws.com/jherimum-users/users.csv.gz
+RUN wget https://s3.amazonaws.com/careers-picpay/users.csv.gz
+
 
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom", "-Dspring.profiles.active=docker", "-jar","/app.jar"]
 
