@@ -11,42 +11,26 @@
 
 ## Passos
 
-### 1. Clone Repository
+### 1. Subir os containers
 
-git clone https://github.com/jherimum/trabalhe-conosco-backend-dev.git
+Para subir os containers da aplicação, basta usar o comando docker-compose up.
 
-### 2. Preparar arquivos
-Como preferi parametrizar a localização dos arquivos, os mesmos deverão ser preparados para serem utilizados.
+Ao ser executado, três containers subirão:
 
-Baixe o aquivo (https://s3.amazonaws.com/careers-picpay/users.csv.gz) e descompacte-o numa pasta. Guarde o nome da pasta pois ele será utilizada como parâmetro do populador.
+- elasticsearch: servidor do elaticsearch
+- populador: aplicacao que lê os arquivos de usuários e relevâncias e indexa os documentos no elasticsearch
+- rest: disponibiliza a api para pesquisa de usuários
 
-Coloque os arquivos de relevância tambem numa pasta qualquer e lembre-se desta pasta.
-
-### 3. Install artifacts
-
-- cd trabalhe-conosco-backend-dev/
-- mvn clean install
-
-### 4. Subir Elastic Search
-
-- docker-compose up -d
-
-### 5. Executar populator
-
-- cd populator/target/
-- java -jar populador-0.0.1-SNAPSHOT.jar --datafile.path=**"{caminho_arquivo_users}"** --relevancies=**"{relevancias}"**
-
-Lembra que eu te pedi pra guardar a localização dos arquivos? Esses caminhos serão utilizados aqui e agora!
-
-#### {caminho_arquivo_users}: Caminho completo do aquivo com usuarios - O valor padão é ${HOME}/users.csv
-#### {relevancias}: lista de caminhos completos para os arquivos de relevanciamseparado por virgulas - A ordem dos arquivos que determina a sua relevancia. O valor Padrão é ${HOME}/lista_relevancia_1.txt,${HOME}lista_relevancia_2.txt
+A imagem do populador, que está no dockerhub já contêm os arquivos de relevância e usuários!
+Quando o container sobe, o arquivo de usuários é descompactado e suas linhas processaadas! Esse processo é bem demorado! MUITO MESMO! A descompactção e o processamento. Afinal são 8 milhoes de registros! E como ativei o log, para poder cacompanhar o processo, o processo poderá ficar um pouco mais lento. Poderá não. Ficará!
+Tentei elaborar uma solução mais robusta para indexar as linhas, splitando o arquivo em vários outros menores e para cada um deles abriria uma thread para processá-los. Entretanto, o elasticsearcj não aguentou o regasso! Como não tenho muita familiaridade com o elasticsearch não consigui configura-lo de uma maneira que pudesse suportar o elevado número de requisços de inserção! Pensei também em utilizar a inserção em lote do elasicsearch para dar mais robustez, mas achei que talvez não fosse adiantar! Estou pensando em fazer uns testes, até para aprendizado!
+Ainda no populador, infelizmente fiz uma coisa aque me envergonha muito! Coloquei um Thread.sleep para iniciar o processo porque não consegui usar o https://github.com/vishnubob/wait-for-it para controlar a subida do container só depois que a porta do elasticsearch estivesse disponível. Infelizmente não consegui! 
 
 
+### Gerar os artefatos
+Se for de interesse gerar todos os artefatos novamente, basta executar o comando mvn clean deploy.
+O maven fará todo build, geração de imagens e o push no dockerhub. Depois disso feito é só executar o comando do passo 1.
 
-### 6. Subir Rest Api
-
-- cd ../../rest/target
-- java -jar rest-0.0.1-SNAPSHOT.jar
 
 
 ## Utilização da Api
