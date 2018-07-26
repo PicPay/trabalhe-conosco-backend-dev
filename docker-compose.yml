@@ -1,0 +1,17 @@
+version: '2'
+services:
+  elasticsearch:
+    image: elasticsearch
+    ports:
+      - 9200:9200
+      - 9300:9300
+  populador:
+    image: jherimum/populador
+    depends_on: 
+      - elasticsearch
+  rest:
+    image: jherimum/rest
+    depends_on:
+      - populador
+    ports:
+      - "8080:8080"
