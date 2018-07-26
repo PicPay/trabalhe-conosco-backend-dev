@@ -97,6 +97,8 @@
 					</execution>
 				</executions>
 				<configuration>
+					<username>jherimum</username>
+					<password>Eugenio@123</password>
 					<repository>docker.io/${docker.image.prefix}/${project.artifactId}</repository>
 					<buildArgs>
 						<JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
