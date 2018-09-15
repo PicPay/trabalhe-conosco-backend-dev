@@ -21,7 +21,7 @@ class UsersTableSeeder extends Seeder
     public function __construct()
     {
 
-        $this->table = 'users';
+        $this->table = 'picpayUsers';
         $this->filename = app_path() . '/users.csv';
 
     }
@@ -30,7 +30,6 @@ class UsersTableSeeder extends Seeder
     {
         DB::table($this->table)->delete();
         $seedData = $this->seedFromCSV($this->filename);
-        print_r($seedData[0]);
         DB::table($this->table)->insert($seedData);
     }
 
