@@ -4,6 +4,75 @@
 
 O desafio é criar uma API REST que busca usuarios pelo nome e username a partir de uma palavra chave. Faça o download do arquivo [users.csv.gz](https://s3.amazonaws.com/careers-picpay/users.csv.gz) que contém o banco de dados que deve ser usado na busca. Ele contém os IDs, nomes e usernames dos usuários.
 
+
+## Solução
+
+### Tecnologia Solicitada
+* PHP
+
+### Tecnologias empregadas
+* Docker
+* Docker compose
+* MongoDB
+* PHP 7
+
+## Documentação
+
+### Executar
+
+* Clone o repositório
+* Navegue até a pasta *mongo/*
+* Substitua o arquivo *users.csv* pelo correto ~baixado da amazon~
+* Volte a raiz do projeto
+* Execute:
+```
+docker-compose up
+```
+
+Após alguns minutos ~o processo de importação e indexação do BD é demorado~ O serviço estará no ar.
+
+### Interface
+
+##### Usuário padrão
+* Login: joao
+* Senha: joao
+
+
+##### Acessar
+* http://localhost:8080/
+
+### Backend
+
+### Rotas
+* /search
+```
+@POST @required data (String) {String de busca}
+@GET or @POST @optional page (int) {Paginação}
+@Example 1
+/search?page=1
+PostData: data=maria
+
+@Example 2
+/search
+PostData: data=joao&page=0
+
+@Example 3
+/serch 
+PostData: data=cleiton
+```
+
+* /login
+```
+@POST @required username (String) {Username}
+@POST @required password (String) {Password}
+@Example 1
+/login
+PostData: username=joao&password=joao
+```
+
+
+### Descrição
+
 ###### Exemplo
 | ID                                   | Nome              | Username             |
 |--------------------------------------|-------------------|----------------------|
@@ -17,7 +86,7 @@ O desafio é criar uma API REST que busca usuarios pelo nome e username a partir
 
 Também são fornecidas duas listas de usuários que devem ser utilizadas para priorizar os resultados da busca. A lista 1 tem mais prioridade que a lista 2. Ou seja, se dois usuarios casam com os criterios de busca, aquele que está na lista 1 deverá ser exibido primeiro em relação àquele que está na lista 2. Os que não estão em nenhuma das listas são exibidos em seguida.
 
-As listas podem ser encontradas na raiz deste repositório ([lista_relevancia_1.txt](lista_relevancia_1.txt) e [lista_relevancia_2.txt](lista_relevancia_2.txt)).
+As listas podem ser encontradas na raiz deste repositório ([lista_relevancia_1.txt](app/data/lista_relevancia_1.txt) e [lista_relevancia_2.txt](app/data/lista_relevancia_2.txt)).
 Os resultados devem ser retornados paginados de 15 em 15 registros.
 
 Escolha as tecnologias que você vai usar e tente montar uma solução completa para rodar a aplicação.
