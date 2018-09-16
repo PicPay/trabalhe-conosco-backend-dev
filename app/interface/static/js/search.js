@@ -11,26 +11,59 @@ function onResult(result){
     });
 
     document.getElementById("search_result").innerHTML = html;
-    var btn = document.getElementById("btn_search");
-    btn.disabled = false;
-    btn.style.backgroundColor = temp;
+    unlockAll();
+    
 }
 
 function search(){
    var search = document.getElementById("search").value;
    var page = document.getElementById("paginacao").value;
-   var btn = document.getElementById("btn_search");
-
+   
    page = page < 0? 0 : page;
 
    var url = "http://localhost:8080/search";
    var data = "page="+page+"&data="+search;
 
-   btn.disabled = true;
-   temp = btn.style.backgroundColor;
-   btn.style.backgroundColor = "red";
-   
+   lockAll();
    ajax.postAsyncTask(onResult,url,data);
 
    return false;
+}
+
+function pageNext(){
+    var page = document.getElementById("paginacao");
+    page.value++;
+    search();
+}
+
+
+function pagePrev(){
+    var page = document.getElementById("paginacao");
+    page.value--;
+    search();
+}
+
+function lockAll(){
+    var btnSearch = document.getElementById("btn_search");
+    var btnNext  = document.getElementById("btn_next");
+    var btnPrev  = document.getElementById("btn_prev");
+
+    var inputPag = document.getElementById("paginacao");
+    var inputSearch = document.getElementById("search");
+
+    inputSearch.disabled = inputPag.disabled = btnNext.disabled = btnPrev.disabled = btnSearch.disabled = true;
+    temp = btnSearch.style.backgroundColor;
+    btnPrev.style.backgroundColor = btnNext.style.backgroundColor = btnSearch.style.backgroundColor = "red";
+}
+
+function unlockAll(){
+    var btnSearch = document.getElementById("btn_search");
+    var btnNext  = document.getElementById("btn_next");
+    var btnPrev  = document.getElementById("btn_prev");
+    
+    var inputPag = document.getElementById("paginacao");
+    var inputSearch = document.getElementById("search");
+
+    inputSearch.disabled = inputPag.disabled = btnNext.disabled = btnPrev.disabled = btnSearch.disabled = false;
+    btnPrev.style.backgroundColor = btnNext.style.backgroundColor = btnSearch.style.backgroundColor = temp;
 }

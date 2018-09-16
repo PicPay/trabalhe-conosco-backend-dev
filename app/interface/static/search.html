@@ -24,7 +24,7 @@
             </div>
             <center>
                 <div  style="width:50%;">
-                    <input c style="width:70%;margin: 10px 20px 0 0;" id="search" type="text" name="search" placeholder="Buscar: " />
+                    <input c style="width:70%;margin: 10px 20px 0 0;" id="search" onchange="search()" type="text" name="search" placeholder="Buscar: " />
                     <input style="width:30%;margin: 10px 20px 0 0;" id="btn_search" type="button" onclick="search();" value="Buscar" />
                 </div>
             </center>
@@ -39,7 +39,13 @@
                             Paginação:    
                         </li>
                         <li>
-                            <input id="paginacao" type="number" value="0" style="width:30px"/>
+                            <input id="btn_prev" type="button" onclick="pagePrev()" value="<" style="width:30px"/>
+                        </li>
+                        <li>
+                            <input id="paginacao" type="number" onchange="search()" value="0" style="width:30px"/>
+                        </li>
+                        <li>
+                            <input id="btn_next" type="button" onclick="pageNext()" value=">" style="width:30px"/>
                         </li>
                 	</ul>
                 </div>
