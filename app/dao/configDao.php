@@ -4,6 +4,10 @@
     
     Class ConfDao extends Dao{
 
+        /*
+        * Chec if database is initialized
+        * @return bool (true=> is initialized, false => not Initialized)
+        */
         public function CheckDatabase(){
             $options = [
                 'projection' => ['_id'=>0],
@@ -14,10 +18,18 @@
             return (count($result)>0);
         }
 
+        /*
+        * Set Database to Initialized
+        * @return void
+        */
         public function SetInitialized(){
             return $this->Insert('picpay.config',array("initialized"=>1));
         }
 
+        /*
+        * Index DB
+        * @return void
+        */
         public function CreateIndex(){
             $command = new MongoDB\Driver\Command([
                 "createIndexes" => "users",
