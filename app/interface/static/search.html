@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+     <meta charset="utf-8">
+     <link rel="stylesheet" type="text/css" href="interface/css/index.css">
+	 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
+     <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,500,700,900" rel="stylesheet">
+     <title>Medsys</title>
+</head>
+<body>
+    <header class="top">
+        <div class="dropmenu">
+        	<ul>
+        		<li class="gre">{username}</li>
+        	</ul>
+        </div>
+    </header>
+	<main id="page">
+		<section id="content">
+            <div class="header-title">
+                <h1 class="bludrk">Usuários</h1>
+                <h2 class="gre">Busca de usuários.</h2>
+            </div>
+            <center>
+                <div  style="width:50%;">
+                    <input c style="width:70%;margin: 10px 20px 0 0;" id="search" type="text" name="search" placeholder="Buscar: " />
+                    <input style="width:30%;margin: 10px 20px 0 0;" id="btn_search" type="button" onclick="search();" value="Buscar" />
+                </div>
+            </center>
+            <br>
+            <div class="content-box shadow2">
+                <div class="header-content">
+                	<ul>
+                		<li class="active">
+                			<a href="#" class="bludrk">Resultado</a>
+                        </li>
+                        <li>
+                            Paginação:    
+                        </li>
+                        <li>
+                            <input id="paginacao" type="number" value="0" style="width:30px"/>
+                        </li>
+                	</ul>
+                </div>
+                <div class="row">
+                    <table id="budget-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Username</th>
+                            </tr>
+                        </thead>
+                        <tbody id="search_result">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+	</main>
+</body>
+<script src="interface/js/search.js"></script>  
+<script src="interface/js/ajax.js"></script> 
+</html>

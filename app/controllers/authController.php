@@ -25,6 +25,7 @@
             $result = array("success"=>false,"message"=>"Login Failed");
             if(count($dr)>0){
                 $_SESSION["logged"] = true;
+                $_SESSION["username"] = $data["username"];
                 $result = array("success"=>true,"data"=>$dr[0]);
             }
 
