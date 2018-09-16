@@ -4,6 +4,71 @@
 
 O desafio é criar uma API REST que busca usuarios pelo nome e username a partir de uma palavra chave. Faça o download do arquivo [users.csv.gz](https://s3.amazonaws.com/careers-picpay/users.csv.gz) que contém o banco de dados que deve ser usado na busca. Ele contém os IDs, nomes e usernames dos usuários.
 
+
+## Solução
+
+### Tecnologia Solicitada
+* PHP
+
+### Tecnologias empregadas
+* Docker
+* Docker compose
+* MongoDB
+* PHP 7
+
+## Documentação
+
+### Executar
+
+Clone o repositório, navegue até a pasta e execute:
+```
+docker-compose up
+```
+
+Após alguns minutos ~o processo de importação e indexação do BD é demorado~ O serviço estará no ar.
+
+### Interface
+
+##### Usuário padrão
+* Login: joao
+* Senha: joao
+
+
+##### Acessar
+* http://localhost:8080/
+
+### Backend
+
+### Rotas
+* /search
+```
+@POST @required data (String) {String de busca}
+@GET or @POST @optional page (int) {Paginação}
+@Example 1
+/search?page=1
+PostData: data=maria
+
+@Example 2
+/search
+PostData: data=joao&page=0
+
+@Example 3
+/serch 
+PostData: data=cleiton
+```
+
+* /login
+```
+@POST @required username (String) {Username}
+@POST @required password (String) {Password}
+@Example 1
+/login
+PostData: username=joao&password=joao
+```
+
+
+### Descrição
+
 ###### Exemplo
 | ID                                   | Nome              | Username             |
 |--------------------------------------|-------------------|----------------------|
