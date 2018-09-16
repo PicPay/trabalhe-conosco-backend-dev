@@ -1,7 +1,6 @@
 const MODEL = "<tr><td>{id}</td><td>{name}</td><td>{username}</td></tr>";
 var temp;
 function onResult(result){
-    console.log(result);
     result= JSON.parse(result);
     console.log(result);
 
@@ -22,12 +21,16 @@ function search(){
    var page = document.getElementById("paginacao").value;
    var btn = document.getElementById("btn_search");
 
+   page = page < 0? 0 : page;
+
+   var url = "http://localhost:8080/search";
+   var data = "page="+page+"&data="+search;
+
    btn.disabled = true;
    temp = btn.style.backgroundColor;
    btn.style.backgroundColor = "red";
-   var url = "http://localhost:8080/search";
-   var data = "page="+page+"&data="+search;
-    console.log(data);
+   
    ajax.postAsyncTask(onResult,url,data);
+
    return false;
 }

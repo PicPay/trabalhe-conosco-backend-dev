@@ -36,6 +36,7 @@ header img{
 
 .dropmenu li{
      display: inline-block;
+     margin-right: 10px;
 }
 header .logo{
     height: 24px;
