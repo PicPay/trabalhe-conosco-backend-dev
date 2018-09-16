@@ -20,7 +20,11 @@ O desafio é criar uma API REST que busca usuarios pelo nome e username a partir
 
 ### Executar
 
-Clone o repositório, navegue até a pasta e execute:
+* Clone o repositório
+* Navegue até a pasta *mongo/*
+* Substitua o arquivo *users.csv* pelo correto ~baixado da amazon~
+* Volte a raiz do projeto
+* Execute:
 ```
 docker-compose up
 ```
@@ -82,7 +86,7 @@ PostData: username=joao&password=joao
 
 Também são fornecidas duas listas de usuários que devem ser utilizadas para priorizar os resultados da busca. A lista 1 tem mais prioridade que a lista 2. Ou seja, se dois usuarios casam com os criterios de busca, aquele que está na lista 1 deverá ser exibido primeiro em relação àquele que está na lista 2. Os que não estão em nenhuma das listas são exibidos em seguida.
 
-As listas podem ser encontradas na raiz deste repositório ([lista_relevancia_1.txt](lista_relevancia_1.txt) e [lista_relevancia_2.txt](lista_relevancia_2.txt)).
+As listas podem ser encontradas na raiz deste repositório ([lista_relevancia_1.txt](app/data/lista_relevancia_1.txt) e [lista_relevancia_2.txt](app/data/lista_relevancia_2.txt)).
 Os resultados devem ser retornados paginados de 15 em 15 registros.
 
 Escolha as tecnologias que você vai usar e tente montar uma solução completa para rodar a aplicação.
