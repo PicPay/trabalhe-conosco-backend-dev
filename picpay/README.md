@@ -1,4 +1,4 @@
-# Teste Backend
+# Desafio
 
 Para resolver o desafio optei por utilizar CodeIgniter no Back-End para construir minha API.
 
@@ -8,8 +8,16 @@ Tive problemas para importar todos os registro contidos no arquivo **users.csv**
 
 ## Configurações
 
+### Rodando o APP
+- Copiar a pasta **picpay** para a raiz do Servidor Web
+- Copiar o arquivo **bigdump.php** para a raiz do Servidor Web
+- Copiar o arquivo **users.csv** para o mesmo local do bigdump.php
+- Rodar o script do banco de dados que encontra-se na raiz do projeto.
+- Importar os dados do arquivo **users.csv** utilizando o **bigdump.php** (demora um pouco!!)
+- Rodar a aplicação
+
 ### Acesso ao APP
 **email:** joaopauloangeletisouza@gmail.com
-**senha:** 123456
 
+**senha:** 123456
 
