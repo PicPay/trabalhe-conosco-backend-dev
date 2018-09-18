@@ -66,29 +66,45 @@
                 margin-bottom: 30px;
             }
         </style>
+        
     </head>
     <body>
         <div class="container">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>Username</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($response as $users)
+            <div class="nav alert-success my-2">
+                <div class="col-12 nav-item py-2">
+                    Pic Pay
+                </div>
+            </div>
+            <form method="get" action="/search">
+                <div class="row mb-2">
+                    <div class="col-10">
+                        <input type="text" class="form-control" name="q" placeholder="Search...">
+                    </div>
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary" name="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+            <div id="return">
+                <table class="table table-hover">
+                    <thead>
                         <tr>
-                            @foreach($users as $key=>$value)
-                                <td>{{$value}}</td>
-                            @endforeach
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Username</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
-
-
+                    </thead>
+                    <tbody>
+                        @foreach($response as $users)
+                            <tr>
+                                @foreach($users as $key=>$value)
+                                    <td>{{$value}}</td>
+                                @endforeach
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </body>
 </html>
