@@ -1,0 +1,102 @@
+####
+# ATENTION:
+# Replace all occurences of correar with your project's name
+####
+
+# v2 syntax
+version: '2'
+
+# Named volumes
+volumes:
+  # Postgres Data
+  correar-postgres-data:
+    driver: local
+
+  # MySQL Data
+  correar-mysql-data:
+    driver: local
+
+  # Redis Data
+  correar-redis-data:
+    driver: local
+
+services:
+  # Postgres (10.3)
+  postgres:
+    image: postgres:10.3
+    container_name: correar-postgres
+    volumes:
+      - correar-postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=correar
+      - POSTGRES_DB=correar
+      - POSTGRES_USER=correar
+
+  # MySQL (5.7)
+  mysql:
+    image: mysql:5.7
+    container_name: correar-mysql
+    volumes:
+      - correar-mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=correar
+      - MYSQL_DATABASE=correar
+      - MYSQL_USER=correar
+      - MYSQL_PASSWORD=correar
+
+  # Redis
+  cache:
+    image: redis:4.0
+    container_name: correar-redis
+    command: --appendonly yes
+    volumes:
+      - correar-redis-data:/data
+    ports:
+      - "6379:6379"
+
+  # PHP (with Nginx)
+  # you can change from nginx to apache, just change session 'image'
+  app:
+    image: ambientum/php:7.2-nginx
+    container_name: correar-app
+    volumes:
+      - .:/var/www/app
+    ports:
+      - "80:8080"
+    links:
+      - postgres
+      - mysql
+      - cache
+
+  # Laravel Queues
+  queue:
+    image: ambientum/php:7.2
+    container_name: correar-queue
+    command: php artisan queue:listen
+    volumes:
+      - .:/var/www/app
+    links:
+      - mysql
+      - cache
+
+  dev:
+    image: ambientum/node:9
+    container_name: correar-vue-dev
+    command: npm run dev
+    volumes:
+      - .:/var/www/app
+    ports:
+      - 8080:8080
+
+  # Testing dist on a "real" webserver
+  production-server:
+    image: nginx:stable-alpine
+    container_name: correar-preview-server
+    volumes:
+      - ./dist:/usr/share/nginx/html
+    ports:
+      - 9090:80
