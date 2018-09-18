@@ -1,5 +1,6 @@
 package com.picpay;
 
+import com.fasterxml.jackson.databind.MappingIterator;
 import com.picpay.model.User;
 import com.picpay.repositories.UserRepository;
 import com.picpay.util.CsvUtil;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
 import java.net.URL;
-import java.util.List;
+import java.util.logging.Logger;
 import java.util.zip.GZIPInputStream;
 
 /**
@@ -29,6 +30,8 @@ public class DatabaseLoader implements CommandLineRunner {
 
 	private final UserRepository repository;
 
+	private static final Logger logger = Logger.getLogger(DatabaseLoader.class.getName());
+
 	@Autowired
 	public DatabaseLoader(UserRepository repository) {
 		this.repository = repository;
@@ -39,8 +42,11 @@ public class DatabaseLoader implements CommandLineRunner {
 		InputStream zipFileInputStream = new ClassPathResource(csvDatabaseFilename).getInputStream();
 		//InputStream zipFileInputStream = new URL(csvDatabaseUrl).openStream();
 		GZIPInputStream is = new GZIPInputStream(zipFileInputStream);
-		List<User> users = CsvUtil.read(User.class, is);
-		this.repository.save(users);
+		MappingIterator<User> it = CsvUtil.read(User.class, is);
+		while (it.hasNext()) {
+			this.repository.save(it.next());
+		}
+		logger.info("...........>>>>>>>>>>LOAD COMPLETE<<<<<<<<<<<...........");
 	}
 }
 // end::code[]
