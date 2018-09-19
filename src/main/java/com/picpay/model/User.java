@@ -3,6 +3,7 @@ package com.picpay.model;
 import lombok.Data;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * @author Bruno Carreira
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 // tag::code[]
 @Data
 @Entity
+@Table(name = "tb_user")
 public class User {
 	@Id
 	private String id;
