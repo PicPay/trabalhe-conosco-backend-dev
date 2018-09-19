@@ -33,3 +33,21 @@ Faça um ***Fork*** deste repositório e abra um ***Pull Request***, **com seu n
 - Ter um desempenho elevado num conjunto de dados muito grande
 - Utilizar o Docker
 
+-----
+
+### Docker
+
+Utilizando [ambientum](https://github.com/codecasts/ambientum/), link de como implementar.
+Baixar o source do ambientum, depois utilizar o comando.
+``` docker-compose up ```
+
+### API
+o enderço da api são
+
+|          end point               | verbo |
+|----------------------------------|-------|
+| http://localhost/api/user        | GET   |
+| http://localhost/api/user/search | GET   |
+
+### View
+http://localhost
