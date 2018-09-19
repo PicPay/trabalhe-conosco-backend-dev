@@ -3,29 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use App\User;
 use GuzzleHttp\Client;
+
 
 class UserController extends Controller
 {
     //
     public function index(Request $request, User $user){        
 
-        $users = $user->offset(0)->limit(15)->get();
+        $users = $user->paginate(15);
         return response()->json($users);
     }
 
     public function search(Request $request, User $user){
-       
-          if($request->q)
-            return $this->searchQ($request->q,$user);
-
-       
+        
+            if($request->q)
+                return $this->searchQ($request->q,$user,$request);
         
     }
 
     
-    public function searchQ($q, $user){
+    public function searchQ($q, $user,$request){
         
         $countlist1 = 0;
         $list1 = array();
@@ -35,10 +35,8 @@ class UserController extends Controller
                 ->select('users.id', 'nome', 'username')
                 ->where('nome', 'like', $q.'%')
                 ->orWhere('username', 'like', $q.'%')
-                ->offset(0)
-                ->limit(15)
                 ->orderBy('list1.id', 'DESC')
-                ->get();
+                ->paginate(15);
         $countlist1 = count($list1);
         
         $list2 = $user
@@ -46,10 +44,8 @@ class UserController extends Controller
                 ->select('users.id', 'nome', 'username')
                 ->where('nome', 'like', $q.'%')
                 ->orWhere('username', 'like', $q.'%')
-                ->offset(0)
-                ->limit(15-$countlist1)
                 ->orderBy('list2.id', 'DESC')
-                ->get();
+                ->paginate(15-$countlist1);
         
         if($countlist1>0){
             $lista = array();
@@ -68,18 +64,31 @@ class UserController extends Controller
         }else{
             $response = $list2;
         }
+        
         return response()->json($response);
     }
 
     public function indexView(Request $request, User $user){
         $http = new Client;
         if($request->q){
-            $r = $http->get('http://192.168.1.4/api/user/search?q='.$request->q);
+            if($request->p){
+                $r = $http->get($request->p.'&q='.$request->q);
+            }else{
+                $r = $http->get('http://192.168.1.4/api/user/search?q='.$request->q);
+            }
+            
         }else{
-            $r = $http->get('http://192.168.1.4/api/user/');
+            if($request->p){
+                $r = $http->get($request->p);
+            }else{
+                $r = $http->get('http://192.168.1.4/api/user/');
+            }
+            
         }
         $response = json_decode((string) $r->getBody(), true);
-        return view('search', compact('response',$response));
+        $q = $request->q;
+        $p = $request->p;
+        return view('search', compact('response',$response,'q',$q,'p',$p));
     }
 
     

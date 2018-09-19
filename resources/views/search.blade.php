@@ -85,8 +85,8 @@
                     </div>
                 </div>
             </form>
-            <div id="return">
-                <table class="table table-hover">
+            
+            <table class="table table-hover">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -95,7 +95,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($response as $users)
+                        @foreach($response['data'] as $users)
                             <tr>
                                 @foreach($users as $key=>$value)
                                     <td>{{$value}}</td>
@@ -104,7 +104,18 @@
                         @endforeach
                     </tbody>
                 </table>
-            </div>
+            
+            
+                    <nav>
+                        <ul class="pagination justify-content-center">
+                        <li class="page-item"><a class="page-link" href="/?p={{$response['first_page_url']}}&q={{$q}}">Primeira</a></li>
+                            <li class="page-item"><a class="page-link" href="/?p={{$response['prev_page_url']}}&q={{$q}}">Anterior</a></li>
+                            <li class="page-item"><a class="page-link" href="#">{{$response['current_page']}}</a></li>
+                            <li class="page-item"><a class="page-link" href="/?p={{$response['next_page_url']}}&q={{$q}}">Próximo</a></li>
+                            <li class="page-item"><a class="page-link" href="/?p={{$response['last_page_url']}}&q={{$q}}">Último</a></li>
+                        </ul>
+                    </nav>
+            
         </div>
     </body>
 </html>
