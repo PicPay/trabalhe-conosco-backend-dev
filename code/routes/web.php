@@ -18,3 +18,4 @@ $router->get('/', function () use ($router) {
 $router->get('/users', 'UserController@index');
 $router->get('/user/{id}', 'UserController@show');
 $router->get('/user/search/{query}', 'UserController@search');
+$router->get('/user/elasticsearch/{query}', 'UserController@elasticSearch');

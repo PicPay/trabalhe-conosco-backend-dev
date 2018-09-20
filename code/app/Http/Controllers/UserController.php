@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Elasticsearch\ClientBuilder;
 
 class UserController extends Controller
 {
@@ -35,6 +36,20 @@ class UserController extends Controller
                       ->paginate(100);
 
       return response()->json($results);
+    }
+
+    public function elasticSearch($query) {
+      
+      $data = [
+        'body' => [
+          'username' => $query
+        ],
+        'index' => 'users',
+        'type' => 'user',
+      ];
+
+      $client = ClientBuilder::create()->build();
+      $return = $client->index($data);
     }
 
     //

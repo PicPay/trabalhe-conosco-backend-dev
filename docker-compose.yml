@@ -7,7 +7,7 @@ services:
       - "8080:80"
     links:
       - php
-      - mysql
+      # - mysql
     volumes:
       - ./code:/code
       - ./etc/nginx/site.conf:/etc/nginx/conf.d/default.conf
@@ -19,17 +19,44 @@ services:
     volumes:
       - ./code:/code
     working_dir: /code
-  mysql:
-    build: ./etc/mysql
-    ports:
-      - "3306:3306"
-    volumes:
-      - mysql:/var/lib/mysql
+  # mysql:
+  #   build: ./etc/mysql
+  #   ports:
+  #     - "3306:3306"
+  #   volumes:
+  #     - mysql:/var/lib/mysql
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: password
+  #     MYSQL_DATABASE: picpay
+  #     MYSQL_USER: dev
+  #     MYSQL_PASSWORD: secret
+  
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.1
     environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: picpay
-      MYSQL_USER: dev
-      MYSQL_PASSWORD: secret
+      - cluster.name=picpay-cluster
+      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+  logstash:
+    image: docker.elastic.co/logstash/logstash:6.4.1
+    environment:
+      LS_JAVA_OPTS: "-Xmx2g -Xms2g"
+    volumes:
+      - ./etc/elasticsearch/pipeline:/usr/share/logstash/pipeline/
+      - ./etc/elasticsearch/import_data:/import_data
+    links:
+      - elasticsearch
+  kibana:
+    image: docker.elastic.co/kibana/kibana:6.4.1
+    ports:
+      - 5601:5601
+    links:
+      - elasticsearch
+
 
 volumes:
   mysql:
+  esdata:
