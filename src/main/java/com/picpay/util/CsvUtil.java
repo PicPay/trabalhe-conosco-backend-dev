@@ -17,4 +17,11 @@ public class CsvUtil {
         return reader.readValues(stream);
     }
 
+    public static <T> T readLine(Class<T> clazz, String line) throws IOException {
+        final CsvMapper mapper = new CsvMapper();
+        CsvSchema schema = mapper.schemaFor(clazz).withColumnReordering(true);
+        ObjectReader reader = mapper.readerFor(clazz).with(schema);
+        return reader.readValue(line);
+    }
+
 }
