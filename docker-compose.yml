@@ -15,17 +15,21 @@ services:
       - php
     command: [nginx-debug, '-g', 'daemon off;']
   php:
-    image: php:7.2-fpm
+    build: ./etc/php
     volumes:
       - ./code:/code
+    working_dir: /code
   mysql:
-    image: mysql
+    build: ./etc/mysql
     ports:
       - "3306:3306"
     volumes:
       - mysql:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: picpay
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: secret
 
 volumes:
   mysql:
