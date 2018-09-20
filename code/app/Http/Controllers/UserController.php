@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+
 use Elasticsearch\ClientBuilder;
+
 
 class UserController extends Controller
 {
@@ -20,36 +22,74 @@ class UserController extends Controller
 
     public function index()
     {
-     $users = User::orderBy("id", "DESC")->paginate(100);
-     return response()->json($users);
-    }
+      $hosts = [
+        'elasticsearch'
+      ];
 
-    public function show($id)
-    {
-      $user = User::find($id);
-      return response()->json($user);
-    }
+      $clientBuilder = ClientBuilder::create();
+      $clientBuilder->setHosts($hosts);
+      $client = $clientBuilder->build();
 
-    public function search($query) {
-      $results = User::where('username', 'like', "%{$query}%")
-                      ->orWhere('name', 'like', "%{$query}%")
-                      ->paginate(100);
+      $params = [
+        'index' => 'users',
+        'type' => 'user',
+        'body' => [
+          'query' => [
+            'match_all' => (object)[]
+          ]
+        ]
+      ];
+    
+      $results = $client->search($params);
 
       return response()->json($results);
     }
 
-    public function elasticSearch($query) {
-      
-      $data = [
-        'body' => [
-          'username' => $query
-        ],
-        'index' => 'users',
-        'type' => 'user',
+    public function show($id)
+    {
+      $hosts = [
+        'elasticsearch'
       ];
 
-      $client = ClientBuilder::create()->build();
-      $return = $client->index($data);
+      $clientBuilder = ClientBuilder::create();
+      $clientBuilder->setHosts($hosts);
+      $client = $clientBuilder->build();
+
+      $params = [
+        'index' => 'users',
+        'type' => 'user',
+        'id' => $id
+      ];
+    
+      $response = $client->get($params);
+
+      return response()->json($response);
+    }
+
+    public function search($query) {
+      $hosts = [
+        'elasticsearch'
+      ];
+
+      $clientBuilder = ClientBuilder::create();
+      $clientBuilder->setHosts($hosts);
+      $client = $clientBuilder->build();
+
+      $params = [
+        'index' => 'users',
+        'type' => 'user',
+        'body' => [
+          'query' => [
+            'match' => [
+              'username' => $query
+            ]
+          ]
+        ]
+      ];
+    
+      $results = $client->search($params);
+
+      return response()->json($results);
     }
 
     //

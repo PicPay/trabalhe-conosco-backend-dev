@@ -30,9 +30,6 @@ $app->withFacades();
 
 $app->withEloquent();
 
-$app->register(Cviebrock\LaravelElasticsearch\ServiceProvider::class);
-$app->configure('elasticsearch');
-
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings
@@ -84,7 +81,7 @@ $app->singleton(
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
+$app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
