@@ -1,3 +1,15 @@
+# Teste Backend
+
+## Como rodar o app:
+- Clonar o reepo
+- Execute o `./download_data.sh` para baixar o users.csv
+- Execute `docker-compose build` para construir as imagens
+- Execute `docker-compose run composer install` para instalar os pacotes do php.
+- Execute `docker-compose up` (Observação, o Logstash irá importar os dados do arquivo user.csv para o ElasticSearch. Este processo, dependendo do computador, pode levar até 20min.)
+- Acesse o frontend em `localhost:8081` e a api em `localhost:8080`
+
+
+
 ![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
 
 # Teste Backend
