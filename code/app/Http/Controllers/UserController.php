@@ -80,8 +80,11 @@ class UserController extends Controller
         'type' => 'user',
         'body' => [
           'query' => [
-            'match' => [
-              'username' => $query
+            'multi_match' => [
+              'operator' => 'and',
+              'query' => urldecode($query),
+              'type' => 'phrase_prefix',
+              'fields' => ['name', 'username']
             ]
           ]
         ]
