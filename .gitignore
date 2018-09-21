@@ -1,0 +1,4 @@
+/vendor/
+
+**/users.csv
+**/users.csv.gz
