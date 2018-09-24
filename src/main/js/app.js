@@ -4,6 +4,7 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 const client = require('./client');
+const dataGrid = require('react-data-grid');
 // end::vars[]
 
 // tag::app[]
