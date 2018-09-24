@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "624d163cdbfe271455c2a6ac845d26f8",
+=======
+    "content-hash": "d5bca48e56bbf3a25645858fcab9c285",
+>>>>>>> 4724635fc9b854aff1a94f19543a3b6f9cc2ef2f
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -454,6 +458,7 @@
             "time": "2015-04-20T18:58:01+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "kaizer666/laravel-union-paginator",
             "version": "0.3.7",
             "source": {
@@ -493,6 +498,8 @@
             "time": "2017-09-29T00:35:08+00:00"
         },
         {
+=======
+>>>>>>> 4724635fc9b854aff1a94f19543a3b6f9cc2ef2f
             "name": "laravel/framework",
             "version": "v5.6.38",
             "source": {
