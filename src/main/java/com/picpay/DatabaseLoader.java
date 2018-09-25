@@ -50,6 +50,7 @@ public class DatabaseLoader implements CommandLineRunner {
 		//InputStream zipFileInputStream = new URL(csvDatabaseUrl).openStream();
 		GZIPInputStream is = new GZIPInputStream(zipFileInputStream);
 		Stream<String> lines = new BufferedReader(new InputStreamReader(is)).lines();
+		//repository.bulkLoad();
 /*
 		final CsvMapper mapper = new CsvMapper();
 		CsvSchema schema = mapper.schemaFor(User.class).withColumnReordering(true);
