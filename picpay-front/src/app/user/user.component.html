@@ -1,0 +1,47 @@
+<mat-toolbar>
+    <span><img src="assets/picpay-logo.png" alt="Logo picpay" height="30px"></span>
+  
+    <!-- This fills the remaining space of the current row -->
+    <span class="example-fill-remaining-space">
+    </span>
+    <mat-search-bar *ngIf="users" (onEnter)="loadAllUsers(1, $event)" (onClose)="loadAllUsers(1, '')"></mat-search-bar>
+  
+    <span>
+        <button mat-button (click)="logout()">Sair</button>
+    </span>
+</mat-toolbar>
+<div class="spinner-container" *ngIf="!users">
+    <mat-spinner [color]="accent"></mat-spinner>
+</div>
+<div *ngIf="users">
+    <mat-table class="lessons-table mat-elevation-z8" [dataSource]="users.data">
+    
+        <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+            <mat-cell *matCellDef="let user">{{user.id}}</mat-cell>
+        </ng-container>
+    
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef>Nome</mat-header-cell>
+            <mat-cell class="description-cell"
+                      *matCellDef="let user">{{user.name}}</mat-cell>
+    
+        </ng-container>
+    
+        <ng-container matColumnDef="username">
+            <mat-header-cell *matHeaderCellDef>Username</mat-header-cell>
+            <mat-cell class="duration-cell"
+                      *matCellDef="let user">{{user.username}}</mat-cell>
+        </ng-container>
+    
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    
+    </mat-table>
+</div>
+<div id="footer">
+    <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+    <mat-paginator [length]='users ? users.total : 1' [pageSize]='users ? users.per_page : 1' [pageSizeOptions]='[15]'>
+    </mat-paginator>
+</div>

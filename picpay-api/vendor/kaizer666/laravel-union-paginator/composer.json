@@ -1,0 +1,22 @@
+{
+  "name": "kaizer666/laravel-union-paginator",
+  "description": "Paginate queries with union in laravel",
+  "license": "MIT",
+  "require": {
+	"php": ">=5.6"
+  },
+  "require-dev": {
+	"laravel/framework": "5.4.*"
+  },
+  "authors": [
+	{
+	  "name": "Kovalyov Maksim",
+	  "email": "kaizer@kai-zer.ru"
+	}
+  ],
+  "autoload": {
+	"psr-4": {
+	  "Union\\": "src"
+	}
+  }
+}

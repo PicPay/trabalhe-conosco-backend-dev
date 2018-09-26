@@ -1,0 +1,46 @@
+.example-card{
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 280px;
+    max-width: 400px;
+}
+
+.main-div{
+    height: 98vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+}
+  
+.example-full-width {
+    width: 100%;
+}
+
+.login-button{
+    width: 40%;
+    color: #fff;
+    background-color: #21c25e;
+}
+
+.cancel-button{
+    width: 40%;
+    color: #21c25e;
+    background-color: #fff;
+}
+
+mat-card-actions{
+    text-align: center;
+}
+
+.register-content{
+    padding: 16px;
+    text-align: center;
+    button{
+        color: #21c25e;
+    }
+}
