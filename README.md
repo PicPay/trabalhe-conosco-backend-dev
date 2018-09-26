@@ -21,13 +21,13 @@
   Baixe o projeto
 
   ```
-  Git clone
+  Git clone 
   ```
 
   Vá para pasta do projeto
 
   ```
-  Cd
+  cd trabalhe-conosco-backend-dev
   ```
 
   Suba os conteiners. (🕰 ± 15 min)
