@@ -1,0 +1,20 @@
+version: '3.1'
+
+services:
+
+  picpay:
+    image: evecimar/laravel-5.6:alpine
+    ports:
+      - 8000:80
+    volumes:
+      - ../:/var/www/app
+#  mysql:
+#      image: mysql:5.7
+#      ports:
+#        - 3306:3306
+#      environment:
+#        MYSQL_ROOT_PASSWORD: qwe123
+#      volumes:
+#        - ./entrypoint.sh:/entrypoint.sh
+#        - ./mysql:/var/lib/mysql
+#        - ./files:/docker-entrypoint-initdb.d
