@@ -3,8 +3,12 @@
 // tag::vars[]
 const React = require('react');
 const ReactDOM = require('react-dom');
+import Pagination from "react-js-pagination";
+//require("bootstrap/less/bootstrap.less");
+
+
 const client = require('./client');
-const dataGrid = require('react-data-grid');
+//const dataGrid = require('react-data-grid');
 // end::vars[]
 
 // tag::app[]
@@ -12,18 +16,40 @@ class App extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {users: []};
+		this.state = {
+		    users: [],
+		    activePage: 1,
+		    itemPerPage: 15
+		 };
 	}
 
+      handlePageChange(pageNumber) {
+        console.log(`active page is ${pageNumber}`);
+        this.setState({activePage: pageNumber});
+      }
+
 	componentDidMount() {
-		client({method: 'GET', path: '/api/users'}).done(response => {
+		client({method: 'GET', path: '/api/users?page'+this.state.activePage+'&size=15'}).done(response => {
 			this.setState({users: response.entity._embedded.users});
 		});
 	}
 
 	render() {
 		return (
-			<UserList users={this.state.users}/>
+              <div>
+                <div>
+                    <UserList users={this.state.users}/>
+                </div>
+                <div>
+                    <Pagination
+                      activePage={this.state.activePage}
+                      itemsCountPerPage={15}
+                      totalItemsCount={1000}
+                      pageRangeDisplayed={5}
+                      onChange={this.handlePageChange.bind(this)}
+                    />
+                </div>
+              </div>
 		)
 	}
 }
