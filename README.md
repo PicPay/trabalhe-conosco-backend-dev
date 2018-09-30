@@ -33,8 +33,7 @@ Faça um ***Fork*** deste repositório e abra um ***Pull Request***, **com seu n
    - Trabalho há pelo menos 10 anos com Java Server Faces (JSF) Facelets e PrimeFaces.
 
 - Criar uma solução de autenticação entre o frontend e o backend.
-   - Devido a não criar o frontend também deixei sem autenticação, mas aqui seria o caso de criar os usuários que poderiam
-   - buscar na plataforma, guardar a informação cifrada na sessão da aplicação cliente e passá-la nas requisições para verificação da API
+   - Devido a não criar o frontend também deixei sem autenticação, mas aqui seria o caso de criar os usuários que poderiam buscar na plataforma, guardar a informação cifrada na sessão da aplicação cliente e passá-la nas requisições para verificação da API
 
 - Ter um desempenho elevado num conjunto de dados muito grande - ok
 - Utilizar o Docker - ok
