@@ -29,7 +29,36 @@ Faça um ***Fork*** deste repositório e abra um ***Pull Request***, **com seu n
 ### Diferenciais
 
 - Criar um frontend para realizar a busca com uma UX elaborada
-- Criar uma solução de autenticação entre o frontend e o backend
-- Ter um desempenho elevado num conjunto de dados muito grande
-- Utilizar o Docker
+    Não elaborei um frontend, mas possuo experiẽncia em html5, css3 e javascript, bem como de frameworks relacionados.
+    Trabalho há pelo menos 10 anos com Java Server Faces (JSF) Facelets e PrimeFaces.
 
+- Criar uma solução de autenticação entre o frontend e o backend
+    Devido a não criar o frontend também deixei sem autenticação, mas aqui seria o caso de criar os usuários que poderiam
+    buscar na plataforma, guardar a informação cifrada na sessão da aplicação cliente e passá-la nas requisições para verificação da API
+
+- Ter um desempenho elevado num conjunto de dados muito grande - ok
+- Utilizar o Docker - ok
+
+### Como efetuar o teste
+
+- Criei duas imagens no docker hub. Basta seguir os passos a seguir para montar o ambiente para o teste.
+
+## Baixar as imagens do Postgresql e do Wildfly
+
+- sudo docker pull rodrigopim/postgres-picpay-users
+- sudo docker pull rodrigopim/wildfly-admin-jdbc-postgresql
+
+## Criação dos contêineres
+
+- sudo docker run --name dbtest -e POSTGRES_PASSWORD=picpay -d -p 5432:5432 rodrigopim/postgres-picpay-users
+- sudo docker run -p 8080:8080 -p 9990:9990 -it --name appServer rodrigopim/wildfly-admin-jdbc-postgresql
+
+## Configurações adicionais (comunicação entre os contêineres)
+
+- sudo docker network create --driver=bridge wildfly-network-postgresql
+- sudo docker network connect wildfly-network-postgresql dbtest
+- sudo docker network connect wildfly-network-postgresql appServer
+
+## Agora basta acessar o navegador indicando o caminho:
+
+hhtp://localhost:8080/ApiRestTestPicPay-1.0-SNAPSHOT  e seguir a orientação de uso
