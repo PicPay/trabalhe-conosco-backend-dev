@@ -30,7 +30,7 @@
   Cd
   ```
 
-  Suba os conteiners. (🕰 ± 15 min)
+  Suba os conteiners. (🕰 ± 20 min)
 
   ```
   docker-compose up -d
