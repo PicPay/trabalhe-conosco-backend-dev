@@ -1,35 +1,82 @@
-![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
 
-# Teste Backend
+  # Lumen API + Vue.Js + Docker - Search User
 
-O desafio é criar uma API REST que busca usuarios pelo nome e username a partir de uma palavra chave. Faça o download do arquivo [users.csv.gz](https://s3.amazonaws.com/careers-picpay/users.csv.gz) que contém o banco de dados que deve ser usado na busca. Ele contém os IDs, nomes e usernames dos usuários.
+  ![](https://dzwonsemrish7.cloudfront.net/items/0c062c2b400K173M2q1G/Screen%20Recording%202018-09-26%20at%2012.54%20AM.gif?v=47303fe3)
 
-###### Exemplo
-| ID                                   | Nome              | Username             |
-|--------------------------------------|-------------------|----------------------|
-| 065d8403-8a8f-484d-b602-9138ff7dedcf | Wadson marcia     | wadson.marcia        |
-| 5761be9e-3e27-4be8-87bc-5455db08408  | Kylton Saura      | kylton.saura         |
-| ef735189-105d-4784-8e2d-c8abb07e72d3 | Edmundo Cassemiro | edmundo.cassemiro    |
-| aaa40f4e-da26-42ee-b707-cb81e00610d5 | Raimundira M      | raimundiram          |
-| 51ba0961-8d5b-47be-bcb4-54633a567a99 | Pricila Kilder    | pricilakilderitaliani|
+  ## Intro
+
+  - O gif acima foi gravado com a base de 8.000.000 de usários.
+  - A peformance foi resolvida apenas utilizando indices.
+  - Foi utilizado o Vue Material para o frontend.
+  - A aplicação é responsiva.📱
+  - A prioridade foi resolvida com uma coluna de `priority` no banco de dados. Que é atualizada por um serviço buscando informações dos textos disponibilizados.
+
+  ## Prerequisites
+
+  Docker instalado.
 
 
+  ## Installing
 
-Também são fornecidas duas listas de usuários que devem ser utilizadas para priorizar os resultados da busca. A lista 1 tem mais prioridade que a lista 2. Ou seja, se dois usuarios casam com os criterios de busca, aquele que está na lista 1 deverá ser exibido primeiro em relação àquele que está na lista 2. Os que não estão em nenhuma das listas são exibidos em seguida.
+  Baixe o projeto
 
-As listas podem ser encontradas na raiz deste repositório ([lista_relevancia_1.txt](lista_relevancia_1.txt) e [lista_relevancia_2.txt](lista_relevancia_2.txt)).
-Os resultados devem ser retornados paginados de 15 em 15 registros.
+  ```
+  Git clone 
+  ```
 
-Escolha as tecnologias que você vai usar e tente montar uma solução completa para rodar a aplicação.
+  Vá para pasta do projeto
 
-Faça um ***Fork*** deste repositório e abra um ***Pull Request***, **com seu nome na descrição**, para participar. Assim que terminar, envie um e-mail para ***desafio@picpay.com*** com o seu usuário do Github nos avisando.
+  ```
+  cd trabalhe-conosco-backend-dev
+  ```
 
------
+  Suba os conteiners. (🕰 ± 20 min)
 
-### Diferenciais
+  ```
+  docker-compose up -d
+  ```
 
-- Criar um frontend para realizar a busca com uma UX elaborada
-- Criar uma solução de autenticação entre o frontend e o backend
-- Ter um desempenho elevado num conjunto de dados muito grande
-- Utilizar o Docker
+  Execute os comandos para migrar os dados (🕰 ± 30 min)
+
+  ```
+  sh cmd.sh
+  ```
+
+  ## Frontend
+
+  Acesse a url: http://localhost:5000/#/
+
+  Faça login com os dados:
+
+  ```
+  User: picpay@gmail.com
+  Password: 12345
+  ```
+
+  [Buscando por 'charl' gif](https://dzwonsemrish7.cloudfront.net/items/230C0s0F0U3G1M1J2q15/Screen%20Recording%202018-09-26%20at%2001.00%20AM.gif?v=3ce63476)
+
+  ## Backend
+
+  Documentação completa:
+  https://documenter.getpostman.com/view/5151635/RWaRMQVa
+
+  ### POST Login
+
+  Exemplo:
+  ```
+  http://localhost:8000/auth/login?email=picpay@gmail.com&password=12345
+  ```
+
+  Após efetuado o login copie o token para realizar o request na Seach User.
+
+  ### GET Search User
+
+  Exemplo:
+  ```
+  http://localhost:8000/api/users/?q=Charl
+  ```
+
+  Adicione o Token recebido na key `Authorization` no Header do request.
+
+
 

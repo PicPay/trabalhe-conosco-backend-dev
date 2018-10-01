@@ -1,0 +1,32 @@
+version: '3'
+services:
+
+  search-user:
+    container_name: search-user
+    build: ./app
+    image: search-user
+    ports:
+      - "8000:80"
+    env_file:
+      - ./app/.env
+
+  search-user-db:
+    container_name: search-user-db
+    build: ./database
+    image: search-user-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: picpay
+    volumes:
+      - picpay_db:/var/lib/mysql
+    ports:
+      - "3316:3306"
+
+  frontend-search-user:
+    container_name: frontend-search-user
+    build: ./frontend
+    ports:
+      - "5000:5000"
+
+volumes:
+  picpay_db:
