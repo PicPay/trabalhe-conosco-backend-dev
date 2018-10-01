@@ -3,19 +3,21 @@ package com.picpay.service;
 import com.picpay.model.User;
 import com.picpay.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class UserService {
 
     UserRepository repository;
 
     @Autowired
-    List<String> listRelevancia1;
+    private List<String> listRelevancia1;
 
     @Autowired
-    List<String> listRelevancia2;
+    private List<String> listRelevancia2;
 
     @Autowired
     public UserService(UserRepository repository){
