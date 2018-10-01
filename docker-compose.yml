@@ -5,8 +5,6 @@ services:
     container_name: search-user
     build: ./app
     image: search-user
-    volumes:
-      - ./app:/app
     ports:
       - "8000:80"
     env_file:
