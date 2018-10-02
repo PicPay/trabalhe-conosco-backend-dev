@@ -67,4 +67,4 @@ Faça um ***Fork*** deste repositório e abra um ***Pull Request***, **com seu n
 
 ## Agora basta acessar o navegador indicando o caminho:
 
-hhtp://localhost:8080/ApiRestTestPicPay-1.0-SNAPSHOT/ e seguir a orientação de uso.
+http://localhost:8080/ApiRestTestPicPay-1.0-SNAPSHOT/ e seguir a orientação de uso.
