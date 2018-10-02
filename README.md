@@ -28,8 +28,43 @@ Faça um ***Fork*** deste repositório e abra um ***Pull Request***, **com seu n
 
 ### Diferenciais
 
-- Criar um frontend para realizar a busca com uma UX elaborada
-- Criar uma solução de autenticação entre o frontend e o backend
-- Ter um desempenho elevado num conjunto de dados muito grande
-- Utilizar o Docker
+- Criar um frontend para realizar a busca com uma UX elaborada.
+   - Não elaborei um frontend, mas possuo experiẽncia em html5, css3 e javascript, bem como de frameworks relacionados.
+   - Trabalho há pelo menos 10 anos com Java Server Faces (JSF) Facelets e PrimeFaces.
 
+- Criar uma solução de autenticação entre o frontend e o backend.
+   - Devido a não criar o frontend também deixei sem autenticação, mas aqui seria o caso de criar os usuários que poderiam buscar na plataforma, guardar a informação cifrada na sessão da aplicação cliente e passá-la nas requisições para verificação da API
+
+- Ter um desempenho elevado num conjunto de dados muito grande - ok (na primeira execução ele estará abrindo pela 1ª vez a conexão e efetuando alguns caches, sendo um pouco demorado, mas depois será notado uma resposta bem rápida)
+- Utilizar o Docker - ok
+
+### Como efetuar o teste
+
+- 1
+    - Criar a imagem do postgres colocando os arquivos: users.csv (baixado pelo link), modelo.sql e Dockerfile (no diretório postgres do projeto) em um diretório específico da máquina host.
+    - Entrar no diretório criado e executar o comando: "docker build -t postgres-picpay-user:1.0 .".
+    - O docker criará a imagem postgres-picpay-user com a tag 1.0 a partir da imagem oficial do postgres.
+    - A imagem será preparada para criar um schema chamado "picpay" na criação do contêiner e também serão criadas as tabelas, assim como, ocorrerá a importação do arquivo csv.
+    - Para criar o contêiner execute o comando: "docker run --name dbtest -e POSTGRES_PASSWORD=picpay -d -p 5432:5432 postgres-picpay-user:1.0"
+        - Atenção: este processo será bem demorado visto que o container estará importando o arquivo csv. Pode ser verificado o andando rodando o comando "docker exec [containerID] ps aux|grep postgre". A saída do comando ps mostrará o processo responsável pela cópia dos dados. Continue verificando a saída do comando até que o processo não apareça mais, indicando seu término de execução. 
+
+- 2 
+    - Criei uma imagem no docker hub para o Application Server com a aplicação implantada e tudo configurado. Basta seguir os passos a seguir para montar o ambiente para o teste.
+
+## Baixar a imagem do Wildfly
+
+- sudo docker pull rodrigopim/wildfly-admin-jdbc-postgresql
+
+## Criação do contêiner
+
+- sudo docker run -p 8080:8080 -p 9990:9990 -it --name appServer rodrigopim/wildfly-admin-jdbc-postgresql
+
+## Configurações adicionais (comunicação entre os contêineres)
+
+- sudo docker network create --driver=bridge wildfly-network-postgresql
+- sudo docker network connect wildfly-network-postgresql dbtest
+- sudo docker network connect wildfly-network-postgresql appServer
+
+## Agora basta acessar o navegador indicando o caminho:
+
+http://localhost:8080/ApiRestTestPicPay-1.0-SNAPSHOT/ e seguir a orientação de uso.
