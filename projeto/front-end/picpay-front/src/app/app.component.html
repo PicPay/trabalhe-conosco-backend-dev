@@ -1,0 +1,31 @@
+<h1>Picpay</h1>
+
+<p-growl [value]="msgs" [sticky]='false'></p-growl>
+
+<span class="ui-float-label">
+    <input id="txtPesquisa" type="text" size="30" pInputText [(ngModel)]="txtPesquisa" required class="ng-dirty ng-invalid"> 
+    <p-button label="Pesquisar" (onClick)="clickPesquisar()" [disabled]="false"></p-button>
+</span>
+
+<br><br><br>
+
+<p-table [columns]="cols" [value]="clienteList" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)" [paginator]="true" 
+    [rows]="15" [(totalRecords)]="totalRecords" [(loading)]="loading">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns">
+                {{col.header}}
+            </th>
+          </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns"> 
+        <tr>
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        Total de {{totalRecords}} resultados
+    </ng-template>
+</p-table>

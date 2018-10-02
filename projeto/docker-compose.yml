@@ -1,0 +1,9 @@
+version: '3'
+services:
+  product-service:
+    image: mongo
+    container_name: mongodb_custom
+    volumes:
+      - ./shared:/opt
+    ports:
+      - 27017:27017 
