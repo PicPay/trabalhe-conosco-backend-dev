@@ -19,12 +19,13 @@ public class UserController {
 
     @Autowired
     private UserService service;
-
+/*
     @GetMapping("/api/search")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public List<User> search(@RequestParam(value = "nome") String nome) {
         return service.searchUsers(nome);
     }
+    */
 }
 // end::code[]
