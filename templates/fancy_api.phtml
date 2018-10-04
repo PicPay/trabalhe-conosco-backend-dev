@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Documentação FS</title>
+    <!-- needed for adaptive design -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700" rel="stylesheet">
+
+    <!--
+    ReDoc doesn't change outer page styles
+    -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        redoc[spec-url] h1 {
+            color: #2DBCB5;
+        }
+
+        redoc[spec-url] .tag-info h1 {
+            color: #CD171E !important;
+        }
+
+        redoc[spec-url] .menu-content a {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+<redoc spec-url='../<?php echo $api; ?>/json' hide-download-button></redoc>
+<script src="swagger/redoc.standalone.js"> </script>
+</body>
+</html>

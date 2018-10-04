@@ -1,0 +1,120 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Documentação de API de Usuários",
+        "description": "Aqui estão todas as especificações de API de Usuários",
+        "contact": {
+            "name": "Giancarlo Bacci",
+            "email": "giancarlo.baci@gmail.com"
+        },
+        "version": "0.0.9",
+        "x-logo": {
+            "url": "https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png",
+            "altText": "PicPay"
+        }
+    },
+    "paths": {
+        "/users/findByName/{name}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "description": "Esta API retorna o cliente de acordo com a palavra-chave enviada.",
+                "operationId": "findByName",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Palavra-chave do cliente",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna o Usuário",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Users"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Usuário não encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UsersError"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro ao resgatar o Usuário",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UsersError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Users": {
+                "title": "Usuários",
+                "description": "Aqui estão todas as especificações de Usuários",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "Identificador do Usuário.",
+                        "type": "integer",
+                        "format": "int32",
+                        "example": 123
+                    },
+                    "name": {
+                        "title": "name",
+                        "description": "Nome do Usuário. (Quando possuir)",
+                        "type": "string",
+                        "example": "John Doe"
+                    },
+                    "username": {
+                        "title": "username",
+                        "description": "Login do usuário",
+                        "type": "string",
+                        "example": "john.doe"
+                    }
+                },
+                "type": "object"
+            },
+            "UsersError": {
+                "title": "User Error",
+                "description": "Retorna o Erro dos usuários",
+                "properties": {
+                    "code": {
+                        "title": "Code",
+                        "description": "Código do Erro",
+                        "type": "integer",
+                        "format": "int32",
+                        "example": 999
+                    },
+                    "message": {
+                        "title": "Message",
+                        "description": "Descrição do Erro",
+                        "type": "string",
+                        "example": "Descrição do Erro"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}

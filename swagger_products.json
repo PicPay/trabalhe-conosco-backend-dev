@@ -1,0 +1,218 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Documentação de API de Produtos",
+        "description": "Aqui estão todas as especificações de API de Produtos",
+        "contact": {
+            "name": "Giancarlo Bacci",
+            "email": "giancarlo.baci@gmail.com"
+        },
+        "version": "0.0.9",
+        "host": "localhost:8081",
+        "basePath": "/v1",
+        "x-logo": {
+            "url": "http://documentacao-dev.whitelabel.com.br/fs.png",
+            "altText": "FS"
+        }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8081",
+            "description": "Local"
+        },
+        {
+            "url": "http://documentacao-dev.whitelabel.com.br",
+            "description": "Desenvolvimento"
+        }
+    ],
+    "paths": {
+        "/products/findById/{id}": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "description": "Esta API tem o intuito de recuperar o produto de acordo com o ID enviado. Os códigos de produtos você encontra <a>aqui</a>.",
+                "operationId": "findById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do produto",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna o Produto",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Products"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Produto não encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductsError"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erro ao resgatar o Produto",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductsError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Products": {
+                "title": "Produtos",
+                "description": "Aqui estão todas as especificações de Produtos",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "Identificador único de produto.",
+                        "type": "integer",
+                        "format": "int32",
+                        "example": 123456
+                    },
+                    "msisdn": {
+                        "title": "MSISDN",
+                        "description": "Descrição do produto.",
+                        "type": "string",
+                        "example": "HERO BASICO"
+                    },
+                    "contract_limit": {
+                        "title": "contract_limit",
+                        "description": "Limite de contratações do produto.",
+                        "type": "string",
+                        "example": 1
+                    },
+                    "family": {
+                        "title": "cpf",
+                        "description": "Família do produto.",
+                        "type": "string",
+                        "example": "Seguranca"
+                    },
+                    "products": {
+                        "$ref": "#/components/schemas/SubProducts"
+                    }
+                },
+                "type": "object"
+            },
+            "ProductsError": {
+                "title": "Product Error",
+                "description": "Retorna o Erro dos produtos",
+                "properties": {
+                    "code": {
+                        "title": "Code",
+                        "description": "Código do Erro",
+                        "type": "integer",
+                        "format": "int32",
+                        "example": 999
+                    },
+                    "message": {
+                        "title": "Message",
+                        "description": "Descrição do Erro",
+                        "type": "string",
+                        "example": "Descrição do Erro"
+                    }
+                },
+                "type": "object"
+            },
+            "SubProducts": {
+                "title": "Sub Produtos",
+                "description": "Aqui estão todas as especificações de SubProdutos",
+                "properties": {
+                    "family": {
+                        "title": "family",
+                        "description": "Família do produto",
+                        "type": "string",
+                        "example": "Cloud"
+                    },
+                    "line": {
+                        "title": "contract_limit",
+                        "description": "Linha do produto",
+                        "type": "string",
+                        "example": "Segurança & Cloud"
+                    },
+                    "segment": {
+                        "title": "segment",
+                        "description": "Segmento do produto",
+                        "type": "string",
+                        "example": "FS Security"
+                    },
+                    "quota_id": {
+                        "title": "quota_id",
+                        "description": "Id da cota do produto",
+                        "type": "integer",
+                        "format": "int32",
+                        "example": "191"
+                    },
+                    "quota": {
+                        "title": "quota",
+                        "description": "Cota do produto",
+                        "type": "integer",
+                        "format": "int32",
+                        "example": "30"
+                    },
+                    "unit": {
+                        "title": "quota",
+                        "description": "Unidade da Cota do produto",
+                        "type": "string",
+                        "example": "GB"
+                    },
+                    "vendor_id": {
+                        "title": "vendor_id",
+                        "description": "Id do Vendor do produto",
+                        "type": "integer",
+                        "format": "int32",
+                        "example": "95"
+                    },
+                    "vendor": {
+                        "title": "vendor",
+                        "description": "Descrição do Vendor do produto",
+                        "type": "string",
+                        "example": "Funambol"
+                    },
+                    "download_manager_code": {
+                        "title": "download_manager_code",
+                        "description": "Código utilizado pelo download manager",
+                        "type": "string",
+                        "example": "fbkp"
+                    },
+                    "url_portal": {
+                        "title": "url_portal",
+                        "description": "URL do protal do produto",
+                        "type": "string",
+                        "example": "http://vivosync.whitelabel.com.br"
+                    },
+                    "brand": {
+                        "title": "brand",
+                        "description": "Marca do produto",
+                        "type": "string",
+                        "example": "FS"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}
