@@ -14,14 +14,14 @@ import javax.persistence.Table;
 @Table(name = "tb_user")
 public class User {
 	@Id
-	private String id;
+	private String Id;
 	private String name;
 	private String username;
 
 	private User() {}
 
-	public User(String id, String name, String username) {
-		this.id = id;
+	public User(String Id, String name, String username) {
+		this.Id = Id;
 		this.name = name;
 		this.username = username;
 	}

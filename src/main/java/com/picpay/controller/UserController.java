@@ -14,7 +14,7 @@ import java.util.List;
  * @author Bruno Carreira
  */
 // tag::code[]
-@RepositoryRestController
+//@RepositoryRestController
 public class UserController {
 
     @Autowired
