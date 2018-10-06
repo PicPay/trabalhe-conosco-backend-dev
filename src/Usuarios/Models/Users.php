@@ -48,4 +48,23 @@ class Users
 	 * @var string
 	 */
 	private $username;
+
+	public function getUsers()
+	{
+
+		try {
+		    $dbh = new \PDO('mysql:host=localhost;dbname=picpay', 'root', '');
+		} catch (\PDOException $e) {
+		    error_log($e->getMessage());
+		    
+		}
+
+		$stm = $dbh->prepare('SELECT * from users LIMIT 10');
+
+		if($stm->execute()) {
+			return $stm->fetchAll(\PDO::FETCH_OBJ);
+		}
+
+		return false;
+	}
 }

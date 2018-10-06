@@ -2,6 +2,8 @@
 
 namespace Usuarios\Controllers;
 
+use Usuarios\Models\Users;
+
 /**
  * @OA\Info(
  *     title="Documentação de API de Usuários",
@@ -51,17 +53,9 @@ class UsersController
 	
 	public function findByName($name) {
 		
-		for($i=1;$i<5;$i++) {
-			$a = new \StdClass();
-			$a->id = $i;
-			$a->name = "Teste ".$i;
-			$a->username = "teste.teste".$i;
+		$b = new Users();
 
-			$b[] = $a;
-		}
-
-
-		return array("name" => $name, "users" => $b);
+		return array("name" => $name, "users" => $b->getUsers());
 	}
 
 	/**
@@ -92,17 +86,9 @@ class UsersController
 	 */
 
 	public function teste($name) {
-		
-		for($i=1;$i<5;$i++) {
-			$a = new \StdClass();
-			$a->id = $i;
-			$a->name = "Teste ".$i;
-			$a->username = "teste.teste".$i;
 
-			$b[] = $a;
-		}
+		$b = new Users();
 
-
-		return array("name" => $name, "users" => $b);
+		return array("name" => $name, "users" => $b->getUsers());
 	}
 }
