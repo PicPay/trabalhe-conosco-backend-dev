@@ -16,11 +16,12 @@ import java.util.List;
  */
 
 public interface UserRepository extends PagingAndSortingRepository<User, String> {
-    String query = "SELECT * FROM tb_user u " +
-            " LEFT OUTER JOIN (VALUES rel1) as r1(id, ordering) ON u.id = r1.id " +
-            " LEFT OUTER JOIN (VALUES rel2) as r2(id, ordering) ON u.id = r2.id " +
-            " where (u.name like %:name%) or (u.username like %:name%) order by u.id \n-- #pageable\n";
-    String COUNT_QUERY = "SELECT count(*) FROM tb_user";
+    String BASE_QUERY = "FROM tb_user u " +
+            " LEFT OUTER JOIN (VALUES :rel1) as r1 ON u.id = r1.C1 " +
+            //" LEFT OUTER JOIN (VALUES :rel2) as r2(id, ordering) ON u.id = r2.id " +
+            " where (u.name like %:name%) or (u.username like %:name%) order by r1.C2 \n-- #pageable\n";
+    String query = "SELECT * " + BASE_QUERY;
+    String COUNT_QUERY = "SELECT count(*) " + BASE_QUERY;
 
     /*
     @Query(value = "Select u from User u " +
@@ -33,8 +34,8 @@ public interface UserRepository extends PagingAndSortingRepository<User, String>
             countQuery = COUNT_QUERY,
             nativeQuery = true
     )
-    @RestResource(path = "searchName", rel = "searchName")
-    Page<User> findByName(@Param("name") String name, Pageable pageable);
+    //@RestResource(path = "searchName", rel = "searchName")
+    Page<User> findByName(@Param("name") String name, @Param("rel1") String rel1,/* @Param("rel2") String rel2, */@Param("pageable") Pageable pageable);
 
 
 }
