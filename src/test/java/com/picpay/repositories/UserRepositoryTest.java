@@ -34,7 +34,7 @@ public class UserRepositoryTest {
         );
 
         MvcResult mvcResult = mockMvc.perform(
-                MockMvcRequestBuilders.get("/")
+                MockMvcRequestBuilders.get("/api/users")
                         .accept(MediaType.APPLICATION_JSON)
         ).andReturn();
 

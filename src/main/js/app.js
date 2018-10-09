@@ -12,18 +12,16 @@ class App extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {users: [], attributes: [], pageSize: 20, links: {}};
+		this.state = {users: [], attributes: [], pageSize: 20, nameSearch: 'bruno',links: {}};
 		this.updatePageSize = this.updatePageSize.bind(this);
-		//this.onCreate = this.onCreate.bind(this);
-		//this.onDelete = this.onDelete.bind(this);
-		this.onNavigate = this.onNavigate.bind(this);
+		this.onNavigate = this.onNavigate.bind', params: {size: pageSize}}]
+                                              		).then(userCollection => {(this);
 	}
 
 	// tag::follow-2[]
-	loadFromServer(pageSize) {
+	loadFromServer(pageSize, nameSearch) {
 		follow(client, root, [
-			{rel: 'users', params: {size: pageSize}}]
-		).then(userCollection => {
+			{rel: 'users/search/listUsers?nome='+nameSearch
 			return client({
 				method: 'GET',
 				path: userCollection.entity._links.profile.href,
@@ -37,6 +35,7 @@ class App extends React.Component {
 				users: userCollection.entity._embedded.users,
 				attributes: Object.keys(this.schema.properties),
 				pageSize: pageSize,
+				nameSearch: nameSearch,
 				links: userCollection.entity._links});
 		});
 	}
@@ -58,10 +57,18 @@ class App extends React.Component {
 	// tag::update-page-size[]
 	updatePageSize(pageSize) {
 		if (pageSize !== this.state.pageSize) {
-			this.loadFromServer(pageSize);
+			this.loadFromServer(pageSize, this.state.nameSearch);
 		}
 	}
 	// end::update-page-size[]
+
+	// tag::update-search-name[]
+	updateNameSearch(nameSearch) {
+		if (nameSearch !== this.state.nameSearch) {
+			this.loadFromServer(this.state.pageSize, nameSearch);
+		}
+	}
+	// end::update-search-name[]
 
 	// tag::follow-1[]
 	componentDidMount() {
@@ -90,11 +97,11 @@ class UserList extends React.Component {
 		this.handleNavPrev = this.handleNavPrev.bind(this);
 		this.handleNavNext = this.handleNavNext.bind(this);
 		this.handleNavLast = this.handleNavLast.bind(this);
-		this.handleInput = this.handleInput.bind(this);
+		this.handlePageSize = this.handlePageSize.bind(this);
 	}
 
 	// tag::handle-page-size-updates[]
-	handleInput(e) {
+	handlePageSize(e) {
 		e.preventDefault();
 		const pageSize = ReactDOM.findDOMNode(this.refs.pageSize).value;
 		if (/^[0-9]+$/.test(pageSize)) {
@@ -105,6 +112,19 @@ class UserList extends React.Component {
 		}
 	}
 	// end::handle-page-size-updates[]
+
+	// tag::handle-name-search-updates[]
+	handleNameSearch(e) {
+		e.preventDefault();
+		const nameSearch = ReactDOM.findDOMNode(this.refs.nameSearch).value;
+		if (/^[a-zA-Z ]+$/.test(nameSearch)) {
+			this.props.updatePageSize(pageSize);
+		} else {
+			ReactDOM.findDOMNode(this.refs.pageSize).value =
+				pageSize.substring(0, pageSize.length - 1);
+		}
+	}
+	// end::handle-name-search-updates[]
 
 	// tag::handle-nav[]
 	handleNavFirst(e){
@@ -150,7 +170,12 @@ class UserList extends React.Component {
 
 		return (
 			<div>
-				<input ref="pageSize" defaultValue={this.props.pageSize} onInput={this.handleInput}/>
+                <p key="nameSearch">
+                    <input type="text" placeholder="nameSearch" ref="nameSearch" className="field" defaultValue={this.props.nameSearch} onInput={this.handleNameSearch}/>
+                </p>
+                <p key="pageSize">
+                    <input type="text" placeholder="pageSize" ref="pageSize" className="field" defaultValue={this.props.pageSize} onInput={this.handlePageSize}/>
+                </p>
 				<table>
 					<tbody>
 						<tr>
