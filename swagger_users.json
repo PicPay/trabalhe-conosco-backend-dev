@@ -13,6 +13,12 @@
             "altText": "PicPay"
         }
     },
+    "servers": [
+        {
+            "url": "http://trabalho.localhost/",
+            "description": "Homologação"
+        }
+    ],
     "paths": {
         "/users/findByName/{name}": {
             "get": {

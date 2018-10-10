@@ -11,7 +11,11 @@ namespace Usuarios\Models;
  * @OA\Schema(
   *     description="Aqui estão todas as especificações de Usuários",
  *     title="Usuários"
- * )
+ * ),
+ * @OA\Server(
+ *			url="http://trabalho.localhost/",
+ *			description="Homologação"
+ *	   )
  */
 class Users
 {
@@ -49,20 +53,29 @@ class Users
 	 */
 	private $username;
 
-	public function getUsers()
+	public function getUsers($name)
 	{
 
 		try {
 		    $dbh = new \PDO('mysql:host=localhost;dbname=picpay', 'root', '');
 		} catch (\PDOException $e) {
 		    error_log($e->getMessage());
-		    
 		}
 
-		$stm = $dbh->prepare('SELECT * from users LIMIT 10');
+		try {
+			$stm = $dbh->prepare('SELECT users.* from picpay.users LEFT JOIN picpay.users_priority
+									ON users.id = users_priority.id 
+									WHERE nome LIKE :nome OR username LIKE :nome 
+									ORDER BY users_priority.priority DESC
+									LIMIT 15');
 
-		if($stm->execute()) {
-			return $stm->fetchAll(\PDO::FETCH_OBJ);
+			$stm->bindValue(":nome","%".$name."%", \PDO::PARAM_STR);
+
+			if($stm->execute()) {
+				return $stm->fetchAll(\PDO::FETCH_OBJ);
+			}
+		} catch (Exception $e) {
+			error_log($e->getMessage());
 		}
 
 		return false;
