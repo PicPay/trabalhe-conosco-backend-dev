@@ -1,6 +1,8 @@
 package com.picpay.model;
 
 import lombok.Data;
+import org.springframework.data.rest.core.annotation.RestResource;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -17,6 +19,8 @@ public class User {
 	private String Id;
 	private String name;
 	private String username;
+	@RestResource(exported = false)
+	private Integer priority;
 
 	private User() {}
 

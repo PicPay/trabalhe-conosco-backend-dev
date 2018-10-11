@@ -10,7 +10,9 @@ module.exports = function follow(api, rootPath, relArray) {
 	}, root);
 
 	function traverseNext (root, rel, arrayItem) {
+	    console.log("traverseNext root "+JSON.stringify(root)+" rel "+rel+" arrayItem "+JSON.stringify(arrayItem));
 		return root.then(function (response) {
+		    console.log("response "+JSON.stringify(response));
 			if (hasEmbeddedRel(response.entity, rel)) {
 				return response.entity._embedded[rel];
 			}

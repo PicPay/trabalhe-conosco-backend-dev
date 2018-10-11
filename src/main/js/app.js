@@ -7,21 +7,24 @@ const client = require('./client');
 const follow = require('./follow'); // function to hop multiple links by "rel"
 
 const root = '/api';
+//const loadURL = 'users/search/findByNameContainingOrUsernameContaining';
+const loadURL = 'users';
 
 class App extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {users: [], attributes: [], pageSize: 20, nameSearch: 'bruno',links: {}};
+		this.state = {users: [], attributes: [], pageSize: 20, nameSearch: 'bruno', links: {}};
 		this.updatePageSize = this.updatePageSize.bind(this);
-		this.onNavigate = this.onNavigate.bind', params: {size: pageSize}}]
-                                              		).then(userCollection => {(this);
+		this.onNavigate = this.onNavigate.bind(this);
 	}
 
 	// tag::follow-2[]
 	loadFromServer(pageSize, nameSearch) {
+		console.log("loadFromServer pageSize "+pageSize+" nameSearch "+nameSearch);
 		follow(client, root, [
-			{rel: 'users/search/listUsers?nome='+nameSearch
+			{rel: loadURL, params: {size: pageSize/*, name: nameSearch, username: nameSearch*/}}]
+        ).then(userCollection => {
 			return client({
 				method: 'GET',
 				path: userCollection.entity._links.profile.href,
@@ -64,6 +67,7 @@ class App extends React.Component {
 
 	// tag::update-search-name[]
 	updateNameSearch(nameSearch) {
+	    console.log("updateNameSearch"+nameSearch);
 		if (nameSearch !== this.state.nameSearch) {
 			this.loadFromServer(this.state.pageSize, nameSearch);
 		}
@@ -72,7 +76,8 @@ class App extends React.Component {
 
 	// tag::follow-1[]
 	componentDidMount() {
-		this.loadFromServer(this.state.pageSize);
+	    console.log("componentDidMount pageSize "+this.state.pageSize+" nameSearch "+this.state.nameSearch);
+		this.loadFromServer(this.state.pageSize, this.state.nameSearch);
 	}
 	// end::follow-1[]
 
