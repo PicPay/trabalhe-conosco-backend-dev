@@ -7,7 +7,7 @@ ENV TZ ${TZ}
 RUN a2enmod headers
 RUN a2enmod rewrite
 COPY config/slim.conf /etc/apache2/sites-enabled/000-default.conf
-#RUN mkdir -p /var/opt/fsbusiness/logs && chmod 777 -R /var/opt/fsbusiness/logs
+#RUN mkdir -p /var/opt/trabalho/logs && chmod 777 -R /var/opt/trabalho/logs
 
 RUN apt-get update && \
     apt-get install -y libxml2-dev git curl && \
