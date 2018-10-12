@@ -55,6 +55,6 @@ class UsersController
 		
 		$b = new Users();
 
-		return array("name" => $name, "users" => $b->getUsers($name));
+		return array("users" => $b->getUsers($name));
 	}
 }
