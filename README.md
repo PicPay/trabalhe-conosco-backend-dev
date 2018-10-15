@@ -16,9 +16,11 @@ Obs: To run this project you must have docker (and docker-compose) and git insta
   
 #### Go to project folder...  
   
-Run the install.sh and take a coffee...  
+Run the install.sh  
   
-`$ bash install.sh`  
+`$ bash install.sh`
+
+Enter the database password when prompted, obs: the password is `"root"
   
 Go to http://localhost and make you registration and enjoy!  
   
