@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -18,8 +19,9 @@ import java.util.List;
 
 @Transactional
 public interface UserRepository extends PagingAndSortingRepository<User, String> {
-    Page<User> findAll(Specification<User> spec, Pageable pageable);
+//    Page<User> findAll(Specification<User> spec, Pageable pageable);
 
+    @RestResource(path = "usersbyname", rel = "usersbyname")
     Page<User> findByNameContainingOrUsernameContaining(@Param("name") String nameText, @Param("username") String usernameText, Pageable pageable);
 
     @Modifying

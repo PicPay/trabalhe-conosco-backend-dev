@@ -6,9 +6,9 @@ const client = require('./client');
 
 const follow = require('./follow'); // function to hop multiple links by "rel"
 
-const root = '/api';
-//const loadURL = 'users/search/findByNameContainingOrUsernameContaining';
-const loadURL = 'users';
+const profileURL = 'http://localhost:8086/api/profile/users';
+const root = '/api/users/search';
+const loadURL = 'usersbyname';
 
 class App extends React.Component {
 
@@ -16,6 +16,7 @@ class App extends React.Component {
 		super(props);
 		this.state = {users: [], attributes: [], pageSize: 20, nameSearch: 'bruno', links: {}};
 		this.updatePageSize = this.updatePageSize.bind(this);
+		this.updateNameSearch = this.updateNameSearch.bind(this);
 		this.onNavigate = this.onNavigate.bind(this);
 	}
 
@@ -23,11 +24,11 @@ class App extends React.Component {
 	loadFromServer(pageSize, nameSearch) {
 		console.log("loadFromServer pageSize "+pageSize+" nameSearch "+nameSearch);
 		follow(client, root, [
-			{rel: loadURL, params: {size: pageSize/*, name: nameSearch, username: nameSearch*/}}]
+			{rel: loadURL, params: {size: pageSize, name: nameSearch, username: nameSearch}}]
         ).then(userCollection => {
 			return client({
 				method: 'GET',
-				path: userCollection.entity._links.profile.href,
+				path: profileURL,
 				headers: {'Accept': 'application/schema+json'}
 			}).then(schema => {
 				this.schema = schema.entity;
@@ -51,6 +52,7 @@ class App extends React.Component {
 				users: userCollection.entity._embedded.users,
 				attributes: this.state.attributes,
 				pageSize: this.state.pageSize,
+				nameSearch: this.state.nameSearch,
 				links: userCollection.entity._links
 			});
 		});
@@ -87,8 +89,10 @@ class App extends React.Component {
 				<UserList users={this.state.users}
 							  links={this.state.links}
 							  pageSize={this.state.pageSize}
+							  nameSearch={this.state.nameSearch}
 							  onNavigate={this.onNavigate}
-							  updatePageSize={this.updatePageSize}/>
+							  updatePageSize={this.updatePageSize}
+							  updateNameSearch={this.updateNameSearch}/>
 			</div>
 		)
 	}
@@ -103,6 +107,7 @@ class UserList extends React.Component {
 		this.handleNavNext = this.handleNavNext.bind(this);
 		this.handleNavLast = this.handleNavLast.bind(this);
 		this.handlePageSize = this.handlePageSize.bind(this);
+		this.handleNameSearch = this.handleNameSearch.bind(this);
 	}
 
 	// tag::handle-page-size-updates[]
@@ -123,10 +128,10 @@ class UserList extends React.Component {
 		e.preventDefault();
 		const nameSearch = ReactDOM.findDOMNode(this.refs.nameSearch).value;
 		if (/^[a-zA-Z ]+$/.test(nameSearch)) {
-			this.props.updatePageSize(pageSize);
+			this.props.updateNameSearch(nameSearch);
 		} else {
-			ReactDOM.findDOMNode(this.refs.pageSize).value =
-				pageSize.substring(0, pageSize.length - 1);
+			ReactDOM.findDOMNode(this.refs.nameSearch).value =
+				nameSearch.substring(0, nameSearch.length - 1);
 		}
 	}
 	// end::handle-name-search-updates[]
@@ -176,10 +181,10 @@ class UserList extends React.Component {
 		return (
 			<div>
                 <p key="nameSearch">
-                    <input type="text" placeholder="nameSearch" ref="nameSearch" className="field" defaultValue={this.props.nameSearch} onInput={this.handleNameSearch}/>
+                    Nome: <input type="text" placeholder="nameSearch" ref="nameSearch" className="field" defaultValue={this.props.nameSearch} onInput={this.handleNameSearch}/>
                 </p>
                 <p key="pageSize">
-                    <input type="text" placeholder="pageSize" ref="pageSize" className="field" defaultValue={this.props.pageSize} onInput={this.handlePageSize}/>
+                    Tamanho página: <input type="text" placeholder="pageSize" ref="pageSize" className="field" defaultValue={this.props.pageSize} onInput={this.handlePageSize}/>
                 </p>
 				<table>
 					<tbody>

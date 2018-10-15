@@ -10,10 +10,11 @@ module.exports = function follow(api, rootPath, relArray) {
 	}, root);
 
 	function traverseNext (root, rel, arrayItem) {
-	    console.log("traverseNext root "+JSON.stringify(root)+" rel "+rel+" arrayItem "+JSON.stringify(arrayItem));
+	    //console.log("traverseNext root "+JSON.stringify(root)+" rel "+rel+" arrayItem "+JSON.stringify(arrayItem));
 		return root.then(function (response) {
-		    console.log("response "+JSON.stringify(response));
+		    //console.log("response "+JSON.stringify(response));
 			if (hasEmbeddedRel(response.entity, rel)) {
+			    //console.log("hasEmbeddedRel response.entity "+JSON.stringify(response.entity));
 				return response.entity._embedded[rel];
 			}
 
@@ -22,11 +23,14 @@ module.exports = function follow(api, rootPath, relArray) {
 			}
 
 			if (typeof arrayItem === 'string') {
+			    //console.log("arrayItem = string -> response.entity "+JSON.stringify(response.entity));
 				return api({
 					method: 'GET',
 					path: response.entity._links[rel].href
 				});
 			} else {
+			    //console.log("arrayItem != string -> response.entity "+JSON.stringify(response.entity));
+			    //console.log("arrayItem != string -> arrayItem.params "+JSON.stringify(arrayItem.params));
 				return api({
 					method: 'GET',
 					path: response.entity._links[rel].href,

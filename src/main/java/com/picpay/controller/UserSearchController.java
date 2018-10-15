@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
  * @author Bruno Carreira
  */
 // tag::code[]
+    /*
 @RepositoryRestController
 public class UserSearchController {
 
@@ -58,4 +59,5 @@ public class UserSearchController {
 
 
 }
+*/
 // end::code[]
