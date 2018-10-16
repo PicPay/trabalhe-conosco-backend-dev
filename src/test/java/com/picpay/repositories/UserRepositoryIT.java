@@ -29,7 +29,7 @@ public class UserRepositoryIT {
     public void contextLoads() throws Exception {
 
         MvcResult mvcResult = mockMvc.perform(
-                MockMvcRequestBuilders.get("/")
+                MockMvcRequestBuilders.get("/api/users")
                         .accept(MediaType.APPLICATION_JSON)
         ).andReturn();
 
