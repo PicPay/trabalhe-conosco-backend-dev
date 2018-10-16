@@ -7,20 +7,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Arrays;
-import java.util.Collections;
-
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -37,15 +28,29 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void shouldReturnUserWithName() throws Exception {
-        Page<User> page = userRepository.findByNameContainingOrUsernameContaining("name", "name", null);
+    public void shouldReturnUserWithName() {
+        Page<User> page = userRepository.findByNameContainingOrUsernameContainingOrderByPriority("name", "name", null);
         Assert.assertTrue(page.getTotalElements() == 2);
     }
 
     @Test
-    public void shouldUpdatePriority() throws Exception {
+    public void shouldUpdatePriority() {
         int updated = userRepository.updatePriorityByIds(Arrays.asList("id", "id3"), 4);
         Assert.assertTrue(updated == 2);
+        int updated2 = userRepository.updatePriorityByIds(Arrays.asList("id2"), 2);
+        Assert.assertTrue(updated2 == 1);
+    }
+
+    @Test
+    public void shouldReturnUserWithNameOrdered() {
+        userRepository.updatePriorityByIds(Arrays.asList("id", "id3"), 10);
+        userRepository.updatePriorityByIds(Arrays.asList("id2"), 8);
+
+        Page<User> page = userRepository.findByNameContainingOrUsernameContainingOrderByPriority("a", "a", null);
+        Assert.assertTrue(page.getTotalElements() == 3);
+        List<User> list = page.getContent();
+        User user = list.get(0);
+        Assert.assertTrue(user.getId().equals("id2"));
     }
 
 }

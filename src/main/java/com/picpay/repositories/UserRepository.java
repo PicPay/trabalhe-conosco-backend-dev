@@ -22,7 +22,7 @@ public interface UserRepository extends PagingAndSortingRepository<User, String>
 //    Page<User> findAll(Specification<User> spec, Pageable pageable);
 
     @RestResource(path = "usersbyname", rel = "usersbyname")
-    Page<User> findByNameContainingOrUsernameContaining(@Param("name") String nameText, @Param("username") String usernameText, Pageable pageable);
+    Page<User> findByNameContainingOrUsernameContainingOrderByPriority(@Param("name") String nameText, @Param("username") String usernameText, Pageable pageable);
 
     @Modifying
     @Query(value = "update User u set u.priority=:priority where u.id in (:ids)")
