@@ -14,7 +14,7 @@ class App extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {users: [], attributes: [], pageSize: 20, nameSearch: 'bruno', links: {}};
+		this.state = {users: [], attributes: [], pageSize: 15, nameSearch: 'bruno', links: {}};
 		this.updatePageSize = this.updatePageSize.bind(this);
 		this.updateNameSearch = this.updateNameSearch.bind(this);
 		this.onNavigate = this.onNavigate.bind(this);
@@ -24,7 +24,7 @@ class App extends React.Component {
 	loadFromServer(pageSize, nameSearch) {
 		console.log("loadFromServer pageSize "+pageSize+" nameSearch "+nameSearch);
 		follow(client, root, [
-			{rel: loadURL, params: {size: pageSize, name: nameSearch, username: nameSearch}}]
+			{rel: loadURL, params: {size: pageSize, name: nameSearch, username: nameSearch, sort: "priority"}}]
         ).then(userCollection => {
 			return client({
 				method: 'GET',
