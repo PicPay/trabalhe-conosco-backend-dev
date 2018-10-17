@@ -125,13 +125,15 @@ class UserList extends React.Component {
 
 	// tag::handle-name-search-updates[]
 	handleNameSearch(e) {
-		e.preventDefault();
-		const nameSearch = ReactDOM.findDOMNode(this.refs.nameSearch).value;
-		if (/^[a-zA-Z ]+$/.test(nameSearch)) {
-			this.props.updateNameSearch(nameSearch);
-		} else {
-			ReactDOM.findDOMNode(this.refs.nameSearch).value =
-				nameSearch.substring(0, nameSearch.length - 1);
+        if (e.key == 'Enter'){
+            e.preventDefault();
+            const nameSearch = ReactDOM.findDOMNode(this.refs.nameSearch).value;
+            if (/^[a-zA-Z ]+$/.test(nameSearch)) {
+                this.props.updateNameSearch(nameSearch);
+            } else {
+                ReactDOM.findDOMNode(this.refs.nameSearch).value =
+                    nameSearch.substring(0, nameSearch.length - 1);
+            }
 		}
 	}
 	// end::handle-name-search-updates[]
@@ -181,7 +183,7 @@ class UserList extends React.Component {
 		return (
 			<div>
                 <p key="nameSearch">
-                    Nome: <input type="text" placeholder="nameSearch" ref="nameSearch" className="field" defaultValue={this.props.nameSearch} onInput={this.handleNameSearch}/>
+                    Nome: <input type="text" placeholder="nameSearch" ref="nameSearch" className="field" defaultValue={this.props.nameSearch} onKeyPress={this.handleNameSearch}/>
                 </p>
                 <p key="pageSize">
                     Tamanho página: <input type="text" placeholder="pageSize" ref="pageSize" className="field" defaultValue={this.props.pageSize} onInput={this.handlePageSize}/>
