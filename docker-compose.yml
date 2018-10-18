@@ -2,24 +2,40 @@ version: '3.5'
 
 services:
   app:
-    build: .
+    build: ./system
     container_name: app
     ports:
     - "9090:80"
     networks:
     - default
     volumes:
-    - ./app/:/app
+    - ./system/app/:/app
     env_file:
-    - ./app.env
+    - ./system/app.env
 
   mongo:
-    image: mongo:3.0-wheezy
+    image: mongo
     container_name: mongo
     networks:
     - default
-    env_file:
-    - ./mongo.env
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: picpay
+      MONGO_INITDB_ROOT_PASSWORD: yapcip
+      MONGO_INITDB_DATABASE: picdb
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    restart: always
+    ports:
+    - 8081:8081
+    networks:
+      - default
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: picpay
+      ME_CONFIG_MONGODB_ADMINPASSWORD: yapcip
 
 
 networks:
