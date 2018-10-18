@@ -1,1 +1,1 @@
-INSERT INTO tb_user SELECT * FROM CSVREAD('classpath:/users.csv');
+INSERT INTO tb_user SELECT * FROM CSVREAD('classpath:/users-test.csv');

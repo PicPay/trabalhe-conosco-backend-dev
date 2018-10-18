@@ -42,8 +42,7 @@ public class ApplicationStartup implements CommandLineRunner {
 
 	@Override
 	public void run(String... strings) throws Exception {
-		System.out.println("Creating File.....");
-		LOG.info("Creating File....");
+		LOG.info("Updating priority....");
 		/*
 		InputStream zipFileInputStream = new URL(csvDatabaseUrl).openStream();
 		GZIPInputStream is = new GZIPInputStream(zipFileInputStream);
@@ -58,8 +57,7 @@ public class ApplicationStartup implements CommandLineRunner {
 		//IOUtils.closeQuietly(is);
         repo.updatePriorityByIds(listRelevancia1, 1);
         repo.updatePriorityByIds(listRelevancia2, 2);
-		System.out.println("File is created!");
-		LOG.info("File is created!");
+		LOG.info("Priority updated!");
 	}
 
 }
