@@ -5,23 +5,10 @@ namespace App\Http\Controllers;
 use App\Clients;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class ApiController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    //
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         $input = $request->all();
@@ -36,8 +23,14 @@ class HomeController extends Controller
         else
             $clients = Clients::select('ident','name','user')->orderBy('name')->paginate(15);
 
-        $data['clients'] = $clients;
+        $clients = json_decode(json_encode($clients), true);
 
-        return view('home',$data);
+
+        $data['total'] = $clients["total"];
+        $data['current_page'] = $clients['current_page'];
+        $data['last_page'] = $clients['last_page'];
+        $data['clients'] = $clients['data'];
+
+        return json_encode($data);
     }
 }
