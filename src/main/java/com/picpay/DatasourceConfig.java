@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.zip.GZIPInputStream;
 
@@ -26,26 +27,32 @@ public class DatasourceConfig {
     private static final Logger LOG =
             LoggerFactory.getLogger(DatasourceConfig.class);
 
-    //private static final String TEMP_DIRECTORY = System.getProperty("java.io.tmpdir");
+    private static final String CSV_PATH = "src/main/resources/users.csv";
+
     @Bean(name = "mainDataSource")
     public DataSource createMainDataSource() throws Exception {
-        LOG.info("createMainDataSource...");
+        LOG.info("Importing and extracting CSV file...");
 
-        InputStream zipFileInputStream = new URL(csvDatabaseUrl).openStream();
-        GZIPInputStream is = new GZIPInputStream(zipFileInputStream);
+        if (!java.nio.file.Files.exists(Paths.get(CSV_PATH))) {
 
-        File targetFile = new File("src/main/resources/users.csv");
+            InputStream zipFileInputStream = new URL(csvDatabaseUrl).openStream();
+            GZIPInputStream is = new GZIPInputStream(zipFileInputStream);
 
-        java.nio.file.Files.copy(
-                is,
-                targetFile.toPath(),
-                StandardCopyOption.REPLACE_EXISTING);
+            File targetFile = new File(CSV_PATH);
 
-        IOUtils.closeQuietly(is);
-        LOG.info("createMainDataSource end...");
+            java.nio.file.Files.copy(
+                    is,
+                    targetFile.toPath(),
+                    StandardCopyOption.REPLACE_EXISTING);
+
+            IOUtils.closeQuietly(is);
+            LOG.info("CSV imported and extracted...");
+        }
 
         JdbcDataSource ds = new JdbcDataSource();
         ds.setURL("jdbc:h2:file:~/testdb;LOG=0;CACHE_SIZE=65536;LOCK_MODE=0;UNDO_LOG=0");
+        ds.setUser("sa");
+        ds.setPassword("");
         return ds;
     }
 }

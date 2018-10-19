@@ -33,3 +33,43 @@ Faça um ***Fork*** deste repositório e abra um ***Pull Request***, **com seu n
 - Ter um desempenho elevado num conjunto de dados muito grande
 - Utilizar o Docker
 
+-----
+
+# Solução
+
+O backend foi desenvolvido com a utilização do framework Spring Data REST, com banco H2 embedded.
+Uma UI simples foi construída em ReactJS para listar o resultado da busca com paginação.
+
+### UI
+
+A aplicação ReactJS utiliza webpack para compilar todos os arquivos num bundle. Usa rest.js para comunicação com a API REST. E usa babel para compilar ES6 para ES5.
+
+### Segurança
+
+A API está protegida por BASIC AUTHENTICATION, via Spring Security (usuário e senha: bruno).
+
+### Docker
+
+Um arquivo Dockerfile foi adicionado ao projeto permitindo a criação de uma imagem baseada no JDK8.
+Para gerar a imagem, basta executar do diretório do projeto:
+
+`docker build . -t user-search`
+
+Depois de baixar a imagem, basta executá-la:
+
+`docker run image user-search`
+
+### Executando na máquina local
+
+Não é necessário ter npm e nodeJS na máquina local para executar a UI.
+Basta executar:
+
+`mvn spring-boot:run`
+
+Esta operação demandará um bom tempo porque, além de instalar npm e nodeJS embedded, vai fazer o download do arquivo users.csv.gz, descompactá-lo e carregar o banco de dados H2.
+
+## Melhorias
+
+- Otimizar o banco de dados H2 para melhor performance de LOAD e SEARCH
+- Utilizar um banco de dados noSQL
+- Criar mais unit tests e integration tests
