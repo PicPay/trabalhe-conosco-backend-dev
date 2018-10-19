@@ -35,12 +35,14 @@
                             <th>#</th>
                             <th>Nome</th>
                             <th>Usuário</th>
+                            <th></th>
                         </tr>
                         @foreach($clients as $client)
                             <tr>
                                 <td>{{ $client->ident }}</td>
                                 <td>{{ $client->name }}</td>
                                 <td>{{ $client->user }}</td>
+                                <td>{{ $client->relevance }}</td>
                             </tr>
                         @endforeach
                     </table>

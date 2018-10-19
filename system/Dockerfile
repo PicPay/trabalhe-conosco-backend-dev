@@ -11,6 +11,3 @@ WORKDIR /app
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
 
-COPY ../lista_relevancia_1.txt /app/storage/app/lista_relevancia_1.txt;
-COPY ../lista_relevancia_2.txt /app/storage/app/lista_relevancia_2.txt;
-

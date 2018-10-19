@@ -42,10 +42,13 @@ class SaveCSV extends Command
 
         //DB::table('clients')->update(['relevance' => 3]);
 
+        echo 'atualizando lista 1'."\r\n";
+
         $handle = fopen("storage/app/lista_relevancia_1.txt", "r");
         if ($handle) {
             $i = 0;
             while (($line = fgets($handle)) !== false) {
+                $line = trim($line);
 
                 DB::table('clients')->where('ident',$line)->update(['relevance' => 2]);
             }
@@ -53,10 +56,14 @@ class SaveCSV extends Command
             fclose($handle);
         }
 
+        echo 'atualizando lista 2'."\r\n";
+
         $handle = fopen("storage/app/lista_relevancia_2.txt", "r");
         if ($handle) {
             $i = 0;
             while (($line = fgets($handle)) !== false) {
+
+                $line = trim($line);
 
                 DB::table('clients')->where('ident',$line)->update(['relevance' => 1]);
             }
