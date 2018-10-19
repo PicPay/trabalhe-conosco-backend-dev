@@ -67,6 +67,8 @@ Basta executar:
 `mvn spring-boot:run`
 
 Esta operação demandará um bom tempo porque, além de instalar npm e nodeJS embedded, vai fazer o download do arquivo users.csv.gz, descompactá-lo e carregar o banco de dados H2.
+Após a execução correta do comando acima, basta acessar a URL (`http://localhost:8086/`) no browser.
+Caso queira acessar diretamente a API, basta acessar `http://localhost:8086/api/users` ou `http://localhost:8086/api/users/search/listUsers?nome=nome`   
 
 ## Melhorias
 
