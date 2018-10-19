@@ -22,9 +22,6 @@ import java.util.zip.GZIPInputStream;
 @Component
 public class ApplicationStartup implements CommandLineRunner {
 
-	@Value("${com.picpay.csv.database.url}")
-	private final String csvDatabaseUrl = null;
-
 	@Value("${com.picpay.csv.database.filename}")
 	private final String csvDatabaseFilename = null;
 
@@ -43,18 +40,6 @@ public class ApplicationStartup implements CommandLineRunner {
 	@Override
 	public void run(String... strings) throws Exception {
 		LOG.info("Updating priority....");
-		/*
-		InputStream zipFileInputStream = new URL(csvDatabaseUrl).openStream();
-		GZIPInputStream is = new GZIPInputStream(zipFileInputStream);
-
-		File targetFile = new File("src/main/resources/userstest.csv");
-
-		java.nio.file.Files.copy(
-				is,
-				targetFile.toPath(),
-				StandardCopyOption.REPLACE_EXISTING);
-*/
-		//IOUtils.closeQuietly(is);
         repo.updatePriorityByIds(listRelevancia1, 1);
         repo.updatePriorityByIds(listRelevancia2, 2);
 		LOG.info("Priority updated!");
