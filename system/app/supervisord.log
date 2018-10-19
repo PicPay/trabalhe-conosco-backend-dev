@@ -376,3 +376,13 @@
 2018-10-19 02:23:07,230 INFO spawned: 'php-fpm' with pid 11
 2018-10-19 02:23:08,532 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 2018-10-19 02:23:08,544 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2018-10-19 02:38:53,401 WARN received SIGTERM indicating exit request
+2018-10-19 02:38:54,632 INFO waiting for nginx, php-fpm to die
+2018-10-19 02:38:54,640 INFO stopped: php-fpm (exit status 0)
+2018-10-19 02:38:54,862 INFO stopped: nginx (exit status 0)
+2018-10-19 13:30:50,584 CRIT Supervisor running as root (no user in config file)
+2018-10-19 13:30:50,588 INFO supervisord started with pid 1
+2018-10-19 13:30:51,593 INFO spawned: 'nginx' with pid 10
+2018-10-19 13:30:51,597 INFO spawned: 'php-fpm' with pid 11
+2018-10-19 13:30:52,599 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2018-10-19 13:30:52,599 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)

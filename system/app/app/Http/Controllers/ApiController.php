@@ -13,24 +13,26 @@ class ApiController extends Controller
     {
         $input = $request->all();
         $data['search'] = '';
+        $page = 1;
+        if(isset($input['page']) and is_numeric($input['page'])) $page = $input['page'];
+
         if(isset($input['search'])) {
-            $clients = Clients::select('ident', 'name', 'user')->orderBy('name')
+            $clients = Clients::select('ident', 'name', 'user','relevance')->orderBy('relevance','desc')
                 ->where('name', 'like', '%' . $input['search'] . '%')->orWhere('user', 'like', '%' . $input['search'] . '%')
-                ->paginate(15);
+                ->skip(($page*15)-15)
+                ->limit(15)
+                ->get();
 
             $data['search'] = $input['search'];
         }
         else
-            $clients = Clients::select('ident','name','user')->orderBy('name')->paginate(15);
+            $clients = Clients::select('ident','name','user','relevance')->orderBy('relevance','desc')
+                ->skip(($page*15)-15)
+                ->limit(15)
+                ->get();
 
         $clients = json_decode(json_encode($clients), true);
 
-
-        $data['total'] = $clients["total"];
-        $data['current_page'] = $clients['current_page'];
-        $data['last_page'] = $clients['last_page'];
-        $data['clients'] = $clients['data'];
-
-        return json_encode($data);
+        return json_encode($clients);
     }
 }
