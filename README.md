@@ -1,3 +1,7 @@
+Eu escolhi o framework Laravel como base do sistema e MongoDB para banco de dados.
+
+-----
+
 **_Para executar o projeto é só executar o deploy.sh_**
 
 **Link do frontend**: http://localhost:9090
@@ -10,8 +14,7 @@
 
 **Token Api**: Bearer eWFwY2lw
 
-
----------------------------------------------------------------------------------------
+-----
 ![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
 
 # Teste Backend
