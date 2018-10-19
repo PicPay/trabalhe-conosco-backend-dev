@@ -38,6 +38,10 @@ echo "Usuario: admin@picpay.com
 Senha: yapcip
 Token Api: Bearer eWFwY2lw";
 
+echo -e "\033[01;32m-------------- Liberando Log --------------------------------------\033[01;37m";
+
+docker exec -it app chmod -R 777 storage/
+
 echo -e "\033[01;32m-------------- Dump do Banco de Dados -------------------------------\033[01;37m";
 
 docker exec -it mongo mongoimport -d admin -c clients --type csv --file /home/users.csv --fields "ident,name,user" --authenticationDatabase admin --username 'picpay' --password 'yapcip'
