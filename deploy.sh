@@ -46,6 +46,17 @@ echo -e "\033[01;32m-------------- Atualizando Relevancia ----------------------
 
 docker exec -it app php artisan save:relevance
 
+echo -e "\033[01;32m-------------- Finalizado -------------------------------\033[01;37m";
+
+echo "
+
+Link do frontend: http://localhost:9090
+Endpoint da api: http://localhost:9090/api/list?search=&page=
+
+Usuário: admin@picpay.com
+Senha: yapcip
+Token Api: Bearer eWFwY2lw";
+
 
 
 

@@ -354,3 +354,25 @@
 2018-10-18 23:57:09,831 INFO spawned: 'php-fpm' with pid 11
 2018-10-18 23:57:10,887 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 2018-10-18 23:57:10,887 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2018-10-19 02:20:01,525 CRIT Supervisor running as root (no user in config file)
+2018-10-19 02:20:01,595 INFO supervisord started with pid 1
+2018-10-19 02:20:02,600 INFO spawned: 'nginx' with pid 10
+2018-10-19 02:20:02,604 INFO spawned: 'php-fpm' with pid 11
+2018-10-19 02:20:03,652 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2018-10-19 02:20:03,658 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2018-10-19 02:20:57,134 WARN received SIGTERM indicating exit request
+2018-10-19 02:20:57,145 INFO waiting for nginx, php-fpm to die
+2018-10-19 02:20:57,159 INFO stopped: php-fpm (exit status 0)
+2018-10-19 02:20:57,221 INFO stopped: nginx (exit status 0)
+2018-10-19 02:21:03,791 CRIT Supervisor running as root (no user in config file)
+2018-10-19 02:21:03,798 INFO supervisord started with pid 1
+2018-10-19 02:21:04,801 INFO spawned: 'nginx' with pid 10
+2018-10-19 02:21:04,803 INFO spawned: 'php-fpm' with pid 11
+2018-10-19 02:21:06,363 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2018-10-19 02:21:06,363 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2018-10-19 02:23:06,198 CRIT Supervisor running as root (no user in config file)
+2018-10-19 02:23:06,221 INFO supervisord started with pid 1
+2018-10-19 02:23:07,226 INFO spawned: 'nginx' with pid 10
+2018-10-19 02:23:07,230 INFO spawned: 'php-fpm' with pid 11
+2018-10-19 02:23:08,532 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2018-10-19 02:23:08,544 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)

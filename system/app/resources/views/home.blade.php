@@ -29,7 +29,25 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
+                    <p>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item {{ ($paginator['currentPage'] == 1) ? ' disabled' : '' }}">
+                                    <a class="page-link" href="{{ $paginator['url'].($paginator['currentPage']-1) }}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="{{ $paginator['url'].($paginator['currentPage']) }}">{{$paginator['currentPage']}}</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="{{ $paginator['url'].($paginator['currentPage']+1) }}" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </p>
                     <table class="table">
                         <tr>
                             <th>#</th>
@@ -42,12 +60,36 @@
                                 <td>{{ $client->ident }}</td>
                                 <td>{{ $client->name }}</td>
                                 <td>{{ $client->user }}</td>
-                                <td>{{ $client->relevance }}</td>
+                                <td>
+                                    @if($client->relevance == 2)
+                                        <span style="color: #FFFFFF;" class="badge badge-success">1º Nível</span>
+                                    @elseif($client->relevance == 1)
+                                        <span style="color: #FFFFFF;" class="badge badge-primary">2º Nível</span>
+                                    @else
+                                        <span style="color: #FFFFFF;" class="badge badge-info">3º Nível</span>
+                                    @endif
+                                </td>
                             </tr>
                         @endforeach
                     </table>
                     <p>
-                        {{ $clients->appends(request()->input())->links() }}
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item {{ ($paginator['currentPage'] == 1) ? ' disabled' : '' }}">
+                                    <a class="page-link" href="{{ $paginator['url'].($paginator['currentPage']-1) }}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="{{ $paginator['url'].($paginator['currentPage']) }}">{{$paginator['currentPage']}}</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="{{ $paginator['url'].($paginator['currentPage']+1) }}" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
                     </p>
                 </div>
             </div>

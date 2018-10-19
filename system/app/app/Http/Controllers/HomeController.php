@@ -26,18 +26,31 @@ class HomeController extends Controller
     {
         $input = $request->all();
         $data['search'] = '';
-        $data['page'] = (isset($input['page']) and is_integer($input['page'])?$input['page']:1);
+        $page = 1;
+        if(isset($input['page']) and is_numeric($input['page'])) $page = $input['page'];
+
         if(isset($input['search'])) {
-            $clients = Clients::select('ident', 'name', 'user')->orderBy('name')
+            $clients = Clients::select('ident', 'name', 'user','relevance')
                 ->where('name', 'like', '%' . $input['search'] . '%')->orWhere('user', 'like', '%' . $input['search'] . '%')
-                ->paginate(15);
+                ->orderBy('relevance','desc')
+                ->skip(($page*15)-15)
+                ->limit(15)
+                ->get();
 
             $data['search'] = $input['search'];
         }
-        else
-            $clients = Clients::select('ident','name','user')->where('relevance','1')->orderBy('name')->paginate(15);
+        else {
+            $clients = Clients::select('ident', 'name', 'user', 'relevance')
+                ->orderBy('relevance', 'desc')
+                ->skip(($page * 15) - 15)
+                ->limit(15)
+                ->get();
+        }
 
         $data['clients'] = $clients;
+        $data['paginator']['currentPage'] = $page;
+        $data['paginator']['url'] = '?search='.$data['search'].'&page=';
+
 
         return view('home',$data);
     }
