@@ -12,14 +12,14 @@ class SaveCSV extends Command
      *
      * @var string
      */
-    protected $signature = 'save:csv';
+    protected $signature = 'save:relevance';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Update Relevance';
 
     /**
      * Create a new command instance.
@@ -40,20 +40,25 @@ class SaveCSV extends Command
     {
         //
 
-        $handle = fopen("../storage/app/users.csv", "r");
+        //DB::table('clients')->update(['relevance' => 3]);
+
+        $handle = fopen("storage/app/lista_relevancia_1.txt", "r");
         if ($handle) {
             $i = 0;
             while (($line = fgets($handle)) !== false) {
-                // separando os itens do csv
-                $data = explode(",",$line);
 
-                // salvando no banco
-                DB::table('clients')->insert([
-                    'ident' => $data[0],
-                    'name' => $data[1],
-                    'user' => str_replace("\r\n",'',$data[2])
-                ]);
-                $i++;
+                DB::table('clients')->where('ident',$line)->update(['relevance' => 2]);
+            }
+
+            fclose($handle);
+        }
+
+        $handle = fopen("storage/app/lista_relevancia_2.txt", "r");
+        if ($handle) {
+            $i = 0;
+            while (($line = fgets($handle)) !== false) {
+
+                DB::table('clients')->where('ident',$line)->update(['relevance' => 1]);
             }
 
             fclose($handle);

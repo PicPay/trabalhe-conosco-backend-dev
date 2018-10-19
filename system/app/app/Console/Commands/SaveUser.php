@@ -19,7 +19,7 @@ class SaveUser extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Create a default user';
 
     /**
      * Create a new command instance.
@@ -41,7 +41,7 @@ class SaveUser extends Command
         //
         DB::table('users')->insert([
             'name' => 'Admin PicPay',
-            'email' => 'josuealessandro@gmail.com',
+            'email' => 'admin@picpay.com',
             'password' => bcrypt('yapcip'),
             'api_token' => base64_encode('yapcip')
         ]);

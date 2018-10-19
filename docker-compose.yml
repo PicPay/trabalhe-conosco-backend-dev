@@ -18,6 +18,8 @@ services:
     container_name: mongo
     networks:
     - default
+    volumes:
+      - ./db/:/home
     ports:
       - 27017:27017
     environment:
