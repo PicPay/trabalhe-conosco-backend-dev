@@ -13,6 +13,9 @@ wget "https://raw.githubusercontent.com/PicPay/trabalhe-conosco-backend-dev/mast
 echo '### Copying the env-example to .env in laradock ###'
 cp laradock/env-example laradock/.env
 
+echo '### Copying the .env.example to .env in laravel project ###'
+cp .env.example .env
+
 echo '### Downloading and Turning on your docker containers ###';
 cd laradock && docker-compose up -d nginx mysql phpmyadmin workspace redis
 
@@ -21,6 +24,9 @@ docker exec -it laradock_workspace_1 php app/Misc/FixWrongName.php
 
 echo '### Running composer install ###';
 docker exec -it laradock_workspace_1 composer install
+
+echo '### Generating laravel key ###'
+docker exec -it laradock_workspace_1 php artisan key:generate
 
 echo '### Running migrate  ###'
 docker exec -it laradock_workspace_1 php artisan migrate
