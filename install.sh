@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo '### Downloading the database dump ###';
-mkdir app/Sources && wget "https://s3.amazonaws.com/careers-picpay/users.csv.gz" --directory-prefix=app/Sources
+rm -rf app/Sources && mkdir app/Sources && wget "https://s3.amazonaws.com/careers-picpay/users.csv.gz" --directory-prefix=app/Sources
 
 echo '### Extracting the dump file ###'
 gunzip app/Sources/users.csv.gz && mv app/Sources/users.csv app/Sources/users_picpay.csv
@@ -30,6 +30,9 @@ docker exec -it laradock_workspace_1 php artisan key:generate
 
 echo '### Running migrate  ###'
 docker exec -it laradock_workspace_1 php artisan migrate
+
+echo '### Cleaning Users ###'
+docker exec -it laradock_mysql_1 mysql -uroot -proot -e "USE default; TRUNCATE TABLE users_picpay;"
 
 echo '### Importing dump into our database ###'
 docker exec -it laradock_mysql_1 mysqlimport -uroot -proot  --fields-terminated-by=, --verbose --local -p default /var/www/app/Sources/users_picpay.csv
