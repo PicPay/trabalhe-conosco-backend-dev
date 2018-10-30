@@ -8,7 +8,7 @@
 * I load the data in the database through the seed `(database/seeds/UsersPicpayTableSeeder.php)`, it also sets the user's relevance.  
    
 #### Setup:  
-Obs: To run this project you must have docker (and docker-compose) and git installed in you environment   
+Obs: To run this project you must have docker (and docker-compose), wget and git installed in you environment   
   
 #### Clone this project:  
   
