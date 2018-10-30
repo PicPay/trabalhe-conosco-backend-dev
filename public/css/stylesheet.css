@@ -1,0 +1,89 @@
+* {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    outline: none;
+    border: none;
+
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -box-sizing: border-box;
+}
+
+ul{
+    margin-top: 3px;
+}
+
+body{
+    background-color: #46C86F;
+}
+
+.table-users {
+    background-color: #ffffff;
+    border-radius: 4px;
+    margin-top: 20px;
+}
+
+.title-users{
+    color: #ffffff;
+}
+
+.navbar-picpay {
+    background-color: #46C86F;
+}
+
+.logo-picpay{
+    height: 35px;
+}
+
+.search-button-picpay {
+    color: #ffffff;
+    padding: 22px 22px 19px 22px;
+    font-weight: bold;
+}
+
+.search-button-picpay:hover{
+    background-color: #ffffff;
+    border-radius: 3px;
+    color: #46C86F;
+    text-decoration: none;
+}
+
+.search-button-picpay-login {
+    color: #ffffff !important;
+    padding: 22px 22px 19px 22px;
+    font-weight: bold;
+}
+.search-button-picpay-login:hover {
+    background-color: #ffffff;
+    border-radius: 3px;
+    color: #46C86F !important;
+    text-decoration: none;
+}
+
+#search-picpay {
+    margin-left: -47px;
+}
+
+.button-green {
+    background-color: #46C86F;
+    border: none;
+}
+
+.button-green:hover {
+    background-color: #2c8245;
+}
+
+.a-green {
+    color: #46C86F;
+}
+
+.a-green:hover {
+    color: #46C86F;
+}
+
+#navbarDropdown {
+    color: #ffffff;
+}
+
+
