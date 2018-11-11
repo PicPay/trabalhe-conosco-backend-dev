@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+
+<title>Picpay Users Test</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+	crossorigin="anonymous"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+	crossorigin="anonymous"></script>
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+</script>
+<script src="user.js"></script>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<div class="container">
+
+		<!-- barra de pesquisa -->
+		<div class="input-group mb-3 mt-3">
+			<input type="text" class="form-control" id="searchInput"
+				placeholder="" aria-label="Recipient's username"
+				aria-describedby="basic-addon2">
+
+			<div class="input-group-append">
+				<select class="custom-select ml-3 mr-1" id="searchBySelect">
+					<option selected value="username">Usuário</option>
+					<option value="name">Nome</option>
+				</select>
+				<div class="input-group-append">
+					<button class="btn btn-outline-secondary" id="searchUserButton"
+						type="button">Pesquisar</button>
+
+				</div>
+			</div>
+		</div>
+
+		<!-- mensagem de erro -->
+		<div class="alert alert-dark" style="display: none" id="searchError"
+			role="alert">Nenhum Usuário Encontrado</div>
+		
+		<!-- indicador de carregando -->
+		<div style="height:16px; width:16px;">
+			<div class="loader" id="loadingIndicator" style="display: none"></div>
+		</div>
+		
+		<!-- tabela com o retorno da pesquisa -->
+		<table class="table table-striped table-hover table-sm "
+			id="foundUsers">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">Usuário</th>
+					<th scope="col">Nome</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+
+		<!-- paginacao -->
+		<nav class="navbar navbar-light">
+
+			<p class="mr-auto" id="paginaAtual"></p>
+
+			<ul class="pagination">
+
+
+				<li class="page-item disabled" id="prevPage"><a
+					class="page-link" href="#" tabindex="-1">Anterior</a></li>
+				<li class="page-item disabled" id="nextPage"><a
+					class="page-link" href="#">Próximo</a></li>
+			</ul>
+			
+			<span class="mr-auto"></span>
+			
+			<p class="" id="itensExibidos"></p>
+		</nav>
+	</div>
+
+
+
+
+
+</body>
+</html>
