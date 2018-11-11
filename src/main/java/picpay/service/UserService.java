@@ -20,22 +20,21 @@ import java.util.stream.IntStream;
 import javax.annotation.PostConstruct;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import picpay.model.User;
 
 @Service
 public class UserService {
+	@Value("${usersCsvPath}")
+	private String csvPath;
 	
-	private static UserService instance = null;
+	@Value("${priorityList1Path}")
+	private String priorityList1Path;
 	
-	public static UserService getInstance()
-	{
-		if (instance == null)
-			instance = new UserService();
-		
-		return instance;
-	}
+	@Value("${priorityList2Path}")
+	private String priorityList2Path;
 	
 	public UserService()
 	{	
@@ -46,10 +45,7 @@ public class UserService {
 	 {
 		 System.out.println("Inicializando servico");
 		 long startTime = System.nanoTime();   
-		 initialize(
-					"F:\\Downloads\\users.csv\\users.csv", 
-					"C:\\Users\\Romulo\\Documents\\workspace-spring-tool-suite-4-4.0.1.RELEASE\\picpay-csv\\lista_relevancia_1.txt",
-					"C:\\Users\\Romulo\\Documents\\workspace-spring-tool-suite-4-4.0.1.RELEASE\\picpay-csv\\lista_relevancia_2.txt");
+		 initialize();
 		 long estimatedTime = System.nanoTime() - startTime;
 		 System.out.printf("Tempo da inicialização %f\n", (double)estimatedTime / 1e+9);
 		 
@@ -62,7 +58,7 @@ public class UserService {
 		Collections.sort(users, comparator);
 	}
 	
-	public void initialize(String csvPath, String priorityList1Path, String priorityList2Path)
+	public void initialize()
 	{
 		//lista com os uuids priorizados
 		Map<UUID, Integer> priorityMap = new HashMap<>();
@@ -91,6 +87,7 @@ public class UserService {
 		if (users == null || users.isEmpty())
 		{
 			System.err.println("Arquivo csv de usuários não encontrado: " + csvPath);
+			System.exit(1);
 		}
 		
 		
