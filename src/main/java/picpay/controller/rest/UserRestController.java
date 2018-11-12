@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 import picpay.model.User;
 import picpay.service.UserService;
 
-
-@RestController
+//desabilitado
+//@RestController
 public class UserRestController {
 	
-	@Autowired
+	//@Autowired
 	private UserService userService;
 	
 	@GetMapping("/users")

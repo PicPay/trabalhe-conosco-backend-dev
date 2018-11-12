@@ -2,14 +2,18 @@ package picpay.model;
 
 import java.util.UUID;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
 
+
+@Document(indexName = "users", type = "user")
 public class User {
 	@Override
 	public String toString() {
 		return "User [uuid=" + uuid + ", login=" + login + ", name=" + name + ", priority=" + priority + "]";
 	}
 
+	@Id
 	private UUID uuid;
 	private String login;
 	private String name;
@@ -33,11 +37,11 @@ public class User {
 	public void setUuid(UUID uuid) {
 		this.uuid = uuid;
 	}
-	public String getUsername() {
+	public String getLogin() {
 		return login;
 	}
-	public void setUsername(String username) {
-		this.login = username;
+	public void setLogin(String login) {
+		this.login = login;
 	}
 	public String getName() {
 		return name;
@@ -46,7 +50,7 @@ public class User {
 		this.name = name;
 	}
 
-	@JsonIgnore
+	//@JsonIgnore
 	public int getPriority() {
 		return priority;
 	}

@@ -1,13 +1,5 @@
 package picpay.service;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -24,8 +16,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import picpay.model.User;
+import picpay.util.Util;
 
-@Service
+
+//@Service
 public class UserService {
 	@Value("${usersCsvPath}")
 	private String csvPath;
@@ -36,103 +30,12 @@ public class UserService {
 	@Value("${priorityList2Path}")
 	private String priorityList2Path;
 	
+	private Map<UUID, Integer> usersUUIDMap;
+	
+	private List<User> users;
+	
 	public UserService()
 	{	
-	}
-	
-	 @PostConstruct
-	 public void init()
-	 {
-		 System.out.println("Inicializando servico");
-		 long startTime = System.nanoTime();   
-		 initialize();
-		 long estimatedTime = System.nanoTime() - startTime;
-		 System.out.printf("Tempo da inicialização %f\n", (double)estimatedTime / 1e+9);
-		 
-	 }
-	
-	private void sortUsers()
-	{
-		Comparator<User> comparator = Comparator.comparing(u -> u.getPriority());
-		comparator = comparator.thenComparing(Comparator.comparing(u -> u.getUuid()));
-		Collections.sort(users, comparator);
-	}
-	
-	public void initialize()
-	{
-		//lista com os uuids priorizados
-		Map<UUID, Integer> priorityMap = new HashMap<>();
-		
-		System.out.println("Lendo lista de prioridades");
-		//preencher priorityMap com os uuids que serao priorizados na pesquisa
-		{
-			boolean success = readPriorityListToMap(priorityList1Path, 0, priorityMap);
-			if (!success)
-			{
-				System.err.println("Lista de prioridade 1 não encontrada: " + priorityList1Path);
-				System.exit(1);
-			}
-			
-			success = readPriorityListToMap(priorityList2Path, 1, priorityMap);
-			if (!success)
-			{
-				System.err.println("Lista de prioridade 1 não encontrada: " + priorityList1Path);
-				System.exit(1);
-			}
-		}
-		
-		System.out.println("Lendo csv de " + csvPath);
-		users = readUsersCsv(csvPath, priorityMap);
-		
-		if (users == null || users.isEmpty())
-		{
-			System.err.println("Arquivo csv de usuários não encontrado: " + csvPath);
-			System.exit(1);
-		}
-		
-		
-		System.out.println("Ordenando dados por prioridade e uuid");
-		
-		sortUsers();
-
-		//gera um mapa para acessar mais facilmente os usuarios pelo uuid
-		generateUUIDMap();
-	}
-
-	private boolean readPriorityListToMap(String priorityListPath, int priority, Map<UUID, Integer> priorityMap) {
-		List<UUID> priorityList = readPriorityList(priorityListPath);
-		if (priorityList == null)
-		{
-			return false;
-		}
-		priorityList.stream().forEach(uuid -> priorityMap.put(uuid, priority));
-		
-		return true;
-	}
-
-	private void generateUUIDMap() {
-		usersUUIDMap = IntStream.range(0, users.size())
-		        .boxed()
-		        .collect(Collectors.toMap(i ->  users.get(i).getUuid(), i -> i));
-	}
-	
-	public List<User> findAllByName(String name)
-	{
-		final String nameLower = name.toLowerCase();
-		return users.parallelStream().filter(u -> StringUtils.containsIgnoreCase(u.getName(), nameLower)).collect(Collectors.toList());
-	}
-	
-	public List<User> findAllByName(String name, UUID startUser, int limit, boolean parallel)
-	{
-		int offset = Math.max(0, findIndexByUUID(startUser));
-		
-		return findAllByName(name, offset, limit, parallel);
-	}
-	
-	public List<User> findAll(UUID startUser, int limit)
-	{
-		int offset = Math.max(0, findIndexByUUID(startUser));
-		return findAll(offset, limit);
 	}
 	
 	public List<User> findAll(int offset, int limit)
@@ -142,7 +45,18 @@ public class UserService {
 				limit(limit).
 				collect(Collectors.toList());
 	}
+
+	public List<User> findAll(UUID startUser, int limit)
+	{
+		int offset = Math.max(0, findIndexByUUID(startUser));
+		return findAll(offset, limit);
+	}
 	
+	public List<User> findAllByName(String name)
+	{
+		final String nameLower = name.toLowerCase();
+		return users.parallelStream().filter(u -> StringUtils.containsIgnoreCase(u.getName(), nameLower)).collect(Collectors.toList());
+	}
 	
 	public List<User> findAllByName(String name, int offset, int limit, boolean parallel)
 	{
@@ -163,20 +77,21 @@ public class UserService {
 					collect(Collectors.toList());
 	}
 	
-	public List<User> findAllByUsername(String username, UUID startUser, int limit, boolean parallel)
+	public List<User> findAllByName(String name, UUID startUser, int limit, boolean parallel)
 	{
 		int offset = Math.max(0, findIndexByUUID(startUser));
 		
-		return findAllByUsername(username, offset, limit, parallel);
+		return findAllByName(name, offset, limit, parallel);
 	}
 	
 	public List<User> findAllByUsername(String username)
 	{
 		final String usernameLower = username.toLowerCase();
 		return users.parallelStream()
-				.filter(u -> StringUtils.containsIgnoreCase(u.getUsername(), usernameLower))
+				.filter(u -> StringUtils.containsIgnoreCase(u.getLogin(), usernameLower))
 				.collect(Collectors.toList());
 	}
+	
 	
 	public List<User> findAllByUsername(String username, int offset, int limit, boolean parallel)
 	{
@@ -184,15 +99,32 @@ public class UserService {
 		if (parallel)
 		return users.parallelStream().
 				skip(offset).
-				filter(u -> StringUtils.containsIgnoreCase(u.getUsername(), usernameLower)).
+				filter(u -> StringUtils.containsIgnoreCase(u.getLogin(), usernameLower)).
 				limit(limit).
 				collect(Collectors.toList());
 		else
 			return users.stream().
 					skip(offset).
-					filter(u -> StringUtils.containsIgnoreCase(u.getUsername(), usernameLower)).
+					filter(u -> StringUtils.containsIgnoreCase(u.getLogin(), usernameLower)).
 					limit(limit).
 					collect(Collectors.toList());
+	}
+	
+	public List<User> findAllByUsername(String username, UUID startUser, int limit, boolean parallel)
+	{
+		int offset = Math.max(0, findIndexByUUID(startUser));
+		
+		return findAllByUsername(username, offset, limit, parallel);
+	}
+	
+	public User findByUUID(UUID uuid)
+	{
+		Integer index = usersUUIDMap.get(uuid);
+		
+		if (index == null || index < 0 || index >= users.size())
+			return null;
+		
+		return users.get(index);
 	}
 	
 	public int findIndexByUUID(UUID uuid)
@@ -208,100 +140,68 @@ public class UserService {
 		return index.intValue();
 	}
 	
-	public User findByUUID(UUID uuid)
-	{
-		Integer index = usersUUIDMap.get(uuid);
-		
-		if (index == null || index < 0 || index >= users.size())
-			return null;
-		
-		return users.get(index);
+	private void generateUUIDMap() {
+		usersUUIDMap = IntStream.range(0, users.size())
+		        .boxed()
+		        .collect(Collectors.toMap(i ->  users.get(i).getUuid(), i -> i));
 	}
 	
-	private static List<User> readUsersCsv(String path, Map<UUID, Integer> priorityMap)
+	@PostConstruct
+	 public void init()
+	 {
+		 System.out.println("Inicializando servico");
+		 long startTime = System.nanoTime();   
+		 initialize();
+		 long estimatedTime = System.nanoTime() - startTime;
+		 System.out.printf("Tempo da inicialização %f\n", (double)estimatedTime / 1e+9);
+		 
+	 }
+	
+	public void initialize()
 	{
-		List<User> users = new ArrayList<>();
-		try (BufferedReader inputCsv = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF-8"), 1000000))
+		//lista com os uuids priorizados
+		Map<UUID, Integer> priorityMap = new HashMap<>();
+		
+		System.out.println("Lendo lista de prioridades");
+		//preencher priorityMap com os uuids que serao priorizados na pesquisa
 		{
-
-			boolean insideString = false;
-			String line;
-			boolean stringSep, separator;
-			int commaPositions[] = new int[2];
-			int commaPosition = 0;
-			while (true)
+			boolean success = Util.readPriorityListToMap(priorityList1Path, 0, priorityMap);
+			if (!success)
 			{
-				line = inputCsv.readLine();
-				commaPosition = 0;
-				
-				if (line == null)
-					break;
-				
-				for (int i = 0; i < line.length(); i++) {
-					int c = line.codePointAt(i);
-					
-					stringSep = c == '\"';
-					
-					if (stringSep)
-					{
-						//finaliza a string caso encontre o segundo " ou come�a uma nova
-						insideString = !insideString;
-						continue;
-					}
-					
-					separator = c == ',';
-					
-					if (separator)
-					{
-						commaPositions[commaPosition++] = i;
-						
-						//j� encontrei as duas , que eu precisava
-						if (commaPosition >= 2)
-							break;
-					}				
-				}
-				
-				
-				User user = new User();
-				user.setUuid(UUID.fromString(line.substring(0, commaPositions[0]).replace("\n\"", "")));
-				user.setName(line.substring(commaPositions[0] + 1, commaPositions[1]).replace("\n\"", ""));
-				user.setUsername(line.substring(commaPositions[1] + 1).replace("\n\"", ""));
-				
-				Integer priority = priorityMap.get(user.getUuid());
-				user.setPriority(priority == null ? 10 : priority.intValue());
-
-				users.add(user);
+				System.err.println("Lista de prioridade 1 não encontrada: " + priorityList1Path);
+				System.exit(1);
 			}
 			
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			success = Util.readPriorityListToMap(priorityList2Path, 1, priorityMap);
+			if (!success)
+			{
+				System.err.println("Lista de prioridade 1 não encontrada: " + priorityList1Path);
+				System.exit(1);
+			}
 		}
 		
-		return users;
+		System.out.println("Lendo csv de " + csvPath);
+		users = Util.readUsersCsv(csvPath, priorityMap);
+		
+		if (users == null || users.isEmpty())
+		{
+			System.err.println("Arquivo csv de usuários não encontrado: " + csvPath);
+			System.exit(1);
+		}
+		
+		
+		System.out.println("Ordenando dados por prioridade e uuid");
+		
+		sortUsers();
+
+		//gera um mapa para acessar mais facilmente os usuarios pelo uuid
+		generateUUIDMap();
 	}
-	
-	private static List<UUID> readPriorityList(String path)
+	private void sortUsers()
 	{
-		File file = new File(path);
-		
-		try {
-			List<String> lines = Files.readAllLines(file.toPath());
-			
-			return lines.parallelStream().map(e -> UUID.fromString(e)).collect(Collectors.toList());
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-				
-		return null;
+		Comparator<User> comparator = Comparator.comparing(u -> u.getPriority());
+		comparator = comparator.thenComparing(Comparator.comparing(u -> u.getUuid()));
+		Collections.sort(users, comparator);
 	}
-	
-	private Map<UUID, Integer> usersUUIDMap;
-	private List<User> users;
 
 }
