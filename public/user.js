@@ -1,17 +1,13 @@
+//resultado da pesquisa
 users = null;
-nextUuid = '';
-prevUuids = [];
-paging = 15;
+
+//tamanho da paginacao
+pageSize = 15;
 
 //desabilita os botoes, esconde tela de erro
 function beforeStartSearch()
 {
-	$('#searchInput').attr("disabled", "disabled");
-	$('#searchUserButton').attr("disabled", "disabled");
-	
-	$('#nextPage').attr("disabled", "disabled");
-	$('#prevPage').attr("disabled", "disabled");
-	
+	$('.userSearchControl').attr("disabled", "disabled");
 	
 	$('#loadingIndicator').show();
 	$('#searchError').hide();
@@ -21,11 +17,7 @@ function beforeStartSearch()
 //habilita botoes
 function afterSearchAction()
 {
-	$('#searchInput').removeAttr("disabled");
-	$('#searchUserButton').removeAttr("disabled");
-	
-	$('#nextPage').removeAttr("disabled");
-	$('#prevPage').removeAttr("disabled");
+	$('.userSearchControl').removeAttr("disabled");
 	
 	$('#loadingIndicator').hide();
 }
@@ -37,10 +29,10 @@ function removeAllUserTableRows()
 
 function fillUserTable(data)
 {
-	for (i = 0; i < Math.min(paging, data.length); i++)
+	for (i = 0; i < data.content.length; i++)
 	{
 		$("#foundUsers tbody").append(
-				"<tr><td>"+ data[i].username +"</td><td>"+ data[i].name +"</td></tr>"
+				"<tr><td>"+ data.content[i].login +"</td><td>"+ data.content[i].name +"</td></tr>"
 		);
 	}
 
@@ -48,38 +40,50 @@ function fillUserTable(data)
 
 function handleReceivedData(data)
 {
-	nextUuid = '';
 	users = data;
 
 	removeAllUserTableRows();
 	fillUserTable(data);
 
-	//exibe mensagem de erro
-	if (data.length > 0)
+	//exibe mensagem de erro caso nao retornou nada
+	if (!data.empty)
 		$("#searchError").hide(0);
 	else
 		$("#searchError").show(500);
 
-	//desabilita/habilita botao anterior
-	if (prevUuids.length > 0)
-		$("#prevPage").removeClass("disabled");
-	else
-		$("#prevPage").addClass("disabled");
-
-	//desabilita/habilita botao proximo
-	if (data.length > 15)
+	//desabilita/habilita botao anterior e primeira pagina
+	if (!data.first)
 	{
-		nextUuid = data[15].uuid;
-		$("#nextPage").removeClass("disabled");
+		$("#prevPage").removeClass("disabled");
+		
+		$("#firstPage").removeClass("disabled");
 	}
 	else
-		$("#nextPage").addClass("disabled");
-	
-	if (data.length > 0)
 	{
-		$("#paginaAtual").text("Página " + (prevUuids.length + 1));
-		firstIndex = ((prevUuids.length + 1) * paging);
-		lastIndex = firstIndex + Math.min(paging, data.length);
+		$("#prevPage").addClass("disabled");
+		
+		$("#firstPage").addClass("disabled");
+	}
+
+	//desabilita/habilita botao proximo e ultima pagina
+	if (!data.last)
+	{
+		$("#nextPage").removeClass("disabled");
+		
+		$("#lastPage").removeClass("disabled");
+	}
+	else
+	{
+		$("#nextPage").addClass("disabled");
+		
+		$("#lastPage").addClass("disabled");
+	}
+	
+	if (!data.empty)
+	{
+		$("#paginaAtual").text("Página " + (data.pageable.pageNumber + 1) + " de " + data.totalPages);
+		firstIndex = data.pageable.offset + 1;
+		lastIndex = firstIndex + data.pageable.pageSize;
 		$("#itensExibidos").text("" + firstIndex + "-" + lastIndex)
 	}
 	else
@@ -93,21 +97,18 @@ function handleReceivedData(data)
 	afterSearchAction();
 }
 
+function getSearchURL(page)
+{
+	return "/users?size=" + pageSize + "&" +  $("#searchBySelect").val() + "=" + encodeURIComponent($("#searchInput").val());
+}
 
 
 $(document).ready(function() {
 
+	//se apertou enter
 	$('#searchInput').on('keypress', function (e) {
 		if(e.which === 13){
 			$("#searchUserButton").click();
-			//Disable textbox to prevent multiple submit
-					
-
-
-			//Do Stuff, submit, etc..
-
-			//Enable the textbox again if needed.
-			//$(this).removeAttr("disabled");
 		}
 	});
 
@@ -115,13 +116,8 @@ $(document).ready(function() {
 			{
 		beforeStartSearch();
 		$.ajax({
-			url: "/users?paging=" + (paging + 1) + "&" +  $("#searchBySelect").val() + "=" + $("#searchInput").val()
+			url: getSearchURL(0)
 		}).then(function(data) {
-
-			nextUuid = '';
-			firstUuid = '';
-			prevUuids = [];
-
 			handleReceivedData(data);
 
 		});
@@ -130,18 +126,13 @@ $(document).ready(function() {
 
 	$("#nextPage").click( function()
 			{
-		if (!users || nextUuid.length <= 0)
+		if (!users || users.last)
 			return;
 		
 		beforeStartSearch();
 
-		//adicionar o primeiro da lista atual em uma pilha de uuids
-		//essa lista é utilizada para voltar a lista
-		if (users && users.length > 0)
-			prevUuids.push(users[0].uuid);
-
 		$.ajax({
-			url: "/users?paging=" + (paging + 1) + "&" +  $("#searchBySelect").val() + "=" + $("#searchInput").val() + "&startUUID=" + nextUuid
+			url: getSearchURL(users.pageable.pageNumber + 1)
 		}).then(function(data) {
 			handleReceivedData(data);
 		})
@@ -151,17 +142,45 @@ $(document).ready(function() {
 	$("#prevPage").click( function()
 			{
 		//já voltou tudo que podia
-		if (prevUuids.length <= 0)
+		if (!users || users.first)
+			return;
+		
+		
+		beforeStartSearch();
+
+		$.ajax({
+			url: getSearchURL(users.pageable.pageNumber - 1)
+		}).then(function(data) {
+			handleReceivedData(data);
+		})
+			});
+	
+	$("#firstPage").click( function()
+			{
+		if (!users || users.first)
+			return;
+		
+		
+		beforeStartSearch();
+
+		$.ajax({
+			url: getSearchURL(0)
+		}).then(function(data) {
+			handleReceivedData(data);
+		})
+			});
+	
+	
+	$("#lastPage").click( function()
+			{
+		if (!users || users.last)
 			return;
 		
 		beforeStartSearch();
 
 		$.ajax({
-			url: "/users?paging=" + (paging + 1) + "&" +  $("#searchBySelect").val() + "=" + $("#searchInput").val() + "&startUUID=" + prevUuids[prevUuids.length - 1]
+			url: getSearchURL(users.totalPages - 1)
 		}).then(function(data) {
-			//remover da lista o ultimo elemento pois voltou com sucesso
-			prevUuids.pop();
-
 			handleReceivedData(data);
 		})
 			});

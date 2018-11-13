@@ -1,26 +1,30 @@
 package picpay.service;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
 import javax.annotation.PostConstruct;
 
-import org.apache.commons.lang3.StringUtils;
+import org.elasticsearch.client.Client;
+import org.elasticsearch.client.IndicesAdminClient;
+import org.elasticsearch.common.settings.Settings;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import picpay.model.User;
+import picpay.repository.UserRepository;
 import picpay.util.Util;
 
-
-//@Service
+@Service
 public class UserService {
+	private final UserRepository userRepository;
+	
 	@Value("${usersCsvPath}")
 	private String csvPath;
 	
@@ -30,178 +34,167 @@ public class UserService {
 	@Value("${priorityList2Path}")
 	private String priorityList2Path;
 	
-	private Map<UUID, Integer> usersUUIDMap;
 	
-	private List<User> users;
+	@Autowired
+	private ApplicationContext context;
 	
-	public UserService()
-	{	
-	}
-	
-	public List<User> findAll(int offset, int limit)
-	{
-		return users.stream().
-				skip(offset).
-				limit(limit).
-				collect(Collectors.toList());
-	}
-
-	public List<User> findAll(UUID startUser, int limit)
-	{
-		int offset = Math.max(0, findIndexByUUID(startUser));
-		return findAll(offset, limit);
-	}
-	
-	public List<User> findAllByName(String name)
-	{
-		final String nameLower = name.toLowerCase();
-		return users.parallelStream().filter(u -> StringUtils.containsIgnoreCase(u.getName(), nameLower)).collect(Collectors.toList());
-	}
-	
-	public List<User> findAllByName(String name, int offset, int limit, boolean parallel)
-	{
-		//
-		final String nameLower = name.toLowerCase();
-		
-		if (parallel)
-		return users.parallelStream().
-				skip(offset).
-				filter(u -> StringUtils.containsIgnoreCase(u.getName(), nameLower)).
-				limit(limit).
-				collect(Collectors.toList());
-		else
-			return users.stream().
-					skip(offset).
-					filter(u -> StringUtils.containsIgnoreCase(u.getName(), nameLower)).
-					limit(limit).
-					collect(Collectors.toList());
-	}
-	
-	public List<User> findAllByName(String name, UUID startUser, int limit, boolean parallel)
-	{
-		int offset = Math.max(0, findIndexByUUID(startUser));
-		
-		return findAllByName(name, offset, limit, parallel);
-	}
-	
-	public List<User> findAllByUsername(String username)
-	{
-		final String usernameLower = username.toLowerCase();
-		return users.parallelStream()
-				.filter(u -> StringUtils.containsIgnoreCase(u.getLogin(), usernameLower))
-				.collect(Collectors.toList());
-	}
-	
-	
-	public List<User> findAllByUsername(String username, int offset, int limit, boolean parallel)
-	{
-		final String usernameLower = username.toLowerCase();
-		if (parallel)
-		return users.parallelStream().
-				skip(offset).
-				filter(u -> StringUtils.containsIgnoreCase(u.getLogin(), usernameLower)).
-				limit(limit).
-				collect(Collectors.toList());
-		else
-			return users.stream().
-					skip(offset).
-					filter(u -> StringUtils.containsIgnoreCase(u.getLogin(), usernameLower)).
-					limit(limit).
-					collect(Collectors.toList());
-	}
-	
-	public List<User> findAllByUsername(String username, UUID startUser, int limit, boolean parallel)
-	{
-		int offset = Math.max(0, findIndexByUUID(startUser));
-		
-		return findAllByUsername(username, offset, limit, parallel);
-	}
-	
-	public User findByUUID(UUID uuid)
-	{
-		Integer index = usersUUIDMap.get(uuid);
-		
-		if (index == null || index < 0 || index >= users.size())
-			return null;
-		
-		return users.get(index);
-	}
-	
-	public int findIndexByUUID(UUID uuid)
-	{
-		if (uuid == null)
-			return -1;
-		
-		Integer index = usersUUIDMap.get(uuid);
-		
-		if (index == null)
-			return -1;
-		
-		return index.intValue();
-	}
-	
-	private void generateUUIDMap() {
-		usersUUIDMap = IntStream.range(0, users.size())
-		        .boxed()
-		        .collect(Collectors.toMap(i ->  users.get(i).getUuid(), i -> i));
-	}
-	
-	@PostConstruct
+	 @PostConstruct
 	 public void init()
 	 {
-		 System.out.println("Inicializando servico");
-		 long startTime = System.nanoTime();   
-		 initialize();
-		 long estimatedTime = System.nanoTime() - startTime;
-		 System.out.printf("Tempo da inicialização %f\n", (double)estimatedTime / 1e+9);
 		 
-	 }
-	
-	public void initialize()
-	{
-		//lista com os uuids priorizados
-		Map<UUID, Integer> priorityMap = new HashMap<>();
-		
-		System.out.println("Lendo lista de prioridades");
-		//preencher priorityMap com os uuids que serao priorizados na pesquisa
-		{
-			boolean success = Util.readPriorityListToMap(priorityList1Path, 0, priorityMap);
-			if (!success)
+		 long startTime = System.nanoTime();   
+		 System.out.println("Inicializando UserServiceElastic");
+		 //dados já foram populados
+		 if (count() > 0)
+			 return;
+		 
+		 
+			//lista com os uuids priorizados
+			Map<UUID, Integer> priorityMap = new HashMap<>();
+			
+			
 			{
-				System.err.println("Lista de prioridade 1 não encontrada: " + priorityList1Path);
+				long t1 = System.nanoTime();   
+				System.out.println("Lendo lista de prioridades");
+				
+				boolean success = Util.readPriorityListToMap(priorityList1Path, 0, priorityMap);
+				if (!success)
+				{
+					System.err.println("Lista de prioridade 1 não encontrada: " + priorityList1Path);
+					System.exit(1);
+				}
+				
+				success = Util.readPriorityListToMap(priorityList2Path, 1, priorityMap);
+				if (!success)
+				{
+					System.err.println("Lista de prioridade 1 não encontrada: " + priorityList1Path);
+					System.exit(1);
+				}
+				
+				System.out.printf("Leu lista de prioridades em %f s\n", (double)(System.nanoTime() - t1) / 1e+9);
+			}
+			
+			System.out.println("Lendo csv de " + csvPath);
+			long t1 = System.nanoTime();   
+			final List<User> users = Util.readUsersCsv(csvPath, priorityMap);
+			
+			
+			System.out.printf("Leu csv em %f s\n", (double)(System.nanoTime() - t1) / 1e+9);
+
+			if (users == null || users.isEmpty())
+			{
+				System.err.println("Arquivo csv de usuários não encontrado: " + csvPath);
 				System.exit(1);
 			}
 			
-			success = Util.readPriorityListToMap(priorityList2Path, 1, priorityMap);
-			if (!success)
+			//adicionar tudo no negocio
 			{
-				System.err.println("Lista de prioridade 1 não encontrada: " + priorityList1Path);
-				System.exit(1);
-			}
-		}
-		
-		System.out.println("Lendo csv de " + csvPath);
-		users = Util.readUsersCsv(csvPath, priorityMap);
-		
-		if (users == null || users.isEmpty())
-		{
-			System.err.println("Arquivo csv de usuários não encontrado: " + csvPath);
-			System.exit(1);
-		}
-		
-		
-		System.out.println("Ordenando dados por prioridade e uuid");
-		
-		sortUsers();
+				Client clientElasticSearch = context.getBean(Client.class);
+				IndicesAdminClient indiceAdmin = clientElasticSearch.admin().indices();
+				
+				//muda as configuracoes para ficar mais rapido
+				indiceAdmin.prepareUpdateSettings("users")   
+		        .setSettings(Settings.builder()                     
+		                .put("index.number_of_replicas", 0)
+		                .put("index.refresh_interval", -1)
+		        )
+		        .get();
+				
+				System.out.println("Salvando lista de usuários no elasticsearch ");
+				t1 = System.nanoTime();   
+				final int batchSize = users.size() / 100;
+				System.out.println("batchSize: " + batchSize);
+				
+				//ExecutorService executor = Executors.newFixedThreadPool(4);
+				
 
-		//gera um mapa para acessar mais facilmente os usuarios pelo uuid
-		generateUUIDMap();
-	}
-	private void sortUsers()
+				
+				final int size = (int)Math.ceil(users.size() / (double)batchSize);
+				for (int i = 0; i < size; i++)
+				{
+					
+					final int fromIndex = i * batchSize;
+					final int toIndex = Math.min(fromIndex + batchSize, users.size());
+					
+					final int iCopy = i;
+//					executor.execute(() -> {
+						long t = System.nanoTime();   
+						System.out.println("Salvando " + iCopy + " de " + size);
+						userRepository.saveAll(users.subList(fromIndex, toIndex));
+						
+						double timeSpend = (double)(System.nanoTime() - t) / 1e+9;
+						System.out.printf("Salvou %d de %d em %f s tempo por usuário: \n", 
+								iCopy, size, timeSpend, timeSpend / batchSize);
+//					});
+					
+					if (toIndex >= users.size())
+						break;
+
+				}
+				
+				//executor.shutdown();
+				
+//				try {
+//					executor.wait();
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//					System.exit(1);
+//				}
+//				
+				
+				//volta as configuracoes
+				indiceAdmin.prepareUpdateSettings("users")   
+		        .setSettings(Settings.builder()                     
+		                .put("index.number_of_replicas", 1)
+		                .put("index.refresh_interval", "15s")
+		        )
+		        .get();
+				
+				
+				System.out.printf("Usuários salvos em %f s\n", (double)(System.nanoTime() - t1) / 1e+9);
+			}
+			 long estimatedTime = System.nanoTime() - startTime;
+			 System.out.printf("Tempo da inicialização %f\n", (double)estimatedTime / 1e+9);
+	 }
+	
+	@Autowired
+	public UserService(UserRepository userRepository)
 	{
-		Comparator<User> comparator = Comparator.comparing(u -> u.getPriority());
-		comparator = comparator.thenComparing(Comparator.comparing(u -> u.getUuid()));
-		Collections.sort(users, comparator);
+		this.userRepository = userRepository;
 	}
+	
+    public User save(User user) {
+        return userRepository.save(user);
+    }
+    
+    public Iterable<User> saveAll(Iterable<User> users) {
+        return userRepository.saveAll(users);
+    }
+    
+    public Optional<User> findOne(UUID uuid) {
+        return userRepository.findById(uuid);
+    }
+    
+    public Page<User> findAllByLogin(String login, Pageable pageable)
+    {
+    	 return userRepository.findByLoginLikeOrderByPriorityAsc(login, pageable);
+    }
+    
+    public Page<User> findAllByName(String name, Pageable pageable)
+    {
+    	 return userRepository.findByNameLikeOrderByPriorityAsc(name, pageable);
+    }
+    
+    
+    public Page<User> findAll(Pageable pageable)
+    {
+    	 return userRepository.findAll(pageable);
+    }
+    
+    public long count() {
+        return userRepository.count();
+    }
+
 
 }

@@ -20,10 +20,6 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 @EnableElasticsearchRepositories(basePackages = "com.baeldung.spring.data.es.repository")
 @ComponentScan(basePackages = { "com.baeldung.spring.data.es.service" })
 public class Config {
-
-	@Value("${elasticsearch.home:F:/elasticsearch-6.4.3}")
-	private String elasticsearchHome;
-
 	@Value("${elasticsearch.cluster.name:elasticsearch}")
 	private String clusterName;
 
@@ -35,7 +31,6 @@ public class Config {
 			
 			final Settings elasticsearchSettings = Settings.builder()
 					.put("client.transport.sniff", true)
-					.put("path.home", elasticsearchHome)
 					.put("cluster.name", clusterName)
 					//.put("index.refresh_interval", 30)
 					.build();
