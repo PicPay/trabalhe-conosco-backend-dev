@@ -92,10 +92,6 @@ function handleReceivedData(data)
 		$("#paginaAtual").text("");
 		$("#itensExibidos").text("");
 	}
-
-
-	//habilita novamente os botoes de pesquisa
-	afterSearchAction();
 }
 
 function getSearchURL(page)
@@ -125,7 +121,7 @@ $(document).ready(function() {
 			success : function(data, textStatus, request) {
 				console.log("success: " + request.getResponseHeader('authorization'));
 				authToken = request.getResponseHeader('authorization');
-				
+
 				$("#loginForm").hide(100);
 			},
 			error: function(xhr, resp, text) {
@@ -154,9 +150,17 @@ $(document).ready(function() {
 		}).then(function(data) {
 			handleReceivedData(data);
 
-		});
+		},
+		function(jqXHR, textStatus) {
+			console.log(jqXHR);
+			alert("Erro, Favor fazer login");
+		})
+		.always(function() {
+			afterSearchAction();
+		})
+			}
+	);
 
-			});
 
 	$("#nextPage").click( function()
 			{
@@ -173,9 +177,16 @@ $(document).ready(function() {
 
 		}).then(function(data) {
 			handleReceivedData(data);
+		},
+		function(jqXHR, textStatus) {
+			alert("Erro, Favor fazer login");
+		}
+		).always(function() {
+			afterSearchAction();
 		})
 
-			});
+			}
+	);
 
 	$("#prevPage").click( function()
 			{
@@ -193,6 +204,11 @@ $(document).ready(function() {
 			}
 		}).then(function(data) {
 			handleReceivedData(data);
+		}, function(jqXHR, textStatus)
+		{
+			alert("Erro, Favor fazer login");
+		}).always(function() {
+			afterSearchAction();
 		})
 			});
 
@@ -211,6 +227,11 @@ $(document).ready(function() {
 			}
 		}).then(function(data) {
 			handleReceivedData(data);
+		}, function(jqXHR, textStatus)
+		{
+			alert("Erro, Favor fazer login");
+		}).always(function() {
+			afterSearchAction();
 		})
 			});
 
@@ -229,6 +250,11 @@ $(document).ready(function() {
 			}
 		}).then(function(data) {
 			handleReceivedData(data);
+		}, function(jqXHR, textStatus)
+		{
+			alert("Erro, Favor fazer login");
+		}).always(function() {
+			afterSearchAction();
 		})
 			});
 });
