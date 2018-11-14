@@ -22,19 +22,35 @@
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+	
 </script>
-<script src="user.js"></script>
+<script src="js/user.js"></script>
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 	<div class="container">
+		<form class="form-inline" id="loginForm">
+			<div class="form-group">
+				<label for="usernameInput" class="mb-2 mr-sm-2 mb-sm-0">Usuário</label> 
+				<input type="text"
+					class="form-control mb-2 mr-sm-2 mb-sm-0" name="username" id="usernameInput">
+			</div>
+			<div class="form-group">
+				<label for="passwordInput" class="mb-2 mr-sm-2 mb-sm-0">Senha</label> 
+				<input
+					type="password" name="password" class="form-control mb-2 mr-sm-2 mb-sm-0" id="passwordInput"
+					>
+			</div>
+			<button type="button" id="loginButton" class="btn btn-primary">Login</button>
+		</form>
+
 
 		<!-- barra de pesquisa -->
 		<div class="input-group mb-3 mt-3">
-			<input type="text" class="form-control userSearchControl" id="searchInput"
-				placeholder="" aria-label="Recipient's username"
+			<input type="text" class="form-control userSearchControl"
+				id="searchInput" placeholder="" aria-label="Recipient's username"
 				aria-describedby="basic-addon2">
 
 			<div class="input-group-append">

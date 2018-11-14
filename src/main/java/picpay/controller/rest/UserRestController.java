@@ -18,7 +18,7 @@ public class UserRestController {
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping("/users")
+	@GetMapping("/api/users")
     public Page<User> users(
     		@RequestParam(value="name", required=false, defaultValue="") String name, 
     		 @RequestParam(value="username", required=false, defaultValue="") String username,
