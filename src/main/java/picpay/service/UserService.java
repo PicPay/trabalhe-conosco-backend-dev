@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.function.Consumer;
+
 import javax.annotation.PostConstruct;
 
 import org.elasticsearch.client.Client;
@@ -33,6 +35,9 @@ public class UserService {
 	
 	@Value("${priorityList2Path}")
 	private String priorityList2Path;
+	
+	@Value("${batchSize}")
+	private int batchSize;
 	
 	
 	@Autowired
@@ -74,86 +79,56 @@ public class UserService {
 				System.out.printf("Leu lista de prioridades em %f s\n", (double)(System.nanoTime() - t1) / 1e+9);
 			}
 			
+			Client clientElasticSearch = context.getBean(Client.class);
+			IndicesAdminClient indiceAdmin = clientElasticSearch.admin().indices();
+			
+			//muda as configuracoes para ficar mais rapido
+			indiceAdmin.prepareUpdateSettings("users")   
+	        .setSettings(Settings.builder()                     
+	                .put("index.number_of_replicas", 0)
+	                .put("index.refresh_interval", -1)
+	        )
+	        .get();
+			
 			System.out.println("Lendo csv de " + csvPath);
 			long t1 = System.nanoTime();   
-			final List<User> users = Util.readUsersCsv(csvPath, priorityMap);
+			
+			
+			Util.readUsersCsvBatch(csvPath, priorityMap, batchSize, new Consumer<List<User>>() {
+				private int batchCount = 0;
+				private int countSaved = 0;
+				
+				
+				@Override
+				public void accept(List<User> users) {
+					// TODO Auto-generated method stub
+					long t = System.nanoTime();   
+					System.out.println("Salvando batch " + batchCount);
+					userRepository.saveAll(users);
+					
+					double timeSpend = (double)(System.nanoTime() - t) / 1e+9;
+					System.out.printf("Salvou %d em %f s tempo por usuário: \n", 
+							users.size(), timeSpend, timeSpend / (double)users.size());
+				
+					countSaved += users.size();
+					batchCount++;
+					
+					System.out.println("Usuários lidos: " + countSaved);
+				}
+			});
+
+			//volta as configuracoes
+			indiceAdmin.prepareUpdateSettings("users")   
+	        .setSettings(Settings.builder()                     
+	                .put("index.number_of_replicas", 1)
+	                .put("index.refresh_interval", "15s")
+	        )
+	        .get();
 			
 			
 			System.out.printf("Leu csv em %f s\n", (double)(System.nanoTime() - t1) / 1e+9);
 
-			if (users == null || users.isEmpty())
-			{
-				System.err.println("Arquivo csv de usuários não encontrado: " + csvPath);
-				System.exit(1);
-			}
-			
-			//adicionar tudo no negocio
-			{
-				Client clientElasticSearch = context.getBean(Client.class);
-				IndicesAdminClient indiceAdmin = clientElasticSearch.admin().indices();
-				
-				//muda as configuracoes para ficar mais rapido
-				indiceAdmin.prepareUpdateSettings("users")   
-		        .setSettings(Settings.builder()                     
-		                .put("index.number_of_replicas", 0)
-		                .put("index.refresh_interval", -1)
-		        )
-		        .get();
-				
-				System.out.println("Salvando lista de usuários no elasticsearch ");
-				t1 = System.nanoTime();   
-				final int batchSize = users.size() / 100;
-				System.out.println("batchSize: " + batchSize);
-				
-				//ExecutorService executor = Executors.newFixedThreadPool(4);
-				
 
-				
-				final int size = (int)Math.ceil(users.size() / (double)batchSize);
-				for (int i = 0; i < size; i++)
-				{
-					
-					final int fromIndex = i * batchSize;
-					final int toIndex = Math.min(fromIndex + batchSize, users.size());
-					
-					final int iCopy = i;
-//					executor.execute(() -> {
-						long t = System.nanoTime();   
-						System.out.println("Salvando " + iCopy + " de " + size);
-						userRepository.saveAll(users.subList(fromIndex, toIndex));
-						
-						double timeSpend = (double)(System.nanoTime() - t) / 1e+9;
-						System.out.printf("Salvou %d de %d em %f s tempo por usuário: \n", 
-								iCopy, size, timeSpend, timeSpend / batchSize);
-//					});
-					
-					if (toIndex >= users.size())
-						break;
-
-				}
-				
-				//executor.shutdown();
-				
-//				try {
-//					executor.wait();
-//				} catch (InterruptedException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//					System.exit(1);
-//				}
-//				
-				
-				//volta as configuracoes
-				indiceAdmin.prepareUpdateSettings("users")   
-		        .setSettings(Settings.builder()                     
-		                .put("index.number_of_replicas", 1)
-		                .put("index.refresh_interval", "15s")
-		        )
-		        .get();
-				
-				
-				System.out.printf("Usuários salvos em %f s\n", (double)(System.nanoTime() - t1) / 1e+9);
-			}
 			 long estimatedTime = System.nanoTime() - startTime;
 			 System.out.printf("Tempo da inicialização %f\n", (double)estimatedTime / 1e+9);
 	 }
@@ -178,12 +153,12 @@ public class UserService {
     
     public Page<User> findAllByLogin(String login, Pageable pageable)
     {
-    	 return userRepository.findByLoginLikeOrderByPriorityAsc(login, pageable);
+    	 return userRepository.findByLogin(login, pageable);
     }
     
     public Page<User> findAllByName(String name, Pageable pageable)
     {
-    	 return userRepository.findByNameLikeOrderByPriorityAsc(name, pageable);
+    	return userRepository.findByName(name, pageable);
     }
     
     

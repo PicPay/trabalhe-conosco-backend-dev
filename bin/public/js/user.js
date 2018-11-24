@@ -84,7 +84,7 @@ function handleReceivedData(data)
 	{
 		$("#paginaAtual").text("Página " + (data.pageable.pageNumber + 1) + " de " + data.totalPages);
 		firstIndex = data.pageable.offset + 1;
-		lastIndex = firstIndex + data.pageable.pageSize - 1;
+		lastIndex = firstIndex + data.pageable.pageSize;
 		$("#itensExibidos").text("" + firstIndex + "-" + lastIndex)
 	}
 	else
@@ -104,13 +104,6 @@ function getSearchURL(page)
 
 $(document).ready(function() {
 
-	$("#logoutButton").click(function(){
-		authToken = "";
-
-		$("#loginForm").show(100);
-		$("#logoutButton").hide(100);
-	});
-	
 	$("#loginButton").click(function(){
 
 		jsonInput = {};
@@ -130,7 +123,6 @@ $(document).ready(function() {
 				authToken = request.getResponseHeader('authorization');
 
 				$("#loginForm").hide(100);
-				$("#logoutButton").show(100);
 			},
 			error: function(xhr, resp, text) {
 				alert('Usuário ou senha inválido!');

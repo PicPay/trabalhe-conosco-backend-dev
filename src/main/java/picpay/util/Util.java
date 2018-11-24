@@ -14,6 +14,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import picpay.model.User;
+import java.util.function.Consumer;
 
 public class Util {
 	public static boolean readPriorityListToMap(String priorityListPath, int priority, Map<UUID, Integer> priorityMap) {
@@ -26,7 +27,88 @@ public class Util {
 		
 		return true;
 	}
+
 	
+	public static void readUsersCsvBatch(String path, Map<UUID, Integer> priorityMap, int batchSize, Consumer<List<User>> batchConsumer)
+	{
+		List<User> users = new ArrayList<>();
+		try (BufferedReader inputCsv = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF-8"), 1000000))
+		{
+
+			boolean insideString = false;
+			String line;
+			boolean stringSep, separator;
+			int commaPositions[] = new int[2];
+			int commaPosition = 0;
+			while (true)
+			{
+				line = inputCsv.readLine();
+				commaPosition = 0;
+				
+				if (line == null)
+					break;
+				
+				for (int i = 0; i < line.length(); i++) {
+					int c = line.codePointAt(i);
+					
+					stringSep = c == '\"';
+					
+					if (stringSep)
+					{
+						//finaliza a string caso encontre o segundo " ou come�a uma nova
+						insideString = !insideString;
+						continue;
+					}
+					
+					separator = c == ',';
+					
+					if (separator)
+					{
+						commaPositions[commaPosition++] = i;
+						
+						//j� encontrei as duas , que eu precisava
+						if (commaPosition >= 2)
+							break;
+					}				
+				}
+				
+				
+				User user = new User();
+				user.setUuid(UUID.fromString(line.substring(0, commaPositions[0]).replace("\n\"", "")));
+				user.setName(line.substring(commaPositions[0] + 1, commaPositions[1]).replace("\n\"", ""));
+				user.setLogin(line.substring(commaPositions[1] + 1).replace("\n\"", ""));
+				
+				Integer priority = priorityMap.get(user.getUuid());
+				user.setPriority(priority == null ? 10 : priority.intValue());
+
+				users.add(user);
+
+				//envia lista para ser consumida
+				if (users.size() >= batchSize)
+				{
+					batchConsumer.accept(users);
+					
+					users = new ArrayList<>();
+				}
+			}
+			
+			
+			//consumir o restante da lista
+			if (users.size() > 0)
+			{
+				batchConsumer.accept(users);
+				
+				users = new ArrayList<>();
+			}
+			
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}		
+	}
 
 	public static List<User> readUsersCsv(String path, Map<UUID, Integer> priorityMap)
 	{

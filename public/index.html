@@ -31,30 +31,32 @@
 
 <body>
 	<div class="container">
-		<form class="form-inline" id="loginForm">
-			<div class="form-group">
-				<label for="usernameInput" class="mb-2 mr-sm-2 mb-sm-0">Usuário</label> 
-				<input type="text"
-					class="form-control mb-2 mr-sm-2 mb-sm-0" name="username" id="usernameInput">
-			</div>
-			<div class="form-group">
-				<label for="passwordInput" class="mb-2 mr-sm-2 mb-sm-0">Senha</label> 
-				<input
-					type="password" name="password" class="form-control mb-2 mr-sm-2 mb-sm-0" id="passwordInput"
-					>
-			</div>
-			<button type="button" id="loginButton" class="btn btn-primary">Login</button>
-		</form>
+		<div style="background-color: rgb(245, 245, 2454)">
+			<nav class="navbar navbar-dark bg-dark">
+				<span class="navbar-brand mb-0 h1 mr-auto">Pesquisa de
+					Usuários Demo</span>
+
+				<form class="form-inline" id="loginForm">
+					<input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0"
+						placeholder="Usuário" name="username" id="usernameInput">
+					<input type="password" name="password" placeholder="Senha"
+						class="form-control mb-2 mr-sm-2 mb-sm-0" id="passwordInput">
+					<button type="button" id="loginButton" class="btn btn-light">Login</button>
+				</form>
 
 
-		<!-- barra de pesquisa -->
-		<div class="input-group mb-3 mt-3">
-			<input type="text" class="form-control userSearchControl"
-				id="searchInput" placeholder="" aria-label="Recipient's username"
-				aria-describedby="basic-addon2">
+				<button type="button" id="logoutButton" class="btn btn-light"
+					style="display: none">Logout</button>
+			</nav>
 
-			<div class="input-group-append">
-				<select class="custom-select ml-3 mr-1" id="searchBySelect">
+
+			<!-- barra de pesquisa -->
+			<div class="input-group mb-3 mt-3 mr-auto">
+				<input type="text" class="form-control userSearchControl"
+					id="searchInput" placeholder="Pesquisar por Nome ou Login do Usuário" aria-label="Recipient's username"
+					aria-describedby="basic-addon2"> 
+				<select
+					class="custom-select ml-3" id="searchBySelect">
 					<option selected value="username">Usuário</option>
 					<option value="name">Nome</option>
 				</select>
@@ -64,59 +66,56 @@
 
 				</div>
 			</div>
+
+			<!-- mensagem de erro -->
+			<div class="alert alert-dark" style="display: none" id="searchError"
+				role="alert">Nenhum Usuário Encontrado</div>
+
+			<!-- indicador de carregando -->
+			<div style="height: 16px; width: 16px;">
+				<div class="loader" id="loadingIndicator" style="display: none"></div>
+			</div>
+
+			<!-- tabela com o retorno da pesquisa -->
+			<table class="table table-striped table-hover table-sm "
+				id="foundUsers">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col">Usuário</th>
+						<th scope="col">Nome</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+
+			<!-- paginacao -->
+			<nav class="navbar navbar-dark">
+
+				<p class="mr-auto" id="paginaAtual"></p>
+
+				<ul class="pagination">
+
+					<li class="page-item disabled userSearchControl" id="firstPage">
+						<a class="page-link" href="#" tabindex="-1">Primeira</a>
+					</li>
+					<li class="page-item disabled userSearchControl" id="prevPage">
+						<a class="page-link" href="#" tabindex="-1">Anterior</a>
+					</li>
+					<li class="page-item disabled userSearchControl" id="nextPage">
+						<a class="page-link" href="#">Próximo</a>
+					</li>
+					<li class="page-item disabled userSearchControl" id="lastPage">
+						<a class="page-link" href="#" tabindex="-1">Última</a>
+					</li>
+				</ul>
+
+				<span class="mr-auto"></span>
+
+				<p class="" id="itensExibidos"></p>
+			</nav>
 		</div>
-
-		<!-- mensagem de erro -->
-		<div class="alert alert-dark" style="display: none" id="searchError"
-			role="alert">Nenhum Usuário Encontrado</div>
-
-		<!-- indicador de carregando -->
-		<div style="height: 16px; width: 16px;">
-			<div class="loader" id="loadingIndicator" style="display: none"></div>
-		</div>
-
-		<!-- tabela com o retorno da pesquisa -->
-		<table class="table table-striped table-hover table-sm "
-			id="foundUsers">
-			<thead class="thead-dark">
-				<tr>
-					<th scope="col">Usuário</th>
-					<th scope="col">Nome</th>
-				</tr>
-			</thead>
-			<tbody>
-			</tbody>
-		</table>
-
-		<!-- paginacao -->
-		<nav class="navbar navbar-dark">
-
-			<p class="mr-auto" id="paginaAtual"></p>
-
-			<ul class="pagination">
-
-				<li class="page-item disabled userSearchControl" id="firstPage">
-					<a class="page-link" href="#" tabindex="-1">Primeira</a>
-				</li>
-				<li class="page-item disabled userSearchControl" id="prevPage">
-					<a class="page-link" href="#" tabindex="-1">Anterior</a>
-				</li>
-				<li class="page-item disabled userSearchControl" id="nextPage">
-					<a class="page-link" href="#">Próximo</a>
-				</li>
-				<li class="page-item disabled userSearchControl" id="lastPage">
-					<a class="page-link" href="#" tabindex="-1">Última</a>
-				</li>
-			</ul>
-
-			<span class="mr-auto"></span>
-
-			<p class="" id="itensExibidos"></p>
-		</nav>
 	</div>
-
-
-
 
 
 </body>
