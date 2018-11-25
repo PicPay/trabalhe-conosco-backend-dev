@@ -31,7 +31,7 @@ public class UserRestController {
 		Page<User> users = null;
 
 		Sort sortByPriority = Sort.by(Order.asc("priority"));
-
+		
 		if (!username.isEmpty())
 			users =  userService.findAllByLogin(username, PageRequest.of(page, usersPerPage, sortByPriority));
 		else if (!name.isEmpty())
