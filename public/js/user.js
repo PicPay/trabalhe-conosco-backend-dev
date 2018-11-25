@@ -50,7 +50,10 @@ function handleReceivedData(data)
 	if (!data.empty)
 		$("#searchError").hide(0);
 	else
+	{
+		$("#searchError").text("Nenhum Usuário Encontrado.");
 		$("#searchError").show(500);
+	}
 
 	//desabilita/habilita botao anterior e primeira pagina
 	if (!data.first)
@@ -101,6 +104,22 @@ function getSearchURL(page)
 	"&page=" + page;
 }
 
+function handleRequestError(jqXHR)
+{
+	console.log(jqXHR);
+	
+	
+	if (jqXHR.status == 403)
+	{
+		$('#searchError').text("Consulta não autorizada. Favor faça login.");
+		$('#searchError').show(500);
+	}
+	else
+	{
+		$('#searchError').text("Erro na consulta.");
+		$('#searchError').show(500);
+	}
+}
 
 $(document).ready(function() {
 
@@ -160,8 +179,7 @@ $(document).ready(function() {
 
 		},
 		function(jqXHR, textStatus) {
-			console.log(jqXHR);
-			alert("Erro, Favor fazer login");
+			handleRequestError(jqXHR);
 		})
 		.always(function() {
 			afterSearchAction();
@@ -187,7 +205,7 @@ $(document).ready(function() {
 			handleReceivedData(data);
 		},
 		function(jqXHR, textStatus) {
-			alert("Erro, Favor fazer login");
+			handleRequestError(jqXHR);
 		}
 		).always(function() {
 			afterSearchAction();
@@ -214,7 +232,7 @@ $(document).ready(function() {
 			handleReceivedData(data);
 		}, function(jqXHR, textStatus)
 		{
-			alert("Erro, Favor fazer login");
+			handleRequestError(jqXHR);
 		}).always(function() {
 			afterSearchAction();
 		})
@@ -237,7 +255,7 @@ $(document).ready(function() {
 			handleReceivedData(data);
 		}, function(jqXHR, textStatus)
 		{
-			alert("Erro, Favor fazer login");
+			handleRequestError(jqXHR);
 		}).always(function() {
 			afterSearchAction();
 		})
@@ -260,7 +278,7 @@ $(document).ready(function() {
 			handleReceivedData(data);
 		}, function(jqXHR, textStatus)
 		{
-			alert("Erro, Favor fazer login");
+			handleRequestError(jqXHR);
 		}).always(function() {
 			afterSearchAction();
 		})
