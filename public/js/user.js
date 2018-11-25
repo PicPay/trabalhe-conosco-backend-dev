@@ -5,6 +5,9 @@ users = null;
 pageSize = 15;
 authToken = '';
 
+//limita o numero de paginas para evitar problemas com uma paginacao muito grande
+maxPages =  Math.floor(10000 / pageSize);
+
 //desabilita os botoes, esconde tela de erro
 function beforeStartSearch()
 {
@@ -85,7 +88,7 @@ function handleReceivedData(data)
 
 	if (!data.empty)
 	{
-		$("#paginaAtual").text("Página " + (data.pageable.pageNumber + 1) + " de " + data.totalPages);
+		$("#paginaAtual").text("Página " + (data.pageable.pageNumber + 1) + " de " + Math.min(data.totalPages, maxPages));
 		firstIndex = data.pageable.offset + 1;
 		lastIndex = firstIndex + data.pageable.pageSize - 1;
 		$("#itensExibidos").text("" + firstIndex + "-" + lastIndex)
@@ -128,6 +131,13 @@ $(document).ready(function() {
 
 		$("#loginForm").show(100);
 		$("#logoutButton").hide(100);
+	});
+	
+	//se apertou enter
+	$('#passwordInput').on('keypress', function (e) {
+		if(e.which === 13){
+			$("#loginButton").click();
+		}
 	});
 	
 	$("#loginButton").click(function(){
@@ -270,7 +280,7 @@ $(document).ready(function() {
 		beforeStartSearch();
 
 		$.ajax({
-			url: getSearchURL(users.totalPages - 1),
+			url: getSearchURL( Math.min(users.totalPages, maxPages) - 1),
 			beforeSend: function(request) {
 				request.setRequestHeader("authorization", authToken);
 			}

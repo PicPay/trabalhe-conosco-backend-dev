@@ -41,6 +41,11 @@ public class UserRestController {
 
 		long estimatedTime = System.nanoTime() - startTime;   
 		System.out.printf("Requisição processada em %f s\n", (double)estimatedTime / 1e+9);
+		
+		if (users != null)
+		{
+			//10000
+		}
 
 		return users;
 	}
