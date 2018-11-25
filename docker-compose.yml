@@ -1,38 +1,17 @@
 version: '2.2'
 services:
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.3
-    container_name: elasticsearch
+  userssearch:
     environment:
-      - cluster.name=docker-cluster
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - esdata1:/usr/share/elasticsearch/data
+      - ELASTICSEARCH_ADDRESS=elasticsearch
+    build:
+      context: ./
+      args:
+       - APP_JAR=./target/picpay-users-0.0.1-SNAPSHOT.jar
+       - USERS_CSV=./users.csv
     ports:
-      - 9200:9200
+     - 8082:8082
     networks:
-      - esnet
-  elasticsearch2:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.3
-    container_name: elasticsearch2
-    environment:
-      - cluster.name=docker-cluster
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-      - "discovery.zen.ping.unicast.hosts=elasticsearch"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - esdata2:/usr/share/elasticsearch/data
-    networks:
-      - esnet
+     - elastic_search_default
 
 volumes:
   esdata1:
@@ -41,4 +20,5 @@ volumes:
     driver: local
 
 networks:
-  esnet:
+  elastic_search_default:
+    external: true

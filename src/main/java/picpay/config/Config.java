@@ -10,18 +10,18 @@ import org.elasticsearch.common.transport.TransportAddress;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
-import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
-import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 
 @Configuration
-@EnableElasticsearchRepositories(basePackages = "com.baeldung.spring.data.es.repository")
-@ComponentScan(basePackages = { "com.baeldung.spring.data.es.service" })
 public class Config {
 	@Value("${elasticsearch.cluster.name:elasticsearch}")
 	private String clusterName;
+	
+	@Value("${elasticsearch.address}")
+	private String elasticearchAddress;
+	
+	@Value("${elasticsearch.port}")
+	private int elasticsearchPort;
 
 	@Bean
 	public Client client() {
@@ -30,13 +30,13 @@ public class Config {
 		try {
 			
 			final Settings elasticsearchSettings = Settings.builder()
-					.put("client.transport.sniff", true)
+					//.put("client.transport.sniff", true)
 					.put("cluster.name", clusterName)
 					//.put("index.refresh_interval", 30)
 					.build();
 			client = new PreBuiltTransportClient(elasticsearchSettings);
 
-			client.addTransportAddress(new TransportAddress(InetAddress.getByName("127.0.0.1"), 9300));
+			client.addTransportAddress(new TransportAddress(InetAddress.getByName(elasticearchAddress), elasticsearchPort));
 
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
