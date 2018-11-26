@@ -1,0 +1,24 @@
+server {
+  listen [::]:8002 default_server;
+  listen 8002 default_server;
+  charset utf-8;
+
+ location /static {
+    alias /var/www/picpay/static;
+ }
+
+ location / {
+
+    ## Some requests take more than n seconds.
+    proxy_read_timeout      100;
+    proxy_connect_timeout   100;
+    proxy_redirect          off;
+
+    proxy_set_header    Host                $http_host;
+    proxy_set_header    X-Real-IP           $remote_addr;
+    proxy_set_header    X-Forwarded-For     $proxy_add_x_forwarded_for;
+
+    proxy_pass http://elastic:8082;
+ }
+}
+

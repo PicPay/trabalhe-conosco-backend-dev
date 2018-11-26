@@ -1,0 +1,10 @@
+DB_NAME=picpay
+DB_USER=root
+DB_PASS=pwd
+DB_HOST=host
+DB_PORT=3306
+WS_INFO=elastic.robertomorati.com/api/v1/info/
+WS_SEARCH=elastic.robertomorati.com/api/v1/users/
+USERS_CSV=/users.csv
+LIST_RELEVANCIA=/lista_relevancia.csv
+LIMIT=50000

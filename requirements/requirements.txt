@@ -1,0 +1,13 @@
+django==1.11
+django-debug-toolbar
+djangorestframework
+markdown
+django-filter
+django-elasticsearch-dsl
+elasticsearch-dsl>=5.0,<6.0
+django-rest-swagger
+requests
+django_compressor
+PyMySQL
+mysqlclient
+tqdm
