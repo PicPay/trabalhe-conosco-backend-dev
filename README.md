@@ -25,14 +25,8 @@ mvn compile
 mvn package
 ```
 
-### 3- Suba o Docker do Elasticsearch
-```
-cd elastic_search
-docker-compose up
-```
+### 3- Suba o Docker do Projeto
 
-### 4- Suba o Docker do projeto:
-Abra outro terminal na pasta do projeto.
 ```
 docker-compose up
 ```
