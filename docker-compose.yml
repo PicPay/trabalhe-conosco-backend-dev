@@ -1,6 +1,27 @@
 version: '2.2'
 services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.5.1
+    container_name: elasticsearch
+    environment:
+      - http.host=0.0.0.0
+      - network.host=_local_
+      - transport.host=0.0.0.0
+      - xpack.security.enabled=false
+      - cluster.name=elasticsearch
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata1:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+      - 9300:9300
+
   userssearch:
+    depends_on:
+      - elasticsearch
     environment:
       - ELASTICSEARCH_ADDRESS=elasticsearch
     build:
@@ -10,15 +31,10 @@ services:
        - USERS_CSV=./users.csv
     ports:
      - 8082:8082
-    networks:
-     - elastic_search_default
+
 
 volumes:
   esdata1:
     driver: local
   esdata2:
     driver: local
-
-networks:
-  elastic_search_default:
-    external: true
