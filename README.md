@@ -1,35 +1,82 @@
-![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
-
 # Teste Backend
 
-O desafio é criar uma API REST que busca usuarios pelo nome e username a partir de uma palavra chave. Faça o download do arquivo [users.csv.gz](https://s3.amazonaws.com/careers-picpay/users.csv.gz) que contém o banco de dados que deve ser usado na busca. Ele contém os IDs, nomes e usernames dos usuários.
+## Descrição
+Projeto foi implementado em java usando spring boot e elasticsearch.
 
-###### Exemplo
-| ID                                   | Nome              | Username             |
-|--------------------------------------|-------------------|----------------------|
-| 065d8403-8a8f-484d-b602-9138ff7dedcf | Wadson marcia     | wadson.marcia        |
-| 5761be9e-3e27-4be8-87bc-5455db08408  | Kylton Saura      | kylton.saura         |
-| ef735189-105d-4784-8e2d-c8abb07e72d3 | Edmundo Cassemiro | edmundo.cassemiro    |
-| aaa40f4e-da26-42ee-b707-cb81e00610d5 | Raimundira M      | raimundiram          |
-| 51ba0961-8d5b-47be-bcb4-54633a567a99 | Pricila Kilder    | pricilakilderitaliani|
+## Dependencias
+- Docker
+- Maven
+- JDK 1.8
 
+## Como Implantar
 
+### 1- Preparações iniciais.
+Clone o projeto.
+```
+git clone https://github.com/rmradaelli/trabalhe-conosco-backend-dev.git
+```
+Baixe e descompacte o arquivo [users.csv.gz](https://s3.amazonaws.com/careers-picpay/users.csv.gz) para a pasta raiz do projeto.
+Cerifique-se que exista um arquivo users.csv na raiz do projeto, pois ele será usado pelo docker.
 
-Também são fornecidas duas listas de usuários que devem ser utilizadas para priorizar os resultados da busca. A lista 1 tem mais prioridade que a lista 2. Ou seja, se dois usuarios casam com os criterios de busca, aquele que está na lista 1 deverá ser exibido primeiro em relação àquele que está na lista 2. Os que não estão em nenhuma das listas são exibidos em seguida.
+### 2- Compile o projeto.
+Abra um terminal na pasta do projeto e digite.
+```
+mvn compile
+mvn package
+```
 
-As listas podem ser encontradas na raiz deste repositório ([lista_relevancia_1.txt](lista_relevancia_1.txt) e [lista_relevancia_2.txt](lista_relevancia_2.txt)).
-Os resultados devem ser retornados paginados de 15 em 15 registros.
+### 3- Suba o Docker do Elasticsearch
+```
+cd elastic_search
+docker-compose up
+```
 
-Escolha as tecnologias que você vai usar e tente montar uma solução completa para rodar a aplicação.
+### 4- Suba o Docker do projeto:
+Abra outro terminal na pasta do projeto.
+```
+docker-compose up
+```
 
-Faça um ***Fork*** deste repositório e abra um ***Pull Request***, **com seu nome na descrição**, para participar. Assim que terminar, envie um e-mail para ***desafio@picpay.com*** com o seu usuário do Github nos avisando.
+Na primeira vez que o docker do projeto for executado o csv de usuários será exportado para o elasticsearch.
+Esse processo demora aproximadamente 20 minutos.
 
------
+## Como Usar
 
-### Diferenciais
+### Frontend
+Acesse http://localhost:8082
 
-- Criar um frontend para realizar a busca com uma UX elaborada
-- Criar uma solução de autenticação entre o frontend e o backend
-- Ter um desempenho elevado num conjunto de dados muito grande
-- Utilizar o Docker
+Faça login usando o usuário picpay e senha picpay.
 
+### Rest API
+
+#### Login
+Para fazer login envie uma requisição post para:
+http://localhost:8082/login
+
+Request Json Body:
+```
+{
+  username: 'picpay'
+  password: 'picpay'
+}
+```
+
+Em caso de sucesso, a consulta irá retornar um token de autenticação no response header authorization.
+
+### Consulta de usuários
+Exemplo de consulta pelo login do usuário
+```
+http://localhost:8082/api/users?size=15&page=1&username=teste
+```
+
+Exemplo de consulta pelo nome do usuário
+```
+http://localhost:8082/api/users?size=15&page=1&name=teste
+```
+Onde:
+- size = tamanho da paginação.
+- page = número da página.
+- name = nome do usuário que será usado na pesquisa.
+- username = login do usuário que será usado na pesquisa.
+
+O token de autentição deve ser adicionado no request header authorization.
