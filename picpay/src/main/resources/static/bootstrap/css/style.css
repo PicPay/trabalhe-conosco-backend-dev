@@ -1,0 +1,24 @@
+#topo{
+	background-color: #00ff99;
+	border: none;
+}
+
+#paginacao_usuarios{
+	padding-left: 40%;
+}
+
+#title-header{
+	color: #ffffff;
+	padding-top: 20px;
+	font-size: 40px;
+}
+
+#divBusca{
+
+	padding-left: 43%;
+}
+
+.tabela-usuarios{
+
+	padding-top: 22px;
+}

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+  	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8" />
+<title>PicPay</title>
+<link rel="stylesheet" type="text/css"
+	href="/bootstrap/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="/bootstrap/css/style.css" />
+<link rel="icon" type="image/png" href="/images/favicon-32x32.png" />
+</head>
+<body>
+	<nav class="navbar navbar-inverse navbar-static-top" id="topo">
+		<div class="container-fluid">
+			<div class="navbar-header" id="div_header" >
+				<span id="title-header">PicPay</span>
+			</div>
+		</div>
+	</nav>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h1 class="panel-title">Pesquisa de Usuários</h1>
+		</div>
+
+		<div class="container-fluid">
+			<form method="GET" th:object="${usuarioFilter}" th:action="@{/usuarios}">
+				<div class="panel-body">
+					<div class="row">
+						<div class="row form-group  col-sm-12">
+							<label class="control-label" for="usuario_id">Id</label>
+							<input th:field="*{id}" type="text" class="form-control" id="usuario_id" />
+						</div>
+						<div class="row form-group  col-sm-12">
+							<label class="control-label" for="sku">Nome</label>
+							<input th:field="*{nome}" type="text" class="form-control"/>
+						</div>
+						<div class="row form-group  col-sm-12">
+							<label class="control-label" for="sku">Username</label>
+							<input th:field="*{username}" type="text" class="form-control"/>
+						</div>
+						<div class="row form-group col-md-2" id="divBusca" >
+							<button type="submit" id="btnBusca" class="btn btn-success">Consultar</button>
+						</div>
+					</div>
+
+					<div class="table-responsive" id="tabela-usuarios">
+						<table class="table  table-hover">
+							<thead th:if="${not #lists.isEmpty(pagina.conteudo)}">
+								<tr>
+									<th>Id</th>
+									<th>Nome</th>
+									<th>Username</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								<tr th:each="u : ${pagina.conteudo}">
+									<td th:text="${u.id}"/>
+									<td th:text="${u.nome}"/>
+									<td th:text="${u.username}"/>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div th:if="${not #lists.isEmpty(pagina.conteudo)}">
+						<nav aria-label="paginacao" id="paginacao_usuarios" >
+							<ul class="pagination pagination-sm" th:with="paginaAtual=${pagina.atual}">
+								<li th:class="${pagina.primeira} ? disabled">
+									<a th:href="${pagina.urlParaPagina(0)}">Primeira</a>
+								 </li>
+											
+								<li th:class="${pagina.primeira} ? disabled">
+									<a th:href="${pagina.urlParaPagina(paginaAtual - 1)}" th:remove="${pagina.primeira} ? tag"><span>&laquo;</span></a>
+								</li>
+												
+								<th:block th:each="p : ${#numbers.sequence(pagina.atual-1, pagina.atual+3)}" th:with="numeroPagina=${p - 1}" th:unless="${p==-1 || p==0 || p==pagina.total+1 || p==pagina.total+2}">
+									<li th:class="${paginaAtual == numeroPagina} ? active : waves-effect">
+										<a th:href="${pagina.urlParaPagina(numeroPagina)}">[[${p}]]</a>
+									</li>
+								</th:block>
+												
+								<li th:class="${pagina.ultima} ? disabled">
+									<a th:href="${pagina.urlParaPagina(paginaAtual + 1)}" th:remove="${pagina.ultima} ? tag"><span>&raquo;</span></a>
+								</li>
+												
+								<li th:class="${pagina.ultima} ? disabled">
+									<a th:href="${pagina.urlParaPagina(pagina.total-1)}">Última</a>
+								</li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script src="/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
