@@ -1,0 +1,60 @@
+version: '2'
+services:
+    
+    mongodb:
+        image: mongo
+        environment:
+            - MONGODB_REPLICA_SET_MODE=primary
+        container_name: mongodb
+        ports:
+          - "27017:27017"
+        networks: 
+            - rede_picpay
+
+    mongodb2:
+        image: mongo
+        environment:
+            - MONGODB_REPLICA_SET_MODE=secondary
+            - MONGODB_PRIMARY_HOST=mongodb
+        container_name: mongodb2
+        ports:
+          - "27018:27017"
+        networks: 
+            - rede_picpay
+        depends_on: 
+            - "mongodb"
+
+
+    mongodb3:
+        image: mongo
+        environment:
+            - MONGODB_REPLICA_SET_MODE=arbiter
+            - MONGODB_PRIMARY_HOST=mongodb
+        container_name: mongodb3
+        ports:
+          - "27019:27017"
+        networks: 
+            - rede_picpay
+        depends_on: 
+            - "mongodb"
+    
+       
+    node1:
+        build:
+            dockerfile: ./Dockerfile
+            context: .
+        image: picpay
+        container_name: picpay
+        ports: 
+            - "8080:8080"
+        networks: 
+            - rede_picpay
+        depends_on: 
+            - "mongodb"
+    
+
+networks: 
+    rede_picpay:
+        driver: bridge
+        
+    
