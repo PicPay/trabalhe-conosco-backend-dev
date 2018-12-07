@@ -11,9 +11,7 @@
 ### Passos Para Execução
 
 - Clonar ou baixar o [projeto](https://github.com/brenopessoa/trabalhe-conosco-backend-dev.git)
-- Baixar o arquivo [users.csv.gz](https://s3.amazonaws.com/careers-picpay/users.csv.gz).
-- Descompactar o arquivo de Banco de Dados em picpay/src/main/resources.
-- Acessar a pasta raiz do projeto picpay.
+- Acessar a pasta raiz do projeto trabalhe-conosco-backend-dev/picpay.
 - Tornar o arquivo buildAndRun.sh executável( chmod +x buildAndRun.sh ) , ou executar os comandos deste arquivo no terminal.
 - Acessar localhost:8080/.
 
