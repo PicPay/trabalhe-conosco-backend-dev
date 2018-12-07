@@ -16,7 +16,7 @@ import com.picpay.repository.UsuarioArquivoRepository;
 @SpringBootApplication
 @EnableAsync
 @EnableSpringDataWebSupport
-@EnableMongoRepositories(basePackages = "com.br.picpay.repository")
+@EnableMongoRepositories(basePackages = "com.picpay.repository")
 @EnableWebSecurity
 public class PicpayApplication {
 

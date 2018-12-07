@@ -25,7 +25,7 @@ public class MongoConfigDev extends AbstractMongoConfiguration {
 
     @Override
     public String getMappingBasePackage() {
-        return "com.br.picapy";
+        return "com.picapy";
     }
     
     @Bean
