@@ -33,3 +33,19 @@ Faça um ***Fork*** deste repositório e abra um ***Pull Request***, **com seu n
 - Ter um desempenho elevado num conjunto de dados muito grande
 - Utilizar o Docker
 
+
+### Passos Para Execução
+
+- Baixar o projeto.
+- Baixar o arquivo [users.csv.gz](https://s3.amazonaws.com/careers-picpay/users.csv.gz).
+- Descompactar o arquivo de Banco de Dados em picpay/src/main/resources.
+- Acessar a pasta raiz do projeto picpay.
+- Tornar o arquivo buildAndRun.sh executável( chmod +x buildAndRun.sh ) , ou executar os comandos deste arquivo no terminal.
+- Acessar localhost:8080/.
+
+### Testes
+
+Caso deseje rodar os testes da aplicação executar os seguintes passos:
+
+- Acessar o arquivo application.properties localizado em picpay/src/main/resources.
+- Alterar o valor da propriedade spring.profiles.active para dev(spring.profiles.active="dev").
