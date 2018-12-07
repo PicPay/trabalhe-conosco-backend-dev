@@ -26,10 +26,9 @@ password : p1cp@y
 
 ```
 http://localhost:8080/resources/usuarios?id={id}&nome={nome}&username={username}&page={pagina}
-
-Todos os parâmetros são opcionais.
-O serviço responde nos formatos de dados xml (Content-Type=application/xml)  e json (Content-Type=application/json)  
 ```
+- Todos os parâmetros são opcionais.
+- O serviço responde nos formatos de dados xml (Content-Type=application/xml)  e json (Content-Type=application/json) .
 
 ### Testes
 
