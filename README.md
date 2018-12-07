@@ -39,3 +39,4 @@ Caso deseje rodar os testes da aplicação executar os seguintes passos:
 
 - Acessar o arquivo application.properties localizado em picpay/src/main/resources.
 - Alterar o valor da propriedade spring.profiles.active para dev(spring.profiles.active="dev").
+- Executar os testes.
