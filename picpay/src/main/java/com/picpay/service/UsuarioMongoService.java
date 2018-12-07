@@ -37,9 +37,7 @@ public class UsuarioMongoService implements UsuarioService {
 		String id = filter.getId();
 		
 		
-		if(filteredNome && filteredUserName && filteredId)
-			return repository.findByNomeStartingWithAndUsernameStartingWithAndIdAllIgnoreCase(nome, username, id, page);
-		else if (filteredNome && filteredUserName)
+		if (filteredNome && filteredUserName)
 			return repository.findByNomeStartingWithAndUsernameStartingWithAllIgnoreCase(nome, username, page);
 		else if(filteredId)
 			return findById(id);
