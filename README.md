@@ -27,7 +27,7 @@ password : p1cp@y
 ### Exemplo Serviço
 
 ```
-http://localhost:8080/usuarios?id={id}&nome={nome}&username={username}&page={pagina}
+http://localhost:8080/resources/usuarios?id={id}&nome={nome}&username={username}&page={pagina}
 
 Todos os parâmetros são opcionais
 
