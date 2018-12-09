@@ -1,3 +1,28 @@
+O processo de confecção da solução teve como princípios os conceitos de separação de responsabilidades, DDD e TDD. Isso fez com que o sistema ficasse com 87,8% de cobertura de código.
+
+Inicialmente realizou-se a migração dos usuários presentes do arquivo CSV para uma base relacional (H2). Essa migração passou por problemas sérios de desempenho. Tanto que, no melhor cenário, as previsões de término da migração seriam de 19h após seu início. Tomei então a decisão de utilizar o MongoDB, e após alguns testes visando performance no desempenho, chegou-se ao máximo de 50 minutos de tempo de migração. O código utilizado para essa tarefa encontra-se na classe CarregadorDeBase (que contém um método main) e demais classes auxiliares.
+
+Após a migração, realizei a escrita de código para a solução, efetivamente. 
+
+Busquei atingir os seguintes diferenciais:
+
+ * desempenho;
+ * utilização do Docker;
+ 
+ Para isso, foi necessário estudar as formas de indexação de documentos oferecidas pelo MongoDB. Inicialmente tentei utilizar indexação composta simples, que fez com que o desempenho das consultas levasse em torno de 15 segundos. Depois tentei indexação simples nos campos username e nome, separadamente. O desempenho ficou excelente para buscas exatas (onde a palava-chave é exatamente igual ao username ou ao nome) mas continuou ruim para outras formas de consulta. Por último, utilizei o índice por wildcard, da seguinte forma:
+ 
+ db.usuarios.createIndex({"$**": "text"})
+ 
+ que fez com que tanto buscas por palavras exatas quanto por parte das palavras levasse entre 1 e 4 segundos. A aplicação em si está realizando sua tarefa de forma muito rápida, sendo o gargalo, portanto, no banco.
+ 
+ por último, incluí um plugin do maven (que já utilizei em outras empresas) para geração de imagem docker.
+ 
+ Outras informações importantes:
+ 
+  * utilizei a ferramenta lombok para escrever menos código. É necessário instalá-lo na IDE onde o sistema for aberto. Para entender seu funcionamento, bem como instalá-lo na IDE acesse o link http://blog.caelum.com.br/java-menos-verboso-com-lombok/ 
+
+ 
+ 
 ![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
 
 # Teste Backend
