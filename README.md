@@ -13,13 +13,14 @@ Busquei atingir os seguintes diferenciais:
  
  db.usuarios.createIndex({"$**": "text"})
  
- que fez com que tanto buscas por palavras exatas quanto por parte das palavras levasse entre 1 e 4 segundos. A aplicação em si está realizando sua tarefa de forma muito rápida, sendo o gargalo, portanto, no banco.
+e fiz com que o UsuariosService fizesse a busca na base de acordo com a palavra-chave utilizada, com base nos padrões de usuário e username. Todas essas alterações fizeram com que tanto buscas por palavras exatas quanto por parte das palavras levasse entre 1 e 4 segundos. A aplicação em si está realizando sua tarefa de forma muito rápida, sendo o gargalo, portanto, no banco.
  
  por último, incluí um plugin do maven (que já utilizei em outras empresas) para geração de imagem docker.
  
  Outras informações importantes:
  
   * utilizei a ferramenta lombok para escrever menos código. É necessário instalá-lo na IDE onde o sistema for aberto. Para entender seu funcionamento, bem como instalá-lo na IDE acesse o link http://blog.caelum.com.br/java-menos-verboso-com-lombok/ 
+  * um exemplo de busca: http://localhost:8080/usuarios/diether.be/pagina/0 onde diether.be é a palavra chave, e o 0 (zero) é a página
 
  
  
