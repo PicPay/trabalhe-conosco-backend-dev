@@ -1,0 +1,22 @@
+spring:
+  jackson.property-naming-strategy: SNAKE_CASE
+  datasource:
+    url: jdbc:mysql://localhost:3306/picpay-db
+    username: picpay-user
+    password: picpay
+  jpa:
+    hibernate.ddl-auto: none
+    generate-ddl: false
+    show-sql: true
+
+pagination:
+  max-page-size: 15
+
+---
+
+spring:
+  profiles: container
+  datasource:
+    url: jdbc:mysql://${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASSWORD}
