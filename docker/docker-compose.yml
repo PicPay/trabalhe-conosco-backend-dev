@@ -1,0 +1,24 @@
+version: '2'
+
+services: 
+  picpay-mysql:
+    image: mysql:5.7.22
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=p4SSW0rd
+      - MYSQL_DATABASE=picpay-db
+      - MYSQL_USER=picpay-user
+      - MYSQL_PASSWORD=picpay
+  picpay-user-search-api:
+    image: picpay-user-search-api:1.0
+    depends_on:
+      - picpay-mysql
+    ports:
+      - "8080:8080"
+    environment:
+      - DATABASE_HOST=picpay-mysql
+      - DATABASE_PORT=3306
+      - DATABASE_USER=picpay-user
+      - DATABASE_PASSWORD=picpay
+      - DATABASE_NAME=picpay-db
