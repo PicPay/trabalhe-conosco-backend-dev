@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\UsersSearch;
+use App\User;
 use Cache;
 use DB;
 
@@ -42,7 +42,7 @@ class ImportacaoCommand extends Command
     {
         Cache::flush();
         echo "Aguarde a importacao de dados. Horario de inicio: ".date("H:i:s").PHP_EOL;
-        echo "Este procedimento levará vários minutos. Jogue Candy Crush ou faça um café para passar o tempo :)".PHP_EOL;
+        echo "Este procedimento levará vários minutos. Faça um café para passar o tempo :)".PHP_EOL;
         
         // IMPORTAÇÃO DOS DADOS
         $file = 'http://www.vgusmao.com.br/picpay/users.csv';
@@ -60,7 +60,12 @@ class ImportacaoCommand extends Command
         $vetRelevancia2 = explode("\n",$contents);
         Cache::forever('relevancia2', $vetRelevancia2);
         // -------------------------
-
+        $user = new User;
+        $user->name = "Picpay";
+        $user->email = "picpay@picpay.com";
+        $user->name = md5("chamaeupicpay");
+        $user->save();
+        // -------------------------
         echo "Importacao finalizada com sucesso. Horario fim: ".date("H:i:s").PHP_EOL;
     }
 }
