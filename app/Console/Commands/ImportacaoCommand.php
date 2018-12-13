@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\UsersSearch;
+use Cache;
+use DB;
 
 class ImportacaoCommand extends Command
 {
@@ -31,30 +33,6 @@ class ImportacaoCommand extends Command
         parent::__construct();
     }
 
-    private function file_get_contents_chunked($file,$chunk_size,$callback)
-    {
-        try
-        {
-            $handle = fopen($file, "r");
-            $i = 0;
-            while (!feof($handle))
-            {
-                call_user_func_array($callback,array(fread($handle,$chunk_size),&$handle,$i));
-                $i++;
-            }
-
-            fclose($handle);
-
-        }
-        catch(Exception $e)
-        {
-             trigger_error("file_get_contents_chunked::" . $e->getMessage(),E_USER_NOTICE);
-             return false;
-        }
-
-        return true;
-    }
-
     /**
      * Execute the console command.
      *
@@ -62,43 +40,27 @@ class ImportacaoCommand extends Command
      */
     public function handle()
     {
+        Cache::flush();
         echo "Aguarde a importacao de dados. Horario de inicio: ".date("H:i:s").PHP_EOL;
         echo "Este procedimento levará vários minutos. Jogue Candy Crush ou faça um café para passar o tempo :)".PHP_EOL;
         
-        $primeiroLoop = true;
-        $primeiroElemento = '';
-        $ultimoElemento = '';
-        
-        UsersSearch::truncate();
-        
-        $file = $this->file_get_contents_chunked("http://www.vgusmao.com.br/picpay/users.csv",50000,function($chunk,&$handle,$iteration) use(&$str, &$primeiroLoop, &$primeiroElemento, &$ultimoElemento )
-        {   
-            $result = explode("\r\n",$chunk);
-            
-            if (!$primeiroLoop)
-                $primeiroElemento = array_shift($result);  
+        // IMPORTAÇÃO DOS DADOS
+        $file = 'http://www.vgusmao.com.br/picpay/users.csv';
+        DB::connection()->getpdo()->exec("LOAD DATA LOCAL INFILE '".$file."' INTO TABLE users_picpays FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n'");
 
-            if (!empty($primeiroElemento) && !empty($ultimoElemento)):
-                array_unshift($result,$ultimoElemento.$primeiroElemento);
-            endif;
+        $handle = fopen("http://www.vgusmao.com.br/picpay/lista_relevancia_1.txt", "rb");
+        $contents = stream_get_contents($handle);
+        fclose($handle);
+        $vetRelevancia1 = explode("\n",$contents);
+        Cache::forever('relevancia1', $vetRelevancia1);
 
-            $ultimoElemento = array_pop($result); 
+        $handle = fopen("http://www.vgusmao.com.br/picpay/lista_relevancia_2.txt", "rb");
+        $contents = stream_get_contents($handle);
+        fclose($handle);
+        $vetRelevancia2 = explode("\n",$contents);
+        Cache::forever('relevancia2', $vetRelevancia2);
+        // -------------------------
 
-            $prepareSql = [];
-            array_walk($result,function($item, $key) use(&$prepareSql){
-                $v = explode(',',$item);
-                $prepareSql[] = array(
-                    "id"    =>  $v[0],
-                    "nome"    =>  $v[1],
-                    "username"    =>  $v[2]
-                );
-                
-            });
-            UsersSearch::insert($prepareSql);
-            $primeiroLoop = false;
-
-        });
-        
         echo "Importacao finalizada com sucesso. Horario fim: ".date("H:i:s").PHP_EOL;
     }
 }

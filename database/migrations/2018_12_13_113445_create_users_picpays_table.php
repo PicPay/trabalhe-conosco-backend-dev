@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersSearchTable extends Migration
+class CreateUsersPicpaysTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateUsersSearchTable extends Migration
      */
     public function up()
     {
-        Schema::create('userssearch', function (Blueprint $table) {
+        Schema::create('users_picpays', function (Blueprint $table) {
             $table->string('id',100);
-            $table->string('nome',200);
-            $table->string('username',200);
-            
+            $table->string('name',200);
+            $table->string('login',200);
         });
     }
 
@@ -28,6 +27,6 @@ class CreateUsersSearchTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('userssearch');
+        Schema::dropIfExists('users_picpays');
     }
 }
