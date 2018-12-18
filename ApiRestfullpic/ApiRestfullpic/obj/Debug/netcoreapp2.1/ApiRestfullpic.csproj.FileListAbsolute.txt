@@ -1,0 +1,11 @@
+C:\Users\rafael\Downloads\teste pic pay\ApiRestfullpic\ApiRestfullpic\bin\Debug\netcoreapp2.1\ApiRestfullpic.deps.json
+C:\Users\rafael\Downloads\teste pic pay\ApiRestfullpic\ApiRestfullpic\bin\Debug\netcoreapp2.1\ApiRestfullpic.runtimeconfig.json
+C:\Users\rafael\Downloads\teste pic pay\ApiRestfullpic\ApiRestfullpic\bin\Debug\netcoreapp2.1\ApiRestfullpic.runtimeconfig.dev.json
+C:\Users\rafael\Downloads\teste pic pay\ApiRestfullpic\ApiRestfullpic\bin\Debug\netcoreapp2.1\ApiRestfullpic.dll
+C:\Users\rafael\Downloads\teste pic pay\ApiRestfullpic\ApiRestfullpic\bin\Debug\netcoreapp2.1\ApiRestfullpic.pdb
+C:\Users\rafael\Downloads\teste pic pay\ApiRestfullpic\ApiRestfullpic\obj\Debug\netcoreapp2.1\ApiRestfullpic.csproj.CoreCompileInputs.cache
+C:\Users\rafael\Downloads\teste pic pay\ApiRestfullpic\ApiRestfullpic\obj\Debug\netcoreapp2.1\ApiRestfullpic.AssemblyInfoInputs.cache
+C:\Users\rafael\Downloads\teste pic pay\ApiRestfullpic\ApiRestfullpic\obj\Debug\netcoreapp2.1\ApiRestfullpic.AssemblyInfo.cs
+C:\Users\rafael\Downloads\teste pic pay\ApiRestfullpic\ApiRestfullpic\obj\Debug\netcoreapp2.1\ApiRestfullpic.dll
+C:\Users\rafael\Downloads\teste pic pay\ApiRestfullpic\ApiRestfullpic\obj\Debug\netcoreapp2.1\ApiRestfullpic.pdb
+C:\Users\rafael\Downloads\teste pic pay\ApiRestfullpic\ApiRestfullpic\obj\Debug\netcoreapp2.1\ApiRestfullpic.csprojAssemblyReference.cache
