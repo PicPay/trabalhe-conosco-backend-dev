@@ -24,14 +24,24 @@
                                  
             </div>
   
-            <div class="col-lg-4 text-center">
+            <div class="col-lg-3 text-center">
+              <strong>Id</strong>
                 <div *ngIf="usuario">
-                    <strong> {{usuario.Id}} {{usuario.Nome}} {{usuario.Username}}</strong>
-                </div>
-                <div *ngIf="!usuario">
-                    <strong> Nenhum usuario encontrado</strong>
+                    <p>{{usuario.Id}}</p>
                 </div>
             </div>
+            <div class="col-lg-3 text-center">
+                <strong>Nome</strong>
+                  <div *ngIf="usuario">
+                      <p>{{usuario.Nome}}</p>
+                  </div>
+              </div>
+              <div class="col-lg-3 text-center">
+                  <strong>Username</strong>
+                    <div *ngIf="usuario">
+                        <p> {{usuario.Username}}</p>
+                    </div>
+                </div>
         </div>
        </div>
   
