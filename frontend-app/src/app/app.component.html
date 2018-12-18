@@ -29,17 +29,26 @@
                 <div *ngIf="usuario">
                     <p>{{usuario.Id}}</p>
                 </div>
+                <div *ngIf="!usuario">
+                    <p> Nenhum encontrado</p>
+                </div>
             </div>
             <div class="col-lg-3 text-center">
                 <strong>Nome</strong>
                   <div *ngIf="usuario">
                       <p>{{usuario.Nome}}</p>
                   </div>
+                  <div *ngIf="!usuario">
+                      <p> Nenhum encontrado</p>
+                  </div>
               </div>
               <div class="col-lg-3 text-center">
                   <strong>Username</strong>
                     <div *ngIf="usuario">
                         <p> {{usuario.Username}}</p>
+                    </div>
+                    <div *ngIf="!usuario">
+                        <p> Nenhum encontrado</p>
                     </div>
                 </div>
         </div>
