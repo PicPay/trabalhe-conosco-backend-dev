@@ -5,29 +5,31 @@
       </div>
   
        <div class="panel-body">
-          <div class="col-lg-12">
+          <div class="col-lg-14">
             <div class="col-lg-3 form-group">
               <div class="col-lg-12 form-group">
                 <label>Digite um nome de usuario</label>
-                <input id="username" type="text" class="form-control"/>
+                <input id="username" [(ngModel)]='username' type="text" class="form-control"/>
               </div>  
               <div class="col-lg-12 form-group">
-                <input id="btnFrete" value="buscar Username" class="btn btn-primary form-control" type="submit" (click)='PesquisarUsername()' />   
+                <input id="buscarUsername" value="buscar Username" class="btn btn-primary form-control" type="submit" (click)='PesquisarUsername()' />   
               </div>
               <div class="col-lg-12 form-group">
                   <label>Digite um nome</label>
-                  <input id="nome" type="text" class="form-control"/>
+                  <input id="nome" [(ngModel)]="nome" type="text" class="form-control"/>
                 </div>
               <div class="col-lg-12 form-group">
-                  <input id="btnFrete" value="buscar Nome" class="btn btn-primary form-control" type="submit" (click)='PesquisarNome()' />   
+                  <input id="buscarNome" value="buscar Nome" class="btn btn-primary form-control" type="submit" (click)='PesquisarNome()' />   
                 </div>
                                  
             </div>
   
-            <div class="col-lg-3 text-center">
+            <div class="col-lg-4 text-center">
               <strong>Id</strong>
                 <div *ngIf="usuario">
-                    <p>{{usuario.Id}}</p>
+                    <p *ngFor="let user of usuario">
+                        {{user.id}}
+                    </p>
                 </div>
                 <div *ngIf="!usuario">
                     <p> Nenhum encontrado</p>
@@ -36,16 +38,20 @@
             <div class="col-lg-3 text-center">
                 <strong>Nome</strong>
                   <div *ngIf="usuario">
-                      <p>{{usuario.Nome}}</p>
+                    <p *ngFor="let user of usuario">
+                        {{user.nome}}
+                    </p>
                   </div>
                   <div *ngIf="!usuario">
                       <p> Nenhum encontrado</p>
                   </div>
               </div>
-              <div class="col-lg-3 text-center">
+              <div class="col-lg-2 text-center">
                   <strong>Username</strong>
                     <div *ngIf="usuario">
-                        <p> {{usuario.Username}}</p>
+                        <p *ngFor="let user of usuario">
+                            {{user.username}}
+                        </p>
                     </div>
                     <div *ngIf="!usuario">
                         <p> Nenhum encontrado</p>

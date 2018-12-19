@@ -15,14 +15,14 @@ export class UsuarioService {
     constructor(private _http: Http) { }
     
     getDadosPeloNome(nome: string): Observable<Usuario> {
-        return this._http.get(this._NomeUrl)
+        return this._http.get(this._NomeUrl + '?nome=' + nome)
             .map((response: Response) => <Usuario>response.json())
             .do(data => console.log('All: ' + JSON.stringify(data)))
             .catch(this.handleError);
     }
 
     getDadosPeloUsername(username: string): Observable<Usuario> {
-        return this._http.get(this._UsernameUrl)
+        return this._http.get(this._UsernameUrl + '?username=' + username)
             .map((response: Response) => <Usuario>response.json())
             .do(data => console.log('All: ' + JSON.stringify(data)))
             .catch(this.handleError);
