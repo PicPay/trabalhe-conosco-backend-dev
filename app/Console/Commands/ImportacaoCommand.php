@@ -52,7 +52,7 @@ class ImportacaoCommand extends Command
         DB::connection()->getpdo()->exec("LOAD DATA LOCAL INFILE '".$file."' INTO TABLE users_picpays FIELDS TERMINATED BY ',' LINES TERMINATED BY '\r\n' (codigo, name, login) ");
       
         echo "Etapa 2 de 5 - Configurando registros com relevância".PHP_EOL; 
-        $handle = fopen(storage_path("app/lista_relevancia_1.txt"), "rb");
+        $handle = fopen("http://www.vgusmao.com.br/picpay/lista_relevancia_1.txt", "rb");
         $contents = stream_get_contents($handle);
         fclose($handle);
         $vetRelevancia1 = array_chunk(explode("\n",$contents), 30);
@@ -62,7 +62,7 @@ class ImportacaoCommand extends Command
             DB::update("UPDATE users_picpays SET relevancia = 2 WHERE codigo IN ($query)");    
         endforeach;
 
-        $handle = fopen(storage_path("app/lista_relevancia_2.txt"), "rb");
+        $handle = fopen("http://www.vgusmao.com.br/picpay/lista_relevancia_2.txt", "rb");
         $contents = stream_get_contents($handle);
         fclose($handle);
         $vetRelevancia2 = array_chunk(explode("\n",$contents), 30);
