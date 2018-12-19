@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { UsuarioService } from './app.service';
 
+import {NgxPaginationModule} from 'ngx-pagination';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -13,7 +15,8 @@ import { UsuarioService } from './app.service';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    NgxPaginationModule
   ],
   providers: [UsuarioService],
   bootstrap: [AppComponent]
