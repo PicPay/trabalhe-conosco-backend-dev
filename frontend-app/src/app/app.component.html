@@ -27,7 +27,7 @@
                 <div class="col-lg-4 text-center">
                 <strong>Id</strong>
                     <div *ngIf="usuario">
-                        <p *ngFor="let user of usuario | paginate: { itemsPerPage: 10, currentPage: p }">
+                        <p *ngFor="let user of usuario | paginate: { itemsPerPage: 15, currentPage: p }">
                             {{user.id}}
                         </p>
                     </div>
@@ -38,7 +38,7 @@
                 <div class="col-lg-3 text-center">
                     <strong>Nome</strong>
                     <div *ngIf="usuario">
-                        <p *ngFor="let user of usuario | paginate: { itemsPerPage: 10, currentPage: p }">
+                        <p *ngFor="let user of usuario | paginate: { itemsPerPage: 15, currentPage: p }">
                             {{user.nome}}
                         </p>
                     </div>
@@ -49,7 +49,7 @@
                 <div class="col-lg-2 text-center">
                     <strong>Username</strong>
                         <div *ngIf="usuario">
-                            <p *ngFor="let user of usuario | paginate: { itemsPerPage: 10, currentPage: p }">
+                            <p *ngFor="let user of usuario | paginate: { itemsPerPage: 15, currentPage: p }">
                                 {{user.username}}
                             </p>
                         </div>
