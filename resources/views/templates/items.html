@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-lg-12 margin-tb">
+        <div class="pull-left">
+            <h1>Users List</h1>
+        </div>
+        <div class="pull-right" style="padding-top:30px; float: right!important;">
+            <div class="box-tools" style="display:inline-table">
+              <div class="input-group" style="position: relative; display: table; border-collapse: separate;">
+                  <input type="text" class="form-control input-sm ng-valid ng-dirty" placeholder="Search" ng-change="searchDB()" ng-model="searchText" name="table_search" title="" tooltip="" data-original-title="Min character length is 3">
+                  <span class="input-group-addon">Search</span>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<table class="table table-bordered pagin-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Username</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr dir-paginate="value in data | itemsPerPage:15" total-items="totalItems">
+            <td>{{ value.id }}</td>
+            <td>{{ value.name }}</td>
+            <td>{{ value.username }}</td>
+        </tr>
+    </tbody>
+</table>
+<dir-pagination-controls class="pull-right" on-page-change="pageChanged(newPageNumber)" template-url="templates/dirPagination.html" ></dir-pagination-controls>
+
+
+<div id="mydiv" ng-show="!data.length">
+    <img src="https://cdnjs.cloudflare.com/ajax/libs/galleriffic/2.0.1/css/loader.gif" class="ajax-loader"/>
+</div>
