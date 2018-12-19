@@ -9,9 +9,9 @@ Após iniciar o Docker no sistema operacional, digite todos os comandos abaixo n
 - docker-compose run app php artisan import:db
 
 URL do sistema: 
-localhost:81
+- localhost:81
 
 Dados de acesso:
-E-mail: picpay@picpay.com
-Senha: chamaeupicpay
+- E-mail: picpay@picpay.com
+- Senha: chamaeupicpay
 
