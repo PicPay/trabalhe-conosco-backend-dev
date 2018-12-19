@@ -2,36 +2,40 @@
 
 namespace App;
 
-use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Model;
+use Elasticquent\ElasticquentTrait;
 
 class UsersPicpay extends Model
 {
-    use Searchable;
-
+    protected $primaryKey = "id_sis";
     public $timestamps = false;
+    use ElasticquentTrait;
 
     protected $fillable = [
-        'id', 'name', 'login',
+        'codigo', 'name', 'login', 'relevancia', 'id_sis'
     ];
 
-    public function searchableAs()
-    {
-        return 'userspicpay_index';
-    }
-
-    public function toSearchableArray()
-    {
-        $array = $this->toArray();
-
-        unset($array['id']);
-
-        return $array;
-    }
-
-    public function getScoutKey()
-    {
-        return $this->id;
-    }
+ 	protected $mappingProperties = array(
+	    'codigo' => [
+	      'type' => 'text',
+	      "analyzer" => "standard",
+	    ],
+	    'name' => [
+	      'type' => 'text',
+	      "analyzer" => "standard",
+	    ],
+	    'login' => [
+	      'type' => 'text',
+	      "analyzer" => "standard",
+	    ],
+	    'relevancia' => [
+	      'type' => 'integer',
+	      "analyzer" => "standard",
+	    ],
+	    'id_sis' => [
+	      'type' => 'long',
+	      "analyzer" => "standard",
+	    ]
+	  );
 
 }

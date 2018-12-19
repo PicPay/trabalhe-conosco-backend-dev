@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\SistemaRepository;
+use App\UsersPicpay;
 
 class SistemaController extends Controller
 {	
@@ -16,8 +17,12 @@ class SistemaController extends Controller
         $this->sistemaRepository = $sistemaRepository;
     }
 
-    public function search($param)
+    public function pesquisarTermo(Request $request)
     {
-    	return $this->sistemaRepository->search($param);
+        $query = $request->query('query');
+        $page = ($request->query('m') == 1) ? $request->query('page') : 1;
+        $result = $this->sistemaRepository->search($query,$page); 
+        $totalPaginas = ceil($result['total']/15);
+        return view('home',[ "result" => $result, "page" => $page, "query" => $query, "totalPaginas" => $totalPaginas ]);
     }
 }

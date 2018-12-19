@@ -15,8 +15,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('pesquisar', 'SistemaController@pesquisarTermo');
 
 Route::group(array('prefix' => 'api'), function()
 {
-  Route::get('busca/{param}',"SistemaController@search");
+  Route::get('busca/{query}/{page}',"SistemaController@search");  
 });

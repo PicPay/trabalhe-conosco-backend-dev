@@ -2,16 +2,33 @@
 
 namespace App\Repositories;
 
-use Geotools;
 use App\UsersPicpay;
-use Cache;
 
 class SistemaRepository
 {
     
-    public function search($param)
+    public function search($query,$page)
     {
-            dd(UsersPicpay::where('name','LIKE','%'.$param.'%')->get()->chunk(15));
+        if ($page == 1)
+            $page = 0;
+        
+        $result = UsersPicpay::complexSearch(array(
+            'body' => array(
+                    'from' => $page*15, 
+                    'size' => 15,
+                    'query' => array(
+                        'multi_match' => array(
+                            'query' => $query,
+                            'fields' => array( 'name', 'login' )
+                        )
+                    ),
+                    'sort' => array(
+                        'relevancia' => "desc"
+                    )
+                )
+            )
+        );
+        return array( "result" => $result->toArray(), "total" => $result->totalHits() );
     }
 
 }

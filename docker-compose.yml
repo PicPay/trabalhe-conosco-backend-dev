@@ -8,6 +8,10 @@ volumes:
   picpay-redis-data:
     driver: local
 
+  picpay-elasticsearch-data:
+    driver: local
+
+
 services:
 
   mysql:
@@ -23,15 +27,23 @@ services:
       - MYSQL_USER=picpay
       - MYSQL_PASSWORD=picpay
 
-  cache:
-    image: redis:4.0
-    container_name: picpay-redis
-    command: --appendonly yes
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.5.3
+    container_name: elasticsearch
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.security.enabled=false
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
     volumes:
-      - picpay-redis-data:/data
+      - picpay-elasticsearch-data:/usr/share/elasticsearch/data
     ports:
-      - "6379:6379"
-
+      - 9200:9200
+    
   app:
     image: ambientum/php:7.2-nginx
     container_name: picpay-app
@@ -41,16 +53,9 @@ services:
       - "81:8080"
     links:
       - mysql
-      - cache
+      - elasticsearch
+      
 
-  queue:
-    image: ambientum/php:7.2
-    container_name: picpay-queue
-    command: php artisan queue:listen
-    volumes:
-      - .:/var/www/app
-    links:
-      - mysql
-      - cache
+
 
   
