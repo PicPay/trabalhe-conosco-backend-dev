@@ -29,6 +29,10 @@ Route::group([
 });
 
 
+Route::post('register', 'Auth\RegisterController@register');
+
+
+
 Route::middleware('auth:api')
     ->get('user', 'Auth\AuthController@user');
 

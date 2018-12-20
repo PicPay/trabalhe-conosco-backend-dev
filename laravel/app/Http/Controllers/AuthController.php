@@ -28,9 +28,12 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password)
         ]);
+        $user->generateToken();
+
         $user->save();
         return response()->json([
-            'message' => 'Successfully created user!'
+            'message' => 'Successfully created user!',
+            'token' => $user->api_token,
         ], 201);
     }
 
