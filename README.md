@@ -1,17 +1,17 @@
 # Picpay 
 
 API da aplicação: http://localhost:8080/swagger-ui.html
+Monitorar a aplicação usando Prometheus: http://localhost:8080/actuator/prometheus
 
-Teste utilizando as seguintes técnologias:
-> Docker
-> ,springBoot
-> ,entre outras
+# Teste utilizando as seguintes técnologias:
+- Docker
+- SpringBoot
+- Prometheus 
+
 
 O sistema realiza o download automaticamente do users.csv e então insere no banco de dados ao iniciar a aplicação.
 
 OBS. Para rodar é só usar mvn spring-boot:run
-
-Enjoy
 
 
 ![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
