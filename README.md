@@ -1,13 +1,15 @@
 # Picpay 
 
-API da aplicação: http://localhost:8080/swagger-ui.html
-Monitorar a aplicação usando Prometheus: http://localhost:8080/actuator/prometheus
+- API da aplicação: http://localhost:8080/swagger-ui.html
+- Monitorar a aplicação usando Prometheus: http://localhost:8080/actuator/prometheus
 
-# Teste utilizando as seguintes técnologias:
+# Teste utilizando as seguintes tecnologias:
 - Docker
 - SpringBoot
 - Prometheus 
-
+- TDD, H2 DB e PostgreSQL 
+- Java 1.8
+- Entre outros
 
 O sistema realiza o download automaticamente do users.csv e então insere no banco de dados ao iniciar a aplicação.
 
