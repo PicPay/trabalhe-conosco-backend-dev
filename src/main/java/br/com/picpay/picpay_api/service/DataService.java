@@ -40,11 +40,11 @@ public class DataService {
 			try (BufferedReader br = new BufferedReader(new InputStreamReader(new GZIPInputStream(new FileInputStream(csv))))) {
 				String line;
 				while ((line = br.readLine()) != null) {
-					tam += 1; 
+					/*tam += 1; 
 					if( tam > 1000) { 
 						log.info("Fim");
 						return;
-					}
+					}*/
 					String[] vetor = line.split("\\,");
 					user = User.builder().hash(vetor[0]).name(vetor[1]).username(vetor[2]).build();
 					user = userService.createUser(user);
