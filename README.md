@@ -29,9 +29,9 @@ Para isto foi criado Migrations e Seeds, basta executar os seguintes comandos.
 - php artisan db:seed --class=InsertDataSample (Insere os dados contidos no <b>users.csv.gz</b> no banco de dados e no ElasticSearch)
 
 
-###Observação.: 
+### Observação.: 
 
-######- Devido ao grande volume de dados contido no arquivo users.csv.gz a seed InsertDataSample (php artisan db:seed --class=InsertDataSample) pode demorar para ser inserido e indxado.
+###### - Devido ao grande volume de dados contido no arquivo users.csv.gz a seed InsertDataSample (php artisan db:seed --class=InsertDataSample) pode demorar para ser inserido e indxado.
 
 
 ## Consultando a API
