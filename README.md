@@ -15,6 +15,9 @@ O sistema realiza o download automaticamente do users.csv e então insere no ban
 
 OBS. Para rodar é só usar mvn spring-boot:run
 
+# Desafio
+
+Para você verificar a questão da ordenação, eu criei uma tabela "relevancia" onde ao iniciar a aplicação eu faço a carga das listas de relevancias informadas abaixo, e posteriormente, faço um select com outer join, e depois ordeno os resultados baseado nessa comparação.
 
 ![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
 
