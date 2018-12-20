@@ -31,7 +31,8 @@ public class DataService {
     }
 
 	public void loadAllData() {
-		try {
+		try {		
+			int tam = 0;
 			File csv = new File("users.csv");
 			if(!csv.exists())
 				FileUtils.copyURLToFile(new URL(USERS_CSV), csv);
@@ -39,6 +40,11 @@ public class DataService {
 			try (BufferedReader br = new BufferedReader(new InputStreamReader(new GZIPInputStream(new FileInputStream(csv))))) {
 				String line;
 				while ((line = br.readLine()) != null) {
+					tam += 1; 
+					if( tam > 1000) { 
+						log.info("Fim");
+						return;
+					}
 					String[] vetor = line.split("\\,");
 					user = User.builder().hash(vetor[0]).name(vetor[1]).username(vetor[2]).build();
 					user = userService.createUser(user);

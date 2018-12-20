@@ -21,9 +21,9 @@ public abstract class BaseIntegrationTest {
     @SuppressWarnings("rawtypes")
 	public static PostgreSQLContainer postgreSQLContainer =
             (PostgreSQLContainer) new PostgreSQLContainer("postgres:10.4")
-                    .withDatabaseName("appdb")
-                    .withUsername("siva")
-                    .withPassword("secret")
+                    .withDatabaseName("postgres")
+                    .withUsername("postgres")
+                    .withPassword("")
                     .withStartupTimeout(Duration.ofSeconds(600));
     static {
         postgreSQLContainer.start();

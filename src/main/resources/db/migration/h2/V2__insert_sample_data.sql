@@ -1,5 +1,8 @@
 delete from users;
 
+insert into users values (9999999998,'fba0be35-7111-43c5-8111-b326360da4d0', 'ricardo', 'ricardo.brasil', null,null);
+insert into users values (9999999999,'abcdefgh-9999-43c5-8111-b326360da4d0', 'ricardo', 'ricardo.brasil', null,null);
+
 INSERT INTO relevancia(precedencia, hash) VALUES (1, 'fba0be35-7111-43c5-8111-b326360da4d0');
 INSERT INTO relevancia(precedencia, hash) VALUES (1, '7354ff5e-cc72-4cc7-a8d0-279f3349c52b');
 INSERT INTO relevancia(precedencia, hash) VALUES (1, '4096545a-3d93-476d-9a25-ae486a12a720');

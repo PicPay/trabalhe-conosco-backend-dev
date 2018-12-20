@@ -38,6 +38,8 @@ public class UserControllerIT extends BaseIntegrationTest {
 
         updateUser = TestHelper.buildUser();
         updateUser = userRepository.save(updateUser);
+        
+        userRepository.getByNameAndUsername("name", "name");
     }
 
     @After

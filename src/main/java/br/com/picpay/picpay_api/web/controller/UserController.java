@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,18 +38,25 @@ public class UserController {
 		this.dataService = dataService;
 	}
 
-	@GetMapping("/{pagina}")
+	@GetMapping("/pag/{pagina}")
 	public List<User> getUsers(@PathVariable Integer pagina) {
 		log.info("process=get-users");
 		return userService.getAllUsers(pagina);
 	}
 
-	@GetMapping("/{username}/{name}")
-	public List<User> getUser(@PathVariable String username, @PathVariable String name) {
+	@GetMapping("/usuarios")
+	public List<User> getUser(@RequestParam("username") String username, @RequestParam("name") String name) {
 		log.info("process=get-user, username={} name={}", username, name);
 		return userService.getByNameAndUsername(name, username);
 	}
 		
+	@GetMapping("/usuarios/hash/{hash}")
+	public ResponseEntity<User> getUserByHash(@PathVariable String hash) {
+		log.info("process=get-user, user_id={}", hash);
+		Optional<User> user = userService.getUserByHash(hash);
+		return user.map(u -> ResponseEntity.ok(u)).orElse(ResponseEntity.notFound().build());
+	}
+
 	@GetMapping("/{id}")
 	public ResponseEntity<User> getUser(@PathVariable Long id) {
 		log.info("process=get-user, user_id={}", id);

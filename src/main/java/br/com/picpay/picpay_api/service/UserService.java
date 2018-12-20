@@ -20,7 +20,11 @@ public class UserService {
 	public UserService(UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
-
+	
+	public Optional<User> getUserByHash(String hash) {
+		return userRepository.getByHash(hash);
+	}
+	
 	public List<User> getByNameAndUsername(String name, String username) {
 		return userRepository.getByNameAndUsername(name, username);
 	}
