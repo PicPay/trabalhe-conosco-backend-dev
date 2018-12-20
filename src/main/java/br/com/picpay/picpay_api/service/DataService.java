@@ -32,7 +32,7 @@ public class DataService {
 
 	public void loadAllData() {
 		try {		
-			int tam = 0;
+			//int tam = 0;
 			File csv = new File("users.csv");
 			if(!csv.exists())
 				FileUtils.copyURLToFile(new URL(USERS_CSV), csv);
