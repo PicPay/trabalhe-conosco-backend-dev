@@ -13,3 +13,8 @@ npm-debug.log
 yarn-error.log
 .env
 .phpunit.result.cache
+users.csv
+users.csv.gz
+laravel/database/temp/Tmpfile.csv
+laravel/database/temp/Tmpfile.csv
+laravel/database/temp/Tmpfile.csv.gz
