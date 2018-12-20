@@ -1,12 +1,16 @@
-<<<<<<< HEAD
-# spring-boot-java-basic
+# Picpay 
+
+API da aplicação: http://localhost:8080/swagger-ui.html
+
+Teste utilizando as seguintes técnologias:
+> Docker
+> SpringBoot
+> Entre outras
+
+O sistema realiza o download automaticamente do users.csv e então insere no banco de dados ao iniciar a aplicação.
 
 
-http://localhost:8080/swagger-ui.html
 
-
-`./mvnw compile flyway:migrate`
-=======
 ![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
 
 # Teste Backend
