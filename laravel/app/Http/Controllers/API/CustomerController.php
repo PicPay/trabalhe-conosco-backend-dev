@@ -6,10 +6,24 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Customer;
 use Illuminate\Support\Facades\DB;
+use Validator;
 
 
 class CustomerController extends Controller
 {
+
+
+    /**
+     * Failed validation disable redirect
+     *
+     * @param Validator $validator
+     */
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json($validator->errors(), 422));
+    }
+
+
     /**
      * @function: getCustomer($request)
      * $request: laravel request that contains post
@@ -18,7 +32,9 @@ class CustomerController extends Controller
        {
            "id" : "065d8403-8a8f-484d-b602-9138ff7dedcf",
            "name" : "Kylton Saura",
-           "username" : "raimundiram" :
+           "username" : "raimundiram",
+           "show_per_page" : "20",
+           "page" : "3"
         }
      *
      * The function will do a search locating all possibilities of customer, even if the id, name and username are not matching, it will a search in all three and return all similar values
@@ -35,12 +51,93 @@ class CustomerController extends Controller
     function getCustomer(Request $request){
         $post_ison = $request->getContent();
         $post_obj = json_decode($post_ison);
-        print_r($post_obj);
+        if(!$post_obj){
+            $response['success'] = false;
+            $response['error_code'] = 400;
+            $response['message'] = "Please verify your JSON post parameters";
+            $response['errors'] = array("format" => array("The format of the post Body is not correct"));
+            return json_encode($response);
+        }
 
 
-        $query_raw = DB::select(DB::raw("select * from customer as c left join customer_score as cs ON cs.customer_id = c.id where `c`.token LIKE '%". $post_obj->id ."%' OR `c`.name LIKE '%".$post_obj->name ."%' OR `c`.username LIKE '%". $post_obj->username ."%' order by cs.score, c.name ASC"));
-        print_r($query_raw);
+        $request = new Request();
 
+        $where_array = array(
+            "c.token" => null,
+            "c.name" => null,
+            "c.username" => null
+        );
+
+        $parameters = $post_obj->parameters;
+        foreach($parameters as $k=>$v){
+            switch($k){
+                case "id":
+                    $where_array['c.token'] = empty($v) ? null : $v;
+                    break;
+                case "name":
+                    $where_array['c.name'] = empty($v) ? null : $v;
+                    break;
+                case "username":
+                    $where_array['c.username'] = empty($v) ? null : $v;
+
+                    break;
+            }
+        }
+
+        $request->replace([
+            'id' => $where_array['c.token'],
+            'name' => $where_array['c.name'],
+            'username' => $where_array['c.username'],
+            'show_per_page' => $post_obj->show_per_page,
+            'page' => $post_obj->page,
+            ]);
+
+        $validator = Validator::make($request->all(),[
+            'id' => 'nullable|min:4',
+            'name' => 'nullable|min:4',
+            'username' => 'nullable|min:4',
+            'show_per_page' => 'required|integer',
+            'page' => 'required|integer',
+        ]);
+
+
+        if ($validator->fails()) {
+            $response['success'] = false;
+            $response['error_code'] = 422;
+            $response['message'] = "Wrong input in one of the body parameters";
+            $response['errors'] = $validator->getMessageBag()->messages();
+            return json_encode($response);
+        }
+
+
+
+
+
+        $customer_model = new Customer;
+
+//        $customer_model = $this->getCustomer($post_obj->id, $post_obj->name, $post_obj->username, $post_obj->show_per_page, $post_obj->page);
+        $response = $customer_model->getCustomers($request);
+
+        print_r($response);
+
+        if(!empty($response['data'])){
+            $response['success'] = true;
+            $response['error_code'] = 200;
+            $response['message'] = "success";
+            $response['errors'] = array();
+            return json_encode($response);
+        }else{
+            $response['success'] = true;
+            $response['error_code'] = 204;
+            $response['message'] = "No customer found";
+            $response['errors'] = array("search" => array("No customer found"));
+            return json_encode($response);
+        }
+
+
+        /**
+         * not working the query below, we tried hard but unfortunatelly didint work.
+         */
 //        $query = DB::table('customer')
 //            ->select("*")
 //            ->join('customer_score', "customer_score.customer_id", "=", "customer.id")
