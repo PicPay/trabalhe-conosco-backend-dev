@@ -47,7 +47,7 @@ class AuthController extends Controller
      * @return [string] token_type
      * @return [string] expires_at
      */
-    public function login(Request $request)
+    public static function login(Request $request)
     {
         $request->validate([
             'email' => 'required|string|email',

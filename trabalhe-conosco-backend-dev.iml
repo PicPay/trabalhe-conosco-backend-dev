@@ -96,6 +96,7 @@
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/symfony/var-dumper" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/theseer/tokenizer" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/tijsverkoyen/css-to-inline-styles" />
+      <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/twbs/bootstrap" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/vlucas/phpdotenv" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/webmozart/assert" />
       <excludeFolder url="file://$MODULE_DIR$/laravel/vendor/zendframework/zend-diactoros" />
