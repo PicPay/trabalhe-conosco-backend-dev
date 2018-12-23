@@ -1,5 +1,6 @@
 <?php
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,3 +22,20 @@ Route::get('dashboard', 'Auth\LoginController@dashboard');
 Route::get('logout', 'Auth\LoginController@logout');
 
 
+Route::group([
+    'prefix' => 'list',
+], function () {
+    Route::post('get_list', 'ListController@getList');
+    Route::get('list_management', 'ListController@index');
+
+
+    Route::post('delete_first_list', 'ListController@removeFromPrimaryList');
+    Route::post('delete_secondary_list', 'ListController@removeFromSecondaryList');
+});
+
+Route::group([
+    'prefix' => 'search',
+], function(){
+Route::get('search_user', 'SearchController@index');
+Route::post('search_user', 'SearchController@getCustomer');
+});

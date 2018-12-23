@@ -43,6 +43,3 @@ Route::group([
     Route::post('customer', 'API\CustomerController@getCustomer');
 });
 
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});

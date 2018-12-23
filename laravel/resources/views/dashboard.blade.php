@@ -32,8 +32,8 @@
 
     <ul class="nav nav-pills nav-stacked" >
         <!--<li class="nav-header"></li>-->
-        <li><h1><a class="btn btn-success btn-lg btn-block" href="#">Search a User</a></h1></li>
-        <li><h1><a class="btn btn-success btn-lg btn-block" href="#">List Management</a></h1></li>
+        <li><h1><a class="btn btn-success btn-lg btn-block" href="/search/search_user">Search a User</a></h1></li>
+        <li><h1><a class="btn btn-success btn-lg btn-block" href="/list/list_management">List Management</a></h1></li>
 
 
     </ul>
@@ -56,7 +56,7 @@
                     <div class="card-body text-center">
                         <h3 class="card-title">Search a User</h3>
                         <p class="card-text">Search a User by inserting ID, Name of Username, you will be able to find all resulting matches ordered by their score.</p>
-                        <a href="#" class="btn btn-success btn-lg">Search a User</a>
+                        <a href="/search/search_user" class="btn btn-success btn-lg">Search a User</a>
                     </div>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                     <div class="card-body text-center">
                         <h3 class="card-title">List Management</h3>
                         <p class="card-text">Management of Primary and Secondary list of user relevance, it also constains a major list and a sync feature.</p>
-                        <a href="#" class="btn btn-success btn-lg">List Management</a>
+                        <a href="/list/list_management" class="btn btn-success btn-lg">List Management</a>
 
                     </div>
                 </div>
