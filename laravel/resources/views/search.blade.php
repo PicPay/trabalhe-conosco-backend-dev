@@ -48,8 +48,8 @@
 
     <ul class="nav nav-pills nav-stacked" >
         <!--<li class="nav-header"></li>-->
-        <li><h1><a class="btn btn-success btn-lg btn-block" href="/search_user">Search a User</a></h1></li>
-        <li><h1><a class="btn btn-success btn-lg btn-block" href="/list_management">List Management</a></h1></li>
+        <li><h1><a class="btn btn-success btn-lg btn-block" href="/search/search_user">Search a User</a></h1></li>
+        <li><h1><a class="btn btn-success btn-lg btn-block" href="/list/list_management">List Management</a></h1></li>
 
 
     </ul>
@@ -57,6 +57,29 @@
 <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
     <!-- Right -->
     <div class="jumbotron">
+        <h1>Search a User</h1>
+        <p>Please provide token, name or username. Empty or more than 4 character.</p>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon" id="sizing-addon1">@</span>
+                    <input type="text" class="form-control" placeholder="Token" aria-describedby="sizing-addon1">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon" id="sizing-addon1">@</span>
+                    <input type="text" class="form-control" placeholder="Name" aria-describedby="sizing-addon1">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-addon" id="sizing-addon1">@</span>
+                    <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1">
+                </div>
+            </div>
+
+        </div>
 
 
 

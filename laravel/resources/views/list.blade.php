@@ -48,8 +48,8 @@
 
     <ul class="nav nav-pills nav-stacked" >
         <!--<li class="nav-header"></li>-->
-        <li><h1><a class="btn btn-success btn-lg btn-block" href="/search_user">Search a User</a></h1></li>
-        <li><h1><a class="btn btn-success btn-lg btn-block" href="/list_management">List Management</a></h1></li>
+        <li><h1><a class="btn btn-success btn-lg btn-block" href="/search/search_user">Search a User</a></h1></li>
+        <li><h1><a class="btn btn-success btn-lg btn-block" href="/list/list_management">List Management</a></h1></li>
 
 
     </ul>
