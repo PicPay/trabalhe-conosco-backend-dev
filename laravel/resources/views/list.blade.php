@@ -59,8 +59,13 @@
     <div class="jumbotron">
 
 
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home">List</a></li>
+            <li><a data-toggle="tab" href="#menu1">Major List</a></li>
+        </ul>
 
-
+        <div class="tab-content">
+            <div id="home" class="tab-pane fade in active">
                 <div class="row">
                     <div class="col-md-8">
                         <h3>List Management</h3>
@@ -158,7 +163,48 @@
 
                         </div>
                     </div>
+                </div>
 
+            </div>
+
+
+
+            <div id="menu1" class="tab-pane fade">
+
+                <h3>Major List</h3>
+                <p>This readonly list contains the major users, which contains in both first list and second list</p>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+
+                            <!-- Table -->
+                            <table class="table">
+                                <thead>
+                                <th>Token</th>
+                                <th>Name</th>
+                                <th>Username</th>
+                                </thead>
+                                <tbody>
+                                @foreach ($major_list['data'] as $value)
+                                <tr>
+                                    <td>{{ $value->token }}</td>
+                                    <td>{{ $value->name }}</td>
+                                    <td>{{ $value->username }}</td>
+                                </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                            <nav aria-label="Pages">
+                                <ul class="pagination">
+                                    <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                                    <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
 

@@ -39,12 +39,12 @@ class ListController extends Controller
             'page' => 1,
             'list' => 'major'
         ]);
-//        $major_list = $this->getList($request);
+        $major_list = $this->getList($request);
 
         $data = array(
             "first_list" => $first_list,
             "secondary_list" => $secondary_list,
-//            "major_list" => $major_list,
+            "major_list" => $major_list,
         );
 
 

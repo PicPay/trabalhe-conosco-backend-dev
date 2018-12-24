@@ -118,7 +118,7 @@ class CustomerController extends Controller
 //        $customer_model = $this->getCustomer($post_obj->id, $post_obj->name, $post_obj->username, $post_obj->show_per_page, $post_obj->page);
         $response = $customer_model->getCustomers($request);
 
-        print_r($response);
+//        print_r($response);
 
         if(!empty($response['data'])){
             $response['success'] = true;

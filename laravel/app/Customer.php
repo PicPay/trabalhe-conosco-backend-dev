@@ -45,10 +45,10 @@ class Customer extends Model
 
         $where = $this->prepareWhere($where_array);
 
-        $query = "select c.id, c.token, c.name, c.username, cs.score from customer as c left join customer_score as cs ON cs.customer_id = c.id ". $where ." order by cs.score, c.name ASC LIMIT " . $offset . ", " . $show_per_page;
+        $query = "select c.id, c.token, c.name, c.username, cs.score from customer as c left join customer_score as cs ON cs.customer_id = c.id ". $where ." order by cs.score DESC LIMIT " . $offset . ", " . $show_per_page;
         $query_raw = DB::select(DB::raw($query));
 
-        $query_count = sizeof($query_raw);
+        $query_count = $this->countCustomers($where);
         $total_pages = ceil($query_count / $show_per_page);
 
 
@@ -66,8 +66,8 @@ class Customer extends Model
 
     }
 
-    function countCustomers($id, $name, $username){
-        return DB::select(DB::raw("select * from customer as c left join customer_score as cs ON cs.customer_id = c.id where `c`.token LIKE '%". $id ."%' OR `c`.name LIKE '%".$name ."%' OR `c`.username LIKE '%". $username ."%' order by cs.score, c.name ASC")->fetchColumn());
+    function countCustomers($where){
+        return count(DB::select(DB::raw("select * from customer as c left join customer_score as cs ON cs.customer_id = c.id " . $where . " order by cs.score DESC")));
 
     }
 
@@ -83,7 +83,6 @@ class Customer extends Model
 
         switch(sizeof($where_strings)){
             case 0:
-                print_r('hu3');
                 return false;
                 break;
             case 1:

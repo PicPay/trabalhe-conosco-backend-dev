@@ -61,47 +61,167 @@
     <!-- Right -->
     <div class="jumbotron">
 
-        <form>
-
 
         <h1>Search a User</h1>
         <p>Please provide token, name or username. Empty or more than 4 character.</p>
         <p>The search will focus on the info you provided.</p>
-        <div class="row">
+        <div class="search-form row">
+            <input type="hidden" class="form-control" name="page_selected" id="page_selected" value="1" data-page="1" aria-describedby="sizing-addon1">
             <div class="col-md-4">
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon" id="sizing-addon1">Token</span>
-                    <input type="text" class="form-control" placeholder="Token" aria-describedby="sizing-addon1">
+                    <input type="text" class="form-control" name="parameters[id]" id="token" placeholder="Token" aria-describedby="sizing-addon1">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon" id="sizing-addon1">Name</span>
-                    <input type="text" class="form-control" placeholder="Name" aria-describedby="sizing-addon1">
+                    <input type="text" class="form-control" placeholder="Name" name="parameters[name]" id="name" aria-describedby="sizing-addon1">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="input-group input-group-lg">
                     <span class="input-group-addon" id="sizing-addon1">UserName</span>
-                    <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1">
+                    <input type="text" class="form-control" placeholder="Username" name="parameters[username]" id="username" aria-describedby="sizing-addon1">
                 </div>
             </div>
 
             <div class="col-md-6 col-md-offset-3 submit-button">
-                <input type="submit" class="btn btn-success btn-lg btn-block" value="Search User">
+                <button type="submit" class="submit-search-form btn btn-success btn-lg btn-block"  onclick="submit_search()">Search</button>
             </div>
         </div>
 
-
-        </form>
-
-
-
-
-
     </div>
+
+    <div class="jumbotron jumbotron-message" style="display:none;">
+        <div class="alert alert-danger">
+
+        </div>
+    </div>
+
+    <div class="jumbotron jumbotron-search" style="display:none;">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+
+                    <!-- Table -->
+                    <table class="table">
+                        <thead>
+                        <th>Token</th>
+                        <th>Name</th>
+                        <th>Username</th>
+                        </thead>
+                        <tbody class="body-customer">
+                        </tbody>
+                    </table>
+                    <ul class="pagination pagination-search">
+
+                    </ul>
+                    <p class="showing-paragraph"></p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 
 
 
 </div>
 
+<script>
+
+function change_page(page){
+    $("#page_selected").attr("data-page", page);
+    $("#page_selected").val(page);
+    submit_search();
+}
+
+
+
+function submit_search(){
+    var token = $("#token").val();
+    var name = $("#name").val();
+    var username = $("#username").val();
+    var page = parseInt($("#page_selected").val());
+
+    console.log(page);
+
+    var json_obj = {
+        "parameters" : {
+            "id" : token,
+            "name" : name,
+            "username" : username
+        },
+        "show_per_page": 15,
+        "page" : page
+    }
+    console.log(json_obj);
+
+    $.ajax({
+        url: '/api/rest/customer',
+        type: 'post',
+        data: JSON.stringify(json_obj),
+        headers: {
+            "Authorization": 'Bearer 1ARlT7YQpMEo3CXRZIimadTcBHVcesm6fg7xrZQL5pyofwDBxr3aVQ5cTyZE',   //If your header name has spaces or any other char not appropriate
+            "Accept": 'application/json',  //for object property name, use quoted notation shown in second
+            "Content-Type": 'application/json'  //for object property name, use quoted notation shown in second
+        },
+        dataType: 'json',
+        success: function (data) {
+            console.info(data);
+            if(data.error_code == 200){
+                $(".body-customer").html("");
+                $(".jumbotron-search").show();
+                $(".jumbotron-message").hide();
+
+
+                Object.keys(data.data).forEach(function(key){
+                    $(".body-customer").html($(".body-customer").html() + "<tr><th>" + data.data[key].token + "</th><th>" + data.data[key].name + "</th><th>" + data.data[key].username + "</th></tr>");
+                });
+
+                $(".pagination-search").html("<li class='disabled'><span>&laquo;</span></li>");
+
+                var i = page;
+                if(i == 1){
+                    i = 1;
+                }else{
+                    i = page-1
+                }
+
+                for (i; i < data.current_page+5; i++) {
+                    console.log(i);
+                    if(i == data.current_page && i<= data.total_pages){
+                        console.log("if");
+                        $(".pagination-search").html($(".pagination-search").html() + "<li class='active page-option' data-page='+ i +'><span>" + i + "</span></li>");
+                    }else if(i<= data.total_pages){
+                        console.log("else");
+                        $(".pagination-search").html($(".pagination-search").html() + "<li onclick='change_page("+ i +")' data-page='+ i +'><span>" + i + "</span></li>");
+                        // $(".pagination-search").html($(".pagination-search").html() + '<li class="" data-value="'+ i +'"><a href="#">' + i + ' <span class="sr-only">(current)</span></a></li>)');
+                    }
+                }
+                $(".pagination-search").html($(".pagination-search").html() + "<li class='disabled'><span>&raquo;</span></li>");
+
+                var offset_max = data.offset + 15;
+
+                $(".showing-paragraph").html("Showing: " + (data.offset) + " to " + offset_max + " | Total: " + data.total_rows + " | Total Pages: " + data.total_pages);
+
+
+
+
+            }else if(data.error_code == 204){
+                $(".jumbotron-message").show();
+                $(".jumbotron-message").html(data.message);
+            }else if(data.error_code == 400){
+                $(".jumbotron-message").show();
+                $(".jumbotron-message").html(data.message);
+            }else if(data.error_code == 422){
+                $(".jumbotron-message").show();
+                $(".jumbotron-message").html(data.message);
+            }
+        }
+    });
+}
+
+
+</script>
