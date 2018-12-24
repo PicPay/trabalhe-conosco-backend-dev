@@ -11,3 +11,4 @@ django_compressor
 PyMySQL
 mysqlclient
 tqdm
+django-cors-headers

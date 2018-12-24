@@ -5,7 +5,7 @@
  */
 
 // TODO: improve here to use env
-IP = '<ip here>'
+IP = 'http://127.0.0.1:8080'
 INFO_SERVER_REST = IP + '/api/v1/info/'
 USER_SERVER_REST =  IP + '/api/v1/users/' 
 

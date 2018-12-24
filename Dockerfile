@@ -1,4 +1,4 @@
-# Set the base image to use to Ubuntu
+# Set the base image to use to Apline
 FROM python:3.5.3-alpine
 
 MAINTAINER Roberto Morati <robertomorati@gmail.com>
@@ -13,23 +13,28 @@ WORKDIR $HOME
 # Update the default application repository sources list
 RUN apk update
 RUN apk upgrade
-RUN apk add --no-cache python3 python-dev python3-dev mysql-client build-base gettext py-mysqldb wget ca-certificates mariadb-dev libffi-dev
+RUN apk add --no-cache python3 python-dev python3-dev mysql-client build-base gettext py-mysqldb wget ca-certificates mariadb-dev libffi-dev tar 
+RUN apk add --update curl gcc g++
 RUN pip3 install --upgrade pip
-RUN pip install gunicorn django==1.11 
-
+RUN pip install gunicorn
 COPY requirements/requirements.txt $HOME
 COPY manage.py $HOME
 
 RUN mkdir media static logs
 VOLUME ["$HOME/media/", "$HOME/logs/","$HOME/static/"]
 
-RUN wget https://s3.amazonaws.com/careers-picpay/users.csv.gz
-
+COPY django-entrypoint.sh /sbin/django-entrypoint.sh
 
 COPY . $HOME
 
 # Install Python dependencies
 RUN pip install -r $HOME/requirements.txt
-# EXPOSE 22/tcp 80/tcp 8000/tcp
-#RUN chmod 755 /sbin/docker-entrypoint.sh
-#ENTRYPOINT ["/sbin/docker-entrypoint.sh"]
+
+RUN pip install  --no-cache-dir numpy
+RUN pip install  --no-cache-dir pandas==0.23.2
+
+
+RUN chmod 755 /sbin/django-entrypoint.sh
+
+# ENTRYPOINT ["/sbin/django-entrypoint.sh"]
+# RUN "/sbin/django-entrypoint.sh"

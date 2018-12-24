@@ -33,14 +33,13 @@ class Command(BaseCommand):
             tz = pytz.timezone('Brazil/East')
             print(datetime.utcnow().replace(tzinfo=pytz.UTC).astimezone(tz).strftime('%d/%m/%Y %H:%M:%S'))
 
-            n = 0
             total = 0
             with open(PATH_FILE, 'r') as f:
                 users = csv.reader(f)
                 users = list(users)
 
             users_len = int((users.__len__() / THREAD_PARALLEL_BULK))
-            users_picpay = []
+
             users = chunks(users, users_len)
 
             for l in list(users):
@@ -49,14 +48,14 @@ class Command(BaseCommand):
                 jobs.append(t)
                 jobs_count = jobs_count + 1
                 total_jobs_count = total_jobs_count + 1
-                if jobs_count > THREAD_PARALLEL_BULK:
+                if jobs_count >= THREAD_PARALLEL_BULK:
                     for j in jobs:
                         j.start()
                     for j in jobs:
                         j.join()
                         jobs_count = 0
 
-            #if not (total_jobs_count == list(users).__len__()):
+            # if not (total_jobs_count == list(users).__len__()):
             #    t = threading.Thread(target=list_bulk_create, args=(list(users)[-1]))
             #    t.start()
             #    t.join()
@@ -117,6 +116,7 @@ def list_bulk_create(*users):
     users = list(users)
     users_picpay = []
     n = 0
+
     for line in tqdm(users):
         if PicPayUser.objects.filter(id=line[0]).exists():
             print("User already registered, username: " + line[2])

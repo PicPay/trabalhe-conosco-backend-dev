@@ -14,7 +14,7 @@ __version__ = '0.0.1'
 if 'runserver' in sys.argv:
     DEBUG = True
 else:
-    DEBUG = True
+    DEBUG = False
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -45,17 +45,20 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_swagger',
     'compressor',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+
 ]
 
 
@@ -75,6 +78,9 @@ DEBUG_TOOLBAR_PANELS = [
 ]
 
 ROOT_URLCONF = 'picpay.urls'
+
+CORS_ORIGIN_ALLOW_ALL = True
+
 
 TEMPLATES = [
     {
@@ -120,10 +126,13 @@ if 'DB_NAME' in os.environ:
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'database_name',
-        'USER': 'user',
-        'PASSWORD': 'pwd',
-        'HOST': 'host',
+        'OPTIONS': {
+            'sql_mode': 'traditional',
+        },
+        'NAME': 'picpay',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        'HOST': 'db',
         'PORT': '3306',
     }
 }
@@ -172,12 +181,7 @@ REST_FRAMEWORK = {
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-
 STATIC_ROOT = PROJECT_DIR + '/static/'
-
-# STATICFILES_DIRS = [
-#    os.path.join(PROJECT_DIR, 'static'),
-# ]
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -188,7 +192,7 @@ STATICFILES_FINDERS = (
 
 ELASTICSEARCH_DSL = {
     'default': {
-        'hosts': 'IP:PORT'
+        'hosts': 'elasticsearch:9200'
     },
 }
 
@@ -202,12 +206,14 @@ try:
     LIMIT_BULK_CREATE = os.environ['LIMIT']
 except Exception as ex:
 """
-WSINFO = '<url:port>/api/v1/info/'
-WSSEARCH = '<url:port>/api/v1/users/'
+
+CHECK_USER_DB = False
 PATH_FILE = PROJECT_DIR + '/users.csv'
 PATH_FILE_PRIORITY = PROJECT_DIR + '/lista_relevancia.csv'
-LIMIT_BULK_CREATE = 10000
+LIMIT_BULK_CREATE = int(475186)
+LIMIT_BULK_CREATE_BATCH = int(10000)
 
-THREAD_PARALLEL_BULK = int(multiprocessing.cpu_count()) / 2
+THREAD_PARALLEL_BULK_ES = int(multiprocessing.cpu_count())
+THREAD_PARALLEL_BULK = int(multiprocessing.cpu_count() / 2)
 CHUNK_SIZE = 10000
-MAX_CHUNK_BYTES = int(memoryCheck().value * 0.10) * 1024 * 1024
+MAX_CHUNK_BYTES = int(int(memoryCheck().value * 0.30) * 1024 * 1024)

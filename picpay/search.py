@@ -132,8 +132,8 @@ def search(data_search='*', info_search=None, page=0, limit=15):
             response = {}
             response['error'] = 'no-info-search-setted'
             return response
-    except:
+    except Exception as e:
         response = {}
-        response['error'] = 'page invalid'
+        response['error'] = 'page invalid or max window exceeded'
         return response
     # return json.dumps(response.to_dict(), ensure_ascii=False)

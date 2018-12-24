@@ -1,58 +1,97 @@
 # Roberto Morati
 
-	API based on ElasticSearch (http://elastic.robertomorati.com)
-	Administration: http://elastic.robertomorati.com/admin/login/?next=/admin/
-	User: picpay   password: gvpthdpdr9kpkgkb
-	Administration Dashboard allows create a new user and set priority in the new user. 
-	The API can be used by the website: http://elastic.robertomorati.com
+API based on ElasticSearch (http://elastic.robertomorati.com)
 
-	Future enhancements:
-	###Improve the script that was created in search.py to support searches based on all users. Nowadays it works fine, but the server has a "poor hardware" and was needed setup Swap Space to solve memory problem.
-	###Setup OAuth2 to persist authentication on the mobile apps (clients). (I decided not setup authentication). 
+Administration (allows create a new user and set priority in the new user. ): http://elastic.robertomorati.com/admin/login/?next=/admin/
+
+User: picpay   
+password: gvpthdpdr9kpkgkb
 
 
-## 1. API
+Future enhancements: Setup OAuth2 to persist authentication.
+
+
+## 1. Clone the project
+
+	git clone https://github.com/robertomorati/trabalhe-conosco-backend-dev.git
 	
-	Test API: https://picpay.docs.apiary.io
+After that, download and unzip the file: [users.csv.gz](https://s3.amazonaws.com/careers-picpay/users.csv.gz) into the root project (~/development/repository/trabalhe-conosco-backend-dev):
 
-## 2. Clone the project
-
-	git clone https://bitbucket.org/robertomorati/picpay.git
+	wget https://s3.amazonaws.com/careers-picpay/users.csv.gz
 	
-## 3. Installation
-
-	Before running the application it is necessary to set up the following the steps:
-	### 3.1. Setup the database on settings.py (DATABASES). Thus, it's necessary to create the database. 
-	### 3.2 It's necessary create an Index (ElasticSearch). In docker was used the follow image: docker.elastic.co/elasticsearch/elasticsearch:5.3.3 
-	### 3.3 - The index should be created with the name "pcusers-index",by means of the command: curl -XPUT '<url__here>:<port_elastic_search>/pcusers-index?pretty'
-	### 3.3.1 - In settings.py setup the ELASTICSEARCH_DSL.
-	### 3.3.2 - Finally, setup the WSINFO and WSSEARCH with the address that will host the app.
-
-	### 3.4 - Setup IP with the address that will host the app on picpay/static/util.js
-
-	### In my server was used load-balancer and another container to set up the nginx (i.e.: folder nginx inside project)
+The file users.csv will be used to load the users into the database. A load of users to ElasticSearch will be made from the database. This process will use  ~ 452 Mb of RAM. 
 
 
-## 4. In the project
+## 2. In the project
 
 
-	docker-compose build --force-rm
-	docker-compose up -d
+	docker-compose up -d --remove-orphans
 
-	### Inside the container setup superuser to access admin (http://elastic.robertomorati.com/admin/login/?next=/admin/) and run collectstatic
-	./manage.py createsuperuser
-	./manage.py collectstatic
+The time:
 
-	### migrations
-	./manage.py migrate
+- to load the users into the database (MySQL) is between 30 - 80 minutes.
 
-	### setup index users, database users and priority users
-	./manage.py index
-	./manage.py load_priority
-	./manage.py load_users
+- to load the users from the database to ElasticSearch is between 10 - 22 minutes.
+	
    
-   
-   
+## 3. Testing the API
+
+
+To acess the frontend (Search API> Search User): 
+	
+	http://127.0.0.1:8080/
+	
+To access the admin area: 
+	
+	http://127.0.0.1:8080/admin/
+	
+- user: picpay
+- password: picpay@2018
+	
+	
+## 4. API
+	
+Test API: https://picpay.docs.apiary.io (old depends on elastic.robertomorati.com)
+	
+First, retrieves basic info to start the search based on <data_search>. The data_search is the string to search. 
+
+- http://127.0.0.1:8080/api/v1/info/<data_search>/
+- Example of response (http://elastic.robertomorati.com/api/v1/info/ana/) (total of users found is 33350, token to retrieves the users and total of pages):
+
+		{
+		    "total": 33350,
+		    "success": "The search found 33350 user(s) in 85 milliseconds",
+		    "token": "e44683376ee0",
+		    "pages": 2223
+		}
+	
+Second, retrievesthe users based on <data_search>, < token > and < page >. The data_search is the string used above (the same), the token was retrives above and the page. 
+
+- http://127.0.0.1:8080/api/v1/users/<data_search>/< token >/< page >/
+- http://elastic.robertomorati.com/api/v1/users/ana/e44683376ee0/1/
+	
+		[
+		    {
+			"id": "365df9cc-062e-485b-ba8a-cc708cbed4ff",
+			"username": "analucia.norges",
+			"full_name": "Analucia Norges"
+		    },
+		    {
+			"id": "02014677-032f-48eb-89a9-6e0a4074fa50",
+			"username": "analuagaitolini",
+			"full_name": "Analua Gaitolini"
+		    },
+		    {
+			"id": "0160e03d-3030-4e23-8785-298b01a6656a",
+			"username": "loiza.ananias.goncalez",
+			"full_name": "Loiza Ananias Goncalez"
+		    },
+
+		    .....
+
+	    ]	
+    
+    
 # Teste Backend
 
 O desafio é criar uma API REST que busca usuarios pelo nome e username a partir de uma palavra chave. Faça o download do arquivo [users.csv.gz](https://s3.amazonaws.com/careers-picpay/users.csv.gz) que contém o banco de dados que deve ser usado na busca. Ele contém os IDs, nomes e usernames dos usuários.
@@ -85,4 +124,3 @@ Faça um ***Fork*** deste repositório e abra um ***Pull Request***, **com seu n
 - Criar uma solução de autenticação entre o frontend e o backend
 - Ter um desempenho elevado num conjunto de dados muito grande
 - Utilizar o Docker
-

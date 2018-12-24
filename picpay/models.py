@@ -21,13 +21,19 @@ class PicPayUser(models.Model):
     username = models.CharField(max_length=100, verbose_name="Username", blank=False,)
     full_name = models.CharField(max_length=150, verbose_name="Full Name", blank=False,)
 
-    def indexing(self):
+    # def __str__(self):
+    #    return "%s" % self.id
+
+    def indexing(self, to_save=True, dict=False):
         obj = PicPayUserIndex(
             meta={'id': self.id},
             username=self.username,
             full_name=self.full_name,
         )
-        obj.save()
+        if dict:
+            return obj.to_dict(include_meta=True)
+        elif to_save:
+            obj.save()
         return obj.to_dict(include_meta=True)
 
     def remove(self):
