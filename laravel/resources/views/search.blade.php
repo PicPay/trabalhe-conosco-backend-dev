@@ -117,7 +117,7 @@
                     <ul class="pagination pagination-search">
 
                     </ul>
-                    <p class="showing-paragraph"></p>
+
                 </div>
             </div>
 

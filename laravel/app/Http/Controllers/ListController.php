@@ -20,7 +20,7 @@ class ListController extends Controller
         $request = new Request();
 
         $request->replace([
-            'show_per_page' => 20,
+            'show_per_page' => 15,
             'page' => 1,
             'list' => "first"
         ]);
@@ -28,14 +28,14 @@ class ListController extends Controller
         $first_list = $this->getList($request);
 
         $request->replace([
-            'show_per_page' => 20,
+            'show_per_page' => 15,
             'page' => 1,
             'list' => 'secondary']);
 
         $secondary_list = $this->getList($request);
 
         $request->replace([
-            'show_per_page' => 20,
+            'show_per_page' => 14,
             'page' => 1,
             'list' => 'major'
         ]);
@@ -46,8 +46,6 @@ class ListController extends Controller
             "secondary_list" => $secondary_list,
             "major_list" => $major_list,
         );
-
-
 
         if (Auth::check()) {
             return view('list',$data);

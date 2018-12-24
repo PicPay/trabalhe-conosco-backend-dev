@@ -29,10 +29,10 @@ class ListModel extends Model
         $page = $request->page;
         $offset = $show_per_page * ($page-1);
 
-        $query = "select c.* from main_list_score as f join secondary_list_score as s on f.token = s.token join customer as c on c.token = f.token LIMIT " . $offset .", " . $show_per_page;
+        $query = "select * from main_list_score as f join secondary_list_score as s on f.token = s.token LIMIT " . $offset .", " . $show_per_page;
         $query_raw = DB::select(DB::raw($query));
 
-        $query_count = sizeof($query_raw);
+        $query_count = $this->countCustomersMajor();
         $total_pages = ceil($query_count / $show_per_page);
 
 
@@ -55,12 +55,11 @@ class ListModel extends Model
         $page = $request->page;
         $offset = $show_per_page * ($page-1);
 
-        $query = "select c.* from main_list_score as f right join customer as c on f.token = c.token LIMIT " . $offset .", " . $show_per_page;
+        $query = "select * from main_list_score as f LIMIT " . $offset .", " . $show_per_page;
         $query_raw = DB::select(DB::raw($query));
 
-        $query_count = sizeof($query_raw);
+        $query_count = $this->countCustomersFirst();
         $total_pages = ceil($query_count / $show_per_page);
-
 
         $response_arr = array(
             "show_per_page" => $show_per_page,
@@ -82,10 +81,10 @@ class ListModel extends Model
         $page = $request->page;
         $offset = $show_per_page * ($page-1);
 
-        $query = "select c.* from secondary_list_score as s right join customer as c on s.token = c.token LIMIT " . $offset .", " . $show_per_page;
+        $query = "select * from secondary_list_score as s LIMIT " . $offset .", " . $show_per_page;
         $query_raw = DB::select(DB::raw($query));
 
-        $query_count = sizeof($query_raw);
+        $query_count = $this->countCustomersSecondary();
         $total_pages = ceil($query_count / $show_per_page);
 
 
@@ -101,12 +100,17 @@ class ListModel extends Model
         return $response_arr;
     }
 
-
-
-    function countCustomers(){
-        return DB::select(DB::raw("select c.* from main_list_score as f, secondary_list_score as s, customer as c where f.token = s.token and c.token = f.token")->fetchColumn());
-
+    function countCustomersFirst(){
+        return count(DB::select(DB::raw("select * from main_list_score")));
     }
+    function countCustomersSecondary(){
+        return count(DB::select(DB::raw("select * from secondary_list_score")));
+    }
+    function countCustomersMajor(){
+        return count(DB::select(DB::raw("select * from main_list_score as f join secondary_list_score as s on f.token = s.token")));
+    }
+
+
 
 
 
