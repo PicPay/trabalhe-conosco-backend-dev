@@ -20,7 +20,10 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" rel="stylesheet">
-<link rel="stylesheet" href="/css/dashboard.css">
+<link rel="stylesheet" href="/css/custom.css">
+
+
+
 
 <div id="top-nav" class="navbar navbar-default navbar-static-top">
     <div class="container-fluid">
@@ -57,30 +60,40 @@
 <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
     <!-- Right -->
     <div class="jumbotron">
+
+        <form>
+
+
         <h1>Search a User</h1>
         <p>Please provide token, name or username. Empty or more than 4 character.</p>
+        <p>The search will focus on the info you provided.</p>
         <div class="row">
             <div class="col-md-4">
                 <div class="input-group input-group-lg">
-                    <span class="input-group-addon" id="sizing-addon1">@</span>
+                    <span class="input-group-addon" id="sizing-addon1">Token</span>
                     <input type="text" class="form-control" placeholder="Token" aria-describedby="sizing-addon1">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="input-group input-group-lg">
-                    <span class="input-group-addon" id="sizing-addon1">@</span>
+                    <span class="input-group-addon" id="sizing-addon1">Name</span>
                     <input type="text" class="form-control" placeholder="Name" aria-describedby="sizing-addon1">
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="input-group input-group-lg">
-                    <span class="input-group-addon" id="sizing-addon1">@</span>
+                    <span class="input-group-addon" id="sizing-addon1">UserName</span>
                     <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1">
                 </div>
             </div>
 
+            <div class="col-md-6 col-md-offset-3 submit-button">
+                <input type="submit" class="btn btn-success btn-lg btn-block" value="Search User">
+            </div>
         </div>
 
+
+        </form>
 
 
 

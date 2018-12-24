@@ -4,7 +4,7 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" rel="stylesheet">
-<link rel="stylesheet" href="/css/dashboard.css">
+<link rel="stylesheet" href="/css/custom.css">
 
 <div id="top-nav" class="navbar navbar-default navbar-static-top">
     <div class="container-fluid">
