@@ -46,6 +46,7 @@ class ListController extends Controller
             "first_list" => $first_list,
             "secondary_list" => $secondary_list,
             "major_list" => $major_list,
+            "api_token" => Auth::User()->api_token,
         );
 
         if (Auth::check()) {

@@ -22,7 +22,7 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" rel="stylesheet">
 <link rel="stylesheet" href="/css/custom.css">
 
-
+<input type="hidden" class="form-control" name="bearer" id="bearer" value="{{ $api_token }}">
 
 
 <div id="top-nav" class="navbar navbar-default navbar-static-top">
@@ -130,6 +130,7 @@
 </div>
 
 <script>
+var bearer = "" + $("#bearer").val();
 
 function change_page(page){
     $("#page_selected").attr("data-page", page);
@@ -163,7 +164,7 @@ function submit_search(){
         type: 'post',
         data: JSON.stringify(json_obj),
         headers: {
-            "Authorization": 'Bearer 1ARlT7YQpMEo3CXRZIimadTcBHVcesm6fg7xrZQL5pyofwDBxr3aVQ5cTyZE',   //If your header name has spaces or any other char not appropriate
+            "Authorization": 'Bearer '+ bearer,   //If your header name has spaces or any other char not appropriate
             "Accept": 'application/json',  //for object property name, use quoted notation shown in second
             "Content-Type": 'application/json'  //for object property name, use quoted notation shown in second
         },
@@ -177,7 +178,7 @@ function submit_search(){
 
 
                 Object.keys(data.data).forEach(function(key){
-                    $(".body-customer").html($(".body-customer").html() + "<tr><th>" + data.data[key].token + "</th><th>" + data.data[key].name + "</th><th>" + data.data[key].username + "</th></tr>");
+                    $(".body-customer").html($(".body-customer").html() + "<tr><td>" + data.data[key].token + "</td><td>" + data.data[key].name + "</td><td>" + data.data[key].username + "</td></tr>");
                 });
 
                 $(".pagination-search").html("<li class='disabled'><span>&laquo;</span></li>");
@@ -197,7 +198,6 @@ function submit_search(){
                     }else if(i<= data.total_pages){
                         console.log("else");
                         $(".pagination-search").html($(".pagination-search").html() + "<li onclick='change_page("+ i +")' data-page='+ i +'><span>" + i + "</span></li>");
-                        // $(".pagination-search").html($(".pagination-search").html() + '<li class="" data-value="'+ i +'"><a href="#">' + i + ' <span class="sr-only">(current)</span></a></li>)');
                     }
                 }
                 $(".pagination-search").html($(".pagination-search").html() + "<li class='disabled'><span>&raquo;</span></li>");

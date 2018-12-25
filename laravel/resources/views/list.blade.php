@@ -22,6 +22,8 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" rel="stylesheet">
 <link rel="stylesheet" href="/css/custom.css">
 
+<input type="hidden" class="form-control" name="bearer" id="bearer" value="{{ $api_token }}">
+
 <div id="top-nav" class="navbar navbar-default navbar-static-top">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -231,6 +233,9 @@
 
 
 <script>
+
+var bearer = "" + $("#bearer").val();
+
 function addToList(list){
     console.log(list);
     if(list == "first"){
@@ -252,7 +257,7 @@ function addToList(list){
         type: 'post',
         data: JSON.stringify(json_obj),
         headers: {
-            "Authorization": 'Bearer 1ARlT7YQpMEo3CXRZIimadTcBHVcesm6fg7xrZQL5pyofwDBxr3aVQ5cTyZE',   //If your header name has spaces or any other char not appropriate
+            "Authorization": 'Bearer '+ bearer,   //If your header name has spaces or any other char not appropriate
             "Accept": 'application/json',  //for object property name, use quoted notation shown in second
             "Content-Type": 'application/json'  //for object property name, use quoted notation shown in second
         },
@@ -293,7 +298,7 @@ function removeFromList(token, list){
         type: 'post',
         data: JSON.stringify(json_obj),
         headers: {
-            "Authorization": 'Bearer 1ARlT7YQpMEo3CXRZIimadTcBHVcesm6fg7xrZQL5pyofwDBxr3aVQ5cTyZE',   //If your header name has spaces or any other char not appropriate
+            "Authorization": 'Bearer '+ bearer,   //If your header name has spaces or any other char not appropriate
             "Accept": 'application/json',  //for object property name, use quoted notation shown in second
             "Content-Type": 'application/json'  //for object property name, use quoted notation shown in second
         },
@@ -404,7 +409,7 @@ function updateTable(page, list){
         type: 'post',
         data: JSON.stringify(json_obj),
         headers: {
-            "Authorization": 'Bearer 1ARlT7YQpMEo3CXRZIimadTcBHVcesm6fg7xrZQL5pyofwDBxr3aVQ5cTyZE',   //If your header name has spaces or any other char not appropriate
+            "Authorization": 'Bearer '+ bearer,   //If your header name has spaces or any other char not appropriate
             "Accept": 'application/json',  //for object property name, use quoted notation shown in second
             "Content-Type": 'application/json'  //for object property name, use quoted notation shown in second
         },

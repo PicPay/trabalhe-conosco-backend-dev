@@ -19,7 +19,11 @@ class SearchController extends Controller
 
 
         if (Auth::check()) {
-            return view('search');
+            $data = array(
+                "api_token" => $api_token = Auth::User()->api_token,
+            );
+
+            return view('search', $data);
         }else{
             return redirect('/');
         }
