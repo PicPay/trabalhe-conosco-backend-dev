@@ -21,7 +21,7 @@ if the customer is present in both lists it will have a score 3\n");
                 $this->addOrUpdateScore($line);
             }
             print_r("\n  We have updated the existing customers with the relative score set by the relevance lists.\n 
-  In case of addition of customers/users we highly suggest to sync the score by the url: (URL COMES HERE) \n\n");
+  In case of addition of customers/users we highly suggest to seed again the DB \n\n");
 
             fclose($handle);
         } else {
