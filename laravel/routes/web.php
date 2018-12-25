@@ -28,6 +28,8 @@ Route::group([
     Route::post('get_list', 'ListController@getList');
     Route::get('list_management', 'ListController@index');
 
+    Route::post('add_first_list', 'ListController@addToPrimaryList');
+    Route::post('add_secondary_list', 'ListController@addToSecondaryList');
 
     Route::post('delete_first_list', 'ListController@removeFromPrimaryList');
     Route::post('delete_secondary_list', 'ListController@removeFromSecondaryList');
@@ -39,3 +41,5 @@ Route::group([
 Route::get('search_user', 'SearchController@index');
 Route::post('search_user', 'SearchController@getCustomer');
 });
+
+

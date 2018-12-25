@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Validator;
 use App\ListModel;
 use Http;
+use App\Customer;
 
 class ListController extends Controller
 {
@@ -118,20 +119,80 @@ class ListController extends Controller
         return $response;
     }
 
-    public function addToPrimaryList(){
+    public function addToPrimaryList(Request $request){
+        if(!$request->all()){
+            $response['success'] = false;
+            $response['error_code'] = 400;
+            $response['message'] = "Please verify your JSON post parameters";
+            $response['errors'] = array("format" => array("The format of the post Body is not correct"));
+            return json_encode($response);
+        }
+
+        $request->replace([
+            'token' => $request->token,
+        ]);
+
+
+        $customer_model = new Customer();
+        $response_customer = $customer_model->getCustomerByToken($request->token);
+        $response = "false";
+
+        if($response_customer){
+            //update score
+            $list_model = new ListModel();
+            $response_score = $list_model->updateScoreByToken($response_customer[0]->id, 2);
+            $response = $list_model->addFirstList($request);
+        }
+        return $response;
+
 
     }
 
-    public function removeFromPrimaryList(){
-        return "First List";
+    public function removeFromPrimaryList(Request $request){
+        $customer_model = new Customer();
+        $response_customer = $customer_model->getCustomerByToken($request->token);
+        $list_model = new ListModel();
+        $response_score = $list_model->removeScore($response_customer[0]->id);
+        $response = $list_model->removeFirstList($request);
+        return $response;
     }
 
-    public function addToSecondaryList(){
+    public function addToSecondaryList(Request $request){
+
+        if(!$request->all()){
+            $response['success'] = false;
+            $response['error_code'] = 400;
+            $response['message'] = "Please verify your JSON post parameters";
+            $response['errors'] = array("format" => array("The format of the post Body is not correct"));
+            return json_encode($response);
+        }
+
+        $request->replace([
+            'token' => $request->token,
+        ]);
+
+
+        $customer_model = new Customer();
+        $response_customer = $customer_model->getCustomerByToken($request->token);
+        $response = "false";
+
+        if($response_customer){
+            //update score
+            $list_model = new ListModel();
+            $response_score = $list_model->updateScoreByToken($response_customer[0]->id, 1);
+            $response = $list_model->addSecondaryList($request);
+        }
+        return $response;
 
     }
 
-    public function removeFromSecondaryList(){
-        return "Second List";
+    public function removeFromSecondaryList(Request $request){
+        $customer_model = new Customer();
+        $response_customer = $customer_model->getCustomerByToken($request->token);
+        $list_model = new ListModel();
+        $response_score = $list_model->removeScore($response_customer[0]->id);
+        $response = $list_model->removeSecondaryList($request);
+        return $response;
     }
 
 

@@ -43,6 +43,13 @@
 <!-- /Header -->
 
 <!-- Main -->
+<div id="modal_add_first" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Content will be loaded here from "remote.php" file -->
+        </div>
+    </div>
+</div>
 
 <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
 
@@ -85,13 +92,20 @@
                             <!-- Default panel contents -->
                             <div class="panel-heading">
                                 First List
+                            </div>
+
+                            <div class="panel-heading message-add-remove-first alert-primary" style="display:none;">
+                                <p class="message-add-remove-content-first"></p>
+                            </div>
+
+                            <div class="panel-heading">
+                                <input type="text" class="form-control" name="token_first" id="token_first" placeholder="Token" aria-describedby="sizing-addon1">
                                 <div class="pull-right">
-                                    <button class="add-modal btn btn-success" data-info="first_list"
-                                        <span class="glyphicon glyphicon-trash"></span> Add
+                                    <button  onclick="addToList('first')" class="add-modal btn btn-success" data-info="first_list"
+                                    <span class="glyphicon glyphicon-trash"></span> Add
                                     </button>
                                 </div>
                             </div>
-
 
                             <!-- Table -->
                             <table class="table">
@@ -104,7 +118,7 @@
                                 @foreach ($first_list['data'] as $value)
                                 <tr>
                                     <td>{{ $value->token }}</td>
-                                    <td><button class="delete-modal btn btn-danger"
+                                    <td><button onclick='removeFromList("{{$value->token}}" , "first")' class="delete-modal btn btn-danger"
                                                 data-token="{{$value->token}}" data-table="first_table">
                                             <span class="glyphicon glyphicon-trash"></span> Delete
                                         </button></td>
@@ -123,8 +137,16 @@
                             <!-- Default panel contents -->
                             <div class="panel-heading">
                                 Secondary List
+                            </div>
+
+                            <div class="panel-heading message-add-remove-secondary alert-primary" style="display:none;">
+                                <p class="message-add-remove-content-secondary"></p>
+                            </div>
+
+                            <div class="panel-heading">
+                                <input type="text" class="form-control" name="token_secondary" id="token_secondary" placeholder="Token" aria-describedby="sizing-addon1">
                                 <div class="pull-right">
-                                    <button class="add-modal btn btn-success" data-info="secondary_list"
+                                    <button  onclick="addToList('secondary')" class="add-modal btn btn-success" data-info="first_list"
                                     <span class="glyphicon glyphicon-trash"></span> Add
                                     </button>
                                 </div>
@@ -140,7 +162,7 @@
                                 @foreach ($secondary_list['data'] as $value)
                                 <tr>
                                     <td>{{ $value->token }}</td>
-                                    <td><button class="delete-modal btn btn-danger"
+                                    <td><button onclick='removeFromList("{{$value->token}}" , "secondary")' class="delete-modal btn btn-danger"
                                                 data-token="{{$value->token}}"  data-table="secondary_table">
                                             <span class="glyphicon glyphicon-trash"></span> Delete
                                         </button></td>
@@ -209,6 +231,82 @@
 
 
 <script>
+function addToList(list){
+    console.log(list);
+    if(list == "first"){
+        var token = $("#token_first").val();
+        var url = "/list/add_first_list";
+    }else{
+        var token = $("#token_secondary").val();
+        var url = "/list/add_secondary_list";
+    }
+
+    var json_obj = {
+        "list" : "" + list,
+        "token" :"" + token
+    };
+    console.log(json_obj);
+
+    $.ajax({
+        url: url,
+        type: 'post',
+        data: JSON.stringify(json_obj),
+        headers: {
+            "Authorization": 'Bearer 1ARlT7YQpMEo3CXRZIimadTcBHVcesm6fg7xrZQL5pyofwDBxr3aVQ5cTyZE',   //If your header name has spaces or any other char not appropriate
+            "Accept": 'application/json',  //for object property name, use quoted notation shown in second
+            "Content-Type": 'application/json'  //for object property name, use quoted notation shown in second
+        },
+        dataType: 'json',
+        success: function (data) {
+            console.log("success");
+            var message = ".message-add-remove-" + list;
+            var content = ".message-add-remove-content-" + list;
+            if(data){
+                $(message).show();
+                $(content).html("Added with Success");
+            }else{
+                $(message).show();
+                $(content).html("Customer not found, not added");
+            }
+        },
+    });
+
+
+}
+
+function removeFromList(token, list){
+    console.log(list);
+    if(list == "first"){
+        var url = "/list/delete_first_list";
+    }else{
+        var url = "/list/delete_secondary_list";
+    }
+
+    var json_obj = {
+        "list" : "" + list,
+        "token" :"" + token
+    };
+    console.log(json_obj);
+
+    $.ajax({
+        url: url,
+        type: 'post',
+        data: JSON.stringify(json_obj),
+        headers: {
+            "Authorization": 'Bearer 1ARlT7YQpMEo3CXRZIimadTcBHVcesm6fg7xrZQL5pyofwDBxr3aVQ5cTyZE',   //If your header name has spaces or any other char not appropriate
+            "Accept": 'application/json',  //for object property name, use quoted notation shown in second
+            "Content-Type": 'application/json'  //for object property name, use quoted notation shown in second
+        },
+        dataType: 'json',
+        success: function (data) {
+            console.log(data);
+            console.log('success');
+            location.reload();
+        },
+    });
+
+
+}
 
 
 function loadPaginationFirst() {
@@ -317,7 +415,7 @@ function updateTable(page, list){
             $(body_content).html("");
 
             Object.keys(data.data).forEach(function(key){
-                $(body_content).html($(body_content).html() + "<tr><td>" + data.data[key].token + "</td><td><button class=\"delete-modal btn btn-danger\"\n" +
+                $(body_content).html($(body_content).html() + "<tr><td>" + data.data[key].token + "</td><td><button onclick=\'removeFromList(\""+ data.data[key].token +"\", \"" + list + "\")\' class=\"delete-modal btn btn-danger\"\n" +
                     "                                                data-token=\"" + data.data[key].token + "\" data-table=\"" +list +"\">\n" +
                     "                                            <span class=\"glyphicon glyphicon-trash\"></span> Delete\n" +
                     "                                        </button></td></tr>");

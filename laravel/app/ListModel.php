@@ -110,8 +110,96 @@ class ListModel extends Model
         return count(DB::select(DB::raw("select * from main_list_score as f join secondary_list_score as s on f.token = s.token")));
     }
 
+    function updateScoreByToken($customer_id, $score){
+        $query = "select * from customer_score where customer_id = '" . $customer_id ."'";
+        $query_raw = DB::select(DB::raw($query));
+
+        if($query_raw){
+            if($score == 2) {
+                switch ($query_raw[0]->score) {
+                    case 0:
+                    case 2:
+                        $value = 2;
+                        break;
+                    case 1:
+                    case 3:
+                        $value = 3;
+                        break;
+                }
+            }else{
+                switch ($query_raw[0]->score) {
+                    case 0:
+                    case 1:
+                        $value = 1;
+                        break;
+                    case 2:
+                    case 3:
+                        $value = 3;
+                        break;
+                }
+            }
+            DB::table('customer_score')
+                ->where('customer_id', $customer_id)
+                ->update(['score' => $value]);
+        }else{
+            DB::table('customer_score')->insert(
+                ['customer_id' => $customer_id, 'score' => $score]
+            );
+        }
+
+    }
 
 
+    function addFirstList(Request $request){
+        $token = $request->token;
+        $date = date('Y-m-d H:i:s', time());
 
+        $parameter = array(
+            "token" => $token,
+            "created_at" => $date,
+            "updated_at" => $date,
+        );
+
+        $query = DB::table('main_list_score')->insert($parameter);
+
+        $response_arr = array(
+            "data" => $query
+        );
+
+        return $response_arr;
+    }
+
+
+    function addSecondaryList(Request $request){
+        $token = $request->token;
+        $date = date('Y-m-d H:i:s', time());
+
+        $parameter = array(
+            "token" => $token,
+            "created_at" => $date,
+            "updated_at" => $date,
+        );
+
+        $query = DB::table('secondary_list_score')->insert($parameter);
+
+        $response_arr = array(
+            "data" => $query
+        );
+
+        return $response_arr;
+    }
+
+
+    function removeScore($customer_id){
+        return DB::table('customer_score')->where('customer_id', '=', $customer_id)->delete();
+    }
+
+    function removeFirstList(Request $request){
+        return DB::table('main_list_score')->where('token', '=', $request->token)->delete();
+    }
+
+    function removeSecondaryList(Request $request){
+        return DB::table('secondary_list_score')->where('token', '=', $request->token)->delete();
+    }
 
 }

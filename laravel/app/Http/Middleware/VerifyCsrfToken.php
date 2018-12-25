@@ -21,6 +21,8 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         "list/get_list",
         "list/delete_secondary_list",
-        "list/delete_first_list"
+        "list/delete_first_list",
+        "list/add_first_list",
+        "list/add_secondary_list",
     ];
 }

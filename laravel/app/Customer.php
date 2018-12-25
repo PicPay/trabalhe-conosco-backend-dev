@@ -66,6 +66,12 @@ class Customer extends Model
 
     }
 
+    function getCustomerByToken($token){
+        $query = "select c.* from customer as c where c.token = '" . $token . "'";
+        $query_raw = DB::select(DB::raw($query));
+        return $query_raw;
+    }
+
     function countCustomers($where){
         return count(DB::select(DB::raw("select * from customer as c left join customer_score as cs ON cs.customer_id = c.id " . $where . " order by cs.score DESC")));
 
