@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ContentFilters</key>
+	<dict/>
+	<key>auto_connect</key>
+	<true/>
+	<key>data</key>
+	<dict>
+		<key>connection</key>
+		<dict>
+			<key>database</key>
+			<string>laravel</string>
+			<key>host</key>
+			<string>127.0.0.1</string>
+			<key>kcid</key>
+			<string>347259638246845056</string>
+			<key>name</key>
+			<string>Laravel DB Local</string>
+			<key>rdbms_type</key>
+			<string>mysql</string>
+			<key>sslCACertFileLocation</key>
+			<string></string>
+			<key>sslCACertFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslCertificateFileLocation</key>
+			<string></string>
+			<key>sslCertificateFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslKeyFileLocation</key>
+			<string></string>
+			<key>sslKeyFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>type</key>
+			<string>SPTCPIPConnection</string>
+			<key>useSSL</key>
+			<integer>0</integer>
+			<key>user</key>
+			<string>root</string>
+		</dict>
+		<key>session</key>
+		<dict>
+			<key>connectionEncoding</key>
+			<string>utf8mb4</string>
+			<key>contentFilter</key>
+			<dict/>
+			<key>contentPageNumber</key>
+			<integer>1</integer>
+			<key>contentSelection</key>
+			<data>
+			YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFy
+			Y2hpdmVyVCR0b3ASAAGGoK8QDwcIFRYXGBkfICEoLDA1OlUkbnVs
+			bNMJCgsMEBRXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6MNDg+A
+			AoADgASjERITgAWABoAKgA5UdHlwZVRyb3dzVGtleXNfECZTZWxl
+			Y3Rpb25EZXRhaWxUeXBlUHJpbWFyeUtleWVkRGV0YWlsc9MJCgsa
+			HB6hG4AHoR2ACIAJUTEJ0iIjJCVaJGNsYXNzbmFtZVgkY2xhc3Nl
+			c18QE05TTXV0YWJsZURpY3Rpb25hcnmjJCYnXE5TRGljdGlvbmFy
+			eVhOU09iamVjdNIKCykroSqAC4AN0gstLi9ZTlMuc3RyaW5ngAxS
+			aWTSIiMxMl8QD05TTXV0YWJsZVN0cmluZ6MxMzRYTlNTdHJpbmdY
+			TlNPYmplY3TSIiM2N15OU011dGFibGVBcnJheaM2ODlXTlNBcnJh
+			eVhOU09iamVjdNIiIyY7oiY8WE5TT2JqZWN0XxAPTlNLZXllZEFy
+			Y2hpdmVy0T9AVGRhdGGAAQAIABEAGgAjAC0AMgA3AEkATwBWAF4A
+			aQBwAHQAdgB4AHoAfgCAAIIAhACGAIsAkACVAL4AxQDHAMkAywDN
+			AM8A0QDSANcA4gDrAQEBBQESARsBIAEiASQBJgErATUBNwE6AT8B
+			UQFVAV4BZwFsAXsBfwGHAZABlQGYAaEBswG2AbsAAAAAAAACAQAA
+			AAAAAABBAAAAAAAAAAAAAAAAAAABvQ==
+			</data>
+			<key>contentSortColIsAsc</key>
+			<true/>
+			<key>contentViewport</key>
+			<string>{{0, 0}, {1570, 898}}</string>
+			<key>isToolbarVisible</key>
+			<true/>
+			<key>queries</key>
+			<string>select c.* from main_list_score as f, secondary_list_score as s, customer as c where f.token = s.token and c.token = f.token
+
+
+select c.* from main_list_score as f join customer as c on f.token = c.token LIMIT 0, 20
+
+select c.* from secondary_list_score as f join customer as c on f.token = c.token LIMIT 0, 20</string>
+			<key>table</key>
+			<string>oauth_clients</string>
+			<key>view</key>
+			<string>SP_VIEW_CUSTOMQUERY</string>
+			<key>windowVerticalDividerPosition</key>
+			<real>325</real>
+		</dict>
+	</dict>
+	<key>encrypted</key>
+	<false/>
+	<key>format</key>
+	<string>connection</string>
+	<key>queryFavorites</key>
+	<array/>
+	<key>queryHistory</key>
+	<array>
+		<string>select c.* from secondary_list_score as f right join customer as c on f.token = c.token LIMIT 0, 20</string>
+		<string>select c.* from main_list_score as f right join customer as c on f.token = c.token LIMIT 0, 20</string>
+		<string>select c.* from main_list_score as f left join customer as c on f.token = c.token LIMIT 0, 20</string>
+		<string>select c.* from main_list_score as f, secondary_list_score as s, customer as c where f.token = s.token and c.token = f.token
+
+
+select c.* from main_list_score as f left join customer as c on f.token = c.token LIMIT 0, 20</string>
+		<string>select c.* from main_list_score as f join customer as c on f.token = c.token LIMIT 0, 20</string>
+		<string>select c.* from main_list_score as f LIMIT 0, 20</string>
+		<string>select c.* from main_list_score as f, customer as c where f.token = c.token LIMIT 0, 20</string>
+		<string>select c.* from main_list_score as f, secondary_list_score as s, customer as c where f.token = s.token and c.token = f.token</string>
+		<string>select * from main_list_score as f, secondary_list_score as s where f.token = s.token</string>
+		<string>select * from customer as c left join customer_score as cs ON cs.customer_id = c.id where (c.token LIKE '%065d8403-8a8f-484d-b602-9138ff7dedcf%' OR c.name LIKE '%K%' OR c.username LIKE '%raimundiram%') order by cs.score, c.name ASC LIMIT 0, 20</string>
+		<string>select * from customer as c left join customer_score as cs ON cs.customer_id = c.id where (c.token LIKE '%065d8403-8a8f-484d-b602-9138ff7dedcf%' OR c.name LIKE '%Kylton Saura%' OR c.username LIKE '%raimundiram%') order by cs.score, c.name ASC LIMIT 0, 20</string>
+		<string>select * from customer as c left join customer_score as cs ON cs.customer_id = c.id where (c.token LIKE "%065d8403-8a8f-484d-b602-9138ff7dedcf%" OR c.name LIKE "%Kylton Saura%" OR c.username LIKE "%raimundiram%") order by cs.score, c.name ASC</string>
+		<string>select * from customer as c left join customer_score as cs ON cs.customer_id = c.id where (c.token LIKE "%065d8%" OR c.name LIKE "%abcd%" OR c.username LIKE "%abcd%") order by cs.score, c.name ASC</string>
+		<string>select * from customer as c left join customer_score as cs ON cs.customer_id = c.id where (c.token LIKE '%065d8403-8a8f-484d-b602-9138ff7dedcf%' OR c.name LIKE '%Kylton Saura%' OR c.username LIKE '%raimundiram%') order by cs.score, c.name ASC LIMIT 20, 20</string>
+		<string>select * from customer as c left join customer_score as cs ON cs.customer_id = c.id where (c.token LIKE "%065d8%" OR c.name LIKE "%abcd%" OR c.username LIKE "%abcd%") order by cs.score, c.name ASC
+
+
+select * from customer as c left join customer_score as cs ON cs.customer_id = c.id where `c`.token LIKE '%abcd%' OR `c`.name LIKE '%abcd%' OR `c`.username LIKE '%abcd%' order by cs.score, c.name ASC LIMIT 20, 20
+
+select * from customer as c left join customer_score as cs ON cs.customer_id = c.id where (c.token LIKE '%065d8403-8a8f-484d-b602-9138ff7dedcf%' OR c.name LIKE '%Kylton Saura%' OR c.username LIKE '%raimundiram%') order by cs.score, c.name ASC LIMIT 20, 20</string>
+		<string>select * from customer as c left join customer_score as cs ON cs.customer_id = c.id where c.token LIKE '%065d8403-8a8f-484d-b602-9138ff7dedcf%' OR c.name LIKE '%Kylton Saura%' OR c.username LIKE '%raimundiram%' order by cs.score, c.name ASC LIMIT 20, 20</string>
+		<string>select * from customer as c left join customer_score as cs ON cs.customer_id = c.id where `c`.token LIKE '%abcd%' OR `c`.name LIKE '%abcd%' OR `c`.username LIKE '%abcd%' order by cs.score, c.name ASC LIMIT 20, 20</string>
+		<string>select * from customer as c left join customer_score as cs ON cs.customer_id = c.id where `c`.token LIKE '%abcd%' OR `c`.name LIKE '%abcd%' OR `c`.username LIKE '%abcd%' order by cs.score, c.name ASC LIMIT 0, 21</string>
+		<string>select * from customer as c left join customer_score as cs ON cs.customer_id = c.id where `c`.token LIKE '%abcd%' OR `c`.name LIKE '%abcd%' OR `c`.username LIKE '%abcd%' order by cs.score, c.name ASC LIMIT 0, 20</string>
+		<string>select * from customer as c left join customer_score as cs ON cs.customer_id = c.id where (c.token LIKE "%065d8%" OR c.name LIKE "%abcd%" OR c.username LIKE "%abcd%") order by cs.score, c.name ASC
+
+
+select * from customer as c left join customer_score as cs ON cs.customer_id = c.id where `c`.token LIKE '%abcd%' OR `c`.name LIKE '%abcd%' OR `c`.username LIKE '%abcd%' order by cs.score, c.name ASC LIMIT 0, 20</string>
+	</array>
+	<key>rdbms_type</key>
+	<string>mysql</string>
+	<key>rdbms_version</key>
+	<string>5.7.22-log</string>
+	<key>version</key>
+	<integer>1</integer>
+</dict>
+</plist>

@@ -1,0 +1,33 @@
+
+#top-nav
+{
+    color: #21c25e;
+    background:#FFFFFF;
+    border-bottom-color: #21c25e;
+    height: 75px;
+}
+
+
+.navbar-header{
+    margin-left:5px;
+    width:100%;
+}
+
+.logout-link {
+    color: #21c25e;
+}
+.logout-div{
+    height:75px;
+    float:right;
+    vertical-align:middle;
+}
+
+.logout-link:hover{
+    color: darkgreen;
+    text-decoration: none;
+
+}
+
+.submit-button{
+    margin-top:20px;
+}
