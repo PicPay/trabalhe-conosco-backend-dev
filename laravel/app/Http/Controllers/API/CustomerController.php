@@ -29,13 +29,16 @@ class CustomerController extends Controller
      * $request: laravel request that contains post
      *
      * Object format:
-       {
-           "id" : "065d8403-8a8f-484d-b602-9138ff7dedcf",
-           "name" : "Kylton Saura",
-           "username" : "raimundiram",
-           "show_per_page" : "20",
-           "page" : "3"
-        }
+    {
+        "parameters" : {
+            "id": "",
+            "name": "vitor",
+            "username": ""
+        },
+        "show_per_page": 15,
+        "page" : 1
+    }
+
      *
      * The function will do a search locating all possibilities of customer, even if the id, name and username are not matching, it will a search in all three and return all similar values
      * always using the SCORE system which returns according to the relevance of the DB
@@ -68,7 +71,15 @@ class CustomerController extends Controller
             "c.username" => null
         );
 
-        $parameters = $post_obj->parameters;
+        if(isset($post_obj->parameters)) {
+            $parameters = $post_obj->parameters;
+        }else{
+            $response['success'] = false;
+            $response['error_code'] = 400;
+            $response['message'] = "Please verify your JSON post parameters";
+            $response['errors'] = array("format" => array("The format of the post Body is not correct"));
+            return json_encode($response);
+        }
         foreach($parameters as $k=>$v){
             switch($k){
                 case "id":
@@ -83,6 +94,7 @@ class CustomerController extends Controller
                     break;
             }
         }
+
 
         $request->replace([
             'id' => $where_array['c.token'],
