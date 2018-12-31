@@ -46,6 +46,8 @@ Melhorias no DockerFile
   - Use the container memory hints for Java 8: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap. With Java 11 this is automatic by default.
   - Use the spring-context-indexer (link to docs). It’s not going to add much for small apps, but every little helps.
   - Fix the location of the Spring Boot config file(s) with spring.config.location (command line argument or System property etc.).
-  - Smaller Images(-50%)
-Switch off JMX.
+
+- Smaller Images(-50%)
+
+-Switch off JMX.
 
