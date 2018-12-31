@@ -11,7 +11,7 @@
 <link rel="icon" type="image/png" href="/images/favicon-32x32.png" />
 </head>
 <body>
-	<nav class="navbar navbar-inverse navbar-static-top" id="topo">
+	<nav class="navbar navbar-inverse navbar-static-top" id="top">
 		<div class="container-fluid">
 			<div class="navbar-header" id="div_header" >
 				<span id="title-header">PicPay</span>
@@ -25,29 +25,29 @@
 		</div>
 
 		<div class="container-fluid">
-			<form method="GET" th:object="${usuarioFilter}" th:action="@{/usuarios}">
+			<form method="GET" th:object="${userFilter}" th:action="@{/users}">
 				<div class="panel-body">
 					<div class="row">
 						<div class="row form-group  col-sm-12">
-							<label class="control-label" for="usuario_id">Id</label>
-							<input th:field="*{id}" type="text" class="form-control" id="usuario_id" />
+							<label class="control-label">Id</label>
+							<input th:field="*{id}" type="text" class="form-control"/>
 						</div>
 						<div class="row form-group  col-sm-12">
-							<label class="control-label" for="sku">Nome</label>
-							<input th:field="*{nome}" type="text" class="form-control"/>
+							<label class="control-label">Nome</label>
+							<input th:field="*{name}" type="text" class="form-control"/>
 						</div>
 						<div class="row form-group  col-sm-12">
-							<label class="control-label" for="sku">Username</label>
+							<label class="control-label">Username</label>
 							<input th:field="*{username}" type="text" class="form-control"/>
 						</div>
-						<div class="row form-group col-md-2" id="divBusca" >
-							<button type="submit" id="btnBusca" class="btn btn-success">Consultar</button>
+						<div class="row form-group col-md-2" id="divSearch" >
+							<button type="submit" class="btn btn-success">Consultar</button>
 						</div>
 					</div>
 
-					<div class="table-responsive" id="tabela-usuarios">
+					<div class="table-responsive" id="table-users">
 						<table class="table  table-hover">
-							<thead th:if="${not #lists.isEmpty(pagina.conteudo)}">
+							<thead th:if="${not #lists.isEmpty(page.content)}">
 								<tr>
 									<th>Id</th>
 									<th>Nome</th>
@@ -56,38 +56,38 @@
 							</thead>
 
 							<tbody>
-								<tr th:each="u : ${pagina.conteudo}">
+								<tr th:each="u : ${page.content}">
 									<td th:text="${u.id}"/>
-									<td th:text="${u.nome}"/>
+									<td th:text="${u.name}"/>
 									<td th:text="${u.username}"/>
 								</tr>
 							</tbody>
 						</table>
 					</div>
 
-					<div th:if="${not #lists.isEmpty(pagina.conteudo)}">
-						<nav aria-label="paginacao" id="paginacao_usuarios" >
-							<ul class="pagination pagination-sm" th:with="paginaAtual=${pagina.atual}">
-								<li th:class="${pagina.primeira} ? disabled">
-									<a th:href="${pagina.urlParaPagina(0)}">Primeira</a>
+					<div th:if="${not #lists.isEmpty(page.content)}">
+						<nav aria-label="paginacao" id="pagination_users" >
+							<ul class="pagination pagination-sm" th:with="pageCurrent=${page.current}">
+								<li th:class="${page.first} ? disabled">
+									<a th:href="${page.urlToPage(0)}">Primeira</a>
 								 </li>
 											
-								<li th:class="${pagina.primeira} ? disabled">
-									<a th:href="${pagina.urlParaPagina(paginaAtual - 1)}" th:remove="${pagina.primeira} ? tag"><span>&laquo;</span></a>
+								<li th:class="${page.first} ? disabled">
+									<a th:href="${page.urlToPage(pageCurrent - 1)}" th:remove="${page.first} ? tag"><span>&laquo;</span></a>
 								</li>
 												
-								<th:block th:each="p : ${#numbers.sequence(pagina.atual-1, pagina.atual+3)}" th:with="numeroPagina=${p - 1}" th:unless="${p==-1 || p==0 || p==pagina.total+1 || p==pagina.total+2}">
-									<li th:class="${paginaAtual == numeroPagina} ? active : waves-effect">
-										<a th:href="${pagina.urlParaPagina(numeroPagina)}">[[${p}]]</a>
+								<th:block th:each="p : ${#numbers.sequence(pageCurrent-1, pageCurrent+3)}" th:with="numeroPagina=${p - 1}" th:unless="${p==-1 || p==0 || p==page.total+1 || p==page.total+2}">
+									<li th:class="${pageCurrent == numeroPagina} ? active : waves-effect">
+										<a th:href="${page.urlToPage(numeroPagina)}">[[${p}]]</a>
 									</li>
 								</th:block>
 												
-								<li th:class="${pagina.ultima} ? disabled">
-									<a th:href="${pagina.urlParaPagina(paginaAtual + 1)}" th:remove="${pagina.ultima} ? tag"><span>&raquo;</span></a>
+								<li th:class="${page.last} ? disabled">
+									<a th:href="${page.urlToPage(pageCurrent + 1)}" th:remove="${page.last} ? tag"><span>&raquo;</span></a>
 								</li>
 												
-								<li th:class="${pagina.ultima} ? disabled">
-									<a th:href="${pagina.urlParaPagina(pagina.total-1)}">Última</a>
+								<li th:class="${page.last} ? disabled">
+									<a th:href="${page.urlToPage(page.total-1)}">Última</a>
 								</li>
 							</ul>
 						</nav>

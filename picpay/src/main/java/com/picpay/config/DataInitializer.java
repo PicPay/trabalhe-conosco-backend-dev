@@ -6,17 +6,17 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-import com.picpay.service.ImportadorUsuarioService;
+import com.picpay.service.ImporterUserService;
 
 @Component
 public class DataInitializer implements ApplicationRunner {
 	
 	@Autowired
-	private ImportadorUsuarioService importadorService;
+	private ImporterUserService importerService;
 	
 	@Async
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		importadorService.importar();
+		importerService.importer();
 	}
 }

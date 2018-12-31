@@ -1,9 +1,9 @@
-#topo{
+#top{
 	background-color: #00ff99;
 	border: none;
 }
 
-#paginacao_usuarios{
+#pagination_users{
 	padding-left: 40%;
 }
 
@@ -13,12 +13,12 @@
 	font-size: 40px;
 }
 
-#divBusca{
+#divSearch{
 
 	padding-left: 43%;
 }
 
-.tabela-usuarios{
+.table-users{
 
 	padding-top: 22px;
 }

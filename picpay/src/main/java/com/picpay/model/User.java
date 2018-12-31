@@ -10,44 +10,44 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
 @CompoundIndexes(value = { 
-	@CompoundIndex(def = "{'relevancia.nivel' : -1, 'nome': 1 , 'username' : 1}") 
+	@CompoundIndex(def = "{'relevance.level' : -1, 'name': 1 , 'username' : 1}") 
 })
-public class Usuario implements Serializable {
+public class User implements Serializable {
 	
 	@Id
 	private String id;
 	
-	private String nome;
+	private String name;
 	
 	private String username;
 
-	private RelevanciaBusca relevancia;
+	private SearchRelevance relevance;
 	
-	Usuario() {}
+	User() {}
 	
 	@PersistenceConstructor
-	public Usuario(String id, String nome, String username, RelevanciaBusca relevancia) {
+	public User(String id, String name, String username, SearchRelevance relevance) {
 		super();
 		this.id = id;
-		this.nome = nome;
+		this.name = name;
 		this.username = username;
-		this.relevancia = relevancia;
+		this.relevance = relevance;
 	}
 
 	public String getId() {
 		return id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
 
 	public String getUsername() {
 		return username;
 	}
 
-	public RelevanciaBusca getRelevancia() {
-		return relevancia;
+	public SearchRelevance getRelevance() {
+		return relevance;
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class Usuario implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
@@ -68,16 +68,16 @@ public class Usuario implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Usuario other = (Usuario) obj;
+		User other = (User) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (nome == null) {
-			if (other.nome != null)
+		if (name == null) {
+			if (other.name != null)
 				return false;
-		} else if (!nome.equals(other.nome))
+		} else if (!name.equals(other.name))
 			return false;
 		if (username == null) {
 			if (other.username != null)
@@ -89,6 +89,6 @@ public class Usuario implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", nome=" + nome + ", username=" + username + "]";
+		return "Usuario [id=" + id + ", nome=" + name + ", username=" + username + "]";
 	}
 }

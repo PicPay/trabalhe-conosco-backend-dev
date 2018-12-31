@@ -1,12 +1,14 @@
 package com.picpay.repository;
 
-public class UsuarioFilter {
+import java.io.Serializable;
+
+public class UserFilter implements Serializable {
 
 	private String id;
-	private String nome;
+	private String name;
 	private String username;
 	
-	public UsuarioFilter() {}
+	public UserFilter() {}
 	
 	public String getId() {
 		return id;
@@ -14,11 +16,11 @@ public class UsuarioFilter {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String nome) {
+		this.name = nome;
 	}
 	public String getUsername() {
 		return username;
@@ -31,8 +33,8 @@ public class UsuarioFilter {
 		return id != null && !"".equals(id.trim());
 	}
 	
-	public boolean isFilteredNome() {
-		return nome != null && !"".equals(nome.trim());
+	public boolean isFilteredName() {
+		return name != null && !"".equals(name.trim());
 	}
 	
 	public boolean isFilteredUserName() {

@@ -11,7 +11,7 @@ import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
-import com.picpay.repository.UsuarioArquivoRepository;
+import com.picpay.repository.UserFileRepository;
 
 @SpringBootApplication
 @EnableAsync
@@ -25,21 +25,21 @@ public class PicpayApplication {
 	}
 	
 	@Bean(name="prod")
-	public UsuarioArquivoRepository getUsuarioArquivoRepositorioProd() {
-		List<String> arquivosRelevancia = Arrays.asList("lista_relevancia_2.txt","lista_relevancia_1.txt");
-		return new UsuarioArquivoRepository("users.csv",",",arquivosRelevancia,15);
+	public UserFileRepository getUserFileRepositoryProd() {
+		List<String> filesRelevance = Arrays.asList("lista_relevancia_2.txt","lista_relevancia_1.txt");
+		return new UserFileRepository("users.csv",",",filesRelevance,15);
 	}
 	
 	@Bean(name="import")
-	public UsuarioArquivoRepository getUsuarioArquivoRepositorioImport() {
-		List<String> arquivosRelevancia = Arrays.asList("lista_relevancia_2.txt","lista_relevancia_1.txt");
-		return new UsuarioArquivoRepository("users.csv",",",arquivosRelevancia,200);
+	public UserFileRepository getUserFileRepositoryImport() {
+		List<String> filesRelevance = Arrays.asList("lista_relevancia_2.txt","lista_relevancia_1.txt");
+		return new UserFileRepository("users.csv",",",filesRelevance,200);
 	}
 	
 	
 	@Bean(name="test")
-	public UsuarioArquivoRepository getUsuarioArquivoRepositorioTest() {
-		List<String> arquivosRelevancia  =  Arrays.asList("lista_relevancia_2_teste.txt","lista_relevancia_1_teste.txt");
-		return new UsuarioArquivoRepository("users_test.csv",",",arquivosRelevancia,10);
+	public UserFileRepository getUserFileRepositoryTest() {
+		List<String> filesRelevance  =  Arrays.asList("lista_relevancia_2_teste.txt","lista_relevancia_1_teste.txt");
+		return new UserFileRepository("users_test.csv",",",filesRelevance,10);
 	}
 }

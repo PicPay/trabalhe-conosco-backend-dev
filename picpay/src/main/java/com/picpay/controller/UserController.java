@@ -10,29 +10,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.picpay.model.Usuario;
+import com.picpay.model.User;
 import com.picpay.repository.PageWrapper;
-import com.picpay.repository.UsuarioFilter;
-import com.picpay.service.UsuarioArquivoService;
-import com.picpay.service.UsuarioMongoService;
+import com.picpay.repository.UserFilter;
+import com.picpay.service.UserMongoService;
 
 @Controller
-@RequestMapping("/usuarios")
-public class UsuarioController {
+@RequestMapping("/users")
+public class UserController {
 
-	private UsuarioMongoService serviceMongo;
+	private UserMongoService serviceMongo;
 
 	@Autowired
-	public UsuarioController(UsuarioMongoService serviceMongo, UsuarioArquivoService serviceArquivo) {
+	public UserController(UserMongoService serviceMongo) {
 		super();
 		this.serviceMongo = serviceMongo;
 	}
 	
 	@GetMapping
-	public ModelAndView usuarios( UsuarioFilter filter ,@PageableDefault(size = 15) Pageable page,HttpServletRequest httpServletRequest) {
+	public ModelAndView users( UserFilter filter ,@PageableDefault(size = 15) Pageable page,HttpServletRequest httpServletRequest) {
 		ModelAndView modelAndView = new ModelAndView("home");
-		PageWrapper<Usuario> pageWrapper = new PageWrapper<>(serviceMongo.buscarUsuarios(filter,page), httpServletRequest);
-		modelAndView.addObject("pagina",pageWrapper);
+		PageWrapper<User> pageWrapper = new PageWrapper<>(serviceMongo.findUsers(filter,page), httpServletRequest);
+		modelAndView.addObject("page",pageWrapper);
 		return modelAndView;
 	}
 }
