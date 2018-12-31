@@ -1,0 +1,24 @@
+#top{
+	background-color: #00ff99;
+	border: none;
+}
+
+#pagination_users{
+	padding-left: 40%;
+}
+
+#title-header{
+	color: #ffffff;
+	padding-top: 20px;
+	font-size: 40px;
+}
+
+#divSearch{
+
+	padding-left: 43%;
+}
+
+.table-users{
+
+	padding-top: 22px;
+}

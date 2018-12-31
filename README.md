@@ -1,35 +1,53 @@
 ![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
 
-# Teste Backend
+### Dependências
 
-O desafio é criar uma API REST que busca usuarios pelo nome e username a partir de uma palavra chave. Faça o download do arquivo [users.csv.gz](https://s3.amazonaws.com/careers-picpay/users.csv.gz) que contém o banco de dados que deve ser usado na busca. Ele contém os IDs, nomes e usernames dos usuários.
-
-###### Exemplo
-| ID                                   | Nome              | Username             |
-|--------------------------------------|-------------------|----------------------|
-| 065d8403-8a8f-484d-b602-9138ff7dedcf | Wadson marcia     | wadson.marcia        |
-| 5761be9e-3e27-4be8-87bc-5455db08408  | Kylton Saura      | kylton.saura         |
-| ef735189-105d-4784-8e2d-c8abb07e72d3 | Edmundo Cassemiro | edmundo.cassemiro    |
-| aaa40f4e-da26-42ee-b707-cb81e00610d5 | Raimundira M      | raimundiram          |
-| 51ba0961-8d5b-47be-bcb4-54633a567a99 | Pricila Kilder    | pricilakilderitaliani|
+- Java 8
+- Maven 3
+- Docker
+- Docker-Compose
 
 
+### Passos Para Execução
 
-Também são fornecidas duas listas de usuários que devem ser utilizadas para priorizar os resultados da busca. A lista 1 tem mais prioridade que a lista 2. Ou seja, se dois usuarios casam com os criterios de busca, aquele que está na lista 1 deverá ser exibido primeiro em relação àquele que está na lista 2. Os que não estão em nenhuma das listas são exibidos em seguida.
+- Clonar ou baixar o [projeto](https://github.com/brenopessoa/trabalhe-conosco-backend-dev.git)
+- Acessar a pasta raiz do projeto trabalhe-conosco-backend-dev/picpay.
+- Tornar o arquivo buildAndRun.sh executável( chmod +x buildAndRun.sh ) , ou executar os comandos deste arquivo no terminal.
+- Acessar localhost:8080/.
 
-As listas podem ser encontradas na raiz deste repositório ([lista_relevancia_1.txt](lista_relevancia_1.txt) e [lista_relevancia_2.txt](lista_relevancia_2.txt)).
-Os resultados devem ser retornados paginados de 15 em 15 registros.
+### Autenticação
 
-Escolha as tecnologias que você vai usar e tente montar uma solução completa para rodar a aplicação.
+```
+user : picpay
+password : p1cp@y
+```
 
-Faça um ***Fork*** deste repositório e abra um ***Pull Request***, **com seu nome na descrição**, para participar. Assim que terminar, envie um e-mail para ***desafio@picpay.com*** com o seu usuário do Github nos avisando.
+### Serviço
 
------
+```
+http://localhost:8080/resources/usuarios?id={id}&nome={nome}&username={username}&page={pagina}
+```
+- Todos os parâmetros são opcionais.
+- O serviço responde nos formatos de dados xml (Content-Type=application/xml)  e json (Content-Type=application/json) .
 
-### Diferenciais
+### Testes
 
-- Criar um frontend para realizar a busca com uma UX elaborada
-- Criar uma solução de autenticação entre o frontend e o backend
-- Ter um desempenho elevado num conjunto de dados muito grande
-- Utilizar o Docker
+Caso deseje rodar os testes da aplicação executar os seguintes passos:
+
+- Acessar o arquivo application.properties localizado em picpay/src/main/resources.
+- Alterar o valor da propriedade spring.profiles.active para dev(spring.profiles.active="dev").
+- Executar os testes.
+
+### Nova Versão
+
+Melhorias no DockerFile
+  - Multi-Stage Build
+  - -XX:TieredStopAtLevel=1 (that will slow down the JIT later at the expense of the saved startup time).
+  - Use the container memory hints for Java 8: -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap. With Java 11 this is automatic by default.
+  - Use the spring-context-indexer (link to docs). It’s not going to add much for small apps, but every little helps.
+  - Fix the location of the Spring Boot config file(s) with spring.config.location (command line argument or System property etc.).
+
+- Smaller Images(-50%)
+
+-Switch off JMX.
 
