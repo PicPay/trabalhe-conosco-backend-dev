@@ -1,0 +1,65 @@
+<app-layout>
+  <nav class="navbar navbar-dark bg-dark mb-5">
+    <div class="container">
+    <a class="navbar-brand" href="/">PicPay Search User</a>
+    <div class="navbar-expand mr-auto">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link active" href="/"></a>
+      </div>
+    </div>
+    <div class="form-inline">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+             #searchValue
+             (keyup.enter)="submitSearch(searchValue.value)">
+      <button class="btn btn-dark search-button" (click)="submitSearch(searchValue.value)">
+        Search
+      </button>
+    </div>
+    <div class="navbar-expand ml-auto navbar-nav">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" href="https://github.com/JulioBarbosa" target="_blank">
+          <i class="fa fa-github"></i>
+        </a>
+        <a class="nav-item nav-link" href="https://www.instagram.com/juliobarbosa90" target="_blank">
+          <i class="fa fa-instagram"></i>
+        </a>
+      </div>
+    </div>
+    </div>
+  </nav>
+  <div class="container">
+    <table class="table table-bordered table-striped table-sm">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Username</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let row of dados; let i = index" [attr.data-index]="i">
+        <th scope="row">{{ i }}</th>
+        <td>{{ row.name }}</td>
+        <td>{{ row.username }}</td>
+      </tr>
+      </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <li class="page-item"><a class="page-link" (click)="onClickUrl(last_page_url)">Previous</a></li>
+        <li class="page-item"><a class="page-link" (click)="onClickUrl(last_page_url)">{{ current_page - 1 }}</a></li>
+        <li class="page-item disabled">
+          <a class="page-link" href="#" tabindex="-1">{{ current_page }}</a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="onClickUrl(next_page_url)">{{ current_page + 1 }}</a></li>
+        <li class="page-item disabled">
+          <a class="page-link" href="#" tabindex="-1">...</a>
+        </li>
+        <li class="page-item disabled">
+          <a class="page-link" href="#" tabindex="-1">Total {{ total }}</a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="onClickUrl(next_page_url)">Next</a></li>
+      </ul>
+    </nav>
+  </div>
+</app-layout>

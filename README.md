@@ -1,35 +1,127 @@
-![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
+# Descrição
 
-# Teste Backend
+Docker utilizando o compose, arquivo de configuração com variáveis de ambiente, criando um container nginx 1.13.3 e um container php 7.1.9-fpm ligados através de um link e criando um container mysql 5.7.19.
 
-O desafio é criar uma API REST que busca usuarios pelo nome e username a partir de uma palavra chave. Faça o download do arquivo [users.csv.gz](https://s3.amazonaws.com/careers-picpay/users.csv.gz) que contém o banco de dados que deve ser usado na busca. Ele contém os IDs, nomes e usernames dos usuários.
+Laravel versão 5.5.22
 
-###### Exemplo
-| ID                                   | Nome              | Username             |
-|--------------------------------------|-------------------|----------------------|
-| 065d8403-8a8f-484d-b602-9138ff7dedcf | Wadson marcia     | wadson.marcia        |
-| 5761be9e-3e27-4be8-87bc-5455db08408  | Kylton Saura      | kylton.saura         |
-| ef735189-105d-4784-8e2d-c8abb07e72d3 | Edmundo Cassemiro | edmundo.cassemiro    |
-| aaa40f4e-da26-42ee-b707-cb81e00610d5 | Raimundira M      | raimundiram          |
-| 51ba0961-8d5b-47be-bcb4-54633a567a99 | Pricila Kilder    | pricilakilderitaliani|
+# Configuração Container Nginx
 
+1. Exposição de portas
 
+	80 e 443
 
-Também são fornecidas duas listas de usuários que devem ser utilizadas para priorizar os resultados da busca. A lista 1 tem mais prioridade que a lista 2. Ou seja, se dois usuarios casam com os criterios de busca, aquele que está na lista 1 deverá ser exibido primeiro em relação àquele que está na lista 2. Os que não estão em nenhuma das listas são exibidos em seguida.
+2. Volume (Obs: verificar se na configuração do docker -> drivers compartilhados, as unidades c: e/ou d: estão habilitadas)
 
-As listas podem ser encontradas na raiz deste repositório ([lista_relevancia_1.txt](lista_relevancia_1.txt) e [lista_relevancia_2.txt](lista_relevancia_2.txt)).
-Os resultados devem ser retornados paginados de 15 em 15 registros.
+	Aplicação: htdocs -> /var/www/html
+	
+	Logs: nginx/logs -> /var/log/nginx
+	
+	Virtual Host: nginx/sites -> /etc/nginx/conf.d
+	
+3. Virtual Host
 
-Escolha as tecnologias que você vai usar e tente montar uma solução completa para rodar a aplicação.
+	Criação do vhost modelo http://api.dev (vhost modificável)
 
-Faça um ***Fork*** deste repositório e abra um ***Pull Request***, **com seu nome na descrição**, para participar. Assim que terminar, envie um e-mail para ***desafio@picpay.com*** com o seu usuário do Github nos avisando.
+# Configuração Container Php
 
------
+1. Exposição de portas
 
-### Diferenciais
+	9000
 
-- Criar um frontend para realizar a busca com uma UX elaborada
-- Criar uma solução de autenticação entre o frontend e o backend
-- Ter um desempenho elevado num conjunto de dados muito grande
-- Utilizar o Docker
+2. Volume (Obs: verificar se na configuração do docker -> drivers compartilhados, as unidades c: e/ou d: estão habilitadas)
 
+	Aplicação: htdocs -> /var/www/html
+	
+3. Bibliotecas
+
+	Habilitação de bibliotecas do php através de arquivo de configuração. Ex: MBSTRING, GD, MCRYPT, PDO_MYSQL, etc.
+	
+# Configuração Container Mysql
+
+1. Exposição de portas
+
+	3306
+
+2. Volume (Obs: verificar se na configuração do docker -> drivers compartilhados, as unidades c: e/ou d: estão habilitadas)
+
+	Aplicação: mysql/data -> /var/lib/mysql
+
+3. Configuração para conexão
+
+	- MYSQL_DATABASE      = default
+	
+    - MYSQL_USER          = default
+	
+    - MYSQL_PASSWORD      = secret
+	
+    - MYSQL_ROOT_PASSWORD = root
+	
+    - MYSQL_PORT          = 3306
+	
+# Como utitilizar
+
+1. Clone o repositório usando o comando:
+
+   git clone https://github.com/danielnogueira-dev/Docker-Compose-Nginx-Php-Laravel-Mysql
+
+2. Entre na pasta Docker-Compose-Nginx-Php-Laravel-Mysql e copie o arquivo env-example para .env.
+
+   cp env-example .env
+
+3. Rode seu container:
+
+   docker-compose up -d
+
+4. Adicione os domínios no arquivo de hosts do windows.
+
+   127.0.0.1 localhost
+
+   127.0.0.1 api.dev
+
+5. Acessar o shell do container:
+    
+	winpty docker exec -it nginx bash
+
+	winpty docker exec -it php-fpm bash
+	
+	winpty docker exec -it mysql bash
+   
+6. Instruções iniciais para rodar o Laravel no localhost:
+
+	Acessar a pasta: cd /var/www/html
+	
+	Executar comando para criar pasta vendor do laravel: composer install
+	
+	Executar comando para criar arquivo de variáveis de ambiente do laravel: cp .env.example .env
+	
+	Executar comando para gerar chaves necessarias para rodar o laravel: php artisan key:generate
+
+7. Instruções iniciais para rodar o Laravel no api.dev:
+
+	Acessar a pasta api.dev: cd /var/www/html/api.dev
+	
+	Executar comando para criar pasta vendor do laravel: composer install
+	
+	Executar comando para criar arquivo de variáveis de ambiente do laravel: cp .env.example .env
+	
+	Executar comando para gerar chaves necessarias para rodar o laravel: php artisan key:generate
+	
+8. Abra no navegador
+
+   http://localhost
+
+   http://api.dev
+
+9. Acessar o banco de dados dentro do container Mysql
+
+	mysql -u root -p
+
+10. Comandos básicos para utilizar o banco de dados
+
+	show databases;
+
+	CREATE DATABASE teste;
+	
+	use teste;
+	
+	show tables;
