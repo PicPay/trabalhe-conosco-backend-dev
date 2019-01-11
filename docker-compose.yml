@@ -1,0 +1,45 @@
+###############################################################################
+#                          Generated on phpdocker.io                          #
+###############################################################################
+version: "3.1"
+services:
+
+    redis:
+      image: redis:alpine
+      container_name: teste-picpay-redis
+
+    mysql:
+      image: mysql:5.6
+      container_name: teste-picpay-mysql
+      working_dir: /application
+      volumes:
+        - .:/application
+      environment:
+        - MYSQL_ROOT_PASSWORD=root
+        - MYSQL_DATABASE=picpay
+        - MYSQL_USER=picpay
+        - MYSQL_PASSWORD=picpay
+      ports:
+        - "8082:3306"
+
+    webserver:
+      image: nginx:alpine
+      container_name: teste-picpay-webserver
+      working_dir: /application
+      volumes:
+          - ./src:/application
+          - ./phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      links:
+        - mysql
+        - mysql:database
+      ports:
+       - "8080:80"
+
+    php-fpm:
+      build: phpdocker/php-fpm
+      container_name: teste-picpay-php-fpm
+      working_dir: /application
+      volumes:
+        - ./src:/application
+        - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.2/fpm/conf.d/99-overrides.ini
+

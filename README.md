@@ -33,3 +33,28 @@ Faça um ***Fork*** deste repositório e abra um ***Pull Request***, **com seu n
 - Ter um desempenho elevado num conjunto de dados muito grande
 - Utilizar o Docker
 
+### Instruções
+- Descompactar o arquivo [users.csv.gz](https://s3.amazonaws.com/careers-picpay/users.csv.gz) dentro do diretorio 
+<b>src/database/DataSeed</b> com o nome <b>users.csv</b>
+- Execute o comando:
+```
+sudo docker-compose up -d
+```
+- Execute o comando para obter o ip do teste-picpay-mysql para colocar no arquivo .env do projeto
+```
+sudo docker inspect -f '{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(sudo docker ps -aq)
+```
+- Coloque o ip na variável DB_HOST no arquivo .env do projeto
+- Execute o comando:
+```
+sudo docker exec -it teste-picpay-php-fpm /bin/bash
+```
+- Execute os comando abaixo para carregar os dados.
+```
+php artisan migrate:install
+php artisan migrate
+php artisan db:seed 
+```
+
+Link da aplicação
+http://localhost:8080/
