@@ -1,0 +1,3 @@
+FROM nginx:1.13.3
+
+EXPOSE 8000 443

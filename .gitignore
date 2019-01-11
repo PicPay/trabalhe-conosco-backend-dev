@@ -1,0 +1,83 @@
+# -----------------------------------------------------------------
+# .gitignore para Docker
+# -----------------------------------------------------------------
+
+# ignora tudo no diretório "mysql/data"
+docker/mysql/data/
+
+# ignora tudo no diretório "nginx/logs"
+docker/nginx/logs/
+
+# ignora tudo no diretório "nginx/sites", exceto:
+docker/nginx/sites/*
+!docker/nginx/sites/default.conf
+!docker/nginx/sites/api.dev.conf
+
+# ignora todos os arquivos iniciados com .
+.*
+
+# rastreia o arquivo .gitignore (Não ignorar isso)
+!.gitignore
+
+# rastreia o arquivo .editorconfig (Não ignorar isso)
+!.editorconfig
+
+# rastreia o arquivo readme.md (Não ignorar isso)
+!readme.md
+
+# rastreia o arquivo .gitattributes (Não ignorar isso)
+!.gitattributes
+
+# rastreia o arquivo .env.example (Não ignorar isso)
+!.env.example
+
+# rastreia o arquivo .htaccess (Não ignorar isso)
+!.htaccess
+
+# ignora todos os arquivos que começam com ~
+~*
+
+# ignora arquivos gerados pelo sistema operacional
+ehthumbs.db
+Thumbs.db
+
+# ignora arquivos de Editores
+*.sublime-project
+*.sublime-workspace
+*.komodoproject
+.idea
+
+# ignora arquivos de log e banco de dados
+*.log
+*.sql
+*.sqlite
+
+# ignora arquivos compilados
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# ignora arquivos de pacote
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+.DS_Store
+
+# compiled output
+projects/picpay-app/dist
+projects/picpay-app/tmp
+projects/picpay-app/out-tsc
+
+# dependencies
+projects/picpay-app/node_modules
+
+projects/api-service/vendor
