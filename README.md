@@ -1,127 +1,51 @@
-# Descrição
+## Descrição
 
-Docker utilizando o compose, arquivo de configuração com variáveis de ambiente, criando um container nginx 1.13.3 e um container php 7.1.9-fpm ligados através de um link e criando um container mysql 5.7.19.
+App PicPay - Aplicação desenvolvida em Laravel 5.7(projects/api-service) e Angular 7(projects/picpay-app) por [Júlio Barbosa](https://github.com/JulioBarbosa)
 
-Laravel versão 5.5.22
 
-# Configuração Container Nginx
+## Requisitos
 
-1. Exposição de portas
+1. Instaldo Docker [https://www.docker.com/](https://www.docker.com/)
+2. Instaldo Docker Compose [https://docs.docker.com/compose/](https://docs.docker.com/compose/)
 
-	80 e 443
 
-2. Volume (Obs: verificar se na configuração do docker -> drivers compartilhados, as unidades c: e/ou d: estão habilitadas)
+## Instalação/Configuração
 
-	Aplicação: htdocs -> /var/www/html
-	
-	Logs: nginx/logs -> /var/log/nginx
-	
-	Virtual Host: nginx/sites -> /etc/nginx/conf.d
-	
-3. Virtual Host
+1. Execute o comando ```docker-compose up -d``` no caminho do projeto.
 
-	Criação do vhost modelo http://api.dev (vhost modificável)
+2. Importação do banco de dados: Existe duas maneiras de importa. (Download: https://s3.amazonaws.com/careers-picpay/users.csv.gz) 
+* 2.1 - Primeira - criei um Seed que lê o arquivo user.csv e importa no schema criado dentro da tabela users.
+  * Extraia o arquivo users.csv para o caminho ```./projects/api-service/database/seeds/imports```
+  * Descomente a linha 18 do arquivo ```./projects/api-service/database/seeds/DatabaseSeeder.php``` ficando:
+```php
+    public function run()
+    {
+        $this->call([
+            UserSeeder::class,
+            PreferenceSeeder::class
+        ]);
+    }
+```
+  * Execute o comando ```php artisan db:seed```
 
-# Configuração Container Php
+Observação: Não é aconselhado usar essa operação porque o volume de dados são muitos e a ultima vez que rodei levou 3 dias pra finalizar. O engige InnoDB faz com que os inserts demore bastante.
 
-1. Exposição de portas
+  * 2.2 - Importar o users.csv para a tabela users nos mesmo campos existentes da tabela. 
 
-	9000
+Observação: Fiz a importação pelo IDE Datagrip é bem simples, lá mostra quais as colunas mapeada no arquivo será inserido na tabela. 
 
-2. Volume (Obs: verificar se na configuração do docker -> drivers compartilhados, as unidades c: e/ou d: estão habilitadas)
 
-	Aplicação: htdocs -> /var/www/html
-	
-3. Bibliotecas
+## Acesso
 
-	Habilitação de bibliotecas do php através de arquivo de configuração. Ex: MBSTRING, GD, MCRYPT, PDO_MYSQL, etc.
-	
-# Configuração Container Mysql
+Acesso: [http://localhost:4200](http://localhost:4200)
 
-1. Exposição de portas
+Acesso da API é somente para criar usuário, logar, criar um token novo OAuth2.
+Acesso API: [http://localhost:8000](http://localhost:8000)
 
-	3306
 
-2. Volume (Obs: verificar se na configuração do docker -> drivers compartilhados, as unidades c: e/ou d: estão habilitadas)
+## Finalização
 
-	Aplicação: mysql/data -> /var/lib/mysql
+Obrigado!
+Qualquer dúvida só enviar e-mail para julio.barbosa.15@gmail.com
 
-3. Configuração para conexão
-
-	- MYSQL_DATABASE      = default
-	
-    - MYSQL_USER          = default
-	
-    - MYSQL_PASSWORD      = secret
-	
-    - MYSQL_ROOT_PASSWORD = root
-	
-    - MYSQL_PORT          = 3306
-	
-# Como utitilizar
-
-1. Clone o repositório usando o comando:
-
-   git clone https://github.com/danielnogueira-dev/Docker-Compose-Nginx-Php-Laravel-Mysql
-
-2. Entre na pasta Docker-Compose-Nginx-Php-Laravel-Mysql e copie o arquivo env-example para .env.
-
-   cp env-example .env
-
-3. Rode seu container:
-
-   docker-compose up -d
-
-4. Adicione os domínios no arquivo de hosts do windows.
-
-   127.0.0.1 localhost
-
-   127.0.0.1 api.dev
-
-5. Acessar o shell do container:
-    
-	winpty docker exec -it nginx bash
-
-	winpty docker exec -it php-fpm bash
-	
-	winpty docker exec -it mysql bash
-   
-6. Instruções iniciais para rodar o Laravel no localhost:
-
-	Acessar a pasta: cd /var/www/html
-	
-	Executar comando para criar pasta vendor do laravel: composer install
-	
-	Executar comando para criar arquivo de variáveis de ambiente do laravel: cp .env.example .env
-	
-	Executar comando para gerar chaves necessarias para rodar o laravel: php artisan key:generate
-
-7. Instruções iniciais para rodar o Laravel no api.dev:
-
-	Acessar a pasta api.dev: cd /var/www/html/api.dev
-	
-	Executar comando para criar pasta vendor do laravel: composer install
-	
-	Executar comando para criar arquivo de variáveis de ambiente do laravel: cp .env.example .env
-	
-	Executar comando para gerar chaves necessarias para rodar o laravel: php artisan key:generate
-	
-8. Abra no navegador
-
-   http://localhost
-
-   http://api.dev
-
-9. Acessar o banco de dados dentro do container Mysql
-
-	mysql -u root -p
-
-10. Comandos básicos para utilizar o banco de dados
-
-	show databases;
-
-	CREATE DATABASE teste;
-	
-	use teste;
-	
-	show tables;
+ 
