@@ -8,7 +8,7 @@
             <a class="forgot" href="#/login">Já possui cadastro?</a>
             <div>
                 <br>
-                <a class="message" v-model="message">{{message}}</a>
+                <a class="message">{{message}}</a>
             </div>
         </div>
     </div>
@@ -27,14 +27,12 @@ export default {
     },
     methods: {
         register () {
-            if(this.data_reg.password != this.confirm_password){
-                this.message = 'Confirme sua senha!' 
-            }
-            const baseURL = 'http://localhost:3000/register';
-            axios.post(baseURL, this.data_reg)
-                .then((result) => {
-                console.log(result);
 
+            if(this.data_reg.password === this.confirm_password){
+
+                const baseURL = 'http://localhost:3000/register';
+                axios.post(baseURL, this.data_reg)
+                .then((result) => {
                     if(result.status == 200){
                         localStorage.setItem('Login', result.data[0].username)
                         this.$router.push('/search')
@@ -42,10 +40,10 @@ export default {
                     if(result.status == 204){
                         this.message = 'Esse usuário já existe!'
                     }
-                
-            })
-            
-
+                })
+            }else{
+                this.message = 'Confirme sua senha!' 
+            }
         }
     }
 }

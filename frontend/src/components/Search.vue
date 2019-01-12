@@ -52,14 +52,12 @@ export default {
         const baseURL = 'http://localhost:3000/search/'+ this.currentPage;
         axios.post(baseURL, this.search)
         .then((result) => {
-        console.log(result);
           let users = result.data;
           if(this.items.length)
             this.items = [];
           users.forEach(element => {
             this.items.push(element)
           });
-          console.log(this.items);
         })
       this.inicializarDataTable()
     },

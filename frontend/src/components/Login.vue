@@ -24,7 +24,6 @@ export default {
     },
     methods: {
        login () {
-            console.log(this.login_data);
             const baseURL = 'http://localhost:3000/login';
             axios.post(baseURL, this.login_data)
                 .then((result) => {
@@ -34,7 +33,6 @@ export default {
                         localStorage.setItem('Login', result.data[0].username)
                         this.search()
                     }
-                    console.log(result.data);
             })
         },
         register () {
