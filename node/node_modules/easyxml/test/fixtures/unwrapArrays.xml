@@ -1,0 +1,16 @@
+<response>
+    <many>One</many>
+    <many>Two</many>
+    <single>JustMe</single>
+    <deeper>
+        <many>
+            <one id="1">Uno</one>
+        </many>
+        <many>
+            <two id="2">Dos</two>
+        </many>
+        <single>
+            <three id="3">Tres</three>
+        </single>
+    </deeper>
+</response>

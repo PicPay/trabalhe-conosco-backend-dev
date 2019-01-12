@@ -1,0 +1,75 @@
+{
+    "Orders": [
+        {
+            "ID": "",
+            "Date": "2013-12-06T20:31:57",
+            "TotalItens": "",
+            "TotalOrder": "",
+            "CollectionData": {
+                "ID": "",
+                "Type": "",
+                "LegalDocument1": "",
+                "Name": "",
+                "Address": {
+                    "Street": "",
+                    "Number": "",
+                    "Comp": "",
+                    "County": "",
+                    "City": "",
+                    "State": "",
+                    "Country": "",
+                    "ZipCode": ""
+                },
+                "Phones": [
+                    {
+                        "Type": [],
+                        "DDD": [],
+                        "Number": [],
+                        "Extension": []
+                    }
+                ]
+            },
+            "ShippingData": {
+                "ID": [],
+                "Type": [],
+                "LegalDocument1": [],
+                "Name": [],
+                "Address": {
+                    "Street": [],
+                    "Number": [],
+                    "Comp": [],
+                    "County": [],
+                    "City": [],
+                    "State": [],
+                    "Country": [],
+                    "ZipCode": []
+                },
+                "Phones": [
+                    {
+                        "Type": [],
+                        "DDD": [],
+                        "Number": [],
+                        "Extension": []
+                    }
+                ]
+            },
+            "Payments": [
+                {
+                    "Date": "",
+                    "Amount": "",
+                    "PaymentTypeID": 1,
+                    "QtyInstallments": "",
+                    "CardNumber": "4716605476965044"
+                }
+            ],
+            "Items": [
+                {
+                    "ID": "",
+                    "Name": "",
+                    "ItemValue": "",
+                    "Qty": ""
+                }
+            ]
+        }
+    ]
+}

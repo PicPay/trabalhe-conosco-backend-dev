@@ -1,0 +1,15 @@
+<response>
+    <undef />
+    <undefObj>
+        <undefSubKey />
+    </undefObj>
+    <undefs>
+        <undef />
+        <undef />
+        <undef>not-null</undef>
+    </undefs>
+    <undef1s>
+        <undef1 />
+        <undef1 />
+    </undef1s>
+</response>

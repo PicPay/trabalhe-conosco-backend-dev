@@ -1,0 +1,10 @@
+<response>
+    <Users>
+        <User>
+            <name>user1</name>
+        </User>
+        <User>
+            <name>user2</name>
+        </User>
+    </Users>
+</response>

@@ -1,0 +1,75 @@
+<response>
+    <Orders>
+        <Order>
+            <ID />
+            <Date>2013-12-06T20:31:57</Date>
+            <TotalItens />
+            <TotalOrder />
+            <CollectionData>
+                <ID />
+                <Type />
+                <LegalDocument1 />
+                <Name />
+                <Address>
+                    <Street />
+                    <Number />
+                    <Comp />
+                    <County />
+                    <City />
+                    <State />
+                    <Country />
+                    <ZipCode />
+                </Address>
+                <Phones>
+                    <Phone>
+                        <Type />
+                        <DDD />
+                        <Number />
+                        <Extension />
+                    </Phone>
+                </Phones>
+            </CollectionData>
+            <ShippingData>
+                <ID />
+                <Type />
+                <LegalDocument1 />
+                <Name />
+                <Address>
+                    <Street />
+                    <Number />
+                    <Comp />
+                    <County />
+                    <City />
+                    <State />
+                    <Country />
+                    <ZipCode />
+                </Address>
+                <Phones>
+                    <Phone>
+                        <Type />
+                        <DDD />
+                        <Number />
+                        <Extension />
+                    </Phone>
+                </Phones>
+            </ShippingData>
+            <Payments>
+                <Payment>
+                    <Date />
+                    <Amount />
+                    <PaymentTypeID>1</PaymentTypeID>
+                    <QtyInstallments />
+                    <CardNumber>4716605476965044</CardNumber>
+                </Payment>
+            </Payments>
+            <Items>
+                <Item>
+                    <ID />
+                    <Name />
+                    <ItemValue />
+                    <Qty />
+                </Item>
+            </Items>
+        </Order>
+    </Orders>
+</response>

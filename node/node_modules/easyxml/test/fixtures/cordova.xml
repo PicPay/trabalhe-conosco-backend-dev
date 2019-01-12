@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.may.app" version="1.0.0">
+  <author email="feedback@my.com" href="http://my.com">My Team</author>
+  <description>My Mobile Application</description>
+  <content src="index.html" />
+  <preference name="phonegap-version" value="cli-5.1.1" />
+  <preference name="permissions" value="none" />
+  <gap:plugin name="org.apache.cordova.battery-status" />
+  <gap:plugin name="org.apache.cordova.camera" />
+</widget>

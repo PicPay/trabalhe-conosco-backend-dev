@@ -1,0 +1,10 @@
+<response>
+    <CmsUsers>
+        <user>
+            <name>user1</name>
+        </user>
+        <user>
+            <name>user2</name>
+        </user>
+    </CmsUsers>
+</response>

@@ -1,0 +1,12 @@
+<response>
+    <CmsUsers>
+        <user>
+            <name>user1</name>
+            <email>user1@example.com</email>
+        </user>
+        <user>
+            <name>user2</name>
+            <email>user2@example.com</email>
+        </user>
+    </CmsUsers>
+</response>

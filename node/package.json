@@ -1,0 +1,21 @@
+{
+  "name": "api_express",
+  "version": "1.0.0",
+  "description": "API Express",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "circular-json": "^0.5.9",
+    "easyxml": "^2.0.1",
+    "express": "^4.16.4",
+    "fast-csv": "^2.4.1",
+    "flatted": "^2.0.0",
+    "mongodb": "^3.1.10",
+    "save": "^2.3.3"
+  }
+}
