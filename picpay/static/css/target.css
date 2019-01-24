@@ -1,0 +1,38 @@
+
+.objects h4 {
+	border-bottom: 2px solid #CCCCCC;
+	margin: 20px 0;
+	padding-bottom: 5px;
+}
+
+.drag {
+	padding-left: 32px;
+	height: 32px;
+	background-repeat: no-repeat;
+}
+
+#target {
+	width: 345px;
+}
+
+#target img {
+	
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	z-index: -1;
+}
+
+#panel {
+	position: absolute; /*absolute para search box ficar "dentro" do mapa*/
+	left: 50%;
+	z-index: 5;
+	overflow: enable; 
+}
+
+
+#panel input[type="text"]{
+    background-color: rgba(0,0,0,0.1);
+	color: orange;
+}
+

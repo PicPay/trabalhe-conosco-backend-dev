@@ -1,0 +1,77 @@
+version: '2.1'
+services:
+  db:
+    container_name: mysql-morati
+    command: --max_allowed_packet=256M
+    image: mysql:5.6
+    volumes:
+    - /storage/docker/mysql-morati:/var/lib/mysql-morati
+    environment:
+      MYSQL_DATABASE: picpay
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: root
+    network_mode: bridge
+    restart: always
+    ports:
+    - 6603:3306
+    healthcheck:
+      test: /usr/bin/mysql --user=root --password=root --execute "show databases;"
+      interval: 3s
+      timeout: 20s
+      retries: 10
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.3.3
+    restart: always
+    container_name: elasticsearch-morati
+    environment:
+    - http.host=0.0.0.0
+    - transport.host=127.0.0.1
+    - xpack.security.enabled=false
+    - cluster.name=docker-cluster
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+    - esdata:/usr/share/elasticsearch/data
+    ports:
+    - 9200:9200
+    network_mode: bridge
+  elastic-morati:
+    container_name: elastic-morati
+    image: morati_elastic
+    restart: always
+    build: ./
+    tty: true
+    network_mode: bridge
+    depends_on:
+      db:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_started
+    links:
+    - db:db
+    - elasticsearch:elasticsearch
+    volumes:
+    - ./:/var/www/picpay
+    command: gunicorn picpay.wsgi:application -w 6 -b :8082
+    entrypoint: /sbin/django-entrypoint.sh
+  nginx:
+    build: ./nginx
+    container_name: nginx
+    image: nginx/morati
+    restart: always
+    network_mode: bridge
+    tty: true
+    volumes_from:
+    - elastic-morati
+    ports:
+    - 8080:8002
+    depends_on:
+      elastic-morati:
+        condition: service_started
+    links:
+    - elastic-morati:elastic-morati
+volumes:
+  esdata:
+    driver: local

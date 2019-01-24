@@ -1,0 +1,19 @@
+version: '2.0'
+services:
+  elastic:
+    container_name: elastic
+    image: elastic/morati
+    restart: always
+    build: ./
+    expose:
+    - '8001'
+    tty: true
+    stdin_open: true
+    network_mode: bridge
+    labels:
+      io.rancher.container.pull_image: always
+    volumes:
+    - ./:/var/www/picpay
+    command: gunicorn picpay.wsgi:application -w 4 -b :8000
+    
+  

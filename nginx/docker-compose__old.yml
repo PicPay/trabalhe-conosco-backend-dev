@@ -1,0 +1,17 @@
+version: '2'
+services:
+  nginx:
+    container_name: nginx
+    image: nginx/morati
+    restart: always
+    build: ./
+    network_mode: bridge
+    stdin_open: true
+    tty: true
+    ports:
+      - "80:80"
+    external_links:
+      - elastic:elastic
+    volumes_from:
+      - container:elastic
+
