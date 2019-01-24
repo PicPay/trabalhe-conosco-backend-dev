@@ -1,0 +1,33 @@
+{% load static %}
+{% block content %}
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			 <div class="card">
+				<div class="card-header" data-background-color="gs">
+					<h4 class="title">Search Users</h4>
+					<p class="category">Search for users here...</p>
+					
+				</div>
+				
+				<div class="card-content table-responsive ">
+				<table class="table">
+					<thead class="text-primary">
+						<th>Uid</th>
+						<th>Username</th>
+						<th>Fullname</th>
+					</thead>
+						<tbody id="pagination-content">
+							
+						</tbody>
+					</table>
+				
+				</div>
+				<div id="pagination-container" style="width: 97%; height: 97%; margin: 0 auto;"></div>
+			</div>
+		</div>
+	</div>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script src="{% static  "/js/jquery.bootpag.js" %}"></script>
+</div>
+{% endblock %}
