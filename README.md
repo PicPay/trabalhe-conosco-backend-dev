@@ -1,7 +1,7 @@
 # PicUser App
 An app to manage Pic Pay's users.
 
-## Technologies and Approach
+## Technologies I used
 
 - I used a JVM based language called **Kotlin** in its most recent version.
 
@@ -15,7 +15,7 @@ An app to manage Pic Pay's users.
 
 - I took advantage of Spring's static resources to build a front end in **React** and **Redux** quicker then if I were to setup another server. I used **Material Design** on components whenever I could: **React Material UI**.
 
-- I choose a simpler form of **authentication via Google** with a simple validation from the back matching user names.
+- I choose a simpler form of **authentication via Google** with a validation from the back matching user names.
 
 ## How to run
 
@@ -45,14 +45,12 @@ After the task is finished, setup the users priorities by running (this should t
 sudo docker-compose up set-priorities
 ```
 
-## How to stop a logstash container if I need to stop data to import?
+If you need to stop a logstash container to end it abruptly, type: 
 ```shell
 sudo docker-compose kill import-users
 ```
 
-## Hey, something is already running on port 9200, what should I do?
-
-Find the process running at that port and kill the process.
+And if something is already running on port 9200 and you can't start those containers, find the process running at that port and kill the process:
 ```shell
 sudo lsof -i :9200 | grep LISTEN
 sudo kill <PID>
