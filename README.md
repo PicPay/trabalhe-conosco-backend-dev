@@ -1,35 +1,81 @@
-![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
+# PicUser App
+An app to manage Pic Pay's users.
 
-# Teste Backend
+## Technologies and Approach
 
-O desafio é criar uma API REST que busca usuarios pelo nome e username a partir de uma palavra chave. Faça o download do arquivo [users.csv.gz](https://s3.amazonaws.com/careers-picpay/users.csv.gz) que contém o banco de dados que deve ser usado na busca. Ele contém os IDs, nomes e usernames dos usuários.
+- I used a JVM based language called **Kotlin** in its most recent version.
 
-###### Exemplo
-| ID                                   | Nome              | Username             |
-|--------------------------------------|-------------------|----------------------|
-| 065d8403-8a8f-484d-b602-9138ff7dedcf | Wadson marcia     | wadson.marcia        |
-| 5761be9e-3e27-4be8-87bc-5455db08408  | Kylton Saura      | kylton.saura         |
-| ef735189-105d-4784-8e2d-c8abb07e72d3 | Edmundo Cassemiro | edmundo.cassemiro    |
-| aaa40f4e-da26-42ee-b707-cb81e00610d5 | Raimundira M      | raimundiram          |
-| 51ba0961-8d5b-47be-bcb4-54633a567a99 | Pricila Kilder    | pricilakilderitaliani|
+- I served the App using **Spring Boot** and **Spring Data** frameworks via **Gradle**.
 
+- I stored data to an **Elasticsearch** database enabling the full-text search feature.
 
+- All 8 million users and their priorities were imported to the Elasticsearch database using **Logstash**. Last time I ran this process it took over an hour for it to complete (of course some improvements may be done here). User's priorities were transformed to the database as simple numeric values from 0 to 2. The value 2 means that users were at the list of priority 1 and should appear first.
 
-Também são fornecidas duas listas de usuários que devem ser utilizadas para priorizar os resultados da busca. A lista 1 tem mais prioridade que a lista 2. Ou seja, se dois usuarios casam com os criterios de busca, aquele que está na lista 1 deverá ser exibido primeiro em relação àquele que está na lista 2. Os que não estão em nenhuma das listas são exibidos em seguida.
+- I used **Docker** to set up both Elasticsearch and Logstash across multi platforms.
 
-As listas podem ser encontradas na raiz deste repositório ([lista_relevancia_1.txt](lista_relevancia_1.txt) e [lista_relevancia_2.txt](lista_relevancia_2.txt)).
-Os resultados devem ser retornados paginados de 15 em 15 registros.
+- I took advantage of Spring's static resources to build a front end in **React** and **Redux** quicker then if I were to setup another server. I used **Material Design** on components whenever I could: **React Material UI**.
 
-Escolha as tecnologias que você vai usar e tente montar uma solução completa para rodar a aplicação.
+- I choose a simpler form of **authentication via Google** with a simple validation from the back matching user names.
 
-Faça um ***Fork*** deste repositório e abra um ***Pull Request***, **com seu nome na descrição**, para participar. Assim que terminar, envie um e-mail para ***desafio@picpay.com*** com o seu usuário do Github nos avisando.
+## How to run
 
------
+1 - Start the elastic search database:
+```shell
+sudo docker-compose up elasticsearch
+```
 
-### Diferenciais
+2 - Build and run the app by executing at the terminal:
+```shell
+./gradlew clean build
+./gradlew bootRun
+```
 
-- Criar um frontend para realizar a busca com uma UX elaborada
-- Criar uma solução de autenticação entre o frontend e o backend
-- Ter um desempenho elevado num conjunto de dados muito grande
-- Utilizar o Docker
+3 - Access it at `localhost:8080`
+
+## How to import 8 million users to the database?
+
+Copy the file `users.csv` and paste it to the `/data` folder and execute the following command, but please remember this task may take over an hour to complete.
+
+```shell
+sudo docker-compose up import-users
+```
+
+After the task is finished, setup the users priorities by running (this should take less than a minute):
+```shell
+sudo docker-compose up set-priorities
+```
+
+## How to stop a logstash container if I need to stop data to import?
+```shell
+sudo docker-compose kill import-users
+```
+
+## Hey, something is already running on port 9200, what should I do?
+
+Find the process running at that port and kill the process.
+```shell
+sudo lsof -i :9200 | grep LISTEN
+sudo kill <PID>
+```
+
+## How to make requests to the server?
+
+Send a `POST` to `http://localhost:8080/user/search` with a similar JSON payload:
+
+```js
+{
+   "text": "Silva",
+   "page": 0,
+   "size": 15
+}
+```
+
+To see all available users, send a `POST` to `http://localhost:8080/user/all` with this JSON payload:
+    
+```js
+{
+   "page": 0,
+   "size": 15
+}
+``` 
 
