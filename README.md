@@ -81,6 +81,5 @@ To see all available users, send a `POST` to `http://localhost:8080/user/all` wi
 ## Next releases:
 
 - sort result by priority (DESC mode)
-- allow searching for 1 single letter
 - call system/user/validate to authenticate user
 

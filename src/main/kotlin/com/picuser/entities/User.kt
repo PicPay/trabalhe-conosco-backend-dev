@@ -12,7 +12,7 @@ data class User (
 
     @Id var id: String? = null,
 
-    //@Field(type= FieldType.Text, searchAnalyzer= "search_ngram", analyzer= "index_ngram")
+    @Field(type= FieldType.Text, searchAnalyzer= "search_ngram", analyzer= "index_ngram")
     var userName: String? = null,
 
     @Field(type= FieldType.Text, searchAnalyzer= "search_ngram", analyzer= "index_ngram")

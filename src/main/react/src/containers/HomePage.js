@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import UserList from './UserLis';
-import SearchAppBar from './SearchAppBar';
+import PicAppBar from './PicAppBar';
 import MessageSnackbar from './MessageSnackbar';
 
 class HomePage extends Component {
@@ -32,7 +32,7 @@ class HomePage extends Component {
         return (
             <div style={{display: 'flex', flexDirection: 'column'}}>
                 <MessageSnackbar />
-                <SearchAppBar />
+                <PicAppBar />
                 <div style={{marginTop: '50px', marginLeft: '70px',  marginRight: '90px', padding: '20px', height: '100%'}}>
                     <UserList />
                 </div>

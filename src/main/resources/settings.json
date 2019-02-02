@@ -7,19 +7,19 @@
         "ngram_filter": {
           "type": "ngram",
           "min_gram": 1,
-          "max_gram": 8
+          "max_gram": 30
         }
       },
       "analyzer": {
         "index_ngram": {
           "type": "custom",
           "tokenizer": "keyword",
-          "filter": [ "ngram_filter", "lowercase" ]
+          "filter": ["lowercase", "ngram_filter"]
         },
         "search_ngram": {
           "type": "custom",
           "tokenizer": "keyword",
-          "filter": "lowercase"
+          "filter": ["lowercase"]
         }
       }
     }

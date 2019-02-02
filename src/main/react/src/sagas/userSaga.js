@@ -16,11 +16,9 @@ export function* searchUsersSaga(action) {
         name,
         priority
       }
-    });    
-    let message = {text: users.length + ' users loaded.', messageType: 'INFO', show: true}            
+    });        
     yield [
-      put({ type: types.SEARCH_USERS_SUCCESS, users, text: action.text, page: response.number, totalElements: response.totalElements, totalPages: response.totalPages}),
-      put({ type: types.SHOW_MESSAGE, message })
+      put({ type: types.SEARCH_USERS_SUCCESS, users, text: action.text, page: response.number, totalElements: response.totalElements, totalPages: response.totalPages}),      
     ];
   } else {        
     let message = {text: response.error, messageType: 'FAILURE', show: true}      

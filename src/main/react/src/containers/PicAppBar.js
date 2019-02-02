@@ -84,7 +84,7 @@ const styles = theme => ({
   },
 });
 
-class SearchAppBar extends React.Component {
+class PicAppBar extends React.Component {
   state = {
     anchorEl: null,
     mobileMoreAnchorEl: null,
@@ -150,13 +150,7 @@ class SearchAppBar extends React.Component {
             <IconButton className={classes.menuButton} color="default" aria-label="Open drawer">
               <MenuIcon />
             </IconButton>
-            <img alt="" style={{width:'110px'}} src="/picpay-extended.png" />
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <UserSearchBar />
-            </div>
+            <img alt="" style={{width:'110px'}} src="/picpay-extended.png" />            
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>              
               <UserAvatar />
@@ -175,8 +169,8 @@ class SearchAppBar extends React.Component {
   }
 }
 
-SearchAppBar.propTypes = {
+PicAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SearchAppBar);
+export default withStyles(styles)(PicAppBar);

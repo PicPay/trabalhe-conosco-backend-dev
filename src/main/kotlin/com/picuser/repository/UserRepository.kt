@@ -8,6 +8,6 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 
 interface UserRepository : ElasticsearchRepository<User, String> {
 
-    @Query("{\"bool\":{\"must\":[{\"match\":{\"name\":\"?0\"}}]}}")
+    @Query("{\"bool\":{\"must\":[{\"multi_match\":{\"query\":\"?0\", \"fields\": [\"name\",\"userName\"]}}]}}")
     fun findUser(text: String, pageable: Pageable): Page<User>
 }

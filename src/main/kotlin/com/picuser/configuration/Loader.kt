@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional
 import javax.annotation.PostConstruct
 
 @Component
-class Loader(@Autowired val sysUserRepository: SystemUserRepository? = null) {
+class Loader(@Autowired val esConfig: ElasticSearchConfiguration, @Autowired val sysUserRepository: SystemUserRepository? = null) {
 
     private val logger = LoggerFactory.getLogger(Loader::class.java)!!
 
