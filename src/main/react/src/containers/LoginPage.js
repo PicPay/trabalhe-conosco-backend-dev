@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { GoogleLogin } from 'react-google-login';
 import {Redirect} from 'react-router-dom';
 import googleCredentials from '../constants/credentials-react.json';
+import { validateUser } from '../Api/api';
 
 class LoginPage extends Component {
  
@@ -16,16 +17,24 @@ class LoginPage extends Component {
     }
     
     onSignInSuccess = (response) => {        
-        if(response.w3.U3){
+        if(response.w3.U3){            
             const userData = {
                 name: response.w3.ig,
                 email: response.w3.U3,
                 provider_id: response.El,
                 token: response.Zi.access_token,
                 provider_pic: response.w3.Paa
-            };            
-            sessionStorage.setItem("userData", JSON.stringify(userData));
-            this.setState({redirect: true});            
+            };
+            validateUser(userData).then(response => {
+                if(response.content.length > 0){
+                    sessionStorage.setItem("userData", JSON.stringify(userData));
+                    this.setState({redirect: true});            
+                } else {
+                    this.setState({loginError: true});
+                }
+            }).catch(error => {
+                this.setState({loginError: true});                
+            })            
         }
     }
 

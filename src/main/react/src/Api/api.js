@@ -1,7 +1,8 @@
 
 export const validateUser = (userData) => {  
   return new Promise((resolve, reject) => { 
-    fetch('/user/validate', {method: 'POST', body: JSON.stringify(userData)})
+    let bodyData = {email: userData.email, name: userData.name}    
+    fetch('/system/user/validate', {method: 'POST',headers: {'Content-Type': 'application/json'},  body: JSON.stringify(bodyData), credentials: 'same-origin'})
       .then((response) => response.json())
       .then((res) => {
         resolve(res);

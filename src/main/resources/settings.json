@@ -4,22 +4,20 @@
     "number_of_replicas": "0",
     "analysis": {
       "filter": {
-        "ngram_filter": {
-          "type": "ngram",
+        "autocomplete_filter": {
+          "type":     "edge_ngram",
           "min_gram": 1,
-          "max_gram": 30
+          "max_gram": 20
         }
       },
       "analyzer": {
-        "index_ngram": {
-          "type": "custom",
-          "tokenizer": "keyword",
-          "filter": ["lowercase", "ngram_filter"]
-        },
-        "search_ngram": {
-          "type": "custom",
-          "tokenizer": "keyword",
-          "filter": ["lowercase"]
+        "autocomplete": {
+          "type":      "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "autocomplete_filter"
+          ]
         }
       }
     }

@@ -14,6 +14,8 @@ import deepPurple from '@material-ui/core/colors/deepPurple';
 import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
 import UserSearchBar from './UserSearchBar';
+import _ from 'lodash';
+import Chip from '@material-ui/core/Chip';
 
 const styles = theme => ({
   root: {
@@ -26,6 +28,9 @@ const styles = theme => ({
   purpleAvatar: {    
     color: '#fff',
     backgroundColor: deepPurple[500],
+  },
+  chip: {
+    margin: theme.spacing.unit,
   },
 });
 
@@ -49,7 +54,7 @@ class UserList extends Component {
 
   render(){               
     const { user, classes } = this.props;
-    return( 
+    return(       
       <div>        
         <div style={{display:'flex', marginTop: '10px'}}>
           <div style={{display:'flex'}}>
@@ -81,7 +86,8 @@ class UserList extends Component {
            user.users.map(user => 
              <ListItem key={user.id} className="user-item" style={{paddingTop:'3px'}} alignItems="flex-start" button>
                 <ListItemAvatar>
-                  <Avatar className={classes.purpleAvatar}>{user.name[0]}</Avatar>
+                  <Avatar alt={user.name} src={
+                    'https://randomuser.me/api/portraits/'+(_.random(1,2) === 1 ? 'men' : 'women')+'/'+_.random(0, 99)+'.jpg'} className={classes.avatar} />            
                 </ListItemAvatar>
                 <ListItemText
                   primary={user.name}
@@ -93,6 +99,7 @@ class UserList extends Component {
                     </React.Fragment>
                   }
                 />
+                <Chip label={user.priority === 2 ? 'list 1' : (user.priotiry === 1 ? 'list 2' : 'no priority')} color={user.priority === 2 ? 'secondary' : (user.priority === 1 ? 'primary' : 'default')} className={classes.chip} />                
               </ListItem>
             )
          }

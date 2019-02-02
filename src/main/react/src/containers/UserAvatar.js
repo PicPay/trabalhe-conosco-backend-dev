@@ -61,7 +61,7 @@ class UserAvatar extends React.Component {
                   open={open}
                   onClose={this.handleClose}
                 >
-                <MenuItem onClick={this.handleLogout}>Sair</MenuItem>                
+                <MenuItem onClick={this.handleLogout}>Logout</MenuItem>                
               </Menu>
               </div>
           );

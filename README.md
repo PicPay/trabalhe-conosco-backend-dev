@@ -77,9 +77,3 @@ To see all available users, send a `POST` to `http://localhost:8080/user/all` wi
    "size": 15
 }
 ``` 
-
-## Next releases:
-
-- sort result by priority (DESC mode)
-- call system/user/validate to authenticate user
-
