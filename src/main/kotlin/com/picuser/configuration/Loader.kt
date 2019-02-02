@@ -4,6 +4,7 @@ import com.picuser.entities.SystemUser
 import com.picuser.repository.SystemUserRepository
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 
@@ -19,10 +20,16 @@ class Loader(@Autowired val esConfig: ElasticSearchConfiguration, @Autowired val
     fun loadAll() {
         logger.info("Setting up system users...")
 
-        val admin1 = SystemUser("1", "johnguerson@gmailcom", "John Guerson")
+        val admins = esConfig.getAdmins().mapIndexedNotNull {index, it ->
+            if(sysUserRepository!!.findSystemUser(it, PageRequest.of(0, 1)).isEmpty) {
+                println(index)
+                println(it)
+                SystemUser((index+1).toString(), it, "")
+            } else null
+        }
 
-        if(!sysUserRepository!!.existsById(admin1.id)) {
-            sysUserRepository!!.saveAll(listOf(admin1))
+        if(admins.isNotEmpty()) {
+            sysUserRepository!!.saveAll(admins)
         }
 
         logger.info("Setup complete!")

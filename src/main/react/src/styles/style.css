@@ -1,13 +1,18 @@
 body {
   font-family: Helvetica, Arial, Sans-Serif, sans-serif;
   height: 100vh;
-  background-image: linear-gradient(259deg, #7efa7a,#38f512d3);
-  box-shadow: 0 0.5px 0 0 #7efa7a, 0 -0.5px 0 0 #38f512d3;  
+  background-image: linear-gradient(259deg, #4fff49,#217910d3);
+  box-shadow: 0 0.5px 0 0 #4fff49, 0 -0.5px 0 0 #217910d3;  
 }
 
 .user-item {
   width: 527px;
   height: 60px;   
   background-image: linear-gradient(259deg, white,white);
-  box-shadow: 0 1.0px 0 0 #7efa7a, 0 -1.0px 0 0 #38f512d3;  
+  box-shadow: 0 1.0px 0 0 #4fff49, 0 -1.0px 0 0 #217910d3;    
+}
+
+.user-item:hover {
+  opacity: 0.85;
+  background-color: #e414ffbb;
 }

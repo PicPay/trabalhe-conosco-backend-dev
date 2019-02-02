@@ -1,23 +1,31 @@
 # PicUser App
-An app to list all Pic Pay's users.
+An app to list Pic Pay's users.
 
-## Technologies
+## Installation Requirements
+- **JDK 8** or superior
+- **Docker**: I used version 18.03.1-ce (2018-04-26)
 
-- I employed a JVM based language called **Kotlin** in its most recent version.
+## Approach
 
-- I served the App using **Spring Boot** and **Spring Data** frameworks via **Gradle**.
+I developed the APP on a JVM based language called **Kotlin**. 
+I served the App using **Spring Boot** and **Spring Data** frameworks via **Gradle**.
 
-- I stored data to an **Elasticsearch** database enabling the full-text search feature.
+I stored all the data to an **Elasticsearch** database that enables full-text searching on users.
+The 8 million users and their priorities were imported to Elasticsearch using **Logstash**. 
+This process usually takes over an hour to complete. 
+User's priority list were transformed as simple numeric values from 0 to 2. 
+A user with priority 2 means he/she was at the list of priority 1 and thus should appear first.
+I used **Docker** to set up both Elasticsearch and Logstash across multi platforms.
 
-- The 8 million users and their priorities were imported to the Elasticsearch database using **Logstash**. Last time I ran this process it took over an hour for it to complete (of course some improvements may be done here). User's priorities were transformed to the database as simple numeric values from 0 to 2. The value 2 means that users were at the list of priority 1 and should appear first.
+I took advantage of Spring's static resources to build a front end in **React** and **Redux** quicker then if I were to setup another server.
+I used **Material Design** on components whenever I could: **React Material UI**.
+Finally, I choose a simpler form of **authentication via Google** with a validation from the back checking if the user's email is registered as a system administrator.
 
-- I used **Docker** to set up both Elasticsearch and Logstash across multi platforms.
+## Register a new admin
+Go to `/data/admin.`
+```
 
-- I took advantage of Spring's static resources to build a front end in **React** and **Redux** quicker then if I were to setup another server. I used **Material Design** on components whenever I could: **React Material UI**.
-
-- I choose a simpler form of **authentication via Google** with a validation from the back checking if the user's email is registered as a system administrator.
-
-## How to run
+```
 
 1 - Start the elastic search database:
 ```shell

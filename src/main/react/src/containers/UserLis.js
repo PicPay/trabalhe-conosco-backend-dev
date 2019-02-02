@@ -99,7 +99,8 @@ class UserList extends Component {
                     </React.Fragment>
                   }
                 />
-                <Chip label={user.priority === 2 ? 'list 1' : (user.priotiry === 1 ? 'list 2' : 'no priority')} color={user.priority === 2 ? 'secondary' : (user.priority === 1 ? 'primary' : 'default')} className={classes.chip} />                
+                {console.log(user.priority)}
+                <Chip label={user.priority === 2 ? 'list 1' : (user.priority === 1 ? 'list 2' : 'no priority')} color={user.priority === 2 ? 'secondary' : (user.priority === 1 ? 'primary' : 'default')} className={classes.chip} />                
               </ListItem>
             )
          }

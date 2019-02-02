@@ -34,6 +34,10 @@ class ElasticSearchConfiguration {
         return client
     }
 
+    fun getAdmins(): List<String>{
+        return environment!!.getProperty("users.admin").split(",")
+    }
+
     @Bean
     fun elasticsearch(): ElasticsearchOperations {
         val op = ElasticsearchTemplate(client())
