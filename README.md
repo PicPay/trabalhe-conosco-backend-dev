@@ -21,67 +21,50 @@ I took advantage of Spring's static resources to build a front end in **React** 
 I used **Material Design** on components whenever I could: **React Material UI**.
 Finally, I choose a simpler form of **authentication via Google** with a validation from the back checking if the user's email is registered as a system administrator.
 
-## Register a new admin
-Go to `/data/admin.`
+## Register an admin user
+Add a new valid email at `applciation.properties`, all entries should be separated by comma:
+```
+users.admin=email1@domain.com.br,email2@domain.com
 ```
 
-```
-
-1 - Start the elastic search database:
+## Execute the project
+1 - Start the elastic search database in a separate terminal window:
 ```shell
 sudo docker-compose up elasticsearch
 ```
 
-2 - Build and run the app executing at the terminal:
-```shell
-./gradlew clean build
-./gradlew bootRun
-```
-
-3 - Access it at `localhost:8080`
-
-## Import 8 million users to the database
-
-Copy the file `users.csv` and paste it to the `/data` folder and execute the following command, please remember this task may take over an hour to complete.
-
-```shell
-sudo docker-compose up import-users
-```
-
-After the task is finished, setup the users priorities by running (this should take less than a minute):
-```shell
-sudo docker-compose up set-priorities
-```
-
-If the importation is done you can now kill the respective logstash container just typing: 
-```shell
-sudo docker-compose kill import-users
-sudo docker-compose kill set-priorities
-```
-
-If something is already running on port 9200 and you can't start those containers, find the process running at that port and kill the process:
+If something is already running on port 9200 and you can't start this container, find the process running at that port and kill the process:
 ```shell
 sudo lsof -i :9200 | grep LISTEN
 sudo kill <PID>
 ```
 
-## How to make requests to the server?
-
-Send a `POST` to `http://localhost:8080/user/search` with a JSON payload:
-
-```js
-{
-   "text": "Silva",
-   "page": 0,
-   "size": 15
-}
+2 - Build and run the app at another terminal window as it follows. 
+Make sure you start the app BEFORE you import any data to the database since 
+Spring Data will create all document mappings and settings for us.
+```shell
+./gradlew clean build
+./gradlew bootRun
 ```
 
-To see all available users, send a `POST` to `http://localhost:8080/user/all` with this JSON payload:
-    
-```js
-{
-   "page": 0,
-   "size": 15
-}
-``` 
+3 - Access it at `localhost:8080` and see no data is displayed yet.
+
+## Import 8 million users data
+
+Copy the file `users.csv` and paste it to the `/data` folder and execute the following command at a new terminal window, 
+please remember this task may take over an hour to complete.
+
+```shell
+sudo docker-compose up import-users
+```
+
+AFTER the task is finished, setup users priorities by running at another terminal (this should take only few seconds):
+```shell
+sudo docker-compose up set-priorities
+```
+
+When all importation are done, kill logstash containers executing: 
+```shell
+sudo docker-compose kill import-users
+sudo docker-compose kill set-priorities
+```
