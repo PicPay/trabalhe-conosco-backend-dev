@@ -24,7 +24,7 @@ I used **Material Design** on components whenever I could: **React Material UI**
 Finally, I choose a simpler form of **authentication via Google** with a validation from the back checking if the user's email is registered as a system administrator.
 
 ## Register an admin user
-Add a new valid email at `applciation.properties`, all entries should be separated by comma:
+Add a new valid email at `application.properties`, all entries should be separated by comma:
 ```
 users.admin=email1@domain.com.br,email2@domain.com
 ```
