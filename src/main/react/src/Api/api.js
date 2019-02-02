@@ -12,22 +12,10 @@ export const validateUser = (userData) => {
   });
 }
 
-export const getAllUsers = () => {      
-  return fetch('/user/all', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({page: 0, size: 15}), credentials: 'same-origin'})
-  .then(response => {    
-    if (response.ok) {
-      return response.json();
-    }      
-    return {error: response.statusText};  
-  }).then(json => {
-      return json;
-  }).catch(err =>  {
-      return {error: err.message}
-  });
-}; 
-
-export const searchUsers = (text) => {      
-  return fetch('/user/search', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({text, page: 0, size: 15}), credentials: 'same-origin'})
+export const searchUsers = (text, page, size) => { 
+  let endpoint = text === '' ? '/user/all' : '/user/search';
+  let body = text === '' ?  {page, size} : {page, size, text}
+  return fetch(endpoint, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body), credentials: 'same-origin'})
   .then(response => {    
     if (response.ok) {
       return response.json();

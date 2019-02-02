@@ -33,7 +33,7 @@ class HomePage extends Component {
             <div style={{display: 'flex', flexDirection: 'column'}}>
                 <MessageSnackbar />
                 <SearchAppBar />
-                <div style={{marginTop: '90px', marginLeft: '200px',  marginRight: '90px', padding: '20px', height: '100%'}}>
+                <div style={{marginTop: '50px', marginLeft: '70px',  marginRight: '90px', padding: '20px', height: '100%'}}>
                     <UserList />
                 </div>
             </div>            
@@ -41,8 +41,4 @@ class HomePage extends Component {
     }
 }
 
-const mapStateToProps = () => ({
-
-});
-
-export default connect(mapStateToProps)(HomePage);
+export default connect()(HomePage);

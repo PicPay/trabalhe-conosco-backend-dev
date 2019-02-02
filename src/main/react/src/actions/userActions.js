@@ -1,10 +1,8 @@
 import * as types from '../constants/actionTypes';
 
-export const getUsersAction = () => ({
-  type: types.GET_USERS_REQUEST
-});
-
-export const searchUsersAction = (text) => ({
+export const searchUsersAction = (text, page, size) => ({
   type: types.SEARCH_USERS_REQUEST,
-  text
-})
+  text,
+  page, 
+  size
+});

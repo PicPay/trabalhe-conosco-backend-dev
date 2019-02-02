@@ -1,8 +1,12 @@
 const initialState = {
-    users: [],   
-    filter: {
-        searchText: ''        
-    },    
+    user: {
+        users: [],             
+        totalElements: 0,
+        totalPages: 0,
+        page: 0,
+        size: 15,
+        text: ''
+    },
     message:{
         show: false,
         text: "",

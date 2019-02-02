@@ -145,7 +145,7 @@ class SearchAppBar extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar style={{backgroundColor: 'white', padding: '10px'}} position="absolute">
+        <AppBar style={{backgroundColor: 'white', padding: '0px'}} position="absolute">
           <Toolbar>
             <IconButton className={classes.menuButton} color="default" aria-label="Open drawer">
               <MenuIcon />
