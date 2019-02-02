@@ -1,3 +1,7 @@
 xpack.monitoring.enabled: false
 http.host: "0.0.0.0"
 path.config: /usr/share/logstash/pipeline
+
+pipeline.batch.size: 125
+pipeline.batch.delay: 50
+pipeline.workers: 4

@@ -3,10 +3,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import UserPage from './UserPage';
-import MiniDrawer from './MiniDrawer';
+import UserList from './UserLis';
+import SearchAppBar from './SearchAppBar';
+import MessageSnackbar from './MessageSnackbar';
 
-class AppPage extends Component {
+class HomePage extends Component {
 
     constructor(props) {
         super(props);
@@ -29,9 +30,13 @@ class AppPage extends Component {
         }
 
         return (
-            <MiniDrawer>
-                <UserPage />
-            </MiniDrawer>
+            <div style={{display: 'flex', flexDirection: 'column'}}>
+                <MessageSnackbar />
+                <SearchAppBar />
+                <div style={{marginTop: '90px', marginLeft: '200px',  marginRight: '90px', padding: '20px', height: '100%'}}>
+                    <UserList />
+                </div>
+            </div>            
         )
     }
 }
@@ -40,4 +45,4 @@ const mapStateToProps = () => ({
 
 });
 
-export default connect(mapStateToProps)(AppPage);
+export default connect(mapStateToProps)(HomePage);

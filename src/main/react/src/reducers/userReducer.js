@@ -6,6 +6,9 @@ export default function (state = initialState.users, action) {
     case types.GET_USERS_SUCCESS: {      
       return action.users;
     }    
+    case types.SEARCH_USERS_SUCCESS: {
+      return action.users;
+    }
     default:
       return state;
   }

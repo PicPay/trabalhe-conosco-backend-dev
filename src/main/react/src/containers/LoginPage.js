@@ -23,18 +23,14 @@ class LoginPage extends Component {
                 provider_id: response.El,
                 token: response.Zi.access_token,
                 provider_pic: response.w3.Paa
-            };
-            //if(userData.email.includes("@guiabolso.com.br")){
-                sessionStorage.setItem("userData", JSON.stringify(userData));
-                this.setState({redirect: true});
-            // } else {
-            //     this.setState({loginError: true});
-            // }            
+            };            
+            sessionStorage.setItem("userData", JSON.stringify(userData));
+            this.setState({redirect: true});            
         }
     }
 
     onSignInFailure = (response) => {
-        console.log(response);
+        console.log(response)
         this.setState({loginError: true});
     }
 
@@ -46,22 +42,22 @@ class LoginPage extends Component {
 
         return (<div className="container">
             <div className="row">
-                <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
-                    <div className="card card-signin my-5">
+                <div style={{marginTop: '100px'}} className="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                    <div className="card my-5">
                         <div className="card-body">
                             <div style={{marginBottom:'10px',display:'flex',alignItems:'center',justifyContent:'center'}}>
-                                <img alt="" style={{width:'170px'}} src="/logo.png" />
-                            </div>
-                            <h1 style={{marginTop: '30px'}}className="card-title text-center">Ofertas de Crédito</h1>
-                            <div style={{display:'flex',justifyContent: 'center', marginTop: '50px', marginBottom: '30px', alignItems: 'center'}}>
-                                <GoogleLogin
+                                <img alt="" style={{width:'400px'}} src="/picpay-extended.png" />
+                            </div>                            
+                            <div style={{display:'flex',justifyContent: 'center', marginTop: '10px', marginBottom: '50px', alignItems: 'center'}}>
+                                <GoogleLogin                                    
                                     clientId={googleCredentials.web.client_id}
-                                    buttonText={!userData || (userData && !userData.name) ? "Entrar" : "Sair"}
+                                    theme="light"
+                                    buttonText={!userData || (userData && !userData.name) ? "Sign in with Google" : "Sign out"}
                                     onSuccess={this.onSignInSuccess}
                                     onFailure={this.onSignInFailure}
                                 />
                             </div>
-                            <div style={{color: 'red', textAlign: 'center'}}>{this.state.loginError ? "Usuário ou senha inválida!" : null}</div>
+                            <div style={{color: 'red', textAlign: 'center'}}>{this.state.loginError ? "You're not authorized to sign in." : null}</div>
                         </div>
                     </div>
                 </div>

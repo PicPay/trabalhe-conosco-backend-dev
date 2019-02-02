@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SearchBar from 'material-ui-search-bar'
-import { searchText } from '../actions/filterActions';
+import { searchUsersAction, getUsersAction } from '../actions/userActions';
 import { connect } from 'react-redux';
 
 class UserSearchBar extends Component {
@@ -11,16 +11,20 @@ class UserSearchBar extends Component {
 
     handleChange = (newValue) => {    
         this.setState({value : newValue})
-        this.props.dispatch(searchText(newValue));
+        if(newValue !== ""){
+            this.props.dispatch(searchUsersAction(newValue));
+        } else {
+            this.props.dispatch(getUsersAction());
+        }
     }
 
     render(){
         return(      
             <SearchBar
-            style={{height: '70px'}}
+            style={{height: '50px', width: '400px'}}
             value={this.state.value}   
-            onChange={this.handleChange}        
-            onRequestSearch={() => this.props.dispatch(searchText(this.state.value))}
+            onChange={this.handleChange}
+            onRequestSearch={() => this.state.value !== "" ? this.props.dispatch(searchUsersAction(this.state.value)) : this.props.dispatch(getUsersAction())}
             /> 
         )
     }

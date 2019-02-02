@@ -1,5 +1,6 @@
 package com.picuser.configuration
 
+import com.picuser.entities.SystemUser
 import com.picuser.entities.User
 import org.elasticsearch.client.Client
 import org.elasticsearch.common.settings.Settings
@@ -27,8 +28,8 @@ class ElasticSearchConfiguration {
     fun client(): Client {
         val settings = Settings.builder().put("client.transport.sniff", false).build()
         val client = PreBuiltTransportClient(settings)
-        val hostName = InetAddress.getByName(environment!!.getProperty("elasticsearch.host"))
-        val portNumber = Integer.parseInt(environment.getProperty("elasticsearch.port"))
+        val hostName = InetAddress.getByName(environment!!.getProperty("elastic.search.host"))
+        val portNumber = Integer.parseInt(environment.getProperty("elastic.search.port"))
         client.addTransportAddress(TransportAddress(hostName, portNumber))
         return client
     }
@@ -37,6 +38,7 @@ class ElasticSearchConfiguration {
     fun elasticsearch(): ElasticsearchOperations {
         val op = ElasticsearchTemplate(client())
         op.putMapping(User::class.java)
+        op.putMapping(SystemUser::class.java)
         return op
     }
 }

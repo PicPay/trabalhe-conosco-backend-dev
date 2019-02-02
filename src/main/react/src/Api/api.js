@@ -13,7 +13,21 @@ export const validateUser = (userData) => {
 }
 
 export const getAllUsers = () => {      
-  return fetch('/user/search', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({page: 0, size: 15}), credentials: 'same-origin'})
+  return fetch('/user/all', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({page: 0, size: 15}), credentials: 'same-origin'})
+  .then(response => {    
+    if (response.ok) {
+      return response.json();
+    }      
+    return {error: response.statusText};  
+  }).then(json => {
+      return json;
+  }).catch(err =>  {
+      return {error: err.message}
+  });
+}; 
+
+export const searchUsers = (text) => {      
+  return fetch('/user/search', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({text, page: 0, size: 15}), credentials: 'same-origin'})
   .then(response => {    
     if (response.ok) {
       return response.json();

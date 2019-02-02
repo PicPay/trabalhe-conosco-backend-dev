@@ -7,8 +7,8 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.web.bind.annotation.*
 
-data class PayloadGetAll(val page: Int? = 0, val size: Int? = 20)
-data class PayloadSearch(val page: Int? = 0, val size: Int? = 20, val text: String? = "")
+data class PayloadGetAll(val page: Int? = 0, val size: Int? = 15)
+data class PayloadSearch(val page: Int? = 0, val size: Int? = 15, val text: String? = "")
 
 @RestController
 @RequestMapping("/user")

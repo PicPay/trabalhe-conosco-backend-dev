@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import configureStore from './stores/configureStores';
 import LoginPage from './containers/LoginPage';
-import AppPage from './containers/AppPage';
+import HomePage from './containers/HomePage';
 
 import './styles/style.css';
 
@@ -15,7 +15,7 @@ ReactDOM.render(
   <Provider store={store}>          
     <BrowserRouter>        
           <Switch>              
-              <Route path="/home" component={AppPage}/>
+              <Route path="/home" component={HomePage}/>
               <Route path="/" component={LoginPage} />
           </Switch>        
     </BrowserRouter>        
