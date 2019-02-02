@@ -1,5 +1,7 @@
 # PicUser App
-An app to list Pic Pay's users.
+An app to list 8 million of Pic Pay's users.
+
+![screenshot](https://github.com/johnguerson/trabalhe-conosco-backend-dev/blob/master/images/app-page.png)
 
 ## Installation Requirements
 - **JDK 8** or superior
