@@ -1,14 +1,15 @@
-package com.picuser.service
+package com.picuser.service.service
 
-import com.picuser.entities.User
-import com.picuser.repository.UserRepository
+import com.picuser.service.entities.User
+import com.picuser.service.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
 
 @Service
-class UserServiceImpl(@Autowired val userRepository: UserRepository): UserService {
+class UserServiceImpl(@Autowired val userRepository: UserRepository):
+    UserService {
 
     override fun save(user: User): User {
         userRepository.save(user)

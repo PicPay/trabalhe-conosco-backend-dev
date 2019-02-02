@@ -1,8 +1,6 @@
 # PicUser App
 An app to list 8 million of Pic Pay's users.
 
-![screenshot](https://github.com/johnguerson/trabalhe-conosco-backend-dev/blob/master/images/app-page.png)
-
 ## Installation Requirements
 - **JDK 8** or superior
 - **Docker**: I used version 18.03.1-ce (2018-04-26)
@@ -22,6 +20,8 @@ I used **Docker** to set up both Elasticsearch and Logstash across multi platfor
 I took advantage of Spring's static resources to build a front end in **React** and **Redux** quicker then if I were to setup another server.
 I used **Material Design** on components whenever I could: **React Material UI**.
 Finally, I choose a simpler form of **authentication via Google** with a validation from the back checking if the user's email is registered as a system administrator.
+
+![screenshot](https://github.com/johnguerson/trabalhe-conosco-backend-dev/blob/master/images/app-page.png)
 
 ## Register an admin user
 Add a new valid email at `application.properties`, all entries should be separated by comma:

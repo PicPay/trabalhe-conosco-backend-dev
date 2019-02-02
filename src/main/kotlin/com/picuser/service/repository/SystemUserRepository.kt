@@ -1,7 +1,7 @@
-package com.picuser.repository
+package com.picuser.service.repository
 
-import com.picuser.entities.SystemUser
-import com.picuser.entities.User
+import com.picuser.service.entities.SystemUser
+import com.picuser.service.entities.User
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.elasticsearch.annotations.Query

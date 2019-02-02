@@ -1,4 +1,4 @@
-package com.picuser.entities
+package com.picuser.service.entities
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.elasticsearch.annotations.Document

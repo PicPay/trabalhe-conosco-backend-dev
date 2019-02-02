@@ -1,7 +1,7 @@
-package com.picuser.configuration
+package com.picuser.service.configuration
 
-import com.picuser.entities.SystemUser
-import com.picuser.repository.SystemUserRepository
+import com.picuser.service.entities.SystemUser
+import com.picuser.service.repository.SystemUserRepository
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
@@ -24,7 +24,7 @@ class Loader(@Autowired val esConfig: ElasticSearchConfiguration, @Autowired val
             if(sysUserRepository!!.findSystemUser(it, PageRequest.of(0, 1)).isEmpty) {
                 println(index)
                 println(it)
-                SystemUser((index+1).toString(), it, "")
+                SystemUser((index + 1).toString(), it, "")
             } else null
         }
 

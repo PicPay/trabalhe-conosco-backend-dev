@@ -1,7 +1,7 @@
-package com.picuser.configuration
+package com.picuser.service.configuration
 
-import com.picuser.entities.SystemUser
-import com.picuser.entities.User
+import com.picuser.service.entities.SystemUser
+import com.picuser.service.entities.User
 import org.elasticsearch.client.Client
 import org.elasticsearch.common.settings.Settings
 import org.elasticsearch.common.transport.TransportAddress
@@ -35,7 +35,7 @@ class ElasticSearchConfiguration {
     }
 
     fun getAdmins(): List<String>{
-        return environment!!.getProperty("users.admin").split(",")
+        return environment!!.getProperty("users.admin")?.split(",") ?: emptyList()
     }
 
     @Bean

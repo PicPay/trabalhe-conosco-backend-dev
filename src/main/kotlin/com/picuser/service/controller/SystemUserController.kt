@@ -1,7 +1,7 @@
-package com.picuser.controller
+package com.picuser.service.controller
 
-import com.picuser.entities.SystemUser
-import com.picuser.service.SystemUserService
+import com.picuser.service.entities.SystemUser
+import com.picuser.service.service.SystemUserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest

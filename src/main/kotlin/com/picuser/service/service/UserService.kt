@@ -1,6 +1,6 @@
-package com.picuser.service
+package com.picuser.service.service
 
-import com.picuser.entities.User
+import com.picuser.service.entities.User
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 
