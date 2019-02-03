@@ -81,7 +81,7 @@ class UserList extends Component {
           </div>
         </div>
 
-         <List component="nav" style={{height: '780px', paddingTop: '0px', marginTop: '15px'}} className={classes.root}>        
+         <List style={{height: '780px', minHeight: '780px', paddingTop: '0px', backgroundColor: 'white', marginTop: '15px'}} className={classes.root}>        
          {  
            user.users.map(user => 
              <ListItem key={user.id} className="user-item" style={{paddingTop:'3px'}} alignItems="flex-start" button>
@@ -102,6 +102,9 @@ class UserList extends Component {
                 <Chip label={user.priority === 2 ? 'list 1' : (user.priority === 1 ? 'list 2' : 'no priority')} color={user.priority === 2 ? 'secondary' : (user.priority === 1 ? 'primary' : 'default')} className={classes.chip} />                
               </ListItem>
             )
+         }
+         {
+           user.users.length === 0 ? <div style={{marginLeft: '20px', marginTop: '20px', color: 'grey'}}><i>No user found.</i></div> : null
          }
         </List>
       </div>)
