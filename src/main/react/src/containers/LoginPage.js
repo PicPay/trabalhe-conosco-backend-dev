@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { GoogleLogin } from 'react-google-login';
 import {Redirect} from 'react-router-dom';
-import googleCredentials from '../constants/credentials-react.json';
+import googleCredentials from '../constants/credentials-dev.json';
 import { validateUser } from '../Api/api';
 
 class LoginPage extends Component {
