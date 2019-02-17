@@ -1,0 +1,29 @@
+php:
+  build: .
+  ports:
+   - "80:80"
+   - "443:443"
+  volumes:
+   - ./www:/var/www/html
+   - /var/www/html/vendor
+  links:
+   - db
+db:
+  image: mysql:5.7
+  volumes:
+   - ./data/:/docker-entrypoint-initdb.d
+  environment:
+   - MYSQL_ROOT_PASSWORD=phprs
+   - MYSQL_DATABASE=picpay_db
+   - MYSQL_USER=picpay
+   - MYSQL_PASSWORD=picpaypass
+  ports:
+      - 33306:3306
+phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    links:
+      - db
+    ports:
+      - 8181:80
+    environment:
+      - PMA_ARBITRARY=1
