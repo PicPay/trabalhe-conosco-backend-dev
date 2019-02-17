@@ -9,13 +9,13 @@ Este projeto tem o propósito montar uma API REST e um front-end que busque usu�
 - MySQL 5.7
 - Slim Framework
 
-##Front-end
+## Front-end
 http://localhost
 
-##API
+## API
 http://localhost/api/users?q=apolonio&page=1
 http://localhost/api/user/01207a7b-e948-4efb-8412-82a1507decba
-###Basic Auth
+### Basic Auth
 User: picpay | Pass: picpaypass
 
 ## Instalação
