@@ -49,6 +49,5 @@ Faça um ***Fork*** deste repositório e abra um ***Pull Request***, **com seu n
 
 ### Instalação
 - Construir containers: ```docker-compose up```
-- Instalar dependências PHP: ```docker-compose run --rm api php composer.phar install```
-- Construir base de dados: ```docker-compose run --rm api php bin/console doctrine:migrations:migrate```
-- carregar base de dados MySQL: http://localhost:8080/api/user/import
+- Realizar deploy: ```./cli/deploy```
+- Carregar base de dados MySQL: http://localhost:8080/api/user/import
