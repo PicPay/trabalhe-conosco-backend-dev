@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Cria tabela do doctrine migrations
+#docker-compose run --rm api php bin/console doctrine:migrations:status
+
+# Cria as tabelas do banco de dados
+#docker exec "$CONTAINER_WEB_NAME" bin/console doctrine:migrations:migrate -vvv --allow-no-migration --no-interaction

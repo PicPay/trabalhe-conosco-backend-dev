@@ -33,3 +33,22 @@ Faça um ***Fork*** deste repositório e abra um ***Pull Request***, **com seu n
 - Ter um desempenho elevado num conjunto de dados muito grande
 - Utilizar o Docker
 
+# Solução
+
+### Autor
+- Nome: Rodrigo Alves Sarmento
+- E-mail: rasarmento@gmail.com
+
+### Configuração
+- Criar o arquivo ***.env*** a partir do ***.env.dist***
+- No arquivo ***.env*** preencher os dados de configuração do container docker ***mysql***
+- No arquivo ***.env*** preencher os dados da URL de conexão do doctrine
+- No arquivo ***.env*** preencher os locais dos arquivos com os dados de usuários
+
+- Obs: Para cada configuração será fornecido um exemplo
+
+### Instalação
+- Construir containers: ```docker-compose up```
+- Instalar dependências PHP: ```docker-compose run --rm api php composer.phar install```
+- Construir base de dados: ```docker-compose run --rm api php bin/console doctrine:migrations:migrate```
+- carregar base de dados MySQL: http://localhost:8080/api/user/import
