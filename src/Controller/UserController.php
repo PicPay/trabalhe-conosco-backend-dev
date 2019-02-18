@@ -51,7 +51,7 @@ class UserController extends AbstractController
             $this->userImporter->import();
 
             return $this->getSuccessJsonResponse(
-                'Users in the importation process. It may take a few minutes.',
+                'Users imported.',
                 JsonResponse::HTTP_CREATED
             );
         } catch (\Exception $e) {
