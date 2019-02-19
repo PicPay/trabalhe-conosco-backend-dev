@@ -1,10 +1,6 @@
-### Composer ###
+###> Composer ###
 composer.phar
-### Composer ###
-
-### Data ###
-/data/
-### Data ###
+###< Composer ###
 
 ###> symfony/framework-bundle ###
 /.env.local
@@ -17,3 +13,4 @@ composer.phar
 ###< symfony/framework-bundle ###
 
 .env
+*.csv
