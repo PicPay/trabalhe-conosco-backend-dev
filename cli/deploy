@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Install Cmopposer
+docker-compose run --rm api sudo cli/composer-install
+
+# Install PHP dependencies
+docker-compose run --rm api sudo php composer.phar install
+
+# Create doctrine migrations table and build tables
+docker-compose run --rm api php bin/console doctrine:migrations:migrate

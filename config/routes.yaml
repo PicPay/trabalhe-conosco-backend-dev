@@ -1,0 +1,9 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+# first, run composer req annotations
+controllers:
+  resource: ../src/Controller/
+  type: annotation
+  prefix: /api

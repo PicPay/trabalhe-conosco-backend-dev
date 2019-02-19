@@ -1,0 +1,58 @@
+version: '3.6'
+
+volumes:
+  mysql-data:
+    driver: local
+  es-data:
+    driver: local
+
+services:
+  api:
+    image: ambientum/php:7.1-caddy
+    container_name: api
+    ports:
+      - 8080:8080
+    volumes:
+      - ./:/var/www/app
+    links:
+      - db
+  db:
+    image: mysql:5.7
+    container_name: db
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+#  elasticsearch:
+#    image: docker.elastic.co/elasticsearch/elasticsearch:6.6.0
+#    container_name: elasticsearch
+#    environment:
+#      - node.name=es0
+#      - cluster.name=docker-cluster
+#      - bootstrap.memory_lock=true
+#      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+#    ulimits:
+#      nproc: 65535
+#      memlock:
+#        soft: -1
+#        hard: -1
+#    cap_add:
+#      - ALL
+#    privileged: true
+#    deploy:
+#      mode: global
+#      restart_policy:
+#        condition: on-failure
+#        delay: 5s
+#        max_attempts: 3
+#        window: 120s
+#    volumes:
+#      - es-data:/usr/share/elasticsearch/data
+#    ports:
+#      - 9200:9200
+#      - 9300:9300
