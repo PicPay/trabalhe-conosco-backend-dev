@@ -1,15 +1,17 @@
 version: '3'
 services:
-  app:
-    build:
-      context: ../
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
+#  app:
+#    build:
+#      context: ../
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8080:8080"
   zookeeper:
     image: wurstmeister/zookeeper
     ports:
       - "2181:2181"
+    depends_on:
+      - elasticsearch
   kafka:
     build:
       context: ./kafka-docker
@@ -20,12 +22,41 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - zookeeper
   manager:
     image: hlebalbau/kafka-manager:stable
     environment:
       ZK_HOSTS: zookeeper:2181
     ports:
       - "9000:9000"
+    depends_on:
+      - zookeeper
+      - kafka
   connect:
     build:
       context: ./kafka-connect
+    ports:
+      - "8086:8086"
+    depends_on:
+      - zookeeper
+      - kafka
+      - manager
+  connect-ui:
+    image: landoop/kafka-connect-ui
+    ports:
+      - "8000:8000"
+    environment:
+      CONNECT_URL: http://connect:8086
+    depends_on:
+      - zookeeper
+      - kafka
+      - manager
+      - connect
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.6.1
+    ports:
+      - "9200:9200"
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
