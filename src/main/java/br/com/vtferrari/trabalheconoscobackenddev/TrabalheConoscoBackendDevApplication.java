@@ -2,10 +2,10 @@ package br.com.vtferrari.trabalheconoscobackenddev;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchAutoConfiguration;
-import org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchDataAutoConfiguration;
+import org.springframework.kafka.annotation.EnableKafka;
 
-@SpringBootApplication//(exclude = {ElasticsearchAutoConfiguration.class, ElasticsearchDataAutoConfiguration.class})
+@EnableKafka
+@SpringBootApplication
 public class TrabalheConoscoBackendDevApplication {
 
     public static void main(String[] args) {
