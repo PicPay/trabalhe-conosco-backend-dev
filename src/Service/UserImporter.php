@@ -63,7 +63,7 @@ class UserImporter
         $batchSize = 1000;
 
         if (($handle = \fopen($this->usersFilePath, "r")) !== FALSE) {
-            $i = 0;
+            $i = 1;
             while (($data = \fgetcsv($handle, 1000, ",")) !== FALSE) {
                 $user = $this->build($data);
                 $this->entityManager->persist($user);
@@ -81,7 +81,7 @@ class UserImporter
         $priority = 0;
         foreach($this->priorityFilesPath as $priorityFilePath) {
             if (($handle = \fopen($priorityFilePath, "r")) !== FALSE) {
-                $i = 0;
+                $i = 1;
                 while (($data = \fgetcsv($handle, 1000, ",")) !== FALSE) {
                     $user = $this->userRepository->findOneBy(['id' => $data]);
                     if($user instanceof User) {

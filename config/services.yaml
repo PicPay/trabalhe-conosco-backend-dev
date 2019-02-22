@@ -32,11 +32,25 @@ services:
         arguments: ['App\Entity\User']
 
     # services
+    Elasticsearch\Client:
+        class: 'Elasticsearch\Client'
+        factory: 'App\Service\Elastic\ClientFactory:createClient'
+        arguments: ['%env(ELASTIC_HTTP_CLIENT_BASE_URI)%']
+
     App\Service\UserImporter:
         class: 'App\Service\UserImporter'
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@App\Repository\UserRepository'
+            - '%kernel.project_dir%/%env(resolve:USERS_FILE_PATH)%'
+            - '%kernel.project_dir%/%env(resolve:PRIORITY1_FILE_PATH)%'
+            - '%kernel.project_dir%/%env(resolve:PRIORITY2_FILE_PATH)%'
+
+    App\Service\Elastic\UserImporter:
+        class: 'App\Service\Elastic\UserImporter'
+        arguments:
+            - '@Elasticsearch\Client'
+            - '@App\Service\Elastic\UserManager'
             - '%kernel.project_dir%/%env(resolve:USERS_FILE_PATH)%'
             - '%kernel.project_dir%/%env(resolve:PRIORITY1_FILE_PATH)%'
             - '%kernel.project_dir%/%env(resolve:PRIORITY2_FILE_PATH)%'

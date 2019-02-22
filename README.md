@@ -50,3 +50,4 @@ Faça um ***Fork*** deste repositório e abra um ***Pull Request***, **com seu n
 - Construir containers: ```docker-compose up```
 - Realizar deploy: ```./cli/deploy```
 - Carregar base de dados MySQL: http://localhost:8080/api/user/import
+- Carregar base de dados Elasticsearch: http://localhost:8080/api/user/es/import
