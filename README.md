@@ -3,11 +3,19 @@
 * Spring boot 2.1.3
 * Kafka
 * ElasticSearch
-
+* Docker
 
 
 # Como executar
+Para executar o projeto sem dificuldades é necessário o arquivo ```./infra/docker-compose.yml```.
+Encontre a chave ```KAFKA_ADVERTISED_HOST_NAME``` e adicione o ip da maquina que irá rodar o projeto.
+agora basta executar o arquivo ```.start.sh``` que tudo rodara automaticamente.
 
+# Importante 
+O projeto usa vários programas pesados para atender os requisitos de performance, portanto é aconselhável rodar em um ambiente Linux com pelo menos 8gb ram e processar equivalente a um intel i5
+foi executado dois testes, um em um i7 e 16Gb ram e outro em um i5 com 8Gb ram.
+
+O primeiro rodou tudo em aproximadamente 40 minutos com toda a carga do Elastic, o segundo demorou mais de 2 horas
 
 # Fonte 
 * [Escrevendo 1MM/sec](https://medium.appbase.io/benchmarking-elasticsearch-1-million-writes-per-sec-bf37e7ca8a4c)
