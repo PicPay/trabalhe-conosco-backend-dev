@@ -23,7 +23,7 @@ public class ElasticSearchRelevancyService implements RelevancyService {
     @Override
     public void save(Relevancy relevancy) {
         Optional
-                .of(relevancyElasticsearchConverter.convert(relevancy))
+                .ofNullable(relevancyElasticsearchConverter.convert(relevancy))
                 .map(this::updateUser)
                 .ifPresent(relevancyRepository::save);
 

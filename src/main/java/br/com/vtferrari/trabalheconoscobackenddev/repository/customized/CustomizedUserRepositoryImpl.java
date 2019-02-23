@@ -44,8 +44,7 @@ public class CustomizedUserRepositoryImpl implements CustomizedUserRepository {
     private QueryBuilder getQueryWithWeight(QueryBuilder queryBuilder) {
 
         return QueryBuilders.functionScoreQuery(queryBuilder, getFilterFunctionBuilders())
-                .boostMode(CombineFunction.MULTIPLY)
-                ;
+                .boostMode(CombineFunction.MULTIPLY);
     }
 
     private FilterFunctionBuilder[] getFilterFunctionBuilders() {
