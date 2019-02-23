@@ -6,3 +6,6 @@ spring:
     consumer:
       auto-offset-reset: earliest
       group-id: ${random.uuid}
+      enable-auto-commit: false
+    listener:
+      ack-mode: manual_immediate

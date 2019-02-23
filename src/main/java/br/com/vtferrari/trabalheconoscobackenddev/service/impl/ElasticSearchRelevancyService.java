@@ -31,7 +31,9 @@ public class ElasticSearchRelevancyService implements RelevancyService {
 
     private RelevancyElasticsearch updateUser(RelevancyElasticsearch relevancyElasticsearch) {
         userRepository.findById(relevancyElasticsearch.getId())
-                .ifPresent(userElasticsearch -> getUpdateWithPriorityLevel(userElasticsearch, relevancyElasticsearch));
+                .ifPresentOrElse(
+                        userElasticsearch -> getUpdateWithPriorityLevel(userElasticsearch, relevancyElasticsearch),
+                        () -> {throw new RuntimeException("Id not found");});
         return relevancyElasticsearch;
     }
 

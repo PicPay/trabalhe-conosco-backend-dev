@@ -1,3 +1,21 @@
+# Tecnologias
+* Java 11
+* Spring boot 2.1.3
+* Kafka
+* ElasticSearch
+
+
+
+# Como executar
+
+
+# Fonte 
+* [Escrevendo 1MM/sec](https://medium.appbase.io/benchmarking-elasticsearch-1-million-writes-per-sec-bf37e7ca8a4c)
+* [Kafka connect](https://medium.appbase.io/benchmarking-elasticsearch-1-million-writes-per-sec-bf37e7ca8a4c)
+
+
+---
+
 ![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
 
 # Teste Backend

@@ -25,7 +25,7 @@ public class RelevancyListener {
     public void relevantListOne(@Payload String message) throws Exception {
         Mono.just(message)
                 .map(kafkaMessageConverter::convert)
-                .map(kafkaMessage -> relevancyConverter.convert(kafkaMessage,0))
+                .map(kafkaMessage -> relevancyConverter.convert(kafkaMessage, 0))
                 .doOnNext(relevancyService::save)
                 .block();
     }
@@ -34,9 +34,9 @@ public class RelevancyListener {
     public void relevantListTwo(String message) throws IOException {
         Mono.just(message)
                 .map(kafkaMessageConverter::convert)
-                .map(kafkaMessage -> relevancyConverter.convert(kafkaMessage,1))
+                .map(kafkaMessage -> relevancyConverter.convert(kafkaMessage, 1))
                 .doOnNext(relevancyService::save)
                 .block();
-         }
+    }
 
 }
