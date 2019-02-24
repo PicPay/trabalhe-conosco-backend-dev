@@ -8,6 +8,6 @@ bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:9200)" !
 
 docker-compose -f ./infra/docker-compose.yml up -d --build connect
 
-#docker run -it --rm --name java -v "$(pwd)":/usr/src/app -w /usr/src/app maven:slim mvn clean install
-#
-#docker-compose -f ./infra/docker-compose.yml up -d --build app
+docker run -it --rm --name java -v "$(pwd)":/usr/src/app -w /usr/src/app maven:slim mvn clean install
+
+docker-compose -f ./infra/docker-compose.yml up -d --build app
