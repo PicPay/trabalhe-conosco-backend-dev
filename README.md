@@ -5,6 +5,23 @@
 * ElasticSearch
 * Docker
 
+# Endpoint
+ | Metodo | URI | Status |
+ |--------| ----|--------|
+ | GET | /v1/users | 200 |
+ 
+# QueryParms
+ | Nome    | Tipo    | Obrigatório |
+ | ------- | ------- | ----------- |
+ | keyword | string  | Sim         |
+ | page    | integer | Não         |
+ | size    | integer | Não         |
+ 
+# Exemplo de execução
+
+```bash
+$ curl http://localhost:8080/v1/users?keyword=adr&page=0&size=200
+``` 
 
 # Como executar
 Para executar o projeto sem dificuldades é necessário o arquivo ```./infra/docker-compose.yml```.
