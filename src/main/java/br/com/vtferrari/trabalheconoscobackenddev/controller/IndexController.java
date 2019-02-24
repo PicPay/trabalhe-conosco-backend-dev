@@ -21,6 +21,6 @@ public class IndexController {
             @RequestParam("keyword") String keyword,
             @RequestParam(value = "page", defaultValue = "10") Integer page,
             @RequestParam(value = "size", defaultValue = "10") Integer size) {
-        return filterUserService.findUserByKeyword(keyword,page,size);
+        return filterUserService.findUserByKeyword(keyword, page, size);
     }
 }

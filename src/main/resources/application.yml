@@ -13,5 +13,3 @@ spring:
     user:
       name: admin
       password: admin
-
-security.basic.enabled: false

@@ -1,4 +1,5 @@
 # Tecnologias
+
 * Java 11
 * Spring boot 2.1.3
 * Kafka
@@ -6,11 +7,13 @@
 * Docker
 
 # Endpoint
+
  | Metodo | URI | Status |
  |--------| ----|--------|
  | GET | /v1/users | 200 |
  
 # QueryParms
+
  | Nome    | Tipo    | Obrigatório |
  | ------- | ------- | ----------- |
  | keyword | string  | Sim         |
@@ -19,21 +22,28 @@
  
 # Exemplo de execução
 
+ | User  | Pass  | 
+ 
+ | ----- | ----- |
+ | admin | admin |
 ```bash
-$ curl http://localhost:8080/v1/users?keyword=adr&page=0&size=200
+$ curl -H 'Authorization: Basic YWRtaW46YWRtaW4=' http://localhost:8080/v1/users?keyword=adr&page=0&size=200
 ``` 
 
 # Como executar
+
 Para executar o projeto sem dificuldades é necessário o arquivo ```./infra/docker-compose.yml```.
 Encontre a chave ```KAFKA_ADVERTISED_HOST_NAME``` e adicione o ip da maquina que irá rodar o projeto.
 agora basta executar o arquivo ```.start.sh``` que tudo rodara automaticamente.
 
 # Importante 
-O projeto usa vários programas pesados para atender os requisitos de performance, portanto é aconselhável rodar em um ambiente Linux com pelo menos 8gb ram e processar equivalente a um intel i5
-foi executado dois testes, um em um i7 e 16Gb ram e outro em um i5 com 8Gb ram.
+O projeto usa vários programas pesados para atender os requisitos de performance do teste, portanto é aconselhável rodar em um ambiente Linux com pelo menos 8gb ram e processador equivalente a um intel i5.
+
+Fram executados dois testes, um em um i7 e 16Gb ram e outro em um i5 com 8Gb ram.
 
 O primeiro rodou tudo em aproximadamente 40 minutos com toda a carga do Elastic, o segundo demorou mais de 2 horas
 
+```É possivel executar os testes enquando o banco é populado```
 # Fonte 
 * [Escrevendo 1MM/sec](https://medium.appbase.io/benchmarking-elasticsearch-1-million-writes-per-sec-bf37e7ca8a4c)
 * [Kafka connect](https://medium.appbase.io/benchmarking-elasticsearch-1-million-writes-per-sec-bf37e7ca8a4c)
