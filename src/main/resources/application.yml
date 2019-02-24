@@ -9,3 +9,9 @@ spring:
       enable-auto-commit: false
     listener:
       ack-mode: manual_immediate
+  security:
+    user:
+      name: admin
+      password: admin
+
+security.basic.enabled: false
