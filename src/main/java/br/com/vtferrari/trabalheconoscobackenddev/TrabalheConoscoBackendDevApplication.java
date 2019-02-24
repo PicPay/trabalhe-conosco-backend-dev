@@ -8,7 +8,7 @@ import org.springframework.kafka.annotation.EnableKafka;
 @SpringBootApplication
 public class TrabalheConoscoBackendDevApplication {
 
-    public static void main(String[] args) {
+   public static void main(String[] args) {
         SpringApplication.run(TrabalheConoscoBackendDevApplication.class, args);
     }
 
