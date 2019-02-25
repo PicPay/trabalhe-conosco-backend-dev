@@ -23,12 +23,16 @@
 # Exemplo de execução
 
  | User  | Pass  | 
- 
  | ----- | ----- |
  | admin | admin |
 ```bash
 $ curl -H 'Authorization: Basic YWRtaW46YWRtaW4=' http://localhost:8080/v1/users?keyword=adr&page=0&size=200
 ``` 
+
+# Front-end
+Para executar a pagina de teste é necessario acessar pelo endereço ```http://localhost:8080/index.html``` e digitar o login e senha no popup que vai abrir
+
+
 
 # Como executar
 
