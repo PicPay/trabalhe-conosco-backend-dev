@@ -5,6 +5,7 @@
 * Kafka
 * ElasticSearch
 * Docker
+* React
 
 # Endpoint
 
