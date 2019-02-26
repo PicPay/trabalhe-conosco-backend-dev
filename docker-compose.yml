@@ -1,24 +1,12 @@
-version: '3'
+version: "3"
 services:
-  
-
-
-    nginx:
-      build:
-        context: ./nginx
-      volumes:
-        - ../src:/var/www
-        - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-        - ./nginx/sites/:/etc/nginx/sites-available
-        - ./nginx/conf.d/:/etc/nginx/conf.d
-      depends_on:
-        - php-fpm
-      ports:
-        - "80:80"
-        - "3001:443"
-
-    php-fpm:
-      build:
-        context: ./php-fpm
+    php:
+        container_name: php
+        build:
+            context: ./php
+            dockerfile: Dockerfile
+        ports:
+          - "80:80"
+          - "443:443"
         volumes:
-          - ../src:/var/www/
+            - "./api:/var/www/html"
