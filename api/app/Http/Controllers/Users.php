@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class Users extends Controller
 {
-    public function getAll(Resquest $request){
+    public function getAll(Request $request){
 
         $host = ['esServer'];
         $client = ClientBuilder::create()->setHosts($host)->build();
@@ -25,6 +25,28 @@ class Users extends Controller
             'from' => $from
         ];
 
-        print_r($client->search($params));
+        if($request->has("name")){
+            $name = $request->input('name');
+            $params['body'] = ['query' => [
+                                    'query_string' => [
+                                        'fields' => [
+                                            'name',
+                                            'username'
+                                        ],
+                                        'query' => "$name*"
+                                    ]
+                                ],
+                            ];
+        }
+
+        $result = $client->search($params)['hits'];
+
+        $return["data"] = Array('total' => $result["total"]);
+
+        foreach($result["hits"] as $row){
+            $return["content"][] = Array("id" => $row["_id"], "name" => $row['_source']['name'], "username" => $row['_source']['username']);
+        }
+
+        print_r(json_encode($return));
     }
 }
