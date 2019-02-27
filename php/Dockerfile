@@ -14,6 +14,7 @@ EXPOSE 80
 workdir /var/www/
 
 COPY init.sh .
+RUN chmod +x init.sh
 
 COPY ./users.csv.gz /var/www/
 
