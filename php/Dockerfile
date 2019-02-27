@@ -7,12 +7,14 @@ RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 RUN a2enmod rewrite
 
 RUN apt-get update && \
-    apt-get install -y git zip unzip
+    apt-get install -y git zip unzip gzip
 
 EXPOSE 80
 
 workdir /var/www/
 
 COPY init.sh .
+
+COPY ./users.csv.gz /var/www/
 
 CMD ./init.sh

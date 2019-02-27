@@ -22,7 +22,7 @@ class importDBCommand extends Command{
         fclose($importFileStatus);
 
         set_time_limit(0);
-        $filePath = "/var/www/html/users.csv";
+        $filePath = "/var/www/users.csv";
         $numberRowsCsv = shell_exec("wc -l ".$filePath);
         $numberRowsCsv = explode(" ", $numberRowsCsv);
         $numberRowsCsv = intval($numberRowsCsv[0]);
