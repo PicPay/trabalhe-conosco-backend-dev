@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Elasticsearch\ClientBuilder;
 use Illuminate\Http\Request;
-
+use Illuminate\Http\Response;
 
 class Users extends Controller
 {
@@ -27,13 +27,19 @@ class Users extends Controller
 
         if($request->has("name")){
             $name = $request->input('name');
+            $_name = explode(" ", $name);
+            $name = "";
+            foreach($_name as $n){
+                $name = $name.$n."*";
+            }
+
             $params['body'] = ['query' => [
                                     'query_string' => [
                                         'fields' => [
                                             'name',
                                             'username'
                                         ],
-                                        'query' => "$name*"
+                                        'query' => "$name"
                                     ]
                                 ],
                             ];
@@ -41,12 +47,11 @@ class Users extends Controller
 
         $result = $client->search($params)['hits'];
 
-        $return["data"] = Array('total' => $result["total"]);
+        $return["header"] = Array('total' => $result["total"]);
 
         foreach($result["hits"] as $row){
             $return["content"][] = Array("id" => $row["_id"], "name" => $row['_source']['name'], "username" => $row['_source']['username']);
         }
-
-        print_r(json_encode($return));
+        return (new Response(json_encode($return), 200))->header('Content-Type', "application/json");
     }
 }

@@ -14,5 +14,5 @@
 $router->get('/', function () use ($router) {
     return "hello";
 });
-$router->get('/dbready', "DbReady@check");
+$router->get('/dbstatus', "DbReady@check");
 $router->get('/users', "Users@getAll");
