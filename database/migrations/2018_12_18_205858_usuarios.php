@@ -13,16 +13,13 @@ class Usuarios extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql2')->create('usuarios', function(Blueprint $table)
+        Schema::connection('mysql2')->create('users', function(Blueprint $table)
         {
-            $table->increments('id');
-            $table->string('id_controle');
+            $table->string('id');
             $table->string('name');
             $table->string('username');
-            $table->enum('relevancia', [1, 2])->nullable();
             $table->timestamps();
         });
-
     }
 
     /**
@@ -32,6 +29,6 @@ class Usuarios extends Migration
      */
     public function down()
     {
-        Schema::connection('mysql2')->drop('usuarios');
+        Schema::connection('mysql2')->drop('users');
     }
 }

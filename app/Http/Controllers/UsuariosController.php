@@ -42,12 +42,12 @@ class UsuariosController extends Controller{
     {
         $usuarios = ES::type("users")->search($search->get('q'))
             ->select(
-                "id_controle",
+                "id",
                 "name",
                 "username",
-                "relevancia"
+                "relevance"
             )
-            ->orderBy("relevancia")
+            ->orderBy("relevance")
             ->paginate(15);
 
         return response()->json($usuarios);
@@ -55,16 +55,18 @@ class UsuariosController extends Controller{
 
     public function getUserMysql(Request $search)
     {
-        $usuarios = DB::table('usuarios')
+        $q =(!is_null($search->get('q'))) ? $search->get('q') : 'picpay';
+
+        $usuarios = DB::table('users')
             ->select(
-                'usuarios.id_controle',
-                'name',
-                'username',
-                'relevancia'
+                'users.id',
+                'users.name',
+                'users.username',
+                'usr_relevance_list.relevance'
             )
-            ->where('name', 'like', '%' . $search->get('q') . '%')
-            ->orWhere('username', 'like', '%' . $search->get('q') . '%')
-            ->orderByRaw("CASE WHEN relevancia is null then 1 else 0 end")
+            ->leftJoin('usr_relevance_list', 'users.id', '=', 'usr_relevance_list.id')
+            ->whereRaw(sprintf("MATCH (name,username) AGAINST ('+%s' IN BOOLEAN MODE)", $q))
+            ->orderByRaw('ISNULL(usr_relevance_list.relevance), usr_relevance_list.relevance ASC')
             ->simplePaginate(15);
         return response()->json($usuarios);
     }

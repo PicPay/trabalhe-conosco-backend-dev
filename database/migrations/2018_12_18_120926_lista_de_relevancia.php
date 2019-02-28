@@ -13,12 +13,10 @@ class ListaDeRelevancia extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql2')->create('lista_relevancia', function(Blueprint $table)
+        Schema::connection('mysql2')->create('usr_relevance_list', function(Blueprint $table)
         {
-            $table->increments('id');
-            $table->string('id_controle');
-            $table->enum('relevancia', [1, 2]);
-            $table->timestamps();
+            $table->string('id');
+            $table->integer('relevance');
         });
     }
 
@@ -29,6 +27,6 @@ class ListaDeRelevancia extends Migration
      */
     public function down()
     {
-        Schema::connection('mysql2')->drop('lista_relevancia');
+        Schema::connection('mysql2')->drop('usr_relevance_list');
     }
 }

@@ -10,6 +10,7 @@ services:
       working_dir: /application
       volumes:
         - .:/application
+        - ./mysql-dump:/docker-entrypoint-initdb.d
       environment:
         - MYSQL_ROOT_PASSWORD=123.456
         - MYSQL_DATABASE=test_backend_picpay

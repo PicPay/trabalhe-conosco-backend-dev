@@ -10,36 +10,34 @@ Ter instalado o docker, docker-compose e composer
 
 ### Iniciar aplicação e infraestrutura docker.
 
-Após o clone do projeto entre no diretorio do mesmo (trabalhe-conosco-backend-dev) e execute os comandos abaixo.
+Após o clone do projeto entre no diretorio do mesmo (trabalhe-conosco-backend-dev) e execute os comandos abaixo seguindo a sequencia.
 
 - composer install (Responsavél por instalar as dependências do projeto)
+
 - docker-compose up -d (Ele ira subir toda a infraestrutura necessária para o projeto)
 
-- Descompactar o arquivo [users.csv.gz](https://s3.amazonaws.com/careers-picpay/users.csv.gz) dentro do diretorio 
-<b>database/DataSeed/</b> com o nome <b>users.csv</b>
-
-### Iniciando estrutura de banco de dados necessária para o projeto.
-
-Para isto foi criado Migrations e Seeds, basta executar os seguintes comandos.
-
-- php artisan migrate --database=mysql2 (Cria a estrutura do banco de dados)
-
-- php artisan db:seed --class=InsertRelevanceList (Insere os registros dos arquivos de relevância no banco de dados).
-
-- php artisan db:seed --class=InsertDataSample (Insere os dados contidos no <b>users.csv.gz</b> no banco de dados e no ElasticSearch)
-
-
 ### Observação.: 
+##### - Após a execucão do comando (docker-compose up -d) os dados serão updados automaticamente pelo docker, este processo leva em torno de 3~5 minutios até que o mysql fique completamente pronto.
 
-###### - Devido ao grande volume de dados contido no arquivo users.csv.gz a seed InsertDataSample (php artisan db:seed --class=InsertDataSample) pode demorar para ser inserido e indxado.
+## Consultando a API - Mysql
 
-
-## Consultando a API
-
-Na API é possivel fazer consultas de forma performatica tanto no Mysql como no ElasticSearch através das url abaixo.
+Na API é possivel fazer consultas de forma performatica tanto no Mysql como no ElasticSearch através das url abaixo segui.
 
 - http://localhost:8000/api/v1/user/mysql?q=<param-search>
-- http://localhost:8000/api/v1/user/elasticSearch?q=<param-search>
+
+![Consulta_api_mysql](imgs_readme/consulta_api_mysql.png?raw=true "Title")
+
+## Consultando a API - ElasticSearch
+
+###### Para usar a consulta via elasticsearch precisamos enviar os dados da tabela mysql para ser indexado no mesmo. 
+
+- php artisan db:seed --class=InsertDataSampleToElasticsearch (Insere os dados que foram updados no MySQL para o ElasticSearch)
+
+
+- http://localhost:8000/api/v1/user/elasticSearch?q=<param-search> (Url de consulta através do elasticsearch)
+
+![Listar Gasto](imgs_readme/consulta_api_els.png?raw=true "Title")
+
 
 ### Diferenciais
 
@@ -47,4 +45,8 @@ Na API é possivel fazer consultas de forma performatica tanto no Mysql como no 
 - Utilizar o Docker 
 
 
+### Observação.: 
 <b>Deixei o arquivo .env preenchido para comodidade na hora de testar o ambiente, em um cenario real o .env não deve ficar no github.</b>
+
+
+
