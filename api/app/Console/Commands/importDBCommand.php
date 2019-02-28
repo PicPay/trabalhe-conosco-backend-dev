@@ -15,11 +15,13 @@ class importDBCommand extends Command{
     protected $description = "";
     
     public function handle(){
+        //escreve em um arquivo o estado da importação
         $importFileStatusPath = "/var/www/html/storage/app/importStatus.json";
         $importFileStatus = fopen($importFileStatusPath, 'w');
         fwrite($importFileStatus, json_encode(array("status" => 0, 'n' => 0)));
         fclose($importFileStatus);
 
+        //variaveis
         set_time_limit(0);
         ini_set('memory_limit','1024M');
         $filePath = "/var/www/users.csv";
@@ -32,6 +34,7 @@ class importDBCommand extends Command{
 
         $client = ClientBuilder::create()->setHosts($host)->build();
         
+        //fica tentando conectar ao elasticsearch, pois o mesmo demora a subir
         while(true){
             try{
                 $client->nodes()->stats();
@@ -45,6 +48,7 @@ class importDBCommand extends Command{
         $params['index'] = "pic";
         $dbDocsNumber = 0;
         
+        //verifica se o indice existe e pega o numero de registros dele
         try{
             $response = $client->indices()->stats($params);
             $dbDocsNumber = $response["indices"]["pic"]["total"]["docs"]["count"];
@@ -53,14 +57,17 @@ class importDBCommand extends Command{
         
         echo "CSV: $numberRowsCsv\nDB: $dbDocsNumber\n";
         
+        //verifica se todos os registro do csv estâo no ES
         if(($dbDocsNumber < $numberRowsCsv))
         {
             echo "exec import\n";        
 
+            //seta estado importando no arquivo
             $importFileStatus = fopen($importFileStatusPath, 'w');
             fwrite($importFileStatus, json_encode(array("status" => 1, 'n' => 0)));
             fclose($importFileStatus);
             
+            //carrega as lista de prioridade na memoria
             $list1 = [];
             $list2 = [];
             $fl = fopen("/var/www/lista_relevancia_1.txt", 'r');
@@ -75,6 +82,7 @@ class importDBCommand extends Command{
             }
             fclose($fl);
 
+            //o i é quantos registros no bloco e o j a quantidade de blocos importados
             $f = fopen($filePath, 'r');
             $i = 0;
             $j = 0;
@@ -127,6 +135,7 @@ class importDBCommand extends Command{
             echo "No import require\n";
         }
 
+        //escreve no arquivo que a importação foi concluida
         $importFileStatus = fopen($importFileStatusPath, 'w');
         fwrite($importFileStatus, json_encode(array("status" => 2)));
         fclose($importFileStatus);
