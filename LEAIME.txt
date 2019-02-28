@@ -4,3 +4,6 @@ sudo sysctl -w vm.max_map_count=262144.
 precisa colocar a base de dados dentro da pasta php com o nome "users.csv.gz", ela ira ser automanticamente extraida no container.
 
 O codigo fonte do FrontEnd esta na pasta front e o do BackEnd está na basta api
+
+ANTES DE INICIAR verifica qual é o padrão de "final de linha" do arquivo php/init/, pois estava tendo problema com isso pq meu git
+troca de lf pra crlf quando eu clono o repositorio
