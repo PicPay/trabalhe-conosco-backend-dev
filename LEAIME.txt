@@ -1,35 +1,35 @@
 --Geral
-No notebook precisei rodar esse comando na docker-machine, pois o elasticsearch não consegui subir.
-sudo sysctl -w vm.max_map_count=262144.
+No docker-toolbox(Windows 10 HOME) e no Ubuntu 18.04 precisei rodar esse comando na docker-machine, pois o elasticsearch não conseguiu subir.
+sudo sysctl -w vm.max_map_count=262144
 
-precisa colocar a base de dados dentro da pasta php com o nome "users.csv.gz", ela ira ser automanticamente extraida no container.
+Precisa colocar a base de dados dentro da pasta php com o nome "users.csv.gz", ela ira ser automanticamente extraida no container.
 
 O codigo fonte do FrontEnd esta na pasta front e o do BackEnd está na basta api
 
 ANTES DE INICIAR verifica qual é o padrão de "final de linha" do arquivo php/init/, pois estava tendo problema com isso pq meu git
-troca de lf pra crlf quando eu clono o repositorio
+troca de lf pra crlf quando eu clono o repositorio, esse problema aconteceu somento no Windows 10
 
-testei a aplicação no Windows 10 Home (virtualbox), Windows 10 PRO (Hyper-V) e ubuntu
+testei a aplicação no Windows 10 Home (virtualbox), Windows 10 PRO (Hyper-V) e Ubuntu 18.04
 
 --BackEnd
-O backend iria ficar tentado conectar ao elasticsearch quando vc subir o container,
-porem ele sobe muito mais rapido que o elastic e enquanto ele fica tentado conectar
-ele vai ficat imprimindo "Failed connect, try again". Isso vc pode ignorar, pois 
+O backend (API) iria ficar tentado conectar ao elasticsearch quando vc subir o container,
+pois ele sobe muito mais rapido que o elastic e enquanto ele fica tentado conectar,
+ele ficara imprimindo "Failed connect, try again". Isso vc pode ignorar, pois 
 enquanto o elastic n subir ele ficara nesse loop.
 
 Quando ele imprimir lista1 ou lista2 significar que ele achou uma entrada que está
 na lista de relevancia, logo ele atribuira um peso para essas entradas
 
-Coloquei 1G de memoria pro php durante a importação do csv para diminuir o volume de request ao elastic
-e tentar conseguir um desenpenho melhor, logo ele importa em blocos de 500 mil registros. Com 1G ele conseguia
-subir ate 700 mil registros para a memoria antes de estourar, então considerei 500 mil como uma escolha segura. 
+Coloquei 1G de memoria para o php durante a importação do csv, para diminuir o volume de request ao elastic
+e tentar conseguir um desenpenho melhor, logo ele importa em blocos de 100 mil registros. Com 1G ele conseguia
+subir ate 700 mil registros para a memoria antes de estourar, então considerei 100 mil como uma escolha segura. 
 
 --FrontEnd
-estará disponivel em http://localhost/.
+estará disponivel em http://localhost/ ou o endereço da docker-machine
 
-se vc rodar no docker-toolbox (aquele que roda no windows porem usar o virtualbox
-como virtualizador), o frontend n ira funcionar, pois a api n estará disnível no
-localhost
+se vc rodar a aplicação no docker-toolbox (aquele que roda no windows porem usar o virtualbox
+como virtualizador) ou numa docker-machine remota, o frontend n ira funcionar, pois a api n estará disponível no
+endereço localhost
 
 O frontend informa o estado do banco (not ready|importing(realizando importação do
 csv)|ready), vc consegue fazer consultas durante a importação, porem pode acontecer
