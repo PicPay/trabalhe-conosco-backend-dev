@@ -59,8 +59,8 @@ class InsertDataSampleToElasticsearch extends Seeder
                 'usr_relevance_list.relevance'
             )
             ->leftJoin('usr_relevance_list', 'users.id', '=', 'usr_relevance_list.id')
-            ->orderByRaw("CASE WHEN usr_relevance_list.relevance is null then 1 else 0 end")
-            ->chunk(5000, function($users) {
+            ->orderByRaw('ISNULL(usr_relevance_list.relevance), usr_relevance_list.relevance ASC')
+            ->chunk(1000, function($users) {
                 foreach ($users as $user)
                 {
                     echo "Indexando no ElaticSearch.: ";
