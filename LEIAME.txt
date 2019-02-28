@@ -24,6 +24,9 @@ Coloquei 1G de memoria para o php durante a importação do csv, para diminuir o
 e tentar conseguir um desenpenho melhor, logo ele importa em blocos de 100 mil registros. Com 1G ele conseguia
 subir ate 700 mil registros para a memoria antes de estourar, então considerei 100 mil como uma escolha segura. 
 
+Voce não precisa da keywork completa para fazer uma busca ex: se voce quer buscar por "debora", digitando apenas
+"debo" já ira aparecer palavras que comecem com "debo"
+
 --FrontEnd
 estará disponivel em http://localhost/ ou o endereço da docker-machine
 
