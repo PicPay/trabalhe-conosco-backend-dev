@@ -1,4 +1,24 @@
 #!/bin/bash
+
+OS=`uname -s`
+REV=`uname -r`
+MACH=`uname -m`
+
+
+if [ "${OS}" =  "Linux" ]; then
+    docker_host_ip=$(ip route get 8.8.8.8| grep src| sed 's/.*src \(.*\)$/\1/g')
+    export DOCKER_HOST_IP=$docker_host_ip
+    echo 'gravando ip ao $DOCKER_HOST_IP='$DOCKER_HOST_IP
+elif [ "${OS}" = "Darwin" ]; then
+    if [[ -z "${DOCKER_HOST_IP-}" ]]; then
+        docker_host_ip=$(docker run --rm --net host alpine ip address show eth0 | awk '$1=="inet" {print $2}' | cut -f1 -d'/')
+        if [[ $docker_host_ip = '192.168.65.2' ]]; then
+            docker_host_ip=$(/sbin/ifconfig | grep -v '127.0.0.1' | awk '$1=="inet" {print $2}' | cut -f1 -d'/' | head -n 1)
+        fi
+        export DOCKER_HOST_IP=$docker_host_ip
+    fi
+fi
+
 docker-compose -f ./infra/docker-compose.yml down
 docker-compose -f ./infra/docker-compose.yml up -d --build zookeeper kafka
 
