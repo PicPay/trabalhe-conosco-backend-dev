@@ -7,13 +7,24 @@ services:
             dockerfile: Dockerfile
         ports:
           - "3100:80"
-          - "443:443"
         volumes:
             - "./api:/var/www/html"
         links:
             - "ES:esServer"
         depends_on:
             - ES
+
+    front:
+        container_name: front
+        build:
+            context: ./frontContainer
+            dockerfile: Dockerfile
+        ports:
+          - "80:80"
+        depends_on:
+            - php
+        volumes:
+            - "./site:/var/www/html"
 
     ES:
         image: docker.elastic.co/elasticsearch/elasticsearch:6.6.1

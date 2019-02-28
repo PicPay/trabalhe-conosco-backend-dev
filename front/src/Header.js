@@ -3,6 +3,10 @@ import './Header.css';
 
 export default class Header extends Component {
   render() {
+      let n = "";
+      if(this.props.db == 1){
+        n = this.props.n;
+      }
       let db = this.props.db;
       let dbStatus = "none";
       let dbStatusColor;

@@ -15,13 +15,13 @@ class importDBCommand extends Command{
     protected $description = "";
     
     public function handle(){
-
         $importFileStatusPath = "/var/www/html/storage/app/importStatus.json";
         $importFileStatus = fopen($importFileStatusPath, 'w');
-        fwrite($importFileStatus, json_encode(array("status" => 0)));
+        fwrite($importFileStatus, json_encode(array("status" => 0, 'n' => 0)));
         fclose($importFileStatus);
 
         set_time_limit(0);
+        ini_set('memory_limit','1024M');
         $filePath = "/var/www/users.csv";
         $numberRowsCsv = shell_exec("wc -l ".$filePath);
         $numberRowsCsv = explode(" ", $numberRowsCsv);
@@ -55,16 +55,30 @@ class importDBCommand extends Command{
         
         if(($dbDocsNumber < $numberRowsCsv))
         {
-            echo "exec import";        
+            echo "exec import\n";        
 
             $importFileStatus = fopen($importFileStatusPath, 'w');
-            fwrite($importFileStatus, json_encode(array("status" => 1)));
+            fwrite($importFileStatus, json_encode(array("status" => 1, 'n' => 0)));
             fclose($importFileStatus);
             
+            $list1 = [];
+            $list2 = [];
+            $fl = fopen("/var/www/lista_relevancia_1.txt", 'r');
+            while($row = fgets($fl)){
+                $list1[trim($row)] = true;
+            }
+            fclose($fl);
+
+            $fl = fopen("/var/www/lista_relevancia_2.txt", 'r');
+            while($row = fgets($fl)){
+                $list2[trim($row)] = true;
+            }
+            fclose($fl);
+
             $f = fopen($filePath, 'r');
             $i = 0;
             $j = 0;
-            $importlimit = 10000;
+            $importlimit = 100000;
             while($row = fgetcsv($f)){
                 $i++;
                 $params['body'][] = [
@@ -74,22 +88,39 @@ class importDBCommand extends Command{
                         '_id' => $row[0],
                     ]
                 ];
+
+                //define peso para fazer a busca ranqueada
+                $weight = 0;
+                if(array_key_exists(trim($row[0]), $list1)){
+                    $weight = 2;
+                    echo "lista2\n";
+                }
+                if(array_key_exists(trim($row[0]), $list2)){
+                    $weight = 1;
+                    echo "lista1\n";
+                }
+                
                 
                 $params['body'][] = [
                     'name' => $row[1],
-                    'username' => $row[2]
+                    'username' => $row[2],
+                    'weight' => $weight
                 ];
                 if($i >= $importlimit){
                     $client->bulk($params);
-                    echo ++$j*$importlimit."\n";
+                    $n = ++$j*$importlimit;
+                    echo $n."\n";
                     $i = 0;
-                    
+                    $importFileStatus = fopen($importFileStatusPath, 'r');
+                    fwrite($importFileStatus, json_encode(array("status" => 1, 'n' => $n)));
+                    fclose($importFileStatus);
                     $params = ['body' =>    []];
                 }
             }
             if($i > 0){
                 $client->bulk($params);
-                echo ($j*$importlimit)+$i." imports\n";
+                $n = ($j*$importlimit)+$i;
+                echo $n." imports\n";
             }
             fclose($f);
         }else{
@@ -99,7 +130,7 @@ class importDBCommand extends Command{
         $importFileStatus = fopen($importFileStatusPath, 'w');
         fwrite($importFileStatus, json_encode(array("status" => 2)));
         fclose($importFileStatus);
-
+        echo "\n\n\n\nImport Finish\n\n\n\n";
         return 0;
     }
 

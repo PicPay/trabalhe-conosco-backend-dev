@@ -42,6 +42,8 @@ class Users extends Controller
                                         'query' => "$name"
                                     ]
                                 ],
+                                'sort' =>
+                                    ['weight' => 'desc']
                             ];
         }
 
@@ -50,7 +52,7 @@ class Users extends Controller
         $return["header"] = Array('total' => $result["total"]);
 
         foreach($result["hits"] as $row){
-            $return["content"][] = Array("id" => $row["_id"], "name" => $row['_source']['name'], "username" => $row['_source']['username']);
+            $return["content"][] = Array("id" => $row["_id"], "name" => $row['_source']['name'], "username" => $row['_source']['username'], "weight" => $row['_source']["weight"]);
         }
         return (new Response(json_encode($return), 200))->header('Content-Type', "application/json");
     }

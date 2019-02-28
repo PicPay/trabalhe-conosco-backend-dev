@@ -7,7 +7,8 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      db : 8
+      db : 8,
+      nImports: 0
     }
     this.dbCheck = this.dbCheck.bind(this);
   }
@@ -22,9 +23,13 @@ class App extends Component {
       return response.json()})
     .then((reponseJson) => {
       let status = parseInt(reponseJson.status);
-      console.log(status);
+      let n = 0;
+      if(status == 1){
+        n = reponseJson.n;
+      }
       this.setState({
-        db: status
+        db: status,
+        nImports: n
       });
     }).catch(() => 
       {
@@ -44,7 +49,7 @@ class App extends Component {
   render() {
     return (
       <section className="app">
-        <Headers db={this.state.db} />
+        <Headers db={this.state.db} n={this.state.nImports} />
         <SearchBox db={this.state.db} />
       </section>
     );

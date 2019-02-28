@@ -28,10 +28,10 @@ export default class SearchBox extends Component {
     }
 
     search(){
-        if(this.props.db != 2){
-            alert("DB dont ready");
-            return;
-        }
+        //if(this.props.db != 2){
+        //    alert("DB dont ready");
+        //    return;
+        //}
         let keyword = this.state.field;
         let from = this.state.pag;
         let requestUri = "http://localhost:3100/users"
