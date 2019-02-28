@@ -45,6 +45,11 @@ class Users extends Controller
                                 'sort' =>
                                     ['weight' => 'desc']
                             ];
+        }else{
+            $params['body'] = [
+                'sort' =>
+                    ['weight' => 'desc']
+            ];
         }
 
         $result = $client->search($params)['hits'];
