@@ -1,4 +1,4 @@
-No notebool precisei rodar esse comando na docker-machine, pois o elasticsearch não consegui subir.
+No notebook precisei rodar esse comando na docker-machine, pois o elasticsearch não consegui subir.
 sudo sysctl -w vm.max_map_count=262144.
 
 precisa colocar a base de dados dentro da pasta php com o nome "users.csv.gz", ela ira ser automanticamente extraida no container.
