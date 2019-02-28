@@ -6,7 +6,7 @@ MACH=`uname -m`
 
 
 if [ "${OS}" =  "Linux" ]; then
-    docker_host_ip=$(ip route get 8.8.8.8| grep src| sed 's/.*src \(.*\)$/\1/g')
+    docker_host_ip=$(hostname -I | awk '{print $1}')
     export DOCKER_HOST_IP=$docker_host_ip
     echo 'gravando ip ao $DOCKER_HOST_IP='$DOCKER_HOST_IP
 elif [ "${OS}" = "Darwin" ]; then
