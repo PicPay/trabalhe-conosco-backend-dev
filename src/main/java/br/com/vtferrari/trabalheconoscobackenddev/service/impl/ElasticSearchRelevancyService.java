@@ -1,5 +1,6 @@
 package br.com.vtferrari.trabalheconoscobackenddev.service.impl;
 
+import br.com.vtferrari.trabalheconoscobackenddev.listener.exception.IdNotFoundException;
 import br.com.vtferrari.trabalheconoscobackenddev.repository.RelevancyRepository;
 import br.com.vtferrari.trabalheconoscobackenddev.repository.UserRepository;
 import br.com.vtferrari.trabalheconoscobackenddev.repository.converter.RelevancyElasticsearchConverter;
@@ -33,7 +34,9 @@ public class ElasticSearchRelevancyService implements RelevancyService {
         userRepository.findById(relevancyElasticsearch.getId())
                 .ifPresentOrElse(
                         userElasticsearch -> getUpdateWithPriorityLevel(userElasticsearch, relevancyElasticsearch),
-                        () -> {throw new RuntimeException("Id not found");});
+                        () -> {
+                            throw new IdNotFoundException("Id not found");
+                        });
         return relevancyElasticsearch;
     }
 
