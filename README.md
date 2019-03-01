@@ -48,11 +48,22 @@ Basta executar o arquivo ```.start.sh``` que tudo rodara automaticamente.
  *Linux RedHat7, openSuse apresentou instabilidade.
  
 # Importante 
-O projeto usa vários programas pesados para atender os requisitos de performance do teste, portanto é aconselhável rodar em um ambiente Linux com pelo menos 8gb ram e processador equivalente a um intel i5.
+O projeto usa vários programas pesados para atender os requisitos de performance do teste, portanto é aconselhável rodar em um ambiente Linux
 
-Fram executados dois testes, um em um i7 e 16Gb ram e outro em um i5 com 8Gb ram.
+
+### Mac OSx
+
+O docker no Mac faz a emulação do ambiente portanto é importante alocar uma parte da memória e processador para o docker, o projeto exige uma quantidade rasurável de recursos do sistema.
+
+Para o teste foi usado um Mac 2013, i5 - 8gb ram e ssd. A configuração ficou em 7164Mb ram e 4 cores reservado para o docker 
+
+### Linux
+
+Foram executados dois testes, um em um i7 e 16Gb ram e outro em um i5 com 8Gb ram.
 
 O primeiro rodou tudo em aproximadamente 40 minutos com toda a carga do Elastic, o segundo demorou mais de 2 horas
+
+
 
 ```É possivel executar os testes enquando o banco é populado```
 # Fonte 
