@@ -37,10 +37,16 @@ Para executar a pagina de teste é necessario acessar pelo endereço ```http://l
 
 # Como executar
 
-Para executar o projeto sem dificuldades é necessário o arquivo ```./infra/docker-compose.yml```.
-Encontre a chave ```KAFKA_ADVERTISED_HOST_NAME``` e adicione o ip da maquina que irá rodar o projeto.
-agora basta executar o arquivo ```.start.sh``` que tudo rodara automaticamente.
+Basta executar o arquivo ```.start.sh``` que tudo rodara automaticamente.
 
+## Sistemas testado
+ * Linux ubuntu 14,16,18
+ * Linux ec2 da aws
+ * Linux ubuntu server
+ * Mac OSx
+ 
+ *Linux RedHat7, openSuse apresentou instabilidade.
+ 
 # Importante 
 O projeto usa vários programas pesados para atender os requisitos de performance do teste, portanto é aconselhável rodar em um ambiente Linux com pelo menos 8gb ram e processador equivalente a um intel i5.
 
