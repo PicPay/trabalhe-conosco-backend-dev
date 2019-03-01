@@ -8,7 +8,6 @@ MACH=`uname -m`
 if [ "${OS}" =  "Linux" ]; then
     docker_host_ip=$(hostname -I | awk '{print $1}')
     export DOCKER_HOST_IP=$docker_host_ip
-    echo 'gravando ip ao $DOCKER_HOST_IP='$DOCKER_HOST_IP
 elif [ "${OS}" = "Darwin" ]; then
     if [[ -z "${DOCKER_HOST_IP-}" ]]; then
         docker_host_ip=$(docker run --rm --net host alpine ip address show eth0 | awk '$1=="inet" {print $2}' | cut -f1 -d'/')
@@ -18,7 +17,7 @@ elif [ "${OS}" = "Darwin" ]; then
         export DOCKER_HOST_IP=$docker_host_ip
     fi
 fi
-
+echo 'Getting ip: '$DOCKER_HOST_IP
 docker-compose -f ./infra/docker-compose.yml down
 docker-compose -f ./infra/docker-compose.yml up -d --build zookeeper kafka
 
