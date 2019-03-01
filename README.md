@@ -1,3 +1,78 @@
+# Tecnologias
+
+* Java 11
+* Spring boot 2.1.3
+* Kafka
+* ElasticSearch
+* Docker
+* React
+
+# Endpoint
+
+ | Metodo | URI | Status |
+ |--------| ----|--------|
+ | GET | /v1/users | 200 |
+ 
+# QueryParms
+
+ | Nome    | Tipo    | Obrigatório |
+ | ------- | ------- | ----------- |
+ | keyword | string  | Sim         |
+ | page    | integer | Não         |
+ | size    | integer | Não         |
+ 
+# Exemplo de execução
+
+ | User  | Pass  | 
+ | ----- | ----- |
+ | admin | admin |
+```bash
+$ curl -H 'Authorization: Basic YWRtaW46YWRtaW4=' http://localhost:8080/v1/users?keyword=adr&page=0&size=200
+``` 
+
+# Front-end
+Para executar a pagina de teste é necessario acessar pelo endereço ```http://localhost:8080/index.html``` e digitar o login e senha no popup que vai abrir
+
+
+
+# Como executar
+
+Basta executar o arquivo ```.start.sh``` que tudo rodara automaticamente.
+
+## Sistemas testado
+ * Linux ubuntu 14,16,18
+ * Linux ec2 da aws
+ * Linux ubuntu server
+ * Mac OSx
+ 
+ *Linux RedHat7, openSuse apresentou instabilidade.
+ 
+# Importante 
+O projeto usa vários programas pesados para atender os requisitos de performance do teste, portanto é aconselhável rodar em um ambiente Linux
+
+
+### Mac OSx
+
+O docker no Mac faz a emulação do ambiente portanto é importante alocar uma parte da memória e processador para o docker, o projeto exige uma quantidade rasurável de recursos do sistema.
+
+Para o teste foi usado um Mac 2013, i5 - 8gb ram e ssd. A configuração ficou em 7164Mb ram e 4 cores reservado para o docker 
+
+### Linux
+
+Foram executados dois testes, um em um i7 e 16Gb ram e outro em um i5 com 8Gb ram.
+
+O primeiro rodou tudo em aproximadamente 40 minutos com toda a carga do Elastic, o segundo demorou mais de 2 horas
+
+
+
+```É possivel executar os testes enquando o banco é populado```
+# Fonte 
+* [Escrevendo 1MM/sec](https://medium.appbase.io/benchmarking-elasticsearch-1-million-writes-per-sec-bf37e7ca8a4c)
+* [Kafka connect](https://medium.appbase.io/benchmarking-elasticsearch-1-million-writes-per-sec-bf37e7ca8a4c)
+
+
+---
+
 ![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
 
 # Teste Backend

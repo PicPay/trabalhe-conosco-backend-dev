@@ -1,0 +1,15 @@
+spring:
+  data:
+    jest:
+      uri: http://localhost:9200
+  kafka:
+    consumer:
+      auto-offset-reset: earliest
+      group-id: ${random.uuid}
+      enable-auto-commit: false
+    listener:
+      ack-mode: manual_immediate
+  security:
+    user:
+      name: admin
+      password: admin
