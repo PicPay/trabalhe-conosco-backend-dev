@@ -28,8 +28,6 @@ Voce não precisa da keywork completa para fazer uma busca ex: se voce quer busc
 "debo" já ira aparecer palavras que comecem com "debo"
 
 --FrontEnd
-O enter não funciona no campo de busca, tem que clicar no botão
-
 estará disponivel em http://localhost/ ou o endereço da docker-machine
 
 se vc rodar a aplicação no docker-toolbox (aquele que roda no windows porem usar o virtualbox

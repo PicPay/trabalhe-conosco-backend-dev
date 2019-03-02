@@ -12,5 +12,5 @@
 */
 
 
-$router->get('/dbstatus', "DbReady@check");
-$router->get('/users', "Users@getAll");
+$router->get('/dbstatus', ["middleware" => "client", "uses" => "DbReady@check"]);
+$router->get('/users', ["middleware" => "client", "uses" => "Users@getAll"]);

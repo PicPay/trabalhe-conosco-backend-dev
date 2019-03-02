@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './SearchBox.css';
+import InputText from './InputText';
 
 export default class SearchBox extends Component {
     constructor(props){
@@ -13,6 +14,7 @@ export default class SearchBox extends Component {
         this.handleField = this.handleField.bind(this);
         this.handleButton = this.handleButton.bind(this);
         this.handlePagButton = this.handlePagButton.bind(this);
+        this.handleInputEnter = this.handleInputEnter.bind(this);
     }
 
     handleField(event){
@@ -28,13 +30,13 @@ export default class SearchBox extends Component {
     }
 
     search(){
-        //if(this.props.db != 2){
-        //    alert("DB dont ready");
-        //    return;
-        //}
+        if(this.props.db != 2){
+            alert("DB dont ready");
+            return;
+        }
         let keyword = this.state.field;
         let from = this.state.pag;
-        let requestUri = "http://localhost:3100/users"
+        let requestUri = this.props.serverURI+"users";
         if(keyword.length > 0){
             requestUri += "?name=" + keyword;
             requestUri += "&from=" + --from*15;
@@ -83,6 +85,16 @@ export default class SearchBox extends Component {
         return table;
     }
 
+    handleInputEnter(event){
+        if(event.keyCode == 13){
+            this.setState({
+                pag:1
+            }, () => {
+                this.search();
+            })
+        }
+    }
+
     handlePagButton(value){
         let pag = this.state.pag;
         pag += value;
@@ -111,11 +123,7 @@ export default class SearchBox extends Component {
         <div className="se">
             <div className="se-content">
                 <div className="se-input">
-                    <label htmlFor="inp" className="inp">
-                        <input type="text" id="inp" value={this.state.field} onChange={this.handleField} placeholder="&nbsp;" />
-                        <span className="label">Search</span>
-                        <span className="border"></span>
-                    </label>
+                    <InputText handleInput={this.handleField} value={this.state.field} handleEnter={this.handleInputEnter} label="Search"/>
                     <button onClick={this.handleButton}>
                         Search
                     </button>
