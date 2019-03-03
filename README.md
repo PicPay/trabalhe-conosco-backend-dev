@@ -4,6 +4,8 @@ Rode o comando abaixo no host para liberar a memória requerida pelo ElasticSear
 Rode o docker-compose up na pasta do projeto.
 Abra http://(endereço do host)/ no navegador
 
+**OBS**: caso esteja usando **Windows**, verifique se o caractere de quebra de linha do arquivo **php/init.sh** é o **lf**, pois o GitHub para Windows troca o caractere para **crlf**
+
 # Geral
 No Docker Toolbox (Windows 10 HOME) e no Ubuntu 18.04, precisei rodar esse comando na docker-machine, pois o ElasticSearch não conseguiu subir.
 sudo sysctl -w vm.max_map_count=262144
