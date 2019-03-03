@@ -14,7 +14,7 @@ class UsersServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(UsersService::class, function(){
+        $this->app->bind(UsersService::class, function () {
             return new UsersService();
         });
     }
@@ -25,6 +25,5 @@ class UsersServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    {   
-    }
+    { }
 }

@@ -55,14 +55,16 @@ class UsersService
             ];
         }
 
+        //recupera o corpo do resultado que ficam dentro de hits
         $result = $client->search($params)['hits'];
 
+        //recupera o total de resultados
         $return["header"] = array('total' => $result["total"]);
 
+        //dentro do outro hits estao os resultados em si
         foreach ($result["hits"] as $row) {
             $return["content"][] = array("id" => $row["_id"], "name" => $row['_source']['name'], "username" => $row['_source']['username'], "weight" => $row['_source']["weight"]);
         }
         return $return;
     }
 }
-

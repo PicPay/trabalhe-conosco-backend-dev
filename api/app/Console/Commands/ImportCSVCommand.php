@@ -17,12 +17,16 @@ class ImportCSVCommand extends Command
 
     protected $description = "";
 
+    private $host = [
+        'esServer'
+    ];
+
     public function handle()
     {
         //Seta o status do Elastic Search para consultas do frontend
         $this->setESStatus(ES_NOT_READY);
 
-        //Previne ultrassar o tempo e o limite de memoria
+        //Previne ultrapassar o tempo e o limite de memoria
         set_time_limit(0);
         ini_set('memory_limit', '1024M');
 
@@ -36,19 +40,19 @@ class ImportCSVCommand extends Command
 
         echo "CSV: $numberRowsCsv\nDB: $dbDocsNumber\n";
 
-        //verifica se todos os registro do csv estâo no ES
+        //verifica se todos os registro do csv estâo no ES por uma checagem simples de numeros
+        //para tomar a decisao de importar ou não importar o CSV
         if (($dbDocsNumber < $numberRowsCsv)) {
-                echo "exec import\n";
+            echo "exec import\n";
 
-                $this->setESStatus(ES_IMPORTING);
+            $this->setESStatus(ES_IMPORTING);
 
-                //carrega as lista de prioridade na memoria
-                $priorityList1 =  $this->getPriotityList("/var/www/lista_relevancia_1.txt");
-                $priorityList2 = $this->getPriotityList("/var/www/lista_relevancia_2.txt");
+            //carrega as lista de prioridade na memoria
+            $priorityList1 =  $this->getPriotityList("/var/www/lista_relevancia_1.txt");
+            $priorityList2 = $this->getPriotityList("/var/www/lista_relevancia_2.txt");
 
-                //o i é quantos registros no bloco e o j a quantidade de blocos importados
-                $this->doImport($client, $priorityList1, $priorityList2, "/var/www/users.csv");
-            } else {
+            $this->doImport($client, $priorityList1, $priorityList2, "/var/www/users.csv");
+        } else {
             echo "No import require\n";
         }
 
@@ -63,10 +67,6 @@ class ImportCSVCommand extends Command
         $esstatus->value = "$status";
         $esstatus->save();
         return;
-        $importFileStatusPath = "/var/www/html/storage/app/importStatus.json";
-        $importFileStatus = fopen($importFileStatusPath, 'w');
-        fwrite($importFileStatus, json_encode(array("status" => $status, 'n' => 0)));
-        fclose($importFileStatus);
     }
 
     private function waitES($client)
@@ -84,11 +84,8 @@ class ImportCSVCommand extends Command
 
     private function getESConnection()
     {
-        $host = [
-            'esServer'
-        ];
 
-        return ClientBuilder::create()->setHosts($host)->build();
+        return ClientBuilder::create()->setHosts($this->host)->build();
     }
 
     private function getCsvNumRows($csvFilePath)
@@ -170,4 +167,3 @@ class ImportCSVCommand extends Command
         fclose($f);
     }
 }
-
