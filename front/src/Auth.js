@@ -35,15 +35,20 @@ export default class Auth extends Component {
     }
 
     requestAuth(){
-        this.props.handleAuth();
+        if(this.props.doing === 0)
+            this.props.handleAuth();
     }
     
     render() {
+        let buttonLabel = "Wait"
+        if(this.props.doing === 0){
+            buttonLabel = "Login"
+        }
         return (
             <div className="auth-global">
                 <div className="auth-container">
                     <div className="auth-inputContainer">
-                        <InputText label="Username" type='text' handleInput={this.inputEmailHandle} value={this.props.email} handleEnter={this.inputHandleEnter}/>
+                        <InputText label="Email" type='text' handleInput={this.inputEmailHandle} value={this.props.email} handleEnter={this.inputHandleEnter}/>
                         <br />
                         <br />
                         <br />
@@ -53,7 +58,7 @@ export default class Auth extends Component {
                         <br />
                         <InputText label="Server URL" type='text' handleInput={this.inputUriHandle} value={this.props.uri} handleEnter={this.inputHandleEnter}/>
                     </div>
-                    <button className="auth-button" onClick={this.handleButtonClick}>Login</button>
+                    <button className="auth-button" onClick={this.handleButtonClick}>{buttonLabel}</button>
                 </div>
             </div>
         );

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use Elasticsearch\ClientBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+//use App\Providers\UsersServiceProvider as UserService;
+use App\User;
 
 class UsersController extends Controller
 {

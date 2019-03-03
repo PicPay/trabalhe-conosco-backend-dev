@@ -12,6 +12,6 @@
 */
 
 
-$router->get('/dbstatus', ["middleware" => "auth:api", "uses" => "DbReadyController@check"]);
+$router->get('/esstatus', ["middleware" => "auth:api", "uses" => "CheckElasticSearchStatusController@check"]);
 $router->get('/users', ["middleware" => "auth:api", "uses" => "UsersController@get"]);
 $router->post('/login', 'LoginController@index');

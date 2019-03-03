@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Response;
 
-class DbReadyController extends Controller
+class CheckElasticSearchStatusController extends Controller
 {
     public function check(){
         //le o arquivo q informa se a importação do csv está sendo executada

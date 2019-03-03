@@ -3,13 +3,14 @@ import './SearchBox.css';
 import InputText from './InputText';
 
 export default class SearchBox extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {
-            field : '',
+            field: '',
             nResults: 0,
             results: [],
-            pag: 1
+            pag: 1,
+            doingSearch: 0
         }
         this.handleField = this.handleField.bind(this);
         this.handleButton = this.handleButton.bind(this);
@@ -17,11 +18,11 @@ export default class SearchBox extends Component {
         this.handleInputEnter = this.handleInputEnter.bind(this);
     }
 
-    handleField(event){
-        this.setState({field: event.target.value});
+    handleField(event) {
+        this.setState({ field: event.target.value });
     }
 
-    handleButton(){
+    handleButton() {
         this.setState({
             pag: 1
         }, () => {
@@ -29,47 +30,55 @@ export default class SearchBox extends Component {
         });
     }
 
-    search(){
-        if(this.props.db != 2){
+    search() {
+        if (this.props.db != 2) {
             alert("DB dont ready");
             return;
         }
-        let keyword = this.state.field;
-        let from = this.state.pag;
-        let requestUri = this.props.serverURI+"users";
-        if(keyword.length > 0){
-            requestUri += "?name=" + keyword;
-            requestUri += "&from=" + --from*15;
-        }else{
-            requestUri += "?from=" + --from*15;
-        }
-        fetch(requestUri, {
-            crossDomain: true,
-            method: 'GET',
-            headers: {'Content-type': 'application/json',  'Accept' : 'application/json' ,'Authorization' : "Bearer "+this.props.token}
-            })
-            .then((response) => {
-            return response.json()})
-            .then((reponseJson) => {
-                let nResults = reponseJson.header.total;
-                let results = reponseJson.content;
-                if(nResults === 0){
-                    results = []
-                }
-                this.setState({
-                    nResults: nResults,
-                    results: results
-                })
-                console.log(this.state.results);
+        this.setState({
+            doingSearch: 1
+        }, () => {
+            let keyword = this.state.field;
+            let from = this.state.pag;
+            let requestUri = this.props.serverURI + "users";
+            if (keyword.length > 0) {
+                requestUri += "?name=" + keyword;
+                requestUri += "&from=" + --from * 15;
+            } else {
+                requestUri += "?from=" + --from * 15;
             }
-        ).catch(() => {
-            alert("Search Error")
-        });
+            fetch(requestUri, {
+                crossDomain: true,
+                method: 'GET',
+                headers: { 'Content-type': 'application/json', 'Accept': 'application/json', 'Authorization': "Bearer " + this.props.token }
+            })
+                .then((response) => {
+                    return response.json()
+                })
+                .then((reponseJson) => {
+                    let nResults = reponseJson.header.total;
+                    let results = reponseJson.content;
+                    if (nResults === 0) {
+                        results = []
+                    }
+                    this.setState({
+                        nResults: nResults,
+                        results: results
+                    })
+                    console.log(this.state.results);
+                }
+                ).catch(() => {
+                    alert("Search Error")
+                });
+        })
+        this.setState({
+            doingSearch: 0
+        })
     }
 
-    createTable(){
+    createTable() {
         let table = [];
-        try{
+        try {
             this.state.results.forEach(
                 (item, indice) => {
                     table.push(
@@ -81,79 +90,83 @@ export default class SearchBox extends Component {
                     )
                 }
             );
-        }catch(Exception){
+        } catch (Exception) {
 
         }
         return table;
     }
 
-    handleInputEnter(event){
-        if(event.keyCode == 13){
+    handleInputEnter(event) {
+        if (event.keyCode == 13) {
             this.setState({
-                pag:1
+                pag: 1
             }, () => {
                 this.search();
             })
         }
     }
 
-    handlePagButton(value){
+    handlePagButton(value) {
         let pag = this.state.pag;
         pag += value;
-        if(pag < 1){
+        if (pag < 1) {
             pag = 1;
         }
-        if(this.state.nResults <= pag*15){
+        if (this.state.nResults <= pag * 15) {
             return;
         }
-        if(value == -2){
+        if (value == -2) {
             pag = 1;
         }
-        if(value == 2){
+        if (value == 2) {
             pag = 665;
         }
         this.setState({
-            pag:pag,
+            pag: pag,
         }, () => {
             this.search();
         })
     }
 
     render() {
+        let buttonLabel = "Wait";
         let table = this.createTable();
+        if(this.state.doingSearch === 0){
+            buttonLabel = "Search";
+        }
         return (
-        <div className="se">
-            <div className="se-content">
-                <div className="se-input">
-                    <InputText handleInput={this.handleField} type='text' value={this.state.field} handleEnter={this.handleInputEnter} label="Search"/>
-                    <button onClick={this.handleButton}>
-                        Search
+            <div className="se">
+                <div className="se-content">
+                    <div className="se-input">
+                        <InputText handleInput={this.handleField} type='text' value={this.state.field} handleEnter={this.handleInputEnter} label="Search" />
+                        <button onClick={this.handleButton}>
+                            {buttonLabel}
                     </button>
-                </div>
-                <div className="table">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Username</th>
-                            </tr>
-                            {table}
-                        </tbody>
-                    </table>
-                </div>
-                <div className="rodape">
-                    Number of results: {this.state.nResults}
-                    <div className="pagination">
-                        <button onClick={() => this.handlePagButton(-2)}>&lt;&lt;</button>
-                        <button onClick={() => this.handlePagButton(-1)}>&lt;</button>
-                        {this.state.pag}
-                        <button onClick={() => this.handlePagButton(1)}>&gt;</button>
-                        <button onClick={() => this.handlePagButton(2)}>&gt;&gt;</button>
+                    </div>
+                    <div className="table">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Username</th>
+                                </tr>
+                                {table}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className="rodape">
+                        Number of results: {this.state.nResults}
+                        <div className="pagination">
+                            <button onClick={() => this.handlePagButton(-2)}>&lt;&lt;</button>
+                            <button onClick={() => this.handlePagButton(-1)}>&lt;</button>
+                            {this.state.pag}
+                            <button onClick={() => this.handlePagButton(1)}>&gt;</button>
+                            <button onClick={() => this.handlePagButton(2)}>&gt;&gt;</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         );
-  }
+    }
 }
