@@ -11,6 +11,9 @@ troca de lf para crlf, quando eu clono o repositório, esse problema aconteceu s
 
 Testei a aplicação no Windows 10 Home (virtualbox), Windows 10 PRO (Hyper-V) e Ubuntu 18.04.
 
+Usuário: picpay@picpay.com
+Senha: admin
+
 # BackEnd
 O BackEnd (API) irá ficar tentado conectar ao ElasticSearch quando você subir o container,
 pois ele sobe muito mais rápido que o Elastic e enquanto ele fica tentado conectar,
