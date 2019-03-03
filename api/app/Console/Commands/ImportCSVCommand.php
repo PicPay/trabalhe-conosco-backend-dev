@@ -76,7 +76,7 @@ class ImportCSVCommand extends Command
                 $client->nodes()->stats();
                 break;
             } catch (Exception $e) {
-                echo "\n\nI Will Failed connect, try again\n\n\n";
+                echo "\n\nFailed connect, I Will try again\n\n\n";
                 sleep(10);
             }
         }
