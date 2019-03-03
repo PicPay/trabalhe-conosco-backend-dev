@@ -1,35 +1,35 @@
-![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
+#Geral
+No Docker Toolbox (Windows 10 HOME) e no Ubuntu 18.04, precisei rodar esse comando na docker-machine, pois o elasticsearch não conseguiu subir.
+sudo sysctl -w vm.max_map_count=262144
 
-# Teste Backend
+A base de dados será baixado durante o build do Docker.
 
-O desafio é criar uma API REST que busca usuarios pelo nome e username a partir de uma palavra chave. Faça o download do arquivo [users.csv.gz](https://s3.amazonaws.com/careers-picpay/users.csv.gz) que contém o banco de dados que deve ser usado na busca. Ele contém os IDs, nomes e usernames dos usuários.
+O codigo fonte do FrontEnd esta na pasta front e o do BackEnd está na basta api.
 
-###### Exemplo
-| ID                                   | Nome              | Username             |
-|--------------------------------------|-------------------|----------------------|
-| 065d8403-8a8f-484d-b602-9138ff7dedcf | Wadson marcia     | wadson.marcia        |
-| 5761be9e-3e27-4be8-87bc-5455db08408  | Kylton Saura      | kylton.saura         |
-| ef735189-105d-4784-8e2d-c8abb07e72d3 | Edmundo Cassemiro | edmundo.cassemiro    |
-| aaa40f4e-da26-42ee-b707-cb81e00610d5 | Raimundira M      | raimundiram          |
-| 51ba0961-8d5b-47be-bcb4-54633a567a99 | Pricila Kilder    | pricilakilderitaliani|
+**ANTES DE INICIAR** verifica qual é o padrão de "final de linha" do arquivo php/init/, pois estava tendo problema com isso, porque meu git
+troca de lf para crlf, quando eu clono o repositorio, esse problema aconteceu somento no Windows 10.
 
+Testei a aplicação no Windows 10 Home (virtualbox), Windows 10 PRO (Hyper-V) e Ubuntu 18.04.
 
+#BackEnd
+O BackEnd (API) irá ficar tentado conectar ao ElasticSearch quando vc subir o container,
+pois ele sobe muito mais rapido que o Elastic e enquanto ele fica tentado conectar,
+ele ficará imprimindo "Failed connect, try again". Isso você pode ignorar, pois 
+enquanto o Elastic não subir, ele ficará nesse loop.
 
-Também são fornecidas duas listas de usuários que devem ser utilizadas para priorizar os resultados da busca. A lista 1 tem mais prioridade que a lista 2. Ou seja, se dois usuarios casam com os criterios de busca, aquele que está na lista 1 deverá ser exibido primeiro em relação àquele que está na lista 2. Os que não estão em nenhuma das listas são exibidos em seguida.
+Quando ele imprimir lista1 ou lista2 significa que ele achou uma entrada que está
+na lista de relevância, logo ele atribuirá um peso para essas entradas.
 
-As listas podem ser encontradas na raiz deste repositório ([lista_relevancia_1.txt](lista_relevancia_1.txt) e [lista_relevancia_2.txt](lista_relevancia_2.txt)).
-Os resultados devem ser retornados paginados de 15 em 15 registros.
+Coloquei 1G de memória para o php durante a importação do csv, para diminuir o volume de request ao Elastic
+e tentar conseguir um desenpenho melhor, logo ele importa em blocos de 100 mil registros. Com 1G ele conseguia
+subir ate 700 mil registros para a memória antes de estoura-la, então considerei 100 mil como uma escolha segura. 
 
-Escolha as tecnologias que você vai usar e tente montar uma solução completa para rodar a aplicação.
+Voce não precisa da keywork completa para fazer uma busca ex: se voce quer buscar por "debora", digitando apenas
+"debo" já ira aparecer palavras que comecem com "debo"
 
-Faça um ***Fork*** deste repositório e abra um ***Pull Request***, **com seu nome na descrição**, para participar. Assim que terminar, envie um e-mail para ***desafio@picpay.com*** com o seu usuário do Github nos avisando.
+#FrontEnd
+Estará disponível em http://localhost/ ou no endereço do docker-machine.
 
------
-
-### Diferenciais
-
-- Criar um frontend para realizar a busca com uma UX elaborada
-- Criar uma solução de autenticação entre o frontend e o backend
-- Ter um desempenho elevado num conjunto de dados muito grande
-- Utilizar o Docker
-
+O FrontEnd informa o estado do banco (not ready|importing(realizando importação do
+csv)|ready), vc consegue fazer consultas durante a importação, porem pode acontecer
+bugs.
