@@ -1,8 +1,7 @@
 # Implantação e Execução
-Rode o comando abaixo no host para liberar a memória requerida pelo ElasticSearch.
-- sudo sysctl -w vm.max_map_count=262144
-Rode o docker-compose up na pasta do projeto.
-Abra http://(endereço do host)/ no navegador
+- Rode o comando "sudo sysctl -w vm.max_map_count=262144" no host para liberar a memória requerida pelo ElasticSearch.
+- Rode o docker-compose up na pasta do projeto.
+- Abra http://(endereço do host)/ no navegador
 
 **OBS**: caso esteja usando **Windows**, verifique se o caractere de quebra de linha do arquivo **php/init.sh** é o **lf**, pois o GitHub para Windows troca o caractere para **crlf**
 
