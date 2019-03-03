@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\User;
 use Illuminate\Support\ServiceProvider;
+use App\Services\UsersService;
 
 class UsersServiceProvider extends ServiceProvider
 {
@@ -14,7 +14,9 @@ class UsersServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(UsersService::class, function(){
+            return new UsersService();
+        });
     }
 
     /**
@@ -24,10 +26,5 @@ class UsersServiceProvider extends ServiceProvider
      */
     public function boot()
     {   
-        test();
-    }
-
-    public function test(){
-        echo "test";
     }
 }
