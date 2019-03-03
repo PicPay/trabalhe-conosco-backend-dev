@@ -1,3 +1,9 @@
+# Implantação e Execução
+Rode o comando abaixo no host para liberar a memória requerida pelo ElasticSearch.
+- sudo sysctl -w vm.max_map_count=262144
+Rode o docker-compose up na pasta do projeto.
+Abra http://(endereço do host)/ no navegador
+
 # Geral
 No Docker Toolbox (Windows 10 HOME) e no Ubuntu 18.04, precisei rodar esse comando na docker-machine, pois o ElasticSearch não conseguiu subir.
 sudo sysctl -w vm.max_map_count=262144
