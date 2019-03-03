@@ -1,4 +1,4 @@
-#Geral
+##Geral
 No Docker Toolbox (Windows 10 HOME) e no Ubuntu 18.04, precisei rodar esse comando na docker-machine, pois o elasticsearch não conseguiu subir.
 sudo sysctl -w vm.max_map_count=262144
 
@@ -11,7 +11,7 @@ troca de lf para crlf, quando eu clono o repositorio, esse problema aconteceu so
 
 Testei a aplicação no Windows 10 Home (virtualbox), Windows 10 PRO (Hyper-V) e Ubuntu 18.04.
 
-#BackEnd
+##BackEnd
 O BackEnd (API) irá ficar tentado conectar ao ElasticSearch quando vc subir o container,
 pois ele sobe muito mais rapido que o Elastic e enquanto ele fica tentado conectar,
 ele ficará imprimindo "Failed connect, try again". Isso você pode ignorar, pois 
@@ -27,7 +27,7 @@ subir ate 700 mil registros para a memória antes de estoura-la, então consider
 Voce não precisa da keywork completa para fazer uma busca ex: se voce quer buscar por "debora", digitando apenas
 "debo" já ira aparecer palavras que comecem com "debo"
 
-#FrontEnd
+##FrontEnd
 Estará disponível em http://localhost/ ou no endereço do docker-machine.
 
 O FrontEnd informa o estado do banco (not ready|importing(realizando importação do
