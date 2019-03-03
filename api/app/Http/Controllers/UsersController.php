@@ -5,9 +5,9 @@ use Elasticsearch\ClientBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class Users extends Controller
+class UsersController extends Controller
 {
-    public function getAll(Request $request){
+    public function get(Request $request){
 
         $host = ['esServer'];
         $client = ClientBuilder::create()->setHosts($host)->build();

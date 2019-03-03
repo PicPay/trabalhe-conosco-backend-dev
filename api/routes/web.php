@@ -12,5 +12,6 @@
 */
 
 
-$router->get('/dbstatus', ["middleware" => "client", "uses" => "DbReady@check"]);
-$router->get('/users', ["middleware" => "client", "uses" => "Users@getAll"]);
+$router->get('/dbstatus', ["middleware" => "auth:api", "uses" => "DbReadyController@check"]);
+$router->get('/users', ["middleware" => "auth:api", "uses" => "UsersController@get"]);
+$router->post('/login', 'LoginController@index');

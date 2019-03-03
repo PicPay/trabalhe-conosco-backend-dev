@@ -11,19 +11,24 @@ class App extends Component {
       db: 8,
       nImports: 0,
       token: null,
-      serverURI: "http://192.168.99.100:3100/"
+      serverURI: "http://192.168.99.100:3100/",
+      email: "picpay@picpay.com",
+      pass: "admin"
     }
     this.dbCheck = this.dbCheck.bind(this);
     this.handleChangeUri = this.handleChangeUri.bind(this)
     this.handleAuth = this.handleAuth.bind(this);
+    this.handleEmailField = this.handleEmailField.bind(this);
+    this.handlePassField = this.handlePassField.bind(this);
   }
 
   dbCheck() {
     if(this.state.token == null) return;
+    let token = this.state.token;
     fetch(this.state.serverURI+'dbstatus', {
       crossDomain: true,
       method: 'GET',
-      headers: { 'Content-type': 'application/json' }
+      headers: { 'Content-type': 'application/json', 'Accept' : 'application/json' ,'Authorization' : "Bearer "+token }
     })
       .then((response) => {
         return response.json()
@@ -46,26 +51,44 @@ class App extends Component {
       )
   }
 
-  handleAuth(email, pass){
-    var data = new FormData();
-    data.append("client_id", 2);
-    data.append("client_secret", 'U8Bvu2RPtxkuA3dU7sLkrCQ4ASK8jGrZaJOlPLLy');
-    data.append("grant_type", 'password');
-    data.append("username", "picpay@picpay.com");
-    data.append("password", "admin");
-    data.append("scope", "");
-    fetch(this.state.serverURI+'oauth/token', {
+  handleAuth(){
+    let data = new FormData();
+    data.append("username",this.state.email);
+    data.append("password", this.state.pass);
+    fetch(this.state.serverURI+'login', {
       crossDomain: true,
       method: 'POST',
-      headers: {'accept': 'application/json', "Access-Control-Allow-Origin": "*"},
+      headers: {},
       body: data
+    })
+    .then((response) => {
+      return response.json();
+    }).then((responseJson) => {
+      let token = responseJson.success.token;
+      this.setState({
+        token: token
+      })
+    }).catch( () => {
+      alert("Login error");
+    })
+  }
+
+  handleEmailField(email){
+    this.setState({
+      email: email
+    })
+  }
+
+  handlePassField(pass){
+    this.setState({
+      pass: pass
     })
   }
 
   componentDidMount() {
     var db = setInterval((event) => {
       this.dbCheck();
-    }, 1000);
+    }, 3000);
   }
 
   handleChangeUri(uri){
@@ -79,10 +102,10 @@ class App extends Component {
     if(this.state.token){
       renderObject = <section className="app">
         <Headers db={this.state.db} n={this.state.nImports} />
-        <SearchBox db={this.state.db} serverURI={this.state.serverURI}/>
+        <SearchBox db={this.state.db} token={this.state.token} serverURI={this.state.serverURI}/>
       </section>
     }else{
-      renderObject = <Auth handleAuth={this.handleAuth} uri={this.state.serverURI} changeUri={this.handleChangeUri} />;
+      renderObject = <Auth handleAuth={this.handleAuth} email={this.state.email} pass={this.state.pass} uri={this.state.serverURI} changeEmail={this.handleEmailField} changePass={this.handlePassField} changeUri={this.handleChangeUri} />;
     }
     return (
       renderObject

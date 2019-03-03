@@ -40,7 +40,7 @@ class importDBCommand extends Command{
                 $client->nodes()->stats();
                 break;
             }catch(Exception $e){
-                echo "\n\nFailed connect, try again\n\n";
+                echo "\n\nFailed connect, try again\n\n\n";
                 sleep(10);
             }
         }
@@ -122,7 +122,7 @@ class importDBCommand extends Command{
                     $importFileStatus = fopen($importFileStatusPath, 'r');
                     fwrite($importFileStatus, json_encode(array("status" => 1, 'n' => $n)));
                     fclose($importFileStatus);
-                    $params = ['body' =>    []];
+                    $params = ['body' => []];
                 }
             }
             if($i > 0){

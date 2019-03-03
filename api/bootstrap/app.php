@@ -88,7 +88,7 @@ $app->register(Laravel\Passport\PassportServiceProvider::class);
 $app->register(Dusterio\LumenPassport\PassportServiceProvider::class);
 
 
-Dusterio\LumenPassport\LumenPassport::routes($app->router);
+Dusterio\LumenPassport\LumenPassport::routes($app);
 
 /*
 |--------------------------------------------------------------------------

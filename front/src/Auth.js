@@ -5,10 +5,6 @@ import InputText from './InputText';
 export default class Auth extends Component {
     constructor(props){
         super(props);
-        this.state = ({
-            email: "",
-            pass: ""
-        })
         this.inputEmailHandle = this.inputEmailHandle.bind(this);
         this.inputPassHandle = this.inputPassHandle.bind(this);
         this.inputUriHandle = this.inputUriHandle.bind(this);
@@ -17,11 +13,11 @@ export default class Auth extends Component {
     }
 
     inputEmailHandle(event){
-        this.setState({email: event.target.value});
+        this.props.changeEmail(event.target.value);
     }
 
     inputPassHandle(event){
-        this.setState({pass: event.target.value});
+        this.props.changePass(event.target.value);
     }
 
     inputUriHandle(event){
@@ -39,7 +35,7 @@ export default class Auth extends Component {
     }
 
     requestAuth(){
-        this.props.handleAuth(this.state.email, this.state.pass);
+        this.props.handleAuth();
     }
     
     render() {
@@ -47,15 +43,15 @@ export default class Auth extends Component {
             <div className="auth-global">
                 <div className="auth-container">
                     <div className="auth-inputContainer">
-                        <InputText label="Username" handleInput={this.inputEmailHandle} value={this.state.email} handleEnter={this.inputHandleEnter}/>
+                        <InputText label="Username" type='text' handleInput={this.inputEmailHandle} value={this.props.email} handleEnter={this.inputHandleEnter}/>
                         <br />
                         <br />
                         <br />
-                        <InputText label="Password" handleInput={this.inputPassHandle} value={this.state.pass} handleEnter={this.inputHandleEnter}/>
+                        <InputText label="Password" type="password" handleInput={this.inputPassHandle} value={this.props.pass} handleEnter={this.inputHandleEnter}/>
                         <br />
                         <br />
                         <br />
-                        <InputText label="Server URL" handleInput={this.inputUriHandle} value={this.props.uri} handleEnter={this.inputHandleEnter}/>
+                        <InputText label="Server URL" type='text' handleInput={this.inputUriHandle} value={this.props.uri} handleEnter={this.inputHandleEnter}/>
                     </div>
                     <button className="auth-button" onClick={this.handleButtonClick}>Login</button>
                 </div>

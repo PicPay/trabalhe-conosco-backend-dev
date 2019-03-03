@@ -46,7 +46,7 @@ export default class SearchBox extends Component {
         fetch(requestUri, {
             crossDomain: true,
             method: 'GET',
-            headers: {'Content-type': 'application/json'}
+            headers: {'Content-type': 'application/json',  'Accept' : 'application/json' ,'Authorization' : "Bearer "+this.props.token}
             })
             .then((response) => {
             return response.json()})
@@ -59,10 +59,12 @@ export default class SearchBox extends Component {
                 this.setState({
                     nResults: nResults,
                     results: results
-                });
+                })
                 console.log(this.state.results);
             }
-        )
+        ).catch(() => {
+            alert("Search Error")
+        });
     }
 
     createTable(){
@@ -123,7 +125,7 @@ export default class SearchBox extends Component {
         <div className="se">
             <div className="se-content">
                 <div className="se-input">
-                    <InputText handleInput={this.handleField} value={this.state.field} handleEnter={this.handleInputEnter} label="Search"/>
+                    <InputText handleInput={this.handleField} type='text' value={this.state.field} handleEnter={this.handleInputEnter} label="Search"/>
                     <button onClick={this.handleButton}>
                         Search
                     </button>
