@@ -56,7 +56,7 @@ export default class Auth extends Component {
                         <br />
                         <br />
                         <br />
-                        <InputText label="Server URL" type='text' handleInput={this.inputUriHandle} value={this.props.uri} handleEnter={this.inputHandleEnter}/>
+                        <InputText label="REST API URL" type='text' handleInput={this.inputUriHandle} value={this.props.uri} handleEnter={this.inputHandleEnter}/>
                     </div>
                     <button className="auth-button" onClick={this.handleButtonClick}>{buttonLabel}</button>
                 </div>

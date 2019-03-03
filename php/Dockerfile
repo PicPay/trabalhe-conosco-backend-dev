@@ -18,8 +18,8 @@ COPY lista_relevancia_1.txt .
 COPY lista_relevancia_2.txt .
 RUN chmod +x init.sh
 
-#RUN curl --output users.csv.gz https://s3.amazonaws.com/careers-picpay/users.csv.gz
+RUN curl --output users.csv.gz https://s3.amazonaws.com/careers-picpay/users.csv.gz
 
-COPY ./users.csv.gz /var/www/
+#COPY ./users.csv.gz /var/www/
 
 CMD ./init.sh

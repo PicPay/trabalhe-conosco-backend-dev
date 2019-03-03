@@ -11,7 +11,7 @@ class App extends Component {
       db: 8,
       nImports: 0,
       token: null,
-      serverURI: "http://192.168.99.100:3100/",
+      serverURI: "http://localhost:3100/",
       email: "picpay@picpay.com",
       pass: "admin",
       handleAuthDoing: 0

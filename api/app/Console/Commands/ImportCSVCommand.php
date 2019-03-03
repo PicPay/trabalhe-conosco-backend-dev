@@ -6,12 +6,10 @@ define("ES_NOT_READY", 0);
 define("ES_IMPORTING", 1);
 define("ES_READY", 2);
 
-use App\Post;
 use Exception;
 use Illuminate\Console\Command;
 use Elasticsearch\ClientBuilder;
-use Illuminate\Support\Facades\Storage;
-use App\Providers\ImportCSVDataServiceProvider as ImportCSV;
+use App\Variables;
 
 class ImportCSVCommand extends Command
 {
@@ -61,6 +59,10 @@ class ImportCSVCommand extends Command
 
     private function setESStatus($status)
     {
+        $esstatus = Variables::where("name", 'esstatus')->first();
+        $esstatus->value = "$status";
+        $esstatus->save();
+        return;
         $importFileStatusPath = "/var/www/html/storage/app/importStatus.json";
         $importFileStatus = fopen($importFileStatusPath, 'w');
         fwrite($importFileStatus, json_encode(array("status" => $status, 'n' => 0)));

@@ -2,8 +2,6 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
-use Illuminate\Hashing\BcryptHasher;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,7 +15,11 @@ class DatabaseSeeder extends Seeder
         // $this->call('UsersTableSeeder');
         DB::table('users')->insert([
             'email' => 'picpay@picpay.com',
-            'password' => password_hash('admin',PASSWORD_BCRYPT)
+            'password' => password_hash('admin', PASSWORD_BCRYPT)
+        ]);
+        DB::table('variables')->insert([
+            'name' => 'esstatus',
+            'value' => '0'
         ]);
     }
 }

@@ -31,8 +31,8 @@ export default class SearchBox extends Component {
     }
 
     search() {
-        if (this.props.db != 2) {
-            alert("DB dont ready");
+        if (this.props.db == 0) {
+            alert("ES dont ready");
             return;
         }
         this.setState({
