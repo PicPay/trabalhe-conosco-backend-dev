@@ -1,0 +1,28 @@
+{
+  "data": {
+    "_id": "543109aa71d816200f2a0d55",
+    "contact": {
+      "picture": "assets/img/avatars/5.png",
+      "email": "sadi.orlaf@smartadmin.com",
+      "name": "Sagi Orlaf"
+    },
+    "subject": "Re: Timelogs of last client",
+    "folder": "inbox",
+    "date": "2014-10-05T09:04:42.120Z",
+    "body": "<p>        Hey James,    </p>    <p>        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.    </p>            <p>        Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit. <i class=\"fa fa-smile-o\"></i>     </p>        <br>    <br>    Thanks,<br>     <strong>Sadi Orlaf</strong>    <br>    <br>    <small>        General Manager - Finance Department <br>         231 Ajax Rd, Detroit MI - 48212, USA        <br>        <i class=\"fa fa-phone\"> (313) 647 6471</i>     </small>    <br>        <img src=\"assets/img/logo-blacknwhite.png\" height=\"20\" width=\"auto\" style=\"margin-top:7px; padding-right:9px; border-right:1px dotted #9B9B9B;\">",
+    "attachments": [
+      {
+        "name": "rocketlaunch.jpg",
+        "picture": "assets/img/demo/sample.jpg",
+        "size": 400000
+      },
+      {
+        "name": "timelogs.xsl",
+        "size": 1300000
+      }
+    ],
+    "labels": [
+      "work"
+    ]
+  }
+}

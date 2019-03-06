@@ -1,0 +1,31 @@
+
+<div id="speech-btn" class="btn-header transparent pull-right hidden-sm hidden-xs" *ngIf="enabled">
+  <div [popover]="speechPopover">
+    <a title="Voice Command" id="voice-command-btn" (click)="toggleVoiceControl()"><i
+        class="fa fa-microphone"></i></a>
+  </div>
+  <popover-content #speechPopover [closeOnClickOutside]="true"
+                   placement="bottom">
+    <ng-template [ngIf]="!hasError">
+      <h4 class="vc-title">Voice command activated <br/>
+        <small>Please speak clearly into the mic</small>
+      </h4>
+      <a (click)="seeCommands()" class="btn btn-success">See Commands</a>
+      <a class="btn bg-color-purple txt-color-white"
+         (click)="speechPopover.hide()">Close Popup</a>
+    </ng-template>
+    <ng-template [ngIf]="hasError">
+      <h4 class="vc-title-error text-center">
+        <i class="fa fa-microphone-slash"></i> Voice command failed
+        <br/>
+        <small class="txt-color-red">Must <strong>"Allow"</strong> Microphone</small>
+        <br/>
+        <small class="txt-color-red">Must have <strong>Internet Connection</strong>
+        </small>
+      </h4>
+    </ng-template>
+  </popover-content>
+</div>
+
+
+

@@ -1,0 +1,119 @@
+{
+  "demo1": [
+    {
+      "id": 1,
+      "content": " Item 1 <span>- Description Field</span> ",
+      "children": [
+        {
+          "id": 4,
+          "content": " Item 4 <em class=\"label pull-right label-primary\"> Label ID </em> "
+        },
+        {
+          "id": 2,
+          "content": " <h4><span class=\"semi-bold\">Item 2 </span> - Big Header</h4> <span>Description with piechart</span> <div class=\"air air-top-right padding-7\"> <div class=\"easy-pie-chart text-danger easyPieChart\" data-percent=\"33\" data-pie-size=\"40\" data-pie-track-color=\"rgba(169, 3, 41,0.07)\"> <span class=\"percent percent-sign txt-color-red font-xs\"></span> </div> </div> ",
+          "children": [
+            {
+              "id": 3,
+              "content": " Item 3 "
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "content": " Item 5 ",
+      "children": [
+        {
+          "id": 6,
+          "content": " <i>Item 6 (italic)</i> ",
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "content": " <strong>Item 7 (bold)</strong> "
+    },
+    {
+      "id": 8,
+      "content": " <strong><i>Item 8 (Bold + Italic)</i></strong> ",
+      "children": [
+        {
+          "id": 9,
+          "content": " Item 9 <em class=\"badge pull-right bg-color-purple\"> 99 </em> "
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "content": " Item 10 "
+    },
+    {
+      "id": 11,
+      "content": " <div class=\"row\"> <div class=\"col-xs-8\"> Item 11 <span class=\"font-xs text-muted\"> - with progress bar </span> </div> <div class=\"col-xs-4\"> <div class=\"progress progress-striped active no-margin\"> <div class=\"progress-bar progress-bar-primary\" role=\"progressbar\" style=\"width: 37%\"> 37% </div> </div> </div> </div> ",
+      "children": [
+        {
+          "id": 12,
+          "content": " <div class=\"row\"> <div class=\"col-xs-8 text-success\"> <strong>Item 12 </strong> <span class=\"font-xs text-muted\"> - success text </span> </div> <div class=\"col-xs-4\"> <div class=\"progress progress-striped active no-margin\"> <div class=\"progress-bar progress-bar-success\" role=\"progressbar\" style=\"width: 85%\"> 85% </div> </div> </div> </div> "
+        }
+      ]
+    }
+  ],
+  "demo2": [
+    {
+      "id": 51,
+      "content": " Item 13 <em class=\"pull-right badge bg-color-orange padding-5\" rel=\"tooltip\" title=\"\" data-placement=\"left\" data-original-title=\"Warning Icon Text\"><i class=\"fa fa-warning fa-lg txt-color-white\"></i></em> "
+    },
+    {
+      "id": 52,
+      "content": " Item 14 "
+    },
+    {
+      "id": 53,
+      "content": " Item 15 ",
+      "children": [
+        {
+          "id": 54,
+          "content": " Item 16 "
+        },
+        {
+          "id": 55,
+          "content": " Item 17 (text-right) "
+        }
+      ]
+    },
+    {
+      "id": 56,
+      "content": " <i class=\"fa fa-check text-success\"></i> Item 18 <br> "
+    }
+  ],
+  "demo3": [
+    {
+      "id": 100,
+      "content": " Drag "
+    },
+    {
+      "id": 101,
+      "content": " Drag "
+    },
+    {
+      "id": 102,
+      "content": " Drag "
+    },
+    {
+      "id": 103,
+      "content": " Drag ",
+      "children": [
+        {
+          "id": 104,
+          "content": " Drag "
+        }
+      ]
+    },
+    {
+      "id": 105,
+      "content": " Drag "
+    }
+  ]
+}

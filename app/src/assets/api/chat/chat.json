@@ -1,0 +1,62 @@
+{
+    "users": [
+        {
+            "username": "Sadi Orlaf",
+            "picture": "assets/img/avatars/5.png",
+            "status": "busy",
+            "role": "Marketing Executive"
+        },
+        {
+            "username": "Jessica Dolof",
+            "picture": "assets/img/avatars/1.png",
+            "status": "online",
+            "role": "Sales Administrator"
+        },
+        {
+            "username": "Zekarburg Almandalie",
+            "picture": "assets/img/avatars/3.png",
+            "status": "online",
+            "role": "Sales Admin"
+        },
+        {
+            "username": "Barley Krazurkth",
+            "picture": "assets/img/avatars/4.png",
+            "status": "away",
+            "role": "Sales Director"
+        },
+        {
+            "username": "Farhana Amrin",
+            "picture": "assets/img/avatars/female.png",
+            "status": "incognito",
+            "role": "<p><span>Support Admin</span> <small><i class=\"fa fa-music\"></i> Playing Beethoven Classics</small></p>"
+        },
+        {
+            "username": "Lezley Jacob",
+            "picture": "assets/img/avatars/male.png",
+            "status": "incognito",
+            "role": "Sales Director"
+        }
+    ],
+    "messages": [
+        {
+            "user": {
+                "username": "Sadi Orlaf",
+                "picture": "assets/img/avatars/5.png",
+                "status": "Online"
+            },
+            "date": "2014-10-01T21:08:06.388Z",
+            "body": "Hey did you meet the new\n                            board\n                            of director? He's a bit of an arse if you ask me...anyway here is the report you\n                            requested.\n                            I am off to launch with Lisa and Andrew, you wanna join?\n                            <p class=\"chat-file row\">\n                                <b class=\"pull-left col-sm-6\"> <i class=\"fa fa-file\"></i> report-2013-demographic-report-annual-earnings.xls\n                                </b>\n                                <span class=\"col-sm-6 pull-right\"> <a  class=\"btn btn-xs btn-default\">cancel</a> <a  class=\"btn btn-xs btn-success\">save</a> </span>\n                            </p>\n\n                            <p class=\"chat-file row\">\n                                <b class=\"pull-left col-sm-6\"> <i class=\"fa fa-ok txt-color-green\"></i>\n                                    tobacco-report-2012.doc </b>\n                                <span class=\"col-sm-6 pull-right\"> <a  class=\"btn btn-xs btn-primary\">open</a> </span>"
+        },
+        {
+            "user": {
+                "username": "John Doe",
+                "picture": "assets/img/avatars/sunny.png",
+                "status": "Online"
+            },
+            "date": "2014-10-01T21:09:08.388Z",
+            "body": " Haha! Yeah I know what you\n mean. \n Thanks for the file Sadi! <i class=\"fa fa-smile-o txt-color-orange\"></i> "
+        }
+
+    ]
+
+}

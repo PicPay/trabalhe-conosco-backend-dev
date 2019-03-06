@@ -1,0 +1,24 @@
+<span>
+  <div class="bar-holder no-padding">
+    <p class="margin-bottom-5">
+      <i *ngIf="item.status == 'PRIMARY'" class="fa fa-warning text-warning"></i>
+        <strong>{{item.status}}:</strong> <i>{{item.title}}</i>
+        <span class="pull-right semi-bold"
+              [ngClass]="{
+                'pull-right': true,
+                'semi-bold':true,
+                'text-danger': item.status == 'CRITICAL',
+                'text-muted': item.status != 'CRITICAL'
+              }">
+          <span *ngIf="item.width == 100">
+            <i class="fa fa-check text-success"></i> Complete
+          </span>
+          <span *ngIf="item.width != 100">{{item.width + '%'}}</span>
+        </span>
+    </p>
+    <div class="progress" [class]="item.size">
+      <div [ngClass]="setProgressClasses()" [style.width]="item.width + '%'"></div>
+    </div>
+    <em class="note no-margin">last updated on {{lastUpdate | moment: "MMMM Do, h:mm a"}}</em>
+  </div>
+</span>

@@ -1,0 +1,48 @@
+<div class="demo" [class.activate]="isActivated"><span id="demo-setting" (click)="onToggle()"><i
+  class="fa fa-cog txt-color-blueDark"></i></span>
+
+  <form>
+    <legend class="no-padding margin-bottom-10">Layout Options</legend>
+    <section>
+      <label><input type="checkbox" (click)="onFixedHeader()" [(ngModel)]="store.fixedHeader" name="fixedHeader"
+                    class="checkbox style-0"><span>Fixed Header</span></label>
+      <label><input type="checkbox"
+                    (click)="onFixedNavigation()" [(ngModel)]="store.fixedNavigation" name="fixedNavigation"
+                    class="checkbox style-0"><span>Fixed Navigation</span></label>
+      <label><input type="checkbox"
+                    (click)="onFixedRibbon()" [(ngModel)]="store.fixedRibbon" name="fixedRibbon"
+                    class="checkbox style-0"><span>Fixed Ribbon</span></label>
+      <label><input type="checkbox"
+                    (click)="onFixedPageFooter()" [(ngModel)]="store.fixedPageFooter" name="fixedPageFooter"
+                    class="checkbox style-0"><span>Fixed Footer</span></label>
+      <label><input type="checkbox"
+                    (click)="onInsideContainer()" [(ngModel)]="store.insideContainer" name="insideContainer"
+                    class="checkbox style-0"><span>Inside <b>.container</b></span></label>
+      <label><input type="checkbox"
+                    (click)="onRtl()" [(ngModel)]="store.rtl" name="rtl"
+                    class="checkbox style-0"><span>RTL</span></label>
+      <label><input type="checkbox"
+                    (click)="onMenuOnTop()" [(ngModel)]="store.menuOnTop" name="menuOnTop"
+                    class="checkbox style-0"><span>Menu on <b>top</b></span></label>
+      <label><input type="checkbox"
+                    (click)="onColorblindFriendly()" [(ngModel)]="store.colorblindFriendly" name="colorblindFriendly"
+                    class="checkbox style-0"><span>For Colorblind <div
+        class="font-xs text-right">(experimental)
+            </div></span>
+      </label><span id="smart-bgimages"></span></section>
+    <section><h6 class="margin-top-10 semi-bold margin-bottom-5">Clear Localstorage</h6><a
+      (click)="factoryReset()" class="btn btn-xs btn-block btn-primary" id="reset-smart-widget"><i
+      class="fa fa-refresh"></i> Factory Reset</a></section>
+
+    <h6 class="margin-top-10 semi-bold margin-bottom-5">SmartAdmin Skins</h6>
+
+
+    <section id="smart-styles">
+          <a *ngFor="let skin of store.skins"
+             (click)="onSmartSkin(skin)"
+             [class]="skin.skinBtnClass"
+             [ngStyle]="skin.style">
+             <i *ngIf="skin.name == store.smartSkin" class="fa fa-check fa-fw"></i> {{skin.label}} <sup *ngIf="skin.beta">beta</sup></a>
+        </section>
+  </form>
+</div>

@@ -1,0 +1,65 @@
+version: '3.6'
+
+volumes:
+  mysql-data:
+    driver: local
+  es-data:
+    driver: local
+
+services:
+  angular:
+    image: angular
+    container_name: angular
+    links:
+      - api
+  api:
+    image: ambientum/php:7.1-caddy
+    container_name: api
+    ports:
+      - 8080:8080
+    volumes:
+      - ./:/var/www/app
+    links:
+      - db
+      - es
+  db:
+    image: mysql:5.7
+    container_name: db
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+  es:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.6.0
+    container_name: es
+    environment:
+      - node.name=es
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+    command: bash -c "sysctl -w vm.max_map_count=262144 && /usr/local/bin/docker-entrypoint.sh"
+    ulimits:
+      nproc: 65535
+      memlock:
+        soft: -1
+        hard: -1
+    cap_add:
+      - ALL
+    privileged: true
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+      - 9300:9300

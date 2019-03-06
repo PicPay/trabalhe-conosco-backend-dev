@@ -1,0 +1,45 @@
+<span id="activity" class="activity-dropdown" (click)="onToggle()">
+  <i class="fa fa-user"></i>
+  <b class="badge bg-color-red">{{count}}</b>
+</span>
+
+<div class="ajax-dropdown" #dropdown>
+  <div class="btn-group btn-group-justified" data-toggle="buttons">
+    <label [ngClass]="{
+      'btn btn-default': true,
+      active: activity==currentActivity
+    }" *ngFor="let activity of activities"
+           (click)="setActivity(activity)"
+    >
+      <input type="radio" name="activity"/>
+      {{activity.title}} ({{activity.data.length}})
+    </label>
+
+  </div>
+
+  <!-- notification content -->
+   <div class="ajax-notifications custom-scroll">
+      <ul class="notification-body" *ngIf="currentActivity" >
+        <ng-template ngFor let-item [ngForOf]="currentActivity.data">
+
+          <li activitiesMessage *ngIf="item.type == 'message'" [item]="item"></li>
+          <li activitiesNotification *ngIf="item.type == 'notification'" [item]="item"></li>
+          <li activitiesTask *ngIf="item.type == 'task'" [item]="item" [lastUpdate]="lastUpdate"></li>
+
+        </ng-template>
+
+      </ul>
+    </div>
+  <!-- end notification content -->
+
+  <!-- footer: refresh area -->
+      <span> Last updated on: {{lastUpdate | moment:"h:mm:ss a"}}
+    <button type="button" (click)="update()"
+            class="btn btn-xs btn-default pull-right">
+        <i class="fa fa-refresh" *ngIf="!loading"></i>
+        <i class="fa fa-refresh fa-spin" *ngIf="loading"></i>
+        <span *ngIf="loading">loading...</span>
+    </button>
+    </span>
+  <!-- end footer -->
+</div>

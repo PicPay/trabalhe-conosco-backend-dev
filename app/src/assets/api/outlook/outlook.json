@@ -1,0 +1,95 @@
+{
+  "data": {
+    "folders": [
+      {
+        "key": "inbox",
+        "name": "Inbox",
+        "total": 367,
+        "unread": 120,
+        "labels": [
+          {
+            "label": "work",
+            "count": 45
+          },
+          {
+            "label": "home",
+            "count": 39
+          },
+          {
+            "label": "no label",
+            "count": 283
+          }
+        ]
+      },
+      {
+        "key": "sent",
+        "name": "Sent",
+        "total": 23,
+        "unread": 0,
+        "labels": [
+          {
+            "label": "work",
+            "count": 2
+          },
+          {
+            "label": "no label",
+            "count": 21
+          }
+        ]
+      },
+      {
+        "key": "draft",
+        "name": "Draft",
+        "total": 12,
+        "unread": 0,
+        "labels": [
+          {
+            "label": "work",
+            "count": 2
+          },
+          {
+            "label": "home",
+            "count": 2
+          },
+          {
+            "label": "no label",
+            "count": 8
+          }
+        ]
+      },
+      {
+        "key": "trash",
+        "name": "Trash",
+        "total": 8,
+        "unread": 0,
+        "labels": [
+          {
+            "label": "home",
+            "count": 1
+          },
+          {
+            "label": "no label",
+            "count": 7
+          }
+        ]
+      }
+    ],
+    "labels": [
+      {
+        "key": "home",
+        "name": "HOME",
+        "color": "teal"
+      },
+      {
+        "key": "work",
+        "name": "WORK",
+        "color": "orange"
+      }
+    ],
+    "space": {
+      "free": "2.9GB",
+      "total": "10GB",
+      "ratio": 29
+    }
+  }
+}

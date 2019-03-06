@@ -1,0 +1,21 @@
+{
+  "items": [
+    {
+        "title":"Dashboard",
+        "sref":"app.dashboard",
+        "icon":"home"
+    },
+    {
+        "title":"App Views",
+        "href":"#",
+        "icon":"puzzle-piece",
+        "items": [
+            {
+                "title":"Projects",
+                "sref": "app.appViews.projects",
+                "icon":"file-text-o"
+            }
+        ]
+    }
+  ]
+}
