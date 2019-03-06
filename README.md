@@ -62,7 +62,7 @@ Lembrando apenas que o caso acima é extremo. Para várias consultas, mesmo com 
 
 ### Configuração
 - Criar o arquivo ***app/.env*** a partir do ***app/.env.dist***
-- No arquivo ***app/.env*** preencher a URL do servidor que contém a api (servidor do docker)
+- No arquivo ***app/.env*** preencher a URL do servidor que contém a api (servidor do docker): ***API_HTTP_CLIENT_BASE_URI***
 - Criar o arquivo ***.env*** a partir do ***.env.dist***
 - No arquivo ***.env*** preencher os dados de configuração do container docker ***mysql***: ***MYSQL_ROOT_PASSWORD***, ***MYSQL_DATABASE***, ***MYSQL_USER*** e ***MYSQL_PASSWORD***
 - No arquivo ***.env*** preencher os dados da URL de conexão do doctrine: ***DATABASE_URL***
