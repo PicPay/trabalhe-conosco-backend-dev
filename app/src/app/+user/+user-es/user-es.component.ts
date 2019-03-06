@@ -1,4 +1,4 @@
-import {Component, HttpHeaders, OnInit, ViewChild} from '@angular/core'
+import {Component, OnInit, ViewChild} from '@angular/core'
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http'
 
 import { Observable } from 'rxjs/Observable'
@@ -76,7 +76,6 @@ export class UserEsComponent implements OnInit {
     getUsersListInfo(draw, callback, items_count_per_page, page){
         let headers = new HttpHeaders()
             .set('Access-Control-Allow-Origin', '*')
-        let params = new HttpParams()
         let params = new HttpParams()
             .set('name', this.name === undefined ? '' : this.name)
             .set('username', this.username === undefined ? '' : this.username)
