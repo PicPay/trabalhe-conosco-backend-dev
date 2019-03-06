@@ -86,6 +86,15 @@
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
+    "nelmio/cors-bundle": {
+        "version": "1.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.5",
+            "ref": "f0436fc35fca88eada758311f8de43bfb61f1980"
+        }
+    },
     "ocramius/package-versions": {
         "version": "1.3.0"
     },

@@ -1,0 +1,99 @@
+app-root, app-main-layout, app-auth-layout, app-locked, #extr-page{
+  min-height: 100vh;
+}
+
+sa-outlook,
+sa-maps,
+app-root,
+app-main-layout,
+app-auth-layout,
+app-locked,
+sa-ribbon
+{
+  display: block;
+}
+
+#inbox-content{
+  position: relative;
+}
+
+.page-footer {
+  position: relative;
+}
+
+a:hover{cursor: pointer;}
+
+
+#shortcut {
+  display: block;
+  overflow: hidden;
+}
+
+#map-canvas{
+  min-height: 420px
+}
+
+.parent_li .sa-icon{
+  margin-left: 1rem;
+}
+
+.tab-container>.nav.nav-tabs{
+  display: none;
+}
+
+.colorpicker.colorpicker-hidden {
+  display: none;
+}
+.colorpicker.colorpicker-visible {
+  display: block;
+}
+.colorpicker-inline.colorpicker-visible {
+  display: inline-block;
+}
+
+
+.tabbed-widget-content{
+  position: relative;
+}
+.tabbed-widget-content .nav-tabs.pull-right>li>a{
+  padding: 6px 10px 6px;
+}
+.tabbed-widget-content .nav-tabs.pull-right{
+  position: relative;
+  top: -45px;
+  display: block;
+}
+
+svg {
+  touch-action: none;
+}
+
+#calendar .fc-right, #calendar .fc-center{
+  display: none;
+}
+
+.select2-container-multi .select2-choices, .select2-selection--multiple{
+  border-color: transparent;
+}
+
+.ui-dialog .ui-dialog-titlebar-close .ui-icon-closethick {
+  display: none;
+}
+
+
+.sa-hidden{
+  opacity: 0;
+}
+.sa-cloak.sa-hidden{
+  opacity: 0;
+  transition: opacity .2s;
+}
+.sa-cloak:not(.sa-hidden){
+  opacity: 1;
+}
+
+.smart-accordion-default .panel-title>a.collapsed>.fa,
+.smart-accordion-default .panel-title>a>:first-child {
+  display: inline-block;
+}
+

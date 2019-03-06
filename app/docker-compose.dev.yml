@@ -1,0 +1,12 @@
+version: '3.6'
+
+services:
+  angular:
+    build:
+      context: app
+      dockerfile: docker/dockerfile.dev
+    volumes:
+      - ./app:/app
+      - /app/node_modules
+    ports:
+      - 4200:4200

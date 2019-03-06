@@ -1,0 +1,13 @@
+<div class="onoffswitch-container">
+  <span class="onoffswitch-title">{{title}}<ng-content></ng-content></span>
+  <span class="onoffswitch">
+    <input type="checkbox" class="onoffswitch-checkbox" [(ngModel)]="value" [checked]="value"
+           (ngModelChange)="onChange()"
+           id="{{widgetId}}"/>
+    <label class="onoffswitch-label" htmlFor="{{widgetId}}">
+      <span class="onoffswitch-inner"  data-swchon-text="ON"
+            data-swchoff-text="OFF"></span>
+        <span class="onoffswitch-switch"></span>
+    </label>
+  </span>
+</div>

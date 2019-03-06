@@ -12,6 +12,8 @@ use \Elasticsearch\Common\Exceptions\Missing404Exception;
  */
 class ElasticManager
 {
+    const MAX_RESULT_WINDOW = 10000;
+
     /**
      * @var Client
      */
@@ -70,13 +72,11 @@ class ElasticManager
         $result = [];
 
         $from = 0;
-        $size = 10000;
+        $size = 10;
 
         $params = [];
         $params['index'] = $elasticIndex;
         $params['type'] = $elasticType;
-        $params['body']['size'] = (isset($options['size']) ? $options['size'] : $size);
-        $params['body']['from'] = (isset($options['page']) ? ($options['page'] * $params['body']['size']) : $from);
         if (isset($options['criteria'])) {
             if (\is_array($options['criteria'])) {
                 foreach ($options['criteria'] as $criterion) {
@@ -91,10 +91,38 @@ class ElasticManager
                 }
             }
         }
-        $response = $this->client->search($params);
 
-        $total = $response['hits']['total'];
-        if ($total > 0) {
+        $size = isset($options['size']) ? $options['size'] : $size;
+        $from = isset($options['page']) ? ($options['page'] * $size) : $from;
+        $firstItemIndex = $from;
+        $lastItemIndex = $from + $size - 1;
+        if($lastItemIndex <= self::MAX_RESULT_WINDOW) {
+            $params['body']['size'] = $size;
+            $params['body']['from'] = $from;
+            $response = $this->client->search($params);
+        } else {
+            $params['scroll'] = '5s';
+            $params['size'] = $size * ((int) (self::MAX_RESULT_WINDOW / $size));
+
+            $response = $this->client->search($params);
+
+            $qtItems = \count($response['hits']['hits']);
+            while ($firstItemIndex > $qtItems && \count($response['hits']['hits']) > 0) {
+                $response = $this->client->scroll([
+                    "scroll_id" => $response['_scroll_id'],
+                    "scroll" => '5s'
+                ]);
+                $qtItems += \count($response['hits']['hits']);
+            }
+
+            if(($firstItemIndex % $params['size']) <= \count($response['hits']['hits']) && \count($response['hits']['hits']) > 0) {
+                $response['hits']['hits'] = \array_slice($response['hits']['hits'], $firstItemIndex % $params['size'], $size);
+            } else {
+                $response['hits']['hits'] = [];
+            }
+        }
+
+        if (\count($response['hits']['hits']) > 0) {
             foreach ($response['hits']['hits'] as $hit) {
                 $result[] = \array_merge(['id' => $hit['_id']], $hit['_source']);
             }
