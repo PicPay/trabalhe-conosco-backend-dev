@@ -1,0 +1,145 @@
+{
+  "line-chart": {
+    "labels": ["January", "February", "March", "April", "May", "June", "July"],
+    "datasets": [{
+        "label": "My First dataset",
+        "data": [65, 59, 80, 81, 56, 55, 40],
+         "backgroundColor": "rgba(220,220,220,0.2)",
+         "borderColor": "rgba(220,220,220,1)",
+         "pointBackgroundColor": "rgba(220,220,220,1)"
+      }, {
+        "label": "My Second dataset",
+        "data": [28, 48, 40, 19, 86, 27, 90],
+         "backgroundColor": "rgba(151,187,205,0.2)",
+         "borderColor": "rgba(151,187,205,1)",
+         "pointBackgroundColor": "rgba(151,187,205,1)"
+      }]
+  },
+  "radar-chart": {
+    "labels": ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
+    "datasets": [
+      {
+        "label": "My First dataset",
+        "backgroundColor": "rgba(220,220,220,0.2)",
+        "borderColor": "rgba(220,220,220,1)",
+        "pointBackgroundColor": "rgba(220,220,220,1)",
+        "pointBorderColor": "#fff",
+        "pointHoverBackgroundColor": "#fff",
+        "pointHoverBorderColor": "rgba(220,220,220,1)",
+        "data": [65, 59, 90, 81, 56, 55, 40]
+    },
+    {
+        "label": "My Second dataset",
+        "backgroundColor": "rgba(151,187,205,0.2)",
+        "borderColor": "rgba(151,187,205,1)",
+        "pointBackgroundColor": "rgba(151,187,205,1)",
+        "pointBorderColor": "#fff",
+        "pointHoverBackgroundColor": "#fff",
+        "pointHoverBorderColor": "rgba(151,187,205,1)",
+        "data": [28, 48, 40, 19, 96, 27, 100]
+    }
+
+      
+      ]
+  },
+  "polar-chart": {
+    "datasets":[{
+      "data":[18,49,27,35,39],
+       "backgroundColor": [
+            "rgba(220,220,220,0.8)",
+            "rgba(151,187,205,1)",
+            "rgba(169, 3, 41, 0.7)",
+            "#949FB1",
+            "#4D5360"
+        ],
+       "hoverBackgroundColor": [
+            "rgba(220,220,220,0.7)",
+           "rgba(151,187,205,0.8)",
+            "rgba(169, 3, 41, 0.7)",
+            "#A8B3C5",
+            "#616774"
+        ],
+      "label":"My dataset"}],      
+
+    
+    "labels":[
+       "Grey",
+        "Blue",
+        "Red",
+        "Grey",
+        "Dark Grey"
+    ]
+  },
+  "bar-chart":{
+    "labels": ["January", "February", "March", "April", "May", "June", "July"],
+    "datasets": [
+      {
+        "label": "My First dataset",
+        "backgroundColor": "rgba(220,220,220,0.5)",
+        "borderColor": "rgba(220,220,220,0.8)",
+        "hoverBackgroundColor": "rgba(220,220,220,0.75)",
+        "hoverBorderColor": "rgba(220,220,220,1)",
+        "data": [65, 59, 80, 81, 56, 55, 40]
+      },
+      {
+        "label": "My Second dataset",
+        "backgroundColor": "rgba(151,187,205,0.5)",
+        "borderColor": "rgba(151,187,205,0.8)",
+        "hoverBackgroundColor": "rgba(151,187,205,0.75)",
+        "hoverBorderColor": "rgba(151,187,205,1)",
+        "data": [28, 48, 40, 19, 86, 27, 90]
+      }
+
+    ]
+  },
+  "doughnut-chart":{
+    "labels":[
+      
+      "Grey","Blue","Red"
+      
+    ],
+    "datasets":[
+      {
+        "data": [300,50,100],
+         "backgroundColor": [
+           "rgba(220,220,220,0.8)",
+           "rgba(151,187,205,1)",
+           "rgba(169, 3, 41, 0.7)"
+        ],
+        
+         "hoverBackgroundColor": [
+           "rgba(220,220,220,0.7)",
+           "rgba(151,187,205,0.8)",
+           "rgba(169, 3, 41, 0.7)"
+        ]
+      }
+    ]},
+  "pie-chart": {
+    "datasets":[{
+      "data":[18,49,27,35,39],
+       "backgroundColor": [
+            "rgba(220,220,220,0.8)",
+            "rgba(151,187,205,1)",
+            "rgba(169, 3, 41, 0.7)",
+            "#949FB1",
+            "#4D5360"
+        ],
+       "hoverBackgroundColor": [
+            "rgba(220,220,220,0.7)",
+           "rgba(151,187,205,0.8)",
+            "rgba(169, 3, 41, 0.7)",
+            "#A8B3C5",
+            "#616774"
+        ],
+      "label":"My dataset"}],      
+
+    
+    "labels":[
+       "Grey",
+        "Blue",
+        "Red",
+        "Grey",
+        "Dark Grey"
+    ]
+  }
+}

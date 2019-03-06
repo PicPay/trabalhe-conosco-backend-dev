@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+set_time_limit(0);
+
 use App\Service\UserImporter;
 use App\Service\Elastic\UserImporter as ElasticUserImporter;
 use App\Service\Elastic\UserManager as ElasticUserManager;
@@ -125,14 +127,33 @@ class UserController extends AbstractController
     public function getUsers(Request $request)
     {
         try {
+            $criteria = [
+                'name' => $request->get('name', ''),
+                'username' => $request->get('username', '')
+            ];
+
+            if($request->get('sort', '0') === '0') {
+                $sort = ['user.priority' => 'ASC'];
+            }
+            else {
+                $sort = ['user.priority' => 'ASC', 'user.name' => 'ASC'];
+            }
+
+            $start = new \DateTime();
+            $users = $this->userRepository->findByFilter(
+                $criteria,
+                $sort,
+                $request->get('page', 0),
+                $request->get('size', 15)
+            );
+            $end = new \DateTime();
+            $interval = \date_diff($end, $start);
+
             return new JsonResponse([
                 'status' => 'success',
-                'users' => $this->userRepository->findByFilter([
-                    'name' => $request->get('name', ''),
-                    'username' => $request->get('username', '')
-                ],
-                    $request->get('page', 0),
-                    $request->get('size', 15)),
+                'time' => $interval->format("%H:%I:%S"),
+                'users' => $users,
+                'totalUsers' => $this->userRepository->countByFilter($criteria),
             ]);
         } catch (\Exception $e) {
             return $this->getErrorJsonResponse($e);
@@ -160,15 +181,28 @@ class UserController extends AbstractController
             }
 
             $sort = [];
-            $sort[] = ['priority' => 'asc', 'name' => 'asc'];
+            if($request->get('sort', '0') === '0') {
+                $sort[] = ['priority' => 'asc'];
+            }
+            else {
+                $sort[] = ['priority' => 'asc', 'name' => 'asc'];
+            }
+
+            $start = new \DateTime();
+            $users = $this->elasticUserManager->query([
+                'criteria' => $criteria,
+                'page' => $request->get('page', 0),
+                'size' => $request->get('size', 15),
+                'sort' => $sort
+            ]);
+            $end = new \DateTime();
+            $interval = \date_diff($end, $start);
+
             return new JsonResponse([
                 'status' => 'success',
-                'users' => $this->elasticUserManager->query([
-                    'criteria' => $criteria,
-                    'page' => $request->get('page', 0),
-                    'size' => $request->get('size', 15),
-                    'sort' => $sort
-                ])
+                'time' => $interval->format("%H:%I:%S"),
+                'users' => $users,
+                'totalUsers' => $this->elasticUserManager->count(['criteria' => $criteria]),
             ]);
         } catch (\Exception $e) {
             return $this->getErrorJsonResponse($e);

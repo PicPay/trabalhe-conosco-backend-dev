@@ -1,0 +1,77 @@
+<div id="content">
+    <div class="row">
+        <sa-big-breadcrumbs icon="user" [items]="['Usuários MySQL']" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8" saSparklineContainer>
+            <ul id="sparks" class="">
+                <li class="sparks-info">
+                    <h5> Tempo de execução:&nbsp; <span class="txt-color-blue">{{executionTime}}</span></h5>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <sa-widgets-grid>
+        <div class="row">
+            <article class="col col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <form class="smart-form" novalidate="novalidate">
+                    <div class="row">
+                        <section class="col col-xs-4 col-md-4 col-sm-4">
+                            <label class="input">
+                                <i class="icon-prepend fa fa-user"></i>
+                                <input placeholder="Nome" type="text" name="name" [(ngModel)]="name"/>
+                            </label>
+                        </section>
+                        <section class="col col-xs-4 col-md-4 col-sm-4">
+                            <label class="input">
+                                <i class="icon-prepend fa fa-user"></i>
+                                <input placeholder="Username" type="text" name="username" [(ngModel)]="username"/>
+                            </label>
+                        </section>
+                        <section class="col col-xs-2 col-md-2 col-sm-2">
+                            <label class="toggle">
+                                <input type="checkbox" name="sort" [(ngModel)]="sort">
+                                <i data-swchon-text="Sim" data-swchoff-text="Não"></i>Ordenar por nome</label>
+                        </section>
+                        <section class="col col-xs-2 col-md-2 col-sm-2">
+                            <label class="button" style="margin-top: 0">
+                                <button type="submit" (click)="filter()" class="btn btn-primary">
+                                    <i class="fa fa-filter"></i> Filtrar
+                                </button>
+                            </label>
+                        </section>
+                    </div>
+                </form>
+            </article>
+        </div>
+
+        <div class="row">
+            <article class="col col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <sa-widget [fullscreenbutton]="false" [colorbutton]="false" [editbutton]="false" [togglebutton]="false" [deletebutton]="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-user"></i> </span>
+                        <h2>Usuários</h2>
+                    </header>
+                    <div>
+                        <div class="widget-body no-padding">
+                            <sa-datatable #usersDT [options]="usersListOptions" paginationLength="true" tableClass="table table-striped table-bordered table-hover" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            ID
+                                        </th>
+                                        <th>
+                                            Nome
+                                        </th>
+                                        <th>
+                                            Username
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </sa-datatable>
+                        </div>
+                    </div>
+                </sa-widget>
+            </article>
+
+        </div>
+    </sa-widgets-grid>
+</div>

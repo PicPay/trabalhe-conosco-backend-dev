@@ -1,0 +1,9 @@
+version: '3.6'
+
+services:
+  angular:
+    build:
+      context: app
+      dockerfile: docker/dockerfile.prod
+    ports:
+      - 80:80

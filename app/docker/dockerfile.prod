@@ -1,0 +1,31 @@
+############### BUILD APPLICATION ###############
+
+FROM node:6.10.0 as node
+
+WORKDIR /app
+
+# Copy project files
+COPY . .
+
+# Install packages
+RUN npm config set user 0
+RUN npm config set unsafe-perm true
+RUN npm install -g @angular/cli@1.7.1
+RUN npm install
+RUN npm install --save-prod jquery
+
+# Build your application
+RUN npm run build:prod
+
+############### BUILD APPLICATION ###############
+
+############### DEPLOY APPLICATION ###############
+
+FROM nginx:alpine
+
+COPY --from=node /app/dist /usr/share/nginx/html
+COPY --from=node /app/docker/nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+
+############### DEPLOY APPLICATION ###############
