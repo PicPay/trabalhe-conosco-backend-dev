@@ -1,35 +1,38 @@
-![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
 
-# Teste Backend
-
-O desafio é criar uma API REST que busca usuarios pelo nome e username a partir de uma palavra chave. Faça o download do arquivo [users.csv.gz](https://s3.amazonaws.com/careers-picpay/users.csv.gz) que contém o banco de dados que deve ser usado na busca. Ele contém os IDs, nomes e usernames dos usuários.
-
-###### Exemplo
-| ID                                   | Nome              | Username             |
-|--------------------------------------|-------------------|----------------------|
-| 065d8403-8a8f-484d-b602-9138ff7dedcf | Wadson marcia     | wadson.marcia        |
-| 5761be9e-3e27-4be8-87bc-5455db08408  | Kylton Saura      | kylton.saura         |
-| ef735189-105d-4784-8e2d-c8abb07e72d3 | Edmundo Cassemiro | edmundo.cassemiro    |
-| aaa40f4e-da26-42ee-b707-cb81e00610d5 | Raimundira M      | raimundiram          |
-| 51ba0961-8d5b-47be-bcb4-54633a567a99 | Pricila Kilder    | pricilakilderitaliani|
+## Este é o projeto backend + database para consultas por `name` e `usename` rodando no Docker
 
 
+## Requisitos para rodar o projeto
+- Docker + Docker-Compose
 
-Também são fornecidas duas listas de usuários que devem ser utilizadas para priorizar os resultados da busca. A lista 1 tem mais prioridade que a lista 2. Ou seja, se dois usuarios casam com os criterios de busca, aquele que está na lista 1 deverá ser exibido primeiro em relação àquele que está na lista 2. Os que não estão em nenhuma das listas são exibidos em seguida.
+## Stack
+- Docker
+- Java
+- Spring Boot
+- Maven
+- Swagger
+- ElasticSearch
+- NGINX
 
-As listas podem ser encontradas na raiz deste repositório ([lista_relevancia_1.txt](lista_relevancia_1.txt) e [lista_relevancia_2.txt](lista_relevancia_2.txt)).
-Os resultados devem ser retornados paginados de 15 em 15 registros.
+## Run
+- É necessário copiar o arquivo users.csv para `app/src/main/resources/database` este arquivo .csv será carregado no ElasticSearch em background
+- O arquivo possui cerca de 600 MB e pode ser baixado [aqui](https://s3.amazonaws.com/careers-picpay/users.csv.gz), ou [aqui](https://s3.amazonaws.com/careers-picpay/users.csv.gz)
+- Enquando este arquivo é carregado a API já pode ser utilizada porém não com a totalidade dos registros, em testes em uma máquina com Ubuntu, 8GB ram e Processador I5 a carga completa demorou 10 horas.
 
-Escolha as tecnologias que você vai usar e tente montar uma solução completa para rodar a aplicação.
+- Para rodar o ElasticSearch é necessário alterar o max_map_count no linux: `sudo sysctl -w vm.max_map_count=262144`
 
-Faça um ***Fork*** deste repositório e abra um ***Pull Request***, **com seu nome na descrição**, para participar. Assim que terminar, envie um e-mail para ***desafio@picpay.com*** com o seu usuário do Github nos avisando.
+- O comando abaixo sobe as imagens docker do NGINX, ElasticSearch e SpringBoot
+- Run command `docker-compose up`
 
------
+- Ao final do build o console exibirá a mensagem a seguir:  Swagger running in: http://localhost/swagger-ui.html
 
-### Diferenciais
+- Acessse o endereço http://localhost/swagger-ui.html para ver a documentação da API no Swagger e realizar requisições diretamente na API.
 
-- Criar um frontend para realizar a busca com uma UX elaborada
-- Criar uma solução de autenticação entre o frontend e o backend
-- Ter um desempenho elevado num conjunto de dados muito grande
-- Utilizar o Docker
+- Na pasta frontend existe um client em Angular com um datagrid paginado que dispara requisições na API, abaixo instruções:
+- É necessário ter o Node instalado (npm)
+
+- Acesse o diretório `cd frontend`
+- Execute `npm install` para baixar os pacotes necessários para rodar o Angular CLI
+
+- Execute o comando `ng serve`, se tudo der certo aparecerá um link com endereço e porta que o servidor está rodando:  http://localhost:4200
 
