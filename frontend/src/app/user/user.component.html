@@ -1,0 +1,28 @@
+<div style="text-align:center">
+  <h5 class="first">Pesquisa por nome ou usuario</h5>
+  <input type="text" pInputText #searchId/>
+  <button pButton type="button" (click)="buscar(searchId.value)" label="Buscar" ></button>
+</div>
+<table class="table table-bordered">
+  <thead >
+    <tr class="thead-primary">  
+      <th scope="col"># ID</th>
+      <th scope="col">Nome</th>
+      <th scope="col">Usuario</th>
+      <th scope="col">Relevancia</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users; let i = index;">
+      <td>{{ user.id }}</td>
+      <td>{{ user.name }}</td>
+      <td>{{ user.userName }}</td>
+      <td>{{ user.relevancy }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<pagination [page]="page" (paginationEvent)=changePage($event)></pagination>
+<div style="text-align:center">
+  <h6 *ngIf="totalElements != null">Total registros encontrados: {{totalElements}}</h6>
+</div>

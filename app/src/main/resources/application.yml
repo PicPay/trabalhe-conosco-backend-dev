@@ -1,0 +1,9 @@
+server:
+  port: 8080
+
+spring:
+
+elasticsearch:
+  clustername: docker-cluster
+  host: elasticsearch
+  port: 9300
