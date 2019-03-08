@@ -1,4 +1,4 @@
-# PicPay: Backend - Java Spring Boot
+# Example Java Spring Boot API
 
 ## Prerequisites
 
