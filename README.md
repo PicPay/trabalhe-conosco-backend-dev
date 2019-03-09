@@ -13,8 +13,8 @@ A base de dados será baixada durante o build do Docker.
 
 O código fonte do FrontEnd está na pasta front e o do BackEnd está na pasta api.
 
-**ANTES DE INICIAR** verifica qual é o padrão de "final de linha" do arquivo php/init/, pois estava tendo problema com isso, porque meu git
-troca de lf para crlf, quando eu clono o repositório, esse problema aconteceu somente no Windows 10.
+**ANTES DE INICIAR** verifica qual é o padrão de "final de linha" do arquivo php/init.sh, pois estava tendo problema com isso, porque meu git
+troca de lf para crlf quando eu clono o repositório, esse problema aconteceu somente no Windows 10.
 
 Testei a aplicação no Windows 10 Home (virtualbox), Windows 10 PRO (Hyper-V) e Ubuntu 18.04.
 
