@@ -1,35 +1,52 @@
 ![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
 
-# Teste Backend
+# Requisitos iniciais da aplicação.
+Ter instalado o docker, docker-compose e composer
 
-O desafio é criar uma API REST que busca usuarios pelo nome e username a partir de uma palavra chave. Faça o download do arquivo [users.csv.gz](https://s3.amazonaws.com/careers-picpay/users.csv.gz) que contém o banco de dados que deve ser usado na busca. Ele contém os IDs, nomes e usernames dos usuários.
-
-###### Exemplo
-| ID                                   | Nome              | Username             |
-|--------------------------------------|-------------------|----------------------|
-| 065d8403-8a8f-484d-b602-9138ff7dedcf | Wadson marcia     | wadson.marcia        |
-| 5761be9e-3e27-4be8-87bc-5455db08408  | Kylton Saura      | kylton.saura         |
-| ef735189-105d-4784-8e2d-c8abb07e72d3 | Edmundo Cassemiro | edmundo.cassemiro    |
-| aaa40f4e-da26-42ee-b707-cb81e00610d5 | Raimundira M      | raimundiram          |
-| 51ba0961-8d5b-47be-bcb4-54633a567a99 | Pricila Kilder    | pricilakilderitaliani|
+* https://docs.docker.com/install/
+* https://docs.docker.com/compose/install/
+* https://getcomposer.org/download/
 
 
+### Iniciar aplicação e infraestrutura docker.
 
-Também são fornecidas duas listas de usuários que devem ser utilizadas para priorizar os resultados da busca. A lista 1 tem mais prioridade que a lista 2. Ou seja, se dois usuarios casam com os criterios de busca, aquele que está na lista 1 deverá ser exibido primeiro em relação àquele que está na lista 2. Os que não estão em nenhuma das listas são exibidos em seguida.
+Após o clone do projeto entre no diretorio do mesmo (trabalhe-conosco-backend-dev) e execute os comandos abaixo seguindo a sequencia.
 
-As listas podem ser encontradas na raiz deste repositório ([lista_relevancia_1.txt](lista_relevancia_1.txt) e [lista_relevancia_2.txt](lista_relevancia_2.txt)).
-Os resultados devem ser retornados paginados de 15 em 15 registros.
+- composer install (Responsavél por instalar as dependências do projeto)
 
-Escolha as tecnologias que você vai usar e tente montar uma solução completa para rodar a aplicação.
+- docker-compose up -d (Ele ira subir toda a infraestrutura necessária para o projeto)
 
-Faça um ***Fork*** deste repositório e abra um ***Pull Request***, **com seu nome na descrição**, para participar. Assim que terminar, envie um e-mail para ***desafio@picpay.com*** com o seu usuário do Github nos avisando.
+### Observação.: 
+##### - Após a execucão do comando (docker-compose up -d) os dados serão updados automaticamente pelo docker, este processo leva em torno de 3~5 minutios até que o mysql fique completamente pronto.
 
------
+## Consultando a API - Mysql
+
+Na API é possivel fazer consultas de forma performatica tanto no Mysql como no ElasticSearch através das url abaixo segui.
+
+- http://localhost:8000/api/v1/user/mysql?q=<param-search>
+
+![Consulta_api_mysql](imgs_readme/consulta_api_mysql.png?raw=true "Title")
+
+## Consultando a API - ElasticSearch
+
+###### Para usar a consulta via elasticsearch precisamos enviar os dados da tabela mysql para ser indexado no mesmo. 
+
+- php artisan db:seed --class=InsertDataSampleToElasticsearch (Insere os dados que foram updados no MySQL para o ElasticSearch)
+
+
+- http://localhost:8000/api/v1/user/elasticSearch?q=<param-search> (Url de consulta através do elasticsearch)
+
+![Listar Gasto](imgs_readme/consulta_api_els.png?raw=true "Title")
+
 
 ### Diferenciais
 
-- Criar um frontend para realizar a busca com uma UX elaborada
-- Criar uma solução de autenticação entre o frontend e o backend
-- Ter um desempenho elevado num conjunto de dados muito grande
-- Utilizar o Docker
+- Ter um desempenho elevado num conjunto de dados muito grande 
+- Utilizar o Docker 
+
+
+### Observação.: 
+<b>Deixei o arquivo .env preenchido para comodidade na hora de testar o ambiente, em um cenario real o .env não deve ficar no github.</b>
+
+
 
