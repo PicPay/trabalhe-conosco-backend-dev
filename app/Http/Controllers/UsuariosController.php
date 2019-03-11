@@ -40,7 +40,13 @@ class UsuariosController extends Controller{
 
     public function getUserSearch(Request $search)
     {
-        $usuarios = ES::type("users")->search($search->get('q'))
+         $q =(!is_null($search->get('q'))) ? $search->get('q') : 'silca';
+
+        if ($q == ""){
+                return response()->json("Favor fornecer conteúdo para a busca");
+        }
+
+        $usuarios = ES::type("users")->search($q)
             ->select(
                 "id",
                 "name",
@@ -55,7 +61,11 @@ class UsuariosController extends Controller{
 
     public function getUserMysql(Request $search)
     {
-        $q =(!is_null($search->get('q'))) ? $search->get('q') : 'picpay';
+        $q =(!is_null($search->get('q'))) ? $search->get('q') : 'silca';
+
+	if ($q == ""){
+		return response()->json("Favor fornecer conteúdo para a busca");
+	}
 
         $usuarios = DB::table('users')
             ->select(
