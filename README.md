@@ -13,9 +13,6 @@ Esta solução foi desenvolvida utilizando as seguintes tecnologias:
 * Angular
 * Docker
 
-And of course Dillinger itself is open source with a [public repository][dill]
- on GitHub.
-
 ### Execução
 
 Os seguintes passos são necessários para rodar a solução:
