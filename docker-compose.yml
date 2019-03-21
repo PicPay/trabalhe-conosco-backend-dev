@@ -1,0 +1,32 @@
+version: '2'
+services:
+    pic-mongodb:
+        image: mongo:4.0.2
+        ports:
+            - "27017:27017"
+        volumes:
+             - $HOME/data/pic-mongodb:/data/db
+    pic-elasticsearch:
+        image: elasticsearch:5.6.13
+        volumes:
+             - $HOME/data/pic-elasticsearch/:/usr/share/elasticsearch/data/
+        ports:
+            - 9200:9200
+            - 9300:9300
+        command: -Enetwork.host=0.0.0.0 -Ediscovery.type=single-node
+        environment:
+            - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"
+            - cluster.name=elasticsearch 
+    pic-rest:
+         build: server/.
+         depends_on:
+            - pic-mongodb 
+            - pic-elasticsearch
+         ports:
+            - 8080:8080
+    pic-front:
+         build: client/.
+         depends_on:
+            - pic-rest
+         ports:
+            - 80:80

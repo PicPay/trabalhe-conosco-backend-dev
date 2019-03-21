@@ -1,0 +1,19 @@
+
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <!--  <span>HOME</span> -->
+     <span>Projeto PicPay</span>
+     <span class="spacer"></span>     
+     <a mat-button routerLink="/login" *ngIf="!authService.loggedIn">Login</a>
+     <a mat-button href="#" (click)="logout()" *ngIf="authService.loggedIn">Logout</a>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+
+
+
+
+<div style="text-align:center">
+ 
+</div>
+<router-outlet></router-outlet>
