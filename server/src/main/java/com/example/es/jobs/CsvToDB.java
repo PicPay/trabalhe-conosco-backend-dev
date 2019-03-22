@@ -2,7 +2,6 @@ package com.example.es.jobs;
 
 import java.util.Arrays;
 import java.util.List;
-
 import com.example.es.domain.UsrData;
 import com.example.es.repository.es.UsrDataRepository;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
@@ -28,9 +27,11 @@ import org.springframework.batch.item.file.mapping.PassThroughLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.batch.item.support.CompositeItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -53,20 +54,22 @@ public class CsvToDB extends DefaultBatchConfigurer {
     private UsrDataRepository usrDataRepository;
     @Autowired
     private Client elasticSearchClient;
+    @Value("${usersCsv.filePath}")
+    private String FILE_PATH;
+    @Value("${usersCsv.filePathDecompressed}")
+    private String FILE_PATH_DECOMPRESSED;
+    @Value("${usersCsv.url}")
+    private String DOWNLOAD_URL;
 
     /*
      * Declaração e configuração do Job para leitura do arquivo csv e importação
      * para o Mongodb e ElasticSeach
      */
 
-    
     @Bean
     public Job readCSVFile() {
-        return jobBuilderFactory.get("readCSVFile").incrementer(new RunIdIncrementer())
-        .start(step1())
-        .next(step2())
-                .next(step3())
-                .listener(new ExecutionTimeJobListener()).build();
+        return jobBuilderFactory.get("readCSVFile").incrementer(new RunIdIncrementer()).start(download()).next(step1())
+                .next(step2()).next(step3()).listener(new ExecutionTimeJobListener()).build();
     }
 
     class ExecutionTimeJobListener implements JobExecutionListener {
@@ -95,10 +98,17 @@ public class CsvToDB extends DefaultBatchConfigurer {
     }
 
     /*
+     * Declaração e configuração do Setp download que baixa e descompacta o csv
+     */
+    @Bean
+    public Step download() {
+        return stepBuilderFactory.get("download").tasklet(new Downloader(FILE_PATH, DOWNLOAD_URL)).build();
+    }
+
+    /*
      * Declaração e configuração do Setp 1 que faz a leitura do arquivo csv e
      * importa para Mongodb e ElasticSerach
      */
-
     @Bean
     public Step step1() {
         return stepBuilderFactory.get("step1").<UsrData, UsrData>chunk(100).reader(reader())
@@ -108,7 +118,8 @@ public class CsvToDB extends DefaultBatchConfigurer {
     @Bean
     public FlatFileItemReader<UsrData> reader() {
         FlatFileItemReader<UsrData> reader = new FlatFileItemReader<>();
-        reader.setResource(new ClassPathResource("users.csv"));
+
+        reader.setResource(new FileSystemResource(FILE_PATH_DECOMPRESSED));
         reader.setLineMapper(new DefaultLineMapper<UsrData>() {
             {
                 setLineTokenizer(new DelimitedLineTokenizer() {
@@ -153,10 +164,10 @@ public class CsvToDB extends DefaultBatchConfigurer {
         return compositeItemWriter;
     }
 
-     /*
-     * Reader e Writer para os steps 2 e 3 que atualizam os indices com as listas de relevância     
+    /*
+     * Reader e Writer para os steps 2 e 3 que atualizam os indices com as listas de
+     * relevância
      */
-
 
     public FlatFileItemReader<String> readerVip(String file) {
         FlatFileItemReader<String> reader = new FlatFileItemReader<>();
@@ -170,10 +181,10 @@ public class CsvToDB extends DefaultBatchConfigurer {
         ItemWriter<String> writer = new ItemWriter<String>() {
 
             @Override
-            public void write(List<? extends String> items) throws Exception {                
+            public void write(List<? extends String> items) throws Exception {
 
                 mongoTemplate.updateMulti(new Query(Criteria.where("_id").in(items)), Update.update(field, true),
-                        UsrData.class);               
+                        UsrData.class);
             }
         };
         return writer;
@@ -215,7 +226,7 @@ public class CsvToDB extends DefaultBatchConfigurer {
         return stepBuilderFactory.get("step2").<String, String>chunk(100).reader(readerVip("lista_relevancia_1.txt"))
                 .writer(compositeItemUpdateVip("vip1", "usrpic", "users")).taskExecutor(taskExecutor()).throttleLimit(1)
                 .build();
-    }    
+    }
 
     /*
      * Declaração e configuração do Setp 3 que faz a leitura da lista de relevância
@@ -225,7 +236,7 @@ public class CsvToDB extends DefaultBatchConfigurer {
     @Bean
     public Step step3() {
         return stepBuilderFactory.get("step3").<String, String>chunk(100).reader(readerVip("lista_relevancia_2.txt"))
-                .writer(compositeItemUpdateVip("vip2", "usrpic", "users"))
-                .taskExecutor(taskExecutor()).throttleLimit(1).build();
+                .writer(compositeItemUpdateVip("vip2", "usrpic", "users")).taskExecutor(taskExecutor()).throttleLimit(1)
+                .build();
     }
 }
