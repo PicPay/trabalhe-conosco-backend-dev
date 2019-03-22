@@ -1,35 +1,66 @@
-![PicPay](https://user-images.githubusercontent.com/1765696/26998603-711fcf30-4d5c-11e7-9281-0d9eb20337ad.png)
-
 # Teste Backend
+Paulo Henrique de Siqueira
+paulohenriqu@hotmail.com
+https://www.linkedin.com/in/paulohenriquesiqueira/
 
-O desafio é criar uma API REST que busca usuarios pelo nome e username a partir de uma palavra chave. Faça o download do arquivo [users.csv.gz](https://s3.amazonaws.com/careers-picpay/users.csv.gz) que contém o banco de dados que deve ser usado na busca. Ele contém os IDs, nomes e usernames dos usuários.
+### Stack utilizado
 
-###### Exemplo
-| ID                                   | Nome              | Username             |
-|--------------------------------------|-------------------|----------------------|
-| 065d8403-8a8f-484d-b602-9138ff7dedcf | Wadson marcia     | wadson.marcia        |
-| 5761be9e-3e27-4be8-87bc-5455db08408  | Kylton Saura      | kylton.saura         |
-| ef735189-105d-4784-8e2d-c8abb07e72d3 | Edmundo Cassemiro | edmundo.cassemiro    |
-| aaa40f4e-da26-42ee-b707-cb81e00610d5 | Raimundira M      | raimundiram          |
-| 51ba0961-8d5b-47be-bcb4-54633a567a99 | Pricila Kilder    | pricilakilderitaliani|
+Esta solução foi desenvolvida utilizando as seguintes tecnologias:
 
+* Spring Boot
+* MongoDB
+* Elasticsearch
+* Angular
+* Docker
 
+### Execução
 
-Também são fornecidas duas listas de usuários que devem ser utilizadas para priorizar os resultados da busca. A lista 1 tem mais prioridade que a lista 2. Ou seja, se dois usuarios casam com os criterios de busca, aquele que está na lista 1 deverá ser exibido primeiro em relação àquele que está na lista 2. Os que não estão em nenhuma das listas são exibidos em seguida.
+Os seguintes passos são necessários para rodar a solução:
 
-As listas podem ser encontradas na raiz deste repositório ([lista_relevancia_1.txt](lista_relevancia_1.txt) e [lista_relevancia_2.txt](lista_relevancia_2.txt)).
-Os resultados devem ser retornados paginados de 15 em 15 registros.
+1) Construir a aplicação Java com o Maven
+```sh
+$ cd server
+$ mvn clean install -DskipTests
+```
+2) Na pasta raiz do projeto rodar o docker-compose
+```sh
+$ docker-compose up
+```
 
-Escolha as tecnologias que você vai usar e tente montar uma solução completa para rodar a aplicação.
+3) O container do Spring Boot (pic-rest) aguarda 30s para que o mongo e o elasticsearch terminem de inicializar. Após isso o projeto Java começa a rodar e inicia o job para importar os registros. O primeiro step é o download do arquivo csv.
+Após o download finalizado, enquanto os registros são importados, a api já está disponível. No entanto ainda sem a priorização pelas listas de relevância.
 
-Faça um ***Fork*** deste repositório e abra um ***Pull Request***, **com seu nome na descrição**, para participar. Assim que terminar, envie um e-mail para ***desafio@picpay.com*** com o seu usuário do Github nos avisando.
+A API é protegida usando JWT, para gerar o token é necessáio fazer uma requisição POST para o endpoint de autenticação com os dados do usuário padrão:
+```
+curl -X POST \
+  http://localhost:8080/api/authenticate \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -H 'postman-token: a33b0b31-3bd6-c0aa-cab6-f250a46c5d47' \
+  -d '{"username":"user",	"password":"password"}'
+```
 
------
+O token será retornado no header da resposta.
 
-### Diferenciais
+O endpoint que gerencia as buscas é o /api/usr-data
+Os query parameters aceitos são:
+* query - O termo a ser pesquisado no name ou username
+* page - a página do resultado, começando em 0
+* size - a quantidade de resultados retornados, o padrão é 15
 
-- Criar um frontend para realizar a busca com uma UX elaborada
-- Criar uma solução de autenticação entre o frontend e o backend
-- Ter um desempenho elevado num conjunto de dados muito grande
-- Utilizar o Docker
+Exemplo de requisição:
+```
+curl -X GET \
+  'http://localhost:8080/api/usr-data?query=rafa' \
+  -H 'authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJzZWN1cmUtYXBpIiwiYXVkIjoic2VjdXJlLWFwcCIsInN1YiI6InVzZXIiLCJleHAiOjE1NTM5NjY5ODIsInJvbCI6WyJST0xFX1VTRVIiXX0._wpp_VXYk1QXLu5mAxYHxwezJAh0nBc8-_1eTma9FmvLs5fJlVgbXOJVFf8U3ZuYYerrh5kiFMmSqtmk0XIrvg' \
+```
 
+A interface gráfica pode ser acessada na porta 80:
+http://localhost:80
+
+Usuário: user
+Senha: password
+
+### Observações
+
+O MongoDB foi utilizado apenas para simular uma situação onde existe uma base de dados primária e o elasticsearch utilizado para indexação para fins de buscas (e pelo desafio de utilizar um banco não relacional).
