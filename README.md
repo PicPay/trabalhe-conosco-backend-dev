@@ -27,7 +27,8 @@ $ mvn clean install -DskipTests
 $ docker-compose up
 ```
 
-3) O container do Spring Boot (pic-rest) aguarda 30s para que o mongo e o elasticsearch terminem de inicializar. Após isso o projeto Java começa a rodar e inicia o job para importar os registros, neste momento, enquanto os registros são importados, a api já está disponível, no entanto ainda sem a priorização pelas listas de relevância.
+3) O container do Spring Boot (pic-rest) aguarda 30s para que o mongo e o elasticsearch terminem de inicializar. Após isso o projeto Java começa a rodar e inicia o job para importar os registros. O primeiro step é o download do arquivo csv.
+Após o download finalizado, enquanto os registros são importados, a api já está disponível. No entanto ainda sem a priorização pelas listas de relevância.
 
 A API é protegida usando JWT, para gerar o token é necessáio fazer uma requisição POST para o endpoint de autenticação com os dados do usuário padrão:
 ```
