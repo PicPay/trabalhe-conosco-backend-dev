@@ -1,0 +1,44 @@
+version: '3.1'
+
+services:
+  web:
+    build:
+      context: ./_configs
+      dockerfile: Dockerfile
+    environment:
+      XDEBUG_CONFIG: remote_host=172.21.0.1
+      PHP_IDE_CONFIG: serverName=api.local
+      UID: 1000
+    depends_on:
+      - db
+    volumes:
+      - ./api/:/var/www/html/
+    ports:
+      - 80:80
+    stdin_open: true
+    tty: true
+    networks:
+    - shared
+  db:
+    build:
+      context: ./_configs
+      dockerfile: Dockerfile_MySQL
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      # MYSQL_USER: picpay
+      # MYSQL_PASSWORD: picpay
+      UID: 1000
+    ports:
+      - 3306:3306
+    volumes:
+      - ./data:/var/lib/mysql
+      - ./_configs/database/:/docker-entrypoint-initdb.d
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_general_ci --init-connect='SET NAMES UTF8;' --innodb-flush-log-at-trx-commit=0
+    networks:
+      - shared
+networks:
+  shared:
+    external:
+      name: shared

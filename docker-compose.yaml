@@ -1,0 +1,9 @@
+version: '3.1'
+
+services:
+  web:
+    image: local/7.2.14-apache:latest
+    links:
+      - db
+  db:
+    image: local/mysql-5.7:latest

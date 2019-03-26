@@ -1,0 +1,56 @@
+FROM mysql:5.7
+
+## Install extra dependencies
+RUN echo "Updating the system and installing aditional tools"
+RUN apt-get update \
+    # && apt-get upgrade -y --allow-unauthenticated \/
+    && apt-get install -y \
+    libiconv-hook-dev \
+    libiconv-hook1 \
+    file \
+    parallel \
+	&& apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
+
+	
+# Add user to application
+RUN echo "Adding user application"
+RUN adduser --disabled-password --gecos '' appuser
+
+# Copy MySQL configuration file
+RUN echo "Copying MySQL configuration file"
+COPY mysqld.cnf /etc/mysql/mysql.conf.d/
+
+# Add /docker-entrypoint-initdb.d
+# RUN echo "Adding /docker-entrypoint-initdb.d to the secure place to run MySQL commands"
+# Disable security policy for execution of internal commands externally (mysql -e "command")
+# RUN echo 'secure-file-priv = ""' >> /etc/mysql/mysql.conf.d/mysqld.cnf
+# RUN echo 'innodb_buffer_pool_size = 48G' >> /etc/mysql/mysql.conf.d/mysqld.cnf
+# RUN echo 'innodb_buffer_pool_instances = 48' >> /etc/mysql/mysql.conf.d/mysqld.cnf
+# RUN echo 'innodb_log_file_size = 3G' >> /etc/mysql/mysql.conf.d/mysqld.cnf
+# RUN echo 'innodb_log_files_in_group = 4' >> /etc/mysql/mysql.conf.d/mysqld.cnf
+# RUN echo 'innodb_log_buffer_size = 256M' >> /etc/mysql/mysql.conf.d/mysqld.cnf
+# RUN echo 'innodb_log_compressed_pages = OFF' >> /etc/mysql/mysql.conf.d/mysqld.cnf
+# RUN echo 'innodb_large_prefix = ON' >> /etc/mysql/mysql.conf.d/mysqld.cnf
+# RUN echo 'innodb_file_per_table = true' >> /etc/mysql/mysql.conf.d/mysqld.cnf
+# RUN echo 'innodb_buffer_pool_load_at_startup = ON' >> /etc/mysql/mysql.conf.d/mysqld.cnf
+# RUN echo 'innodb_buffer_pool_dump_at_shutdown = ON' >> /etc/mysql/mysql.conf.d/mysqld.cnf
+# RUN echo 'innodb_autoinc_lock_mode = 2' >> /etc/mysql/mysql.conf.d/mysqld.cnf
+# RUN echo 'innodb_flush_log_at_trx_commit = 1' >> /etc/mysql/mysql.conf.d/mysqld.cnf
+# Change the timeout to innodb lock to 10 minutes
+# # RUN echo 'innodb_lock_wait_timeout = 600' >> /etc/mysql/mysql.conf.d/mysqld.cnf
+# RUN echo 'innodb_flush_neighbors = 0' >> /etc/mysql/mysql.conf.d/mysqld.cnf
+# RUN echo 'innodb_flush_method = O_DIRECT' >> /etc/mysql/mysql.conf.d/mysqld.cnf
+# RUN echo 'innodb_io_capacity = 2500' >> /etc/mysql/mysql.conf.d/mysqld.cnf
+# RUN echo 'innodb_io_capacity_max = 5000' >> /etc/mysql/mysql.conf.d/mysqld.cnf
+# RUN echo 'innodb_read_io_threads = 64' >> /etc/mysql/mysql.conf.d/mysqld.cnf
+# RUN echo 'innodb_write_io_threads = 64' >> /etc/mysql/mysql.conf.d/mysqld.cnf
+# RUN echo 'innodb_monitor_enable = all' >> /etc/mysql/mysql.conf.d/mysqld.cnf
+# RUN echo 'performance_schema = ON' >> /etc/mysql/mysql.conf.d/mysqld.cnf
+# RUN echo 'key_buffer_size = 32M' >> /etc/mysql/mysql.conf.d/mysqld.cnf
+# RUN echo 'wait_timeout = 30' >> /etc/mysql/mysql.conf.d/mysqld.cnf
+# RUN echo 'interactive_timeout = 3600' >> /etc/mysql/mysql.conf.d/mysqld.cnf
+# RUN echo 'max_connections = 1000' >> /etc/mysql/mysql.conf.d/mysqld.cnf
+# RUN echo 'table_open_cache = 5000' >> /etc/mysql/mysql.conf.d/mysqld.cnf
+# RUN echo 'open_files_limit = 8000' >> /etc/mysql/mysql.conf.d/mysqld.cnf
+# RUN echo 'tmp_table_size = 32M' >> /etc/mysql/mysql.conf.d/mysqld.cnf
+# RUN echo 'max_heap_table_size = 64M' >> /etc/mysql/mysql.conf.d/mysqld.cnf

@@ -1,0 +1,5 @@
+.idea
+_docs/*.gz
+data/*
+_configs/database/*.csv
+_configs/database/*.log
