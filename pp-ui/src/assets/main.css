@@ -1,0 +1,9 @@
+body {
+    background-color: snow ;
+        padding-top: 20px;
+        padding-bottom: 20px;
+}
+
+.jumbotron {
+   background: gainsboro;
+}

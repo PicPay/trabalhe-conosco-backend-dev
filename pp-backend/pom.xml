@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.pp-backend-dev</groupId>
+        <artifactId>backdev</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>pp-backend</artifactId>
+    <version>1.0.0</version>
+    <name>pp-backend</name>
+    <description>PicPay - desafio backend</description>
+    <packaging>jar</packaging>
+
+    <properties>
+        <start-class>com.ppbackend.Main</start-class>
+    </properties>
+
+</project>
+

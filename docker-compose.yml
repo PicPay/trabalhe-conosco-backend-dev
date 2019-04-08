@@ -1,18 +1,36 @@
-version: '2'
+version: '3.5'
 services:
   elasticsearch:
     image: elasticsearch:6.6.2
     ports:
-      - 9200:9200
-      - 9300:9300
+      - 7720:9200
+      - 7730:9300
     environment:
       - cluster.name=pp_users
       - bootstrap.memory_lock=true
       - discovery.type=single-node
-      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
     volumes:
-      - ./data/elasticsearch:/usr/share/elasticsearch/data
+      - "./data/elasticsearch:/usr/share/elasticsearch/data"
+  ppbackend:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 7700:7700
+    depends_on:
+      - elasticsearch
+  ppui:
+    build:
+      context: .
+      dockerfile: ./pp-ui/Dockerfile
+    expose:
+      - 7710
+    ports:
+      - 7710:7710
+    volumes:
+      - './pp-ui:/opt/dev/pp-ui'
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - ppbackend
