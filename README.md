@@ -111,4 +111,3 @@ Porém demandaria mais esforço e o desafio ficaria grande demais.
  
 Portanto foi entregue a solução para o desafio
 
-[#Instalação]: #Instalação
