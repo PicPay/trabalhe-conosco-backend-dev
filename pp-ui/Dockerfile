@@ -6,10 +6,10 @@ WORKDIR  /opt/dev/pp-ui/
 ENV PATH ./pp-ui/src/node_modules/.bin:$PATH
 
 EXPOSE 7710
+COPY ./pp-ui/package.json /opt/dev/pp-ui/package.json
 
-COPY ./ /opt/dev/pp-ui/
+COPY ./pp-ui /opt/dev/pp-ui/
 
 RUN npm install --silent
-RUN npm install react-scripts@1.1.1 -g --silent
 
 CMD ["npm", "start"]

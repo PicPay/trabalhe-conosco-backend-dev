@@ -1,4 +1,4 @@
-version: '3.5'
+version: '2'
 services:
   elasticsearch:
     image: elasticsearch:6.6.2
@@ -10,27 +10,38 @@ services:
       - bootstrap.memory_lock=true
       - discovery.type=single-node
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      - ELASTICSEARCH_PORT=7720
     volumes:
       - "./data/elasticsearch:/usr/share/elasticsearch/data"
+    networks:
+      backend:
+        ipv4_address: "172.170.0.3"
   ppbackend:
     build:
       context: .
       dockerfile: ./Dockerfile
     ports:
       - 7700:7700
-    depends_on:
-      - elasticsearch
+    restart: always
+    networks:
+      backend:
+        ipv4_address: "172.170.0.2"
   ppui:
     build:
       context: .
       dockerfile: ./pp-ui/Dockerfile
-    expose:
-      - 7710
     ports:
       - 7710:7710
-    volumes:
-      - './pp-ui:/opt/dev/pp-ui'
     environment:
       - NODE_ENV=development
-    depends_on:
-      - ppbackend
+    networks:
+      - frontend
+networks:
+  backend:
+    driver: bridge
+    ipam:
+      config:
+        - subnet:  172.170.0.0/16
+          gateway: 172.170.0.1
+  frontend:
+    driver: bridge

@@ -15,7 +15,7 @@ import java.util.Date;
 public class TokenAuthenticationService {
 
     static long EXPIRATION_TIME = 860_000_000;
-    static String SECRET = "p2wk1yZrfVQwWMS88   vQKoE4QDYhGVqoFzYiQli4IYDnszeRaOZuYQ91v3z07BOhUfKRTEpVeF5Du6tyLUU9saVegPhx3MQJ7f1DmAye5nCM3UKfNUJdw3LL9fVg4vIZhjT8G9XwmtupITqyrZBlNSr6iVfAvKtQvjJLojE";
+    static String SECRET = "p2wk1yZrfVQwWMS88vQKoE4QDYhGVqoFzYiQli4IYDnszeRaOZuYQ91v3z07BOhUfKRTEpVeF5Du6tyLUU9saVegPhx3MQJ7f1DmAye5nCM3UKfNUJdw3LL9fVg4vIZhjT8G9XwmtupITqyrZBlNSr6iVfAvKtQvjJLojE";
     static final String TOKEN_PREFIX = "Bearer";
     static final String HEADER_STRING = "Authorization";
 

@@ -45,6 +45,14 @@ docker-compose up --build
 
 para rodar os Apps e do ElasticSearch e iniciar os containeres.
 
+primeiro realizar a sincronização da lista de usuários
+
+GET /synchUsersList
+
+depois carregar as listas de relevancia 
+
+GET /synchRelevancyList 
+
 ## Exemplos
 
 
@@ -80,6 +88,10 @@ curl -X GET http://localhost:8080/api/user/synchUsersList
 -H "Authorization: Bearer 'token'"
 ```
 substituir 'token' pelo token gerado na requisição POST acima
+
+exemplo de token:
+
+Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU1NTQ3NjE5Mn0.em6Cv0NxcOfthxvoCLOqmRI4iXqUvelzm5xE5iZKkvCm1OhQmdt7hnJU92WqovqBC6m7ATKryxXzIpg010A5gg
 
 Obs: por motivos de simplificação não realizei a parametrização das listas, para exemplificar o 
 processamento assíncrono dos arquivos na inicialização do sistema.
