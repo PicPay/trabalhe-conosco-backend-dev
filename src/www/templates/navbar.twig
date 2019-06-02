@@ -1,0 +1,37 @@
+{% if pagination.canCreate %}
+<nav aria-label="Page navigation example">
+	<ul class="pagination justify-content-center">
+        {% if pagination.previous.isCurrent %}
+            <li class="page-item disabled">
+                <span class="page-link">{{ pagination.previous.pageName | raw }}</span>
+            </li>
+        {% else %}
+            <li>
+                <a class="page-link" aria-label="previous" href="{{ pagination.previous.pathFor }}">
+                    <span aria-hidden="true">{{ pagination.previous.pageName | raw }}</span>
+                </a>
+            </li>
+        {% endif %}
+        {% for page in pagination %}
+            {% if page.isSlider %}
+                <li class="page-item disabled"><span class="page-link">{{ page.pageName }}</span></li>
+            {% elseif page.isCurrent %}
+                <li class="page-item active"><span class="page-link">{{ page.pageName }}</span></li>
+            {% else %}
+                <li class="page-item"><a href="{{ page.pathFor}}" class="page-link">{{ page.pageName }}</a></li>
+            {% endif %}
+        {% endfor %}
+        {% if pagination.next.isCurrent %}
+            <li class="page-item disabled">
+                <span class="page-link" aria-hidden="true">{{ pagination.next.pageName | raw }}</span>
+            </li>
+        {% else %}
+            <li class="page-item">
+                <a class="page-link" aria-label="next" href="{{ pagination.next.pathFor }}">
+                    <span aria-hidden="true">{{ pagination.next.pageName | raw }}</span>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}

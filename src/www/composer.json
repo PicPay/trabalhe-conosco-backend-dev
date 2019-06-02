@@ -1,0 +1,16 @@
+{
+    "require": {
+        "slim/slim": "^3.0",
+        "slim/twig-view": "^2.4",
+        "tuupola/slim-basic-auth": "^3.2",
+        "xandros15/slim-pagination": "^0.1.0"
+    },
+    "autoload": {
+        "psr-4": {
+          "MyApp\\":"./"
+        }
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "*"
+    }
+}
