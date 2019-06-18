@@ -1,0 +1,24 @@
+version: "3"
+services:
+    api:
+        image: 920101/api_node_names:express_api
+        build:
+          context: .
+          dockerfile: Dockerfile-alternate
+        ports: 
+            - "3000:3000"
+    client:
+        image: 920101/api_node_names:vue-js
+        build:
+          context: .
+          dockerfile: Dockerfile-alternate
+        ports:
+            - "8080:8080"
+    mongodb:
+        image: mongo
+        restart: always
+        container_name: mongodb
+        volumes:
+            - ./data-node:/data/db
+        ports:
+            - 27017:27017
