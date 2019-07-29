@@ -1,0 +1,30 @@
+.example-fill-remaining-space {
+    /* This fills the remaining space, by using flexbox. 
+       Every toolbar row uses a flexbox row layout. */
+    flex: 1 1 auto;
+}
+
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+}
+
+button{
+    color: #21c25e;
+}
+
+.spinner-container{
+    mat-spinner{
+        margin:0 auto;
+    }
+    width: 100%;
+    padding-top: 10px;
+    text-align: center;
+}
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
